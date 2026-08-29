@@ -1,0 +1,7 @@
+﻿pair_id,numerator,denominator,leader_when_ratio_rises,leader_when_ratio_falls,priority,logic
+growth_value,IWF,IWD,Growth,Value,1,Primary style axis; same large-cap universe reduces size contamination.
+large_small,IWB,IWM,Large,Small,1,Primary size axis.
+cap_equal,SPY,RSP,Cap-weight,Equal-weight,1,Concentration / participation axis.
+small_value_large_growth,IWN,IWF,Small Value,Large Growth,1,Direct Fisher-style early-bull vs mature-bull contrast; useful for bounce-effect context.
+us_developed_ex_us,VTI,VEA,US,Developed ex-US,2,Global leadership context.
+developed_em,VEA,VWO,Developed,Emerging,2,Global leadership context.

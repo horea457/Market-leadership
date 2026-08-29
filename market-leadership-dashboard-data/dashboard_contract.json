@@ -1,0 +1,67 @@
+{
+  "dashboard_default_history_trading_days": 126,
+  "leadership_windows": [
+    21,
+    63,
+    126
+  ],
+  "primary_files": {
+    "market_state": "data/processed/style_leadership_latest.csv",
+    "style_history": "data/processed/style_leadership_history.csv",
+    "sector_state": "data/processed/sector_leadership_latest.csv",
+    "sector_history": "data/processed/sector_leadership_history.csv",
+    "breadth": "data/processed/breadth_latest.csv",
+    "breadth_history": "data/processed/breadth_history.csv",
+    "sentiment_proxy": "data/processed/sentiment_market_proxy_latest.csv",
+    "fisher_public_view": "data/reference/fisher_public_view.csv",
+    "global_sector_state": "data/processed/global_sector_leadership_latest.csv",
+    "global_sector_history": "data/processed/global_sector_leadership_history.csv",
+    "region_state": "data/processed/region_leadership_latest.csv",
+    "region_history": "data/processed/region_leadership_history.csv"
+  },
+  "recommended_ui": {
+    "top_cards": [
+      "market regime",
+      "Fisher public sentiment",
+      "Kasugano current sentiment",
+      "current style leader",
+      "leadership change",
+      "breadth"
+    ],
+    "style_rows": [
+      "growth_value",
+      "large_small",
+      "cap_equal",
+      "small_value_large_growth",
+      "cyclical_defensive"
+    ],
+    "secondary_rows": [
+      "us_developed_ex_us",
+      "developed_em"
+    ],
+    "sector_sort": "rank_21 ascending",
+    "sector_highlight": [
+      "EMERGING",
+      "WEAKENING",
+      "LEADER"
+    ],
+    "show_bounce_check_for_new_leaders": true,
+    "show_up_down_day_asymmetry": true
+  },
+  "important_note": "Do not compress Fisher/Kasugano sentiment into one definitive score. Use the automatic sentiment proxy only as supporting evidence.",
+  "methodology_version": 2,
+  "mandatory_context_files": {
+    "market_regime": "data/processed/market_regime_latest.csv",
+    "bounce_context": "data/processed/bounce_context_latest.csv",
+    "kasugano_current_view": "data/reference/kasugano_current_view.csv",
+    "kasugano_sources": "data/reference/kasugano_sources.csv"
+  },
+  "update_schedule": {
+    "frequency": "weekly",
+    "github_actions_cron": "30 22 * * 5",
+    "utc": "Friday 22:30",
+    "kst": "Saturday 07:30",
+    "manual_run_supported": true,
+    "rationale": "Runs after the US Friday market close to capture a clean weekly leadership snapshot."
+  }
+}

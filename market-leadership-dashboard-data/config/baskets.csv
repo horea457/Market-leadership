@@ -1,0 +1,9 @@
+﻿basket_id,ticker,weight,description
+cyclical,XLI,0.2,US cyclical basket
+cyclical,XLF,0.2,US cyclical basket
+cyclical,XLE,0.2,US cyclical basket
+cyclical,XLB,0.2,US cyclical basket
+cyclical,XLY,0.2,US cyclical basket
+defensive,XLP,0.3333333333333333,US defensive basket
+defensive,XLV,0.3333333333333333,US defensive basket
+defensive,XLU,0.3333333333333333,US defensive basket
