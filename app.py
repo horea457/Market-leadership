@@ -1,7 +1,9 @@
 from pathlib import Path
 import json
+import html
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 
 try:
     from openai import OpenAI
@@ -109,6 +111,45 @@ st.markdown("""
     margin-right: 6px;
     margin-bottom: 6px;
 }
+
+.main-section-card {
+    border: 1px solid rgba(148,163,184,.26);
+    border-radius: 12px;
+    padding: 14px 16px 12px 16px;
+    margin: 9px 0;
+    background: #ffffff;
+}
+.main-section-card.trend { border-left: 5px solid #2563eb; }
+.main-section-card.insight { border-left: 5px solid #d97706; }
+.main-section-card.direction { border-left: 5px solid #059669; }
+.main-section-title {
+    font-size: 1.02rem;
+    font-weight: 750;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+.main-section-card ul {
+    margin: 0.2rem 0 0.1rem 1.25rem;
+    padding: 0;
+}
+.main-section-card li {
+    margin: 0.25rem 0;
+    line-height: 1.55;
+}
+.change-pill {
+    display: inline-block;
+    border: 1px solid rgba(100,116,139,.28);
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-size: .80rem;
+    color: #475569;
+    background: #f8fafc;
+}
+.supply-note {
+    color: #64748b;
+    font-size: .87rem;
+    line-height: 1.45;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -206,6 +247,15 @@ REGION_MAP = {
     "VGK": "VGK (유럽)",
     "EWJ": "EWJ (일본)",
     "MCHI": "MCHI (중국)",
+}
+
+REGION_SHORT = {
+    "VTI": "미국",
+    "VEA": "선진국(미국 제외)",
+    "VWO": "신흥국",
+    "VGK": "유럽",
+    "EWJ": "일본",
+    "MCHI": "중국",
 }
 
 # ---------- utilities ----------
@@ -398,16 +448,111 @@ def current_leadership_summary(style_df, sector_df, region_df, global_sector_df)
     return lines if lines else ["—"]
 
 
-def strongest_change(style_df):
+def _style_leader_support(row, window):
+    try:
+        rr = float(row.get(f"rs_return_{window}"))
+        freq = float(row.get(f"freq_{window}"))
+        return freq if rr >= 0 else 1 - freq
+    except Exception:
+        return None
+
+
+def style_change_judgement(row, bounce_df=None):
+    """Classify whether a style move looks temporary, transitional, or persistent."""
+    l21 = row.get("leader_21")
+    l63 = row.get("leader_63")
+    l126 = row.get("leader_126")
+    s21 = _style_leader_support(row, 21)
+    s63 = _style_leader_support(row, 63)
+    rr21 = abs(float(row.get("rs_return_21", 0) or 0))
+
+    if l21 == l63 == l126:
+        label = "지속"
+        reason = f"21·63·126일이 모두 {leader_to_kor(l21)}로 정렬"
+    elif l21 == l63 and l63 != l126:
+        if s21 is not None and s63 is not None and s21 >= 0.58 and s63 >= 0.54:
+            label = "전환 진행"
+            reason = f"21·63일이 {leader_to_kor(l21)}로 정렬되고 빈도도 뒷받침"
+        else:
+            label = "전환 초기"
+            reason = f"21·63일은 {leader_to_kor(l21)}로 같지만 강도 확인이 더 필요"
+    elif l21 != l63 and l63 == l126:
+        if s21 is not None and s21 >= 0.62 and rr21 >= 0.025:
+            label = "전환 초기"
+            reason = f"21일 {leader_to_kor(l21)} 반전이 강하지만 63·126일 중심축은 {leader_to_kor(l63)}"
+        else:
+            label = "일시적 가능성"
+            reason = f"21일만 {leader_to_kor(l21)}로 바뀌고 63·126일은 {leader_to_kor(l63)} 유지"
+    else:
+        label = "혼조/재반전"
+        reason = "21·63·126일 신호가 일관되지 않음"
+
+    bounce_risk = False
+    if has_rows(bounce_df) and l21 != l63:
+        try:
+            new_ticker = row.get("numerator") if float(row.get("rs_return_21", 0)) >= 0 else row.get("denominator")
+            b = bounce_df[bounce_df["ticker"].eq(new_ticker)]
+            if len(b):
+                br = b.iloc[0]
+                dd = float(br.get("max_drawdown_126"))
+                rebound = float(br.get("rebound_from_126d_low"))
+                bounce_risk = dd <= -0.15 and rebound >= 0.15
+        except Exception:
+            bounce_risk = False
+    if bounce_risk:
+        label += " · 반등효과 주의"
+        reason += "; 직전 낙폭 대비 반등 효과도 큼"
+    return label, reason
+
+
+def cross_change_judgement(row):
+    """Cross-sectional rank transition label for sectors/regions."""
+    try:
+        r21 = float(row.get("rank_21"))
+        r63 = float(row.get("rank_63"))
+        r126 = float(row.get("rank_126"))
+        ex21 = float(row.get("excess_21"))
+        ex63 = float(row.get("excess_63"))
+    except Exception:
+        return "데이터 부족"
+
+    if r21 <= 3 and r63 <= 3 and r126 <= 3 and ex21 > 0 and ex63 > 0:
+        return "지속 리더"
+    if r21 <= 3 and r63 <= 4 and r126 > 4 and ex21 > 0 and ex63 > 0:
+        return "전환 진행"
+    if r21 <= 3 and r63 >= 7:
+        return "단기 급부상"
+    if (r63 - r21) >= 3 and ex21 > 0:
+        return "부상 초기"
+    if (r63 - r21) <= -3:
+        return "약화"
+    if ex21 > 0 and ex63 > 0:
+        return "우위 유지"
+    if ex21 > 0 and ex63 <= 0:
+        return "단기 반전"
+    return "혼조"
+
+
+def strongest_change(style_df, bounce_df=None):
     if not has_rows(style_df):
         return ("—", "—")
-    changed = style_df[style_df["change_state"].isin(["WATCH", "ROTATING", "CONFIRMED"])]
-    if len(changed) == 0:
-        return ("안정", "뚜렷한 변화 없음")
-    priority = {"CONFIRMED": 3, "ROTATING": 2, "WATCH": 1}
-    changed = changed.assign(_p=changed["change_state"].map(priority).fillna(0))
-    rr = changed.sort_values("_p", ascending=False).iloc[0]
-    return state_to_kor(rr["change_state"]), PAIR_INFO.get(rr["pair_id"], {}).get("label", rr["pair_id"])
+    candidates = []
+    priority = {
+        "전환 진행": 5,
+        "전환 초기": 4,
+        "일시적 가능성": 3,
+        "혼조/재반전": 2,
+        "지속": 0,
+    }
+    for _, r in style_df.iterrows():
+        label, reason = style_change_judgement(r, bounce_df)
+        base = label.split(" · ")[0]
+        candidates.append((priority.get(base, 1), label, r.get("pair_id"), reason))
+    candidates.sort(key=lambda x: x[0], reverse=True)
+    if not candidates or candidates[0][0] == 0:
+        return ("안정", "뚜렷한 신규 전환 없음")
+    _, label, pid, _ = candidates[0]
+    return label, PAIR_INFO.get(pid, {}).get("label", pid)
 
 
 def style_overall_comment(row):
@@ -429,19 +574,22 @@ def style_overall_comment(row):
     return "단기·중기·장기 신호가 엇갈려 아직 한 방향으로 단정하기 어렵습니다."
 
 
-def style_selected_comment(row, pair_id):
+def style_selected_comment(row, pair_id, bounce_df=None):
     info = PAIR_INFO[pair_id]
+    change_label, change_reason = style_change_judgement(row, bounce_df)
     return {
         "기준": info["meaning"],
         "21일": f"{leader_to_kor(row.get('leader_21','—'))} 우위",
         "63일": f"{leader_to_kor(row.get('leader_63','—'))} 우위",
         "126일": f"{leader_to_kor(row.get('leader_126','—'))} 우위",
         "상태": state_to_kor(row.get("change_state", "")),
+        "변화판정": change_label,
+        "판정근거": change_reason,
         "종합": style_overall_comment(row),
     }
 
 
-def prep_style_table(style):
+def prep_style_table(style, bounce_df=None):
     wanted = [
         "growth_value","large_small","cap_equal","small_value_large_growth",
         "us_developed_ex_us","developed_em","cyclical_defensive"
@@ -451,8 +599,9 @@ def prep_style_table(style):
     df["21일"] = df["leader_21"].map(leader_to_kor)
     df["63일"] = df["leader_63"].map(leader_to_kor)
     df["126일"] = df["leader_126"].map(leader_to_kor)
+    df["변화판정"] = df.apply(lambda r: style_change_judgement(r, bounce_df)[0], axis=1)
     df = df[[
-        "비교축","21일","63일","126일",
+        "비교축","21일","63일","126일","변화판정",
         "freq_21","freq_63","freq_126","rs_return_21","rs_return_63","rs_return_126","change_state"
     ]].rename(columns={
         "freq_21":"빈도 21일",
@@ -473,8 +622,9 @@ def prep_table(df, mapping, benchmark_label):
     x = df.copy().sort_values(["rank_21", "rank_63"])
     x["대상"] = x["ticker"].map(lambda z: mapping.get(z, z))
     x["비교기준"] = benchmark_label
+    x["변화판정"] = x.apply(cross_change_judgement, axis=1)
     x = x[[
-        "대상","비교기준","rank_21","rank_63","rank_126",
+        "대상","비교기준","rank_21","rank_63","rank_126","변화판정",
         "rank_change_21_vs_63","freq_21","freq_63","excess_21","excess_63","trend_label"
     ]].rename(columns={
         "rank_21":"순위 21일",
@@ -510,7 +660,7 @@ def concise_sector_comment(df, mapping):
     return " ".join(parts)
 
 
-def build_market_snapshot(style, sector, global_sector, region, breadth, sentiment, regime, fisher, author_view):
+def build_market_snapshot(style, sector, global_sector, region, breadth, sentiment, regime, fisher, author_view, bounce=None, stock_supply=None):
     snapshot = {}
     if has_rows(regime):
         r = regime.iloc[-1]
@@ -528,40 +678,47 @@ def build_market_snapshot(style, sector, global_sector, region, breadth, sentime
             if len(x) == 0:
                 continue
             r = x.iloc[0]
+            change_label, change_reason = style_change_judgement(r, bounce)
             rows.append({
                 "비교축": PAIR_INFO.get(pid, {}).get("label", pid),
-                "21일": leader_to_kor(r.get("leader_21")),
-                "63일": leader_to_kor(r.get("leader_63")),
                 "126일": leader_to_kor(r.get("leader_126")),
-                "21일상대강도": num(r.get("rs_return_21"), 4),
-                "63일상대강도": num(r.get("rs_return_63"), 4),
+                "63일": leader_to_kor(r.get("leader_63")),
+                "21일": leader_to_kor(r.get("leader_21")),
                 "126일상대강도": num(r.get("rs_return_126"), 4),
-                "상태": state_to_kor(r.get("change_state")),
+                "63일상대강도": num(r.get("rs_return_63"), 4),
+                "21일상대강도": num(r.get("rs_return_21"), 4),
+                "126일빈도": num(r.get("freq_126"), 4),
+                "63일빈도": num(r.get("freq_63"), 4),
+                "21일빈도": num(r.get("freq_21"), 4),
+                "변화판정": change_label,
+                "판정근거": change_reason,
             })
-        snapshot["스타일리더십"] = rows
+        snapshot["스타일변화"] = rows
     if has_rows(region):
         r = region.sort_values(["rank_21", "rank_63"]).head(6).copy()
         snapshot["지역리더십"] = [
             {
                 "대상": REGION_MAP.get(row.get("ticker"), row.get("ticker")),
-                "21일순위": int(row.get("rank_21")),
-                "63일순위": int(row.get("rank_63")),
-                "21일초과수익": num(row.get("excess_21"), 4),
+                "126일순위": int(row.get("rank_126")) if pd.notna(row.get("rank_126")) else None,
+                "63일순위": int(row.get("rank_63")) if pd.notna(row.get("rank_63")) else None,
+                "21일순위": int(row.get("rank_21")) if pd.notna(row.get("rank_21")) else None,
                 "63일초과수익": num(row.get("excess_63"), 4),
-                "상태": state_to_kor(row.get("trend_label")),
+                "21일초과수익": num(row.get("excess_21"), 4),
+                "변화판정": cross_change_judgement(row),
             }
             for _, row in r.iterrows()
         ]
     if has_rows(global_sector):
-        g = global_sector.sort_values(["rank_21", "rank_63"]).head(6).copy()
+        g = global_sector.sort_values(["rank_21", "rank_63"]).head(8).copy()
         snapshot["글로벌섹터"] = [
             {
                 "대상": GLOBAL_SECTOR.get(row.get("ticker"), row.get("ticker")),
-                "21일순위": int(row.get("rank_21")),
-                "63일순위": int(row.get("rank_63")),
-                "21일초과수익": num(row.get("excess_21"), 4),
+                "126일순위": int(row.get("rank_126")) if pd.notna(row.get("rank_126")) else None,
+                "63일순위": int(row.get("rank_63")) if pd.notna(row.get("rank_63")) else None,
+                "21일순위": int(row.get("rank_21")) if pd.notna(row.get("rank_21")) else None,
                 "63일초과수익": num(row.get("excess_63"), 4),
-                "상태": state_to_kor(row.get("trend_label")),
+                "21일초과수익": num(row.get("excess_21"), 4),
+                "변화판정": cross_change_judgement(row),
             }
             for _, row in g.iterrows()
         ]
@@ -570,14 +727,14 @@ def build_market_snapshot(style, sector, global_sector, region, breadth, sentime
         snapshot["미국섹터"] = [
             {
                 "대상": US_SECTOR.get(row.get("ticker"), row.get("ticker")),
-                "21일순위": int(row.get("rank_21")),
-                "63일순위": int(row.get("rank_63")),
-                "126일순위": int(row.get("rank_126")),
-                "21일초과수익": num(row.get("excess_21"), 4),
+                "126일순위": int(row.get("rank_126")) if pd.notna(row.get("rank_126")) else None,
+                "63일순위": int(row.get("rank_63")) if pd.notna(row.get("rank_63")) else None,
+                "21일순위": int(row.get("rank_21")) if pd.notna(row.get("rank_21")) else None,
                 "63일초과수익": num(row.get("excess_63"), 4),
-                "상태": state_to_kor(row.get("trend_label")),
+                "21일초과수익": num(row.get("excess_21"), 4),
+                "변화판정": cross_change_judgement(row),
             }
-            for _, row in s.head(8).iterrows()
+            for _, row in s.head(10).iterrows()
         ]
     if has_rows(breadth):
         snapshot["시장참여폭"] = [
@@ -588,6 +745,33 @@ def build_market_snapshot(style, sector, global_sector, region, breadth, sentime
             }
             for _, row in breadth.sort_values("window").iterrows()
         ]
+    if has_rows(stock_supply):
+        supply_block = {}
+        for universe, label in [("US", "미국"), ("GLOBAL", "글로벌"), ("EX_US", "글로벌_exUS")]:
+            u = stock_supply[stock_supply["universe"].eq(universe)].copy()
+            if not len(u):
+                continue
+            # Show both expansion and contraction ends; these are the most informative changes.
+            u["weighted_change_12m"] = pd.to_numeric(u["weighted_change_12m"], errors="coerce")
+            u["net_breadth_12m"] = pd.to_numeric(u["net_breadth_12m"], errors="coerce")
+            expansion = u.sort_values("weighted_change_12m", ascending=False).head(3)
+            contraction = u.sort_values("weighted_change_12m", ascending=True).head(3)
+            combined = pd.concat([expansion, contraction]).drop_duplicates(subset=["sector"]).head(6)
+            supply_block[label] = [
+                {
+                    "섹터": row.get("sector_ko", row.get("sector")),
+                    "3개월가중주식수증감": num(row.get("weighted_change_3m"), 4),
+                    "6개월가중주식수증감": num(row.get("weighted_change_6m"), 4),
+                    "12개월가중주식수증감": num(row.get("weighted_change_12m"), 4),
+                    "12개월증가기업비중": num(row.get("pct_increasing_12m"), 4),
+                    "12개월감소기업비중": num(row.get("pct_decreasing_12m"), 4),
+                    "12개월순공급breadth": num(row.get("net_breadth_12m"), 4),
+                    "커버리지": num(row.get("coverage_of_sector_weight"), 4),
+                    "판정": row.get("signal"),
+                }
+                for _, row in combined.iterrows()
+            ]
+        snapshot["주식공급"] = supply_block
     if has_rows(sentiment):
         r = sentiment.iloc[-1]
         snapshot["심리지표"] = {
@@ -607,7 +791,7 @@ def build_market_snapshot(style, sector, global_sector, region, breadth, sentime
         }
     if has_rows(author_view):
         r = author_view.iloc[-1]
-        snapshot["현재해석"] = {
+        snapshot["현재방법론해석"] = {
             "단계": fisher_stage_to_kor(str(r.get("stage_label", "—"))),
             "근거": translate_free_text(r.get("evidence", "")),
             "경계신호": translate_free_text(r.get("warning_trigger", "")),
@@ -615,21 +799,26 @@ def build_market_snapshot(style, sector, global_sector, region, breadth, sentime
     return snapshot
 
 
-def build_style_chart_snapshot(style_df, style_hist_df, pair_id):
+def build_style_chart_snapshot(style_df, style_hist_df, pair_id, bounce_df=None):
     current = style_df[style_df["pair_id"].eq(pair_id)].iloc[0]
     recent = style_hist_df[style_hist_df["pair_id"].eq(pair_id)].sort_values("date").tail(12).copy()
     recent[["rs_return_21", "rs_return_63", "rs_return_126"]] = recent[["rs_return_21", "rs_return_63", "rs_return_126"]].apply(pd.to_numeric, errors="coerce")
+    change_label, change_reason = style_change_judgement(current, bounce_df)
     return {
         "비교축": PAIR_INFO[pair_id]["label"],
         "의미": PAIR_INFO[pair_id]["meaning"],
         "현재": {
-            "21일리더": leader_to_kor(current.get("leader_21")),
-            "63일리더": leader_to_kor(current.get("leader_63")),
             "126일리더": leader_to_kor(current.get("leader_126")),
-            "상태": state_to_kor(current.get("change_state")),
+            "63일리더": leader_to_kor(current.get("leader_63")),
+            "21일리더": leader_to_kor(current.get("leader_21")),
+            "변화판정": change_label,
+            "판정근거": change_reason,
             "21일상대강도": num(current.get("rs_return_21"), 4),
             "63일상대강도": num(current.get("rs_return_63"), 4),
             "126일상대강도": num(current.get("rs_return_126"), 4),
+            "21일빈도": num(current.get("freq_21"), 4),
+            "63일빈도": num(current.get("freq_63"), 4),
+            "126일빈도": num(current.get("freq_126"), 4),
         },
         "최근추이": recent[["date", "rs_return_21", "rs_return_63", "rs_return_126"]].where(pd.notna(recent), None).to_dict("records")
     }
@@ -643,12 +832,12 @@ def build_cross_section_snapshot(df, mapping, benchmark_label, top_n=6):
         "상위": [
             {
                 "대상": mapping.get(r.get("ticker"), r.get("ticker")),
-                "21일순위": int(r.get("rank_21")),
-                "63일순위": int(r.get("rank_63")),
-                "126일순위": int(r.get("rank_126")),
+                "126일순위": int(r.get("rank_126")) if pd.notna(r.get("rank_126")) else None,
+                "63일순위": int(r.get("rank_63")) if pd.notna(r.get("rank_63")) else None,
+                "21일순위": int(r.get("rank_21")) if pd.notna(r.get("rank_21")) else None,
                 "21일초과수익": num(r.get("excess_21"), 4),
                 "63일초과수익": num(r.get("excess_63"), 4),
-                "상태": state_to_kor(r.get("trend_label")),
+                "변화판정": cross_change_judgement(r),
             }
             for _, r in use.iterrows()
         ],
@@ -714,35 +903,86 @@ def render_gpt_box(text, caption=None):
     st.markdown(html, unsafe_allow_html=True)
 
 
-def fallback_main_insight(style, sector, region, breadth):
-    direction = []
-    trend = []
+def _main_section_html(title, items, css_class):
+    safe_items = [html.escape(str(x)) for x in items if x]
+    lis = "".join(f"<li>{x}</li>" for x in safe_items)
+    return f'<div class="main-section-card {css_class}"><div class="main-section-title">{title}</div><ul>{lis}</ul></div>'
+
+
+def render_main_sections(sections, caption=None):
+    st.markdown(_main_section_html("동향", sections.get("동향", []), "trend"), unsafe_allow_html=True)
+    st.markdown(_main_section_html("인사이트", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
+    st.markdown(_main_section_html("다이렉션", sections.get("다이렉션", []), "direction"), unsafe_allow_html=True)
+    if caption:
+        st.caption(caption)
+
+
+def parse_main_sections(text):
+    if not text:
+        return None
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        cleaned = cleaned.strip("`")
+        if cleaned.lower().startswith("json"):
+            cleaned = cleaned[4:].strip()
+    try:
+        obj = json.loads(cleaned)
+    except Exception:
+        return None
+    if not isinstance(obj, dict):
+        return None
+    out = {}
+    for key in ["동향", "인사이트", "다이렉션"]:
+        val = obj.get(key, [])
+        if isinstance(val, str):
+            val = [val]
+        if not isinstance(val, list):
+            val = []
+        out[key] = [str(x).strip() for x in val if str(x).strip()][:4]
+    return out
+
+
+def fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply=None, bounce_df=None):
+    trend, insight, direction = [], [], []
     if has_rows(style):
-        gv = style[style["pair_id"].eq("growth_value")].iloc[0]
-        ce = style[style["pair_id"].eq("cap_equal")].iloc[0]
-        ux = style[style["pair_id"].eq("us_developed_ex_us")].iloc[0]
-        direction.append(
-            f"단기 추격보다 확인이 우선입니다. 21일은 {leader_to_kor(gv.get('leader_21'))}·{leader_to_kor(ce.get('leader_21'))}가 강하지만, 63일 중심축은 {leader_to_kor(gv.get('leader_63'))}·{leader_to_kor(ce.get('leader_63'))}에 남아 있습니다."
-        )
-        trend.append(
-            f"스타일 측면에서는 21일 {leader_to_kor(gv.get('leader_21'))}, 63일 {leader_to_kor(gv.get('leader_63'))} 우위로 단기와 중기 신호가 엇갈립니다."
-        )
-        trend.append(
-            f"지역 흐름은 63일 기준 {leader_to_kor(ux.get('leader_63'))}가 앞서고 있어 미국 단독 주도보다 지역 분산 가능성을 시사합니다."
-        )
-    if has_rows(sector):
-        top = sector.sort_values(["rank_21", "rank_63"]).head(2)["ticker"].tolist()
-        if top:
-            direction.append("미국 내부에서는 " + ", ".join(US_SECTOR.get(t, t) for t in top) + " 지속 여부를 먼저 확인하면 됩니다.")
+        gvx = style[style["pair_id"].eq("growth_value")]
+        cex = style[style["pair_id"].eq("cap_equal")]
+        uxx = style[style["pair_id"].eq("us_developed_ex_us")]
+        if len(gvx):
+            gv = gvx.iloc[0]
+            lab, why = style_change_judgement(gv, bounce_df)
+            trend.append(f"성장/가치: 126일 {leader_to_kor(gv.get('leader_126'))} → 63일 {leader_to_kor(gv.get('leader_63'))} → 21일 {leader_to_kor(gv.get('leader_21'))}.")
+            insight.append(f"성장/가치 변화는 '{lab}'로 판정: {why}.")
+        if len(cex):
+            ce = cex.iloc[0]
+            lab, why = style_change_judgement(ce, bounce_df)
+            trend.append(f"가중방식: 126일 {leader_to_kor(ce.get('leader_126'))} → 63일 {leader_to_kor(ce.get('leader_63'))} → 21일 {leader_to_kor(ce.get('leader_21'))}.")
+            insight.append(f"가중방식은 '{lab}': {why}.")
+        if len(uxx):
+            ux = uxx.iloc[0]
+            lab, _ = style_change_judgement(ux, bounce_df)
+            trend.append(f"미국/비미국: 126일 {leader_to_kor(ux.get('leader_126'))} → 63일 {leader_to_kor(ux.get('leader_63'))} → 21일 {leader_to_kor(ux.get('leader_21'))}.")
+            insight.append(f"지역 리더십 변화는 '{lab}' 단계입니다.")
+    if has_rows(global_sector):
+        t21 = global_sector.sort_values(["rank_21", "rank_63"]).iloc[0]
+        t63 = global_sector.sort_values(["rank_63", "rank_21"]).iloc[0]
+        trend.append(f"글로벌 섹터는 63일 {GLOBAL_SECTOR_SHORT.get(t63.get('ticker'), t63.get('ticker'))}에서 21일 {GLOBAL_SECTOR_SHORT.get(t21.get('ticker'), t21.get('ticker'))} 쪽으로 단기 리더가 이동했습니다.")
     if has_rows(breadth):
-        b = breadth[breadth["window"].eq(21)]
-        if len(b):
-            bp = float(b.iloc[0].get('breadth_pct')) * 100
-            direction.append(f"21일 참여 폭이 {bp:.1f}%로 낮다면 일부 리더에 집중된 상승일 수 있으니, 확산 여부를 확인하기 전까지는 해석을 서두르지 않는 편이 낫습니다.")
-            trend.append(f"참여 폭은 21일 기준 {bp:.1f}%로, 상승이 시장 전반으로 넓게 퍼졌는지 판단하는 핵심 신호입니다.")
-    html = '<p><b>다이렉션</b></p><ul>' + ''.join(f'<li>{x}</li>' for x in direction[:3]) + '</ul>'
-    html += '<p><b>현재 동향</b></p><ul>' + ''.join(f'<li>{x}</li>' for x in trend[:3]) + '</ul>'
-    return html
+        b21 = breadth[breadth["window"].eq(21)]
+        if len(b21):
+            bp = float(b21.iloc[0].get("breadth_pct"))
+            insight.append(f"21일 breadth는 {bp*100:.1f}%로, 신규 리더십이 시장 전반으로 확산됐는지 판단할 핵심 확인 신호입니다.")
+    if has_rows(stock_supply):
+        for universe, label in [("US", "미국"), ("EX_US", "비미국")]:
+            u = stock_supply[stock_supply["universe"].eq(universe)].copy()
+            if len(u):
+                u["weighted_change_12m"] = pd.to_numeric(u["weighted_change_12m"], errors="coerce")
+                top = u.sort_values("weighted_change_12m", ascending=False).iloc[0]
+                trend.append(f"{label} 주식공급은 {top.get('sector_ko', top.get('sector'))}에서 12개월 주식수 증가가 가장 큽니다.")
+    direction.append("21일만 바뀐 축은 추격하지 말고 63일 정렬 여부를 먼저 확인합니다.")
+    direction.append("21일과 63일이 같은 방향으로 정렬되고 breadth까지 넓어지면 리더십 전환 신뢰도를 한 단계 높입니다.")
+    direction.append("주식공급 증가가 특정 리더 섹터에서 함께 가속되면 후기 낙관/유포리아 위험 신호로 별도 점검합니다.")
+    return {"동향": trend[:4], "인사이트": insight[:4], "다이렉션": direction[:4]}
 
 
 def fallback_style_chart_insight(snapshot):
@@ -777,35 +1017,47 @@ def fallback_breadth(snapshot):
 
 
 MAIN_PROMPT = """
-너는 글로벌 주식시장 리더십을 해석하는 투자 리서치 보조자다.
-JSON만 근거로 한국어로 작성한다.
-출력 형식:
-1. 반드시 HTML만 출력한다. markdown 기호(*,-,#)는 쓰지 말라.
-2. 정확히 두 섹션만 쓴다: <p><b>다이렉션</b></p><ul>...</ul> 와 <p><b>현재 동향</b></p><ul>...</ul>
-3. 각 섹션은 bullet 2~3개로 쓴다.
-4. 다이렉션은 사용자가 지금 어떻게 대응/관찰해야 하는지 명확히 적는다. 매수·매도 추천이 아니라 우선순위와 확인 행동을 제시한다.
-5. 현재 동향은 스타일(성장/가치, 시총가중/동일가중), 지역(미국/비미국), 섹터, breadth, 심리 단서를 함께 요약한다.
-6. 21일과 63·126일이 다르면 단기 변화와 중기 중심축을 분리해서 설명한다.
-7. 제너럴한 문장을 피하고, 무엇을 먼저 보고 무엇은 아직 보류해야 하는지 분명히 적는다.
-8. 도취라는 단어는 쓰지 말고 필요하면 유포리아를 사용한다.
+너는 글로벌 주식시장 리더십 변화의 지속성을 판별하는 투자 리서치 보조자다.
+입력 JSON에 있는 데이터만 사용한다. 외부 뉴스나 원인을 추측하지 않는다.
+
+반드시 아래 JSON 객체 하나만 출력한다. 코드펜스나 markdown은 쓰지 않는다.
+{
+  "동향": ["문장", "문장", "문장"],
+  "인사이트": ["문장", "문장", "문장"],
+  "다이렉션": ["문장", "문장", "문장"]
+}
+
+작성 규칙:
+1. 동향: '무엇이 바뀌고 있는가'만 쓴다. 126일 → 63일 → 21일 순으로 스타일 변화, 미국/비미국, 글로벌/미국 섹터, breadth, 주식공급 변화를 구체적으로 적는다.
+2. 인사이트: 변화가 '일시적 가능성 / 전환 초기 / 전환 진행 / 지속' 중 어디에 가까운지 판단하고 근거를 쓴다. 21일 단독 변화는 약하게, 21·63일 정렬은 강하게 본다.
+3. 일시적 반등 여부를 판단할 때 빈도, 상대강도, 63/126일 정렬, bounce-effect 정보, breadth, 글로벌 확인 신호를 함께 본다.
+4. 주식공급은 미국과 글로벌/ex-US를 구분한다. 주식공급 증가가 강세 리더 섹터와 겹치는지 여부를 late-optimism/euphoria 보조 신호로 해석하되, IPO 전체 공급과 동일시하지 않는다.
+5. 다이렉션: 매수/매도 종목 추천이 아니라 '현재 중심축 유지 / 신규 리더 관찰 / 어떤 조건에서 전환 인정 / 어떤 조건에서 신호 폐기'처럼 행동 규칙을 명확히 쓴다.
+6. '확인 필요'로 끝내지 말고 무엇이 확인되면 판단이 바뀌는지 명시한다. 예: 21일 리더가 63일에도 우위 + breadth 50% 이상 + 글로벌 동조.
+7. 각 배열은 2~4개 문장, 각 문장은 가능한 한 1~2줄로 간결하게 쓴다.
+8. '도취'라는 단어는 쓰지 않고 '유포리아'를 사용한다.
+9. 특정 필명은 절대 쓰지 않는다.
 """
 
 STYLE_CHART_PROMPT = """
-너는 특정 리더십 비교축의 차트를 해석하는 투자 리서치 보조자다.
+너는 특정 리더십 비교축의 현재 4분면과 21·63·126일 신호를 해석하는 투자 리서치 보조자다.
 출력 형식:
 1. HTML만 출력한다.
 2. <ul> 안에 4개 bullet을 쓴다.
-3. bullet 제목은 각각 <b>현재 판정</b>, <b>단기 vs 중기</b>, <b>의미</b>, <b>체크포인트</b>로 시작한다.
-4. 21일·63일·126일 리더와 최근 방향성, 상태를 모두 반영한다.
+3. bullet 제목은 각각 <b>현재 판정</b>, <b>변화의 지속성</b>, <b>의미</b>, <b>확인 조건</b>으로 시작한다.
+4. 126일 → 63일 → 21일 순서로 리더가 어떻게 바뀌었는지 먼저 읽는다.
+5. 입력의 변화판정(일시적 가능성/전환 초기/전환 진행/지속)과 빈도·상대강도·반등효과 정보를 반드시 반영한다.
+6. '확인 필요'로 끝내지 말고 무엇이 바뀌면 전환을 인정하거나 폐기할지 구체적으로 쓴다.
 """
 
 CROSS_SECTION_PROMPT = """
-너는 시장 단면(bar/table) 데이터를 해석하는 투자 리서치 보조자다.
+너는 지역/섹터 리더십 4분면과 순위 변화를 해석하는 투자 리서치 보조자다.
 출력 형식:
 1. HTML만 출력한다.
 2. <ul> 안에 4개 bullet을 쓴다.
-3. bullet 제목은 각각 <b>주도 축</b>, <b>변화 신호</b>, <b>해석</b>, <b>체크포인트</b>로 시작한다.
-4. 비교기준을 먼저 밝히고, 상위권/부상/약화를 구체적 대상명으로 적는다.
+3. bullet 제목은 각각 <b>주도 축</b>, <b>변화의 지속성</b>, <b>해석</b>, <b>확인 조건</b>으로 시작한다.
+4. 비교기준을 먼저 밝히고, 126일 → 63일 → 21일 순위 변화와 초과수익을 연결한다.
+5. 단기 급부상과 지속 리더를 구분하고, 구체적 대상명을 사용한다.
 """
 
 BREADTH_PROMPT = """
@@ -826,6 +1078,163 @@ SENTIMENT_PROMPT = """
 4. 점수·단계와 VIX/하이일드/SPY 추세/모멘텀을 함께 반영한다.
 """
 
+
+SUPPLY_PROMPT = """
+너는 섹터별 기업 주식공급 데이터를 해석하는 투자 리서치 보조자다.
+입력은 기존 상장기업의 발행주식수 증감 프록시다. IPO 전체 공급과 동일시하면 안 된다.
+출력은 HTML <ul> 안의 3개 bullet만 작성한다.
+각 bullet은 <b>공급 확대</b>, <b>공급 축소</b>, <b>의미</b>로 시작한다.
+어느 섹터에서 발행주식수가 늘고 줄었는지 구체적으로 쓰고, 주가 리더십과 결합할 때 late-optimism/euphoria 경계 신호가 될 수 있다는 점을 조건부로 설명한다.
+데이터 커버리지가 낮은 섹터는 단정하지 않는다.
+"""
+
+
+def prep_supply_table(stock_supply_df, universe):
+    if not has_rows(stock_supply_df):
+        return pd.DataFrame()
+    x = stock_supply_df[stock_supply_df["universe"].eq(universe)].copy()
+    if not len(x):
+        return pd.DataFrame()
+    x = x.sort_values("weighted_change_12m", ascending=False)
+    x = x[[
+        "sector_ko", "weighted_change_3m", "weighted_change_6m", "weighted_change_12m",
+        "pct_increasing_12m", "pct_decreasing_12m", "coverage_of_sector_weight", "n_valid_12m", "signal"
+    ]].rename(columns={
+        "sector_ko": "섹터",
+        "weighted_change_3m": "주식수 증감 3개월",
+        "weighted_change_6m": "주식수 증감 6개월",
+        "weighted_change_12m": "주식수 증감 12개월",
+        "pct_increasing_12m": "증가기업 비중 12개월",
+        "pct_decreasing_12m": "감소기업 비중 12개월",
+        "coverage_of_sector_weight": "섹터가중치 커버리지",
+        "n_valid_12m": "유효 기업 수",
+        "signal": "판정",
+    })
+    for c in ["주식수 증감 3개월", "주식수 증감 6개월", "주식수 증감 12개월", "증가기업 비중 12개월", "감소기업 비중 12개월", "섹터가중치 커버리지"]:
+        x[c] = pd.to_numeric(x[c], errors="coerce") * 100
+    return x
+
+
+def build_supply_snapshot(stock_supply_df, universe, horizon):
+    if not has_rows(stock_supply_df):
+        return {}
+    x = stock_supply_df[stock_supply_df["universe"].eq(universe)].copy()
+    if not len(x):
+        return {}
+    chg = f"weighted_change_{horizon}"
+    br = f"net_breadth_{horizon}"
+    x[chg] = pd.to_numeric(x[chg], errors="coerce")
+    x[br] = pd.to_numeric(x[br], errors="coerce")
+    x = x.sort_values(chg, ascending=False)
+    return {
+        "시장": universe,
+        "기간": horizon,
+        "공급증가상위": [
+            {
+                "섹터": r.get("sector_ko", r.get("sector")),
+                "가중주식수증감": num(r.get(chg), 4),
+                "순공급breadth": num(r.get(br), 4),
+                "판정": r.get("signal"),
+                "커버리지": num(r.get("coverage_of_sector_weight"), 4),
+            } for _, r in x.head(4).iterrows()
+        ],
+        "공급감소상위": [
+            {
+                "섹터": r.get("sector_ko", r.get("sector")),
+                "가중주식수증감": num(r.get(chg), 4),
+                "순공급breadth": num(r.get(br), 4),
+                "판정": r.get("signal"),
+                "커버리지": num(r.get("coverage_of_sector_weight"), 4),
+            } for _, r in x.tail(4).sort_values(chg).iterrows()
+        ],
+    }
+
+
+def plot_supply_quadrant(stock_supply_df, universe, horizon="12m"):
+    x = stock_supply_df[stock_supply_df["universe"].eq(universe)].copy()
+    chg = f"weighted_change_{horizon}"
+    br = f"net_breadth_{horizon}"
+    x[chg] = pd.to_numeric(x[chg], errors="coerce") * 100
+    x[br] = pd.to_numeric(x[br], errors="coerce") * 100
+    x = x.dropna(subset=[chg, br])
+    colors = [
+        "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
+        "#65a30d", "#db2777", "#4f46e5", "#b45309", "#059669", "#475569"
+    ]
+    fig, ax = plt.subplots(figsize=(8.2, 5.4))
+    for i, (_, r) in enumerate(x.sort_values("sector_ko").iterrows()):
+        ax.scatter(r[chg], r[br], s=115, color=colors[i % len(colors)], edgecolor="white", linewidth=1.1, zorder=3)
+        ax.annotate(str(r.get("sector_ko", r.get("sector"))), (r[chg], r[br]), textcoords="offset points", xytext=(5, 5), fontsize=9)
+    ax.axvline(0, color="#94a3b8", linestyle="--", linewidth=1)
+    ax.axhline(0, color="#94a3b8", linestyle="--", linewidth=1)
+    ax.text(0.69, 0.97, "우상단: 공급 증가 확산", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
+    ax.text(0.02, 0.03, "좌하단: 주식수 축소 확산", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
+    ax.set_xlabel("가중 발행주식수 증감 (%)")
+    ax.set_ylabel("증가기업 비중 - 감소기업 비중 (%p)")
+    label = {"US": "미국", "GLOBAL": "글로벌", "EX_US": "글로벌 ex-US"}.get(universe, universe)
+    hlabel = {"3m": "3개월", "6m": "6개월", "12m": "12개월"}.get(horizon, horizon)
+    ax.set_title(f"{label} 섹터별 주식 공급 · {hlabel}", fontsize=12)
+    ax.grid(alpha=0.18)
+    fig.tight_layout()
+    return fig
+
+
+def plot_style_quadrant(selected_row, pair_id):
+    fig, ax = plt.subplots(figsize=(7.4, 5.2))
+    periods = [
+        ("21일", "rs_return_21", "freq_21", "#60a5fa"),
+        ("63일", "rs_return_63", "freq_63", "#ef4444"),
+        ("126일", "rs_return_126", "freq_126", "#1d4ed8"),
+    ]
+    for name, xcol, ycol, color in periods:
+        x = pd.to_numeric(selected_row.get(xcol), errors="coerce")
+        y = pd.to_numeric(selected_row.get(ycol), errors="coerce")
+        if pd.notna(x) and pd.notna(y):
+            ax.scatter(x * 100, y * 100, s=120, color=color, edgecolor='white', linewidth=1.2, zorder=3)
+            ax.annotate(name, (x * 100, y * 100), textcoords="offset points", xytext=(6, 6), fontsize=10)
+    ax.axvline(0, color="#94a3b8", linestyle="--", linewidth=1)
+    ax.axhline(50, color="#94a3b8", linestyle="--", linewidth=1)
+    ax.text(0.02, 0.97, "좌상단: 빈도는 높지만 수익 강도는 약함", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
+    ax.text(0.67, 0.97, "우상단: 왼쪽 항목 우위", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
+    ax.text(0.02, 0.03, "좌하단: 오른쪽 항목 우위", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
+    ax.text(0.67, 0.03, "우하단: 수익은 강하지만 빈도는 낮음", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
+    ax.set_xlabel("상대강도 (%)")
+    ax.set_ylabel("승리 빈도 (%)")
+    ax.set_title(PAIR_INFO.get(pair_id, {}).get("label", pair_id), fontsize=12)
+    ax.grid(alpha=0.2)
+    fig.tight_layout()
+    return fig
+
+
+def plot_cross_quadrant(df, mapping, short_mapping, benchmark_label, period=21):
+    xcol = f"excess_{period}"
+    ycol = f"freq_{period}"
+    work = df.copy()
+    work = work[["ticker", xcol, ycol]].copy()
+    work[xcol] = pd.to_numeric(work[xcol], errors="coerce") * 100
+    work[ycol] = pd.to_numeric(work[ycol], errors="coerce") * 100
+    work = work.dropna()
+    work["label"] = work["ticker"].map(lambda x: short_mapping.get(x, mapping.get(x, x)))
+    colors = [
+        "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
+        "#65a30d", "#db2777", "#4f46e5", "#b45309", "#059669", "#475569"
+    ]
+    fig, ax = plt.subplots(figsize=(7.4, 5.2))
+    for i, (_, row) in enumerate(work.iterrows()):
+        color = colors[i % len(colors)]
+        ax.scatter(row[xcol], row[ycol], s=110, color=color, edgecolor='white', linewidth=1.1, zorder=3)
+        ax.annotate(row["label"], (row[xcol], row[ycol]), textcoords="offset points", xytext=(5, 5), fontsize=9)
+    ax.axvline(0, color="#94a3b8", linestyle="--", linewidth=1)
+    ax.axhline(50, color="#94a3b8", linestyle="--", linewidth=1)
+    ax.text(0.70, 0.97, "우상단: 강한 리더십", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
+    ax.text(0.02, 0.03, "좌하단: 약한 상대성과", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
+    ax.set_xlabel(f"{benchmark_label} 대비 초과수익 (%)")
+    ax.set_ylabel("승리 빈도 (%)")
+    ax.set_title(f"{period}일 기준 4분면", fontsize=12)
+    ax.grid(alpha=0.2)
+    fig.tight_layout()
+    return fig
+
 # ---------- Load ----------
 style = read_csv("style_leadership_latest.csv")
 style_hist = read_csv("style_leadership_history.csv")
@@ -837,6 +1246,8 @@ breadth_hist = read_csv("breadth_history.csv")
 sentiment = read_csv("sentiment_market_proxy_latest.csv")
 regime = read_csv("market_regime_latest.csv")
 bounce = read_csv("bounce_context_latest.csv")
+stock_supply = read_csv("stock_supply_sector_latest.csv")
+stock_supply_hist = read_csv("stock_supply_sector_history.csv")
 fisher = read_csv("fisher_public_view.csv", REFERENCE)
 author_view = read_csv("kasugano_current_view.csv", REFERENCE)
 
@@ -874,21 +1285,24 @@ with c3:
 with c4:
     compact_card("핵심 리더십", current_leadership_summary(style, sector, region, global_sector), "21일 → 63일 기준")
 with c5:
-    state_k, axis = strongest_change(style)
+    state_k, axis = strongest_change(style, bounce)
     card("변화 포착", state_k, axis)
 
 # ---------- Main insight ----------
 st.markdown("### 현재 시장 인사이트")
-snapshot = build_market_snapshot(style, sector, global_sector, region, breadth, sentiment, regime, fisher, author_view)
+snapshot = build_market_snapshot(
+    style, sector, global_sector, region, breadth, sentiment, regime, fisher, author_view,
+    bounce=bounce, stock_supply=stock_supply
+)
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
-with st.spinner("최신 리더십 데이터를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
-if gpt_main:
-    render_gpt_box(gpt_main, f"GPT 종합 해석 · {model_name}")
-else:
-    render_gpt_box(fallback_main_insight(style, sector, region, breadth))
-    if gpt_main_error:
-        st.caption(f"GPT API 미연결: {gpt_main_error}")
+with st.spinner("변화의 지속성과 다음 확인 조건을 종합하는 중..."):
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.6:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+sections = parse_main_sections(gpt_main) if gpt_main else None
+if not sections:
+    sections = fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply, bounce)
+render_main_sections(sections, f"GPT 변화 해석 · {model_name}" if gpt_main else None)
+if gpt_main_error and not gpt_main:
+    st.caption(f"GPT API 미연결: {gpt_main_error}")
 
 st.divider()
 
@@ -896,7 +1310,7 @@ st.divider()
 st.subheader("1. 스타일 리더십")
 st.markdown('<div class="section-note">성장/가치, 대형/소형, 시총가중/동일가중, 미국/비미국 같은 축에서 누가 시장을 이끄는지 봅니다.</div>', unsafe_allow_html=True)
 if has_rows(style):
-    style_table = prep_style_table(style)
+    style_table = prep_style_table(style, bounce)
     st.dataframe(
         style_table,
         use_container_width=True,
@@ -920,17 +1334,22 @@ if has_rows(style):
         default_idx = options.index("growth_value") if "growth_value" in options else 0
         choice = st.selectbox("상세 해석할 비교축", options, index=default_idx, format_func=lambda x: PAIR_INFO.get(x, {}).get("label", x))
         selected_now = style[style["pair_id"].eq(choice)].iloc[0]
-        detail = style_selected_comment(selected_now, choice)
+        detail = style_selected_comment(selected_now, choice, bounce)
         st.markdown("#### 선택 항목 해석")
-        st.markdown(f"- 기준: {detail['기준']}\n- 21일: {detail['21일']}\n- 63일: {detail['63일']}\n- 126일: {detail['126일']}\n- 상태: {detail['상태']}\n- 종합: {detail['종합']}")
+        st.markdown(
+            f"- 기준: {detail['기준']}\n"
+            f"- 126일 → 63일 → 21일: {detail['126일']} → {detail['63일']} → {detail['21일']}\n"
+            f"- **변화 판정: {detail['변화판정']}** — {detail['판정근거']}\n"
+            f"- 종합: {detail['종합']}"
+        )
+
         chart = hist[hist["pair_id"].eq(choice)].sort_values("date").copy()
         if len(chart):
-            chart[["rs_return_21","rs_return_63","rs_return_126"]] = chart[["rs_return_21","rs_return_63","rs_return_126"]] * 100
-            chart = chart.set_index("date")
-            st.line_chart(chart[["rs_return_21","rs_return_63","rs_return_126"]], use_container_width=True)
-            st.caption("선이 올라갈수록 왼쪽 항목이 상대적으로 강해졌다는 뜻입니다.")
+            fig = plot_style_quadrant(selected_now, choice)
+            st.pyplot(fig, use_container_width=True)
+            st.caption("21일·63일·126일을 현재 시점의 세 점으로 표시합니다. 우상단일수록 왼쪽 항목의 리더십이 더 강합니다.")
 
-            style_payload = build_style_chart_snapshot(style, style_hist, choice)
+            style_payload = build_style_chart_snapshot(style, style_hist, choice, bounce)
             style_json = json.dumps(style_payload, ensure_ascii=False, sort_keys=True, default=str)
             gpt_style, gpt_style_error = generate_gpt_text("style:" + style_json, model_name, STYLE_CHART_PROMPT, style_json)
             if gpt_style:
@@ -964,12 +1383,9 @@ with g1:
             }
         )
         st.markdown(concise_sector_comment(region, REGION_MAP))
-        region_chart = region.copy().sort_values(["rank_21", "rank_63"])
-        region_chart["대상"] = region_chart["ticker"].map(lambda x: REGION_MAP.get(x, x))
-        region_chart["excess_21"] = pd.to_numeric(region_chart["excess_21"], errors="coerce") * 100
-        region_chart = region_chart.set_index("대상")[["excess_21"]]
-        st.bar_chart(region_chart, use_container_width=True)
-        st.caption("막대가 높을수록 최근 21일 동안 VT보다 강했습니다.")
+        region_period = st.radio("지역 비교 기간", [21, 63, 126], horizontal=True, key="region_period", format_func=lambda x: f"{x}일")
+        st.pyplot(plot_cross_quadrant(region, REGION_MAP, REGION_SHORT, "VT", period=region_period), use_container_width=True)
+        st.caption("각 점은 한 지역입니다. 오른쪽 위로 갈수록 VT 대비 성과와 승리 빈도가 모두 강합니다.")
         region_payload = build_cross_section_snapshot(region, REGION_MAP, "VT 대비")
         region_json = json.dumps(region_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_region, gpt_region_error = generate_gpt_text("region:" + region_json, model_name, CROSS_SECTION_PROMPT, region_json)
@@ -997,12 +1413,9 @@ with g2:
             }
         )
         st.markdown(concise_sector_comment(global_sector, GLOBAL_SECTOR))
-        gsec_chart = global_sector.copy().sort_values(["rank_21", "rank_63"])
-        gsec_chart["대상"] = gsec_chart["ticker"].map(lambda x: GLOBAL_SECTOR.get(x, x))
-        gsec_chart["excess_21"] = pd.to_numeric(gsec_chart["excess_21"], errors="coerce") * 100
-        gsec_chart = gsec_chart.set_index("대상")[["excess_21"]]
-        st.bar_chart(gsec_chart, use_container_width=True)
-        st.caption("막대가 높을수록 최근 21일 동안 VT보다 강했습니다.")
+        gsec_period = st.radio("글로벌 섹터 기간", [21, 63, 126], horizontal=True, key="gsec_period", format_func=lambda x: f"{x}일")
+        st.pyplot(plot_cross_quadrant(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", period=gsec_period), use_container_width=True)
+        st.caption("각 점은 한 글로벌 섹터입니다. 색으로 구분했고, 우상단일수록 리더십이 강합니다.")
         gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "VT 대비")
         gsec_json = json.dumps(gsec_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_gsec, gpt_gsec_error = generate_gpt_text("gsec:" + gsec_json, model_name, CROSS_SECTION_PROMPT, gsec_json)
@@ -1034,12 +1447,9 @@ if has_rows(sector):
         }
     )
     st.markdown(concise_sector_comment(sector, US_SECTOR))
-    chart_df = sector.copy().sort_values(["rank_21", "rank_63"])
-    chart_df["대상"] = chart_df["ticker"].map(lambda x: US_SECTOR.get(x, x))
-    chart_df["excess_21"] = pd.to_numeric(chart_df["excess_21"], errors="coerce") * 100
-    chart_df = chart_df.set_index("대상")[["excess_21"]]
-    st.bar_chart(chart_df, use_container_width=True)
-    st.caption("막대가 높을수록 최근 21일 동안 SPY보다 강했습니다.")
+    us_period = st.radio("미국 섹터 기간", [21, 63, 126], horizontal=True, key="us_period", format_func=lambda x: f"{x}일")
+    st.pyplot(plot_cross_quadrant(sector, US_SECTOR, US_SECTOR_SHORT, "SPY", period=us_period), use_container_width=True)
+    st.caption("각 점은 한 미국 섹터입니다. 색으로 구분했고, 우상단일수록 SPY 대비 리더십이 강합니다.")
     us_payload = build_cross_section_snapshot(sector, US_SECTOR, "SPY 대비")
     us_json = json.dumps(us_payload, ensure_ascii=False, sort_keys=True, default=str)
     gpt_us, gpt_us_error = generate_gpt_text("ussec:" + us_json, model_name, CROSS_SECTION_PROMPT, us_json)
@@ -1116,8 +1526,63 @@ with right:
 
 st.divider()
 
+# ---------- Stock supply ----------
+st.subheader("6. 미국 · 글로벌 주식 공급")
+st.markdown(
+    '<div class="section-note">기존 상장기업의 발행주식수가 어느 섹터에서 늘고 줄어드는지 봅니다. 주식분할은 조정하고, 미국은 IVV·글로벌은 ACWI 구성종목 표본을 사용합니다.</div>',
+    unsafe_allow_html=True,
+)
+if has_rows(stock_supply):
+    supply_tabs = st.tabs(["미국", "글로벌", "글로벌 ex-US"])
+    for tab, universe in zip(supply_tabs, ["US", "GLOBAL", "EX_US"]):
+        with tab:
+            supply_table = prep_supply_table(stock_supply, universe)
+            if len(supply_table):
+                st.dataframe(
+                    supply_table,
+                    use_container_width=True,
+                    hide_index=True,
+                    column_config={
+                        "주식수 증감 3개월": st.column_config.NumberColumn(format="%.2f%%"),
+                        "주식수 증감 6개월": st.column_config.NumberColumn(format="%.2f%%"),
+                        "주식수 증감 12개월": st.column_config.NumberColumn(format="%.2f%%"),
+                        "증가기업 비중 12개월": st.column_config.NumberColumn(format="%.1f%%"),
+                        "감소기업 비중 12개월": st.column_config.NumberColumn(format="%.1f%%"),
+                        "섹터가중치 커버리지": st.column_config.NumberColumn(format="%.1f%%"),
+                    },
+                )
+                h = st.radio(
+                    "주식 공급 기간", ["3m", "6m", "12m"], horizontal=True,
+                    key=f"supply_period_{universe}",
+                    format_func=lambda x: {"3m":"3개월", "6m":"6개월", "12m":"12개월"}[x],
+                )
+                st.pyplot(plot_supply_quadrant(stock_supply, universe, h), use_container_width=True)
+                st.caption("오른쪽은 가중 발행주식수 증가, 위쪽은 주식수가 늘어난 기업의 breadth가 더 넓다는 뜻입니다.")
+                payload = build_supply_snapshot(stock_supply, universe, h)
+                payload_json = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
+                gpt_supply, gpt_supply_error = generate_gpt_text(
+                    f"supply-v1:{universe}:{h}:" + payload_json,
+                    model_name,
+                    SUPPLY_PROMPT,
+                    payload_json,
+                )
+                if gpt_supply:
+                    render_gpt_box(gpt_supply, "주식 공급 해석")
+                elif gpt_supply_error:
+                    st.caption(f"GPT API 미연결: {gpt_supply_error}")
+            else:
+                st.info("이 시장의 주식 공급 데이터가 아직 충분하지 않습니다.")
+    st.markdown(
+        '<div class="supply-note">※ 이 지표는 기존 상장기업의 shares outstanding 변화입니다. IPO·SPAC·신규 상장 전체 공급을 완전히 포함하지 않으므로 Fisher식 equity-supply 판단의 한 구성요소로 사용합니다. 글로벌 데이터는 ACWI 표본이며 섹터별 커버리지를 함께 표시합니다.</div>',
+        unsafe_allow_html=True,
+    )
+else:
+    st.info("주식 공급 데이터는 새 파이프라인을 한 번 실행하면 생성됩니다. GitHub Actions의 Run workflow를 실행해 주세요.")
+
+st.divider()
+
 # ---------- Qualitative anchors ----------
-st.subheader("6. 해석 메모")
+st.subheader("7. 해석 메모")
 q1, q2 = st.columns(2)
 with q1:
     st.markdown("#### Fisher 공개 시각")
@@ -1134,7 +1599,7 @@ with q2:
         st.caption(f"경계 신호: {translate_free_text(r.get('warning_trigger', '—'))}")
 
 if has_rows(bounce):
-    with st.expander("7. 반등 효과 점검"):
+    with st.expander("8. 반등 효과 점검"):
         cols = [c for c in ["ticker", "group", "subgroup", "max_drawdown_252", "max_drawdown_126", "rebound_from_126d_low", "current_drawdown_from_126d_high"] if c in bounce.columns]
         show = bounce[cols].copy()
         for c in ["max_drawdown_252", "max_drawdown_126", "rebound_from_126d_low", "current_drawdown_from_126d_high"]:
