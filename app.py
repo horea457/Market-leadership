@@ -1206,6 +1206,34 @@ def plot_supply_quadrant(stock_supply_df, universe, horizon="12m"):
     return fig
 
 
+def resolve_style_plot_row(style_df, style_hist_df, pair_id):
+    """Use latest snapshot first, then backfill missing plot metrics from latest history row."""
+    latest = style_df[style_df["pair_id"].eq(pair_id)]
+    if latest.empty:
+        return None, ["latest row"]
+    row = latest.iloc[0].copy()
+    hist_row = None
+    if has_rows(style_hist_df) and "pair_id" in style_hist_df.columns:
+        h = style_hist_df[style_hist_df["pair_id"].eq(pair_id)].copy()
+        if len(h):
+            if "date" in h.columns:
+                h["date"] = pd.to_datetime(h["date"], errors="coerce")
+                h = h.sort_values("date")
+            hist_row = h.iloc[-1]
+    needed = []
+    for n in [21, 63, 126]:
+        for col in [f"rs_return_{n}", f"freq_{n}"]:
+            val = pd.to_numeric(row.get(col), errors="coerce")
+            if pd.isna(val) and hist_row is not None:
+                hval = pd.to_numeric(hist_row.get(col), errors="coerce")
+                if pd.notna(hval):
+                    row[col] = hval
+                    val = hval
+            if pd.isna(val):
+                needed.append(col)
+    return row, needed
+
+
 def plot_style_quadrant(selected_row, pair_id):
     periods = [
         ("126일", "rs_return_126", "freq_126", "circle-open", "#1d4ed8"),
@@ -1243,7 +1271,10 @@ def plot_style_quadrant(selected_row, pair_id):
         ymin, ymax = min(ys + [50]), max(ys + [50])
         ypad = max((ymax - ymin) * 0.18, 2.0)
         fig.update_xaxes(range=[xmin - xpad, xmax + xpad])
-        fig.update_yaxes(range=[ymin - ypad, ymax + ypad])
+        fig.update_yaxes(range=[max(0, ymin - ypad), min(100, ymax + ypad)])
+    else:
+        fig.update_xaxes(range=[-5, 5])
+        fig.update_yaxes(range=[35, 65])
 
     fig.update_layout(
         height=440,
@@ -1313,14 +1344,14 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
                     mode="markers+text",
                     name=str(full_label),
                     legendgroup=str(ticker),
-                    showlegend=(col_idx == 1),
+                    showlegend=False,
                     marker=dict(
                         size=11,
                         color=colors[i % len(colors)],
                         line=dict(width=1, color="white"),
                     ),
                     text=[point_label],
-                    textposition="top center",
+                    textposition=["top center", "bottom center", "middle right", "middle left"][i % 4],
                     textfont=dict(size=9),
                     cliponaxis=False,
                     hovertemplate=(
@@ -1355,19 +1386,11 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
 
     fig.update_yaxes(title_text="승리 빈도 (%)", row=1, col=1)
     fig.update_layout(
-        height=455,
+        height=500,
         margin=dict(l=45, r=25, t=95, b=55),
         hovermode="closest",
         template="plotly_white",
         font=dict(family="Arial, Apple SD Gothic Neo, Malgun Gothic, sans-serif", size=11),
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.13,
-            xanchor="left",
-            x=0,
-            font=dict(size=10),
-        ),
         title=dict(
             text="126일 → 63일 → 21일 리더십 비교",
             x=0.01,
@@ -1479,10 +1502,8 @@ if has_rows(style):
     )
     st.markdown('<div class="explain-box">21일은 단기 변화, 63일은 현재 중심축, 126일은 더 넓은 맥락입니다.</div>', unsafe_allow_html=True)
 
-    if has_rows(style_hist):
-        hist = style_hist.copy()
-        hist["date"] = pd.to_datetime(hist["date"], errors="coerce")
-        options = [x for x in ["growth_value", "large_small", "cap_equal", "small_value_large_growth", "us_developed_ex_us", "developed_em", "cyclical_defensive"] if x in hist["pair_id"].dropna().unique().tolist()]
+    options = [x for x in ["growth_value", "large_small", "cap_equal", "small_value_large_growth", "us_developed_ex_us", "developed_em", "cyclical_defensive"] if x in style["pair_id"].dropna().unique().tolist()]
+    if options:
         default_idx = options.index("growth_value") if "growth_value" in options else 0
         choice = st.selectbox("상세 해석할 비교축", options, index=default_idx, format_func=lambda x: PAIR_INFO.get(x, {}).get("label", x))
         selected_now = style[style["pair_id"].eq(choice)].iloc[0]
@@ -1495,92 +1516,95 @@ if has_rows(style):
             f"- 종합: {detail['종합']}"
         )
 
-        chart = hist[hist["pair_id"].eq(choice)].sort_values("date").copy()
-        if len(chart):
-            fig = plot_style_quadrant(selected_now, choice)
+        plot_row, missing_style_metrics = resolve_style_plot_row(style, style_hist, choice)
+        if plot_row is not None and len(missing_style_metrics) < 6:
+            fig = plot_style_quadrant(plot_row, choice)
             st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
-            st.caption("현재 시점의 126일·63일·21일 세 점만 표시합니다. 연결선 없이 위치 변화만 비교합니다.")
+            st.caption("현재 시점의 126일·63일·21일 세 점입니다. X축은 상대강도, Y축은 승리 빈도이며 50%가 빈도 기준선입니다.")
+            if missing_style_metrics:
+                st.warning("일부 기간의 빈도/상대강도 데이터가 비어 있습니다: " + ", ".join(missing_style_metrics) + ". 아래 calc_leadership.py 업데이트 후 Actions를 한 번 실행하면 보완됩니다.")
+        else:
+            st.warning("4분면에 필요한 빈도 데이터가 없습니다. calc_leadership.py를 최신 버전으로 교체한 뒤 GitHub Actions를 실행해 주세요.")
 
-            style_payload = build_style_chart_snapshot(style, style_hist, choice, bounce)
-            style_json = json.dumps(style_payload, ensure_ascii=False, sort_keys=True, default=str)
-            gpt_style, gpt_style_error = generate_gpt_text("style:" + style_json, model_name, STYLE_CHART_PROMPT, style_json)
-            if gpt_style:
-                render_gpt_box(gpt_style, "선택 차트")
-            else:
-                render_gpt_box(fallback_style_chart_insight(style_payload))
-                if gpt_style_error:
-                    st.caption(f"GPT API 미연결: {gpt_style_error}")
+        style_payload = build_style_chart_snapshot(style, style_hist, choice, bounce)
+        style_json = json.dumps(style_payload, ensure_ascii=False, sort_keys=True, default=str)
+        gpt_style, gpt_style_error = generate_gpt_text("style:" + style_json, model_name, STYLE_CHART_PROMPT, style_json)
+        if gpt_style:
+            render_gpt_box(gpt_style, "선택 차트")
+        else:
+            render_gpt_box(fallback_style_chart_insight(style_payload))
+            if gpt_style_error:
+                st.caption(f"GPT API 미연결: {gpt_style_error}")
 
 st.divider()
 
 # ---------- Global ----------
 st.subheader("2. 글로벌 리더십")
-st.markdown('<div class="section-note">미국만 보지 않고 지역과 글로벌 섹터까지 함께 확인합니다.</div>', unsafe_allow_html=True)
-g1, g2 = st.columns(2)
-with g1:
-    st.markdown("#### 지역 비교")
-    if has_rows(region):
-        region_table = prep_table(region, REGION_MAP, "VT 대비")
-        st.dataframe(
-            region_table,
-            use_container_width=True,
-            hide_index=True,
-            column_config={
-                "대상": st.column_config.TextColumn(width="medium"),
-                "비교기준": st.column_config.TextColumn(width="medium"),
-                "빈도 21일": st.column_config.NumberColumn(format="%.1f%%"),
-                "빈도 63일": st.column_config.NumberColumn(format="%.1f%%"),
-                "초과수익 21일": st.column_config.NumberColumn(format="%.2f%%"),
-                "초과수익 63일": st.column_config.NumberColumn(format="%.2f%%"),
-            }
-        )
-        st.markdown(concise_sector_comment(region, REGION_MAP))
-        region_fig = plot_cross_quadrant_all_periods(region, REGION_MAP, REGION_SHORT, "VT", use_ticker_labels=False)
-        st.plotly_chart(region_fig, use_container_width=True, config={"displayModeBar": False})
-        st.caption("126일·63일·21일을 같은 축으로 나란히 비교합니다. 정확한 수치는 점에 마우스를 올리면 보입니다.")
-        if getattr(region_fig, "_missing_points", []):
-            st.caption("미표시 데이터: " + ", ".join(region_fig._missing_points))
-        region_payload = build_cross_section_snapshot(region, REGION_MAP, "VT 대비")
-        region_json = json.dumps(region_payload, ensure_ascii=False, sort_keys=True, default=str)
-        gpt_region, gpt_region_error = generate_gpt_text("region:" + region_json, model_name, CROSS_SECTION_PROMPT, region_json)
-        if gpt_region:
-            render_gpt_box(gpt_region, "지역 비교")
-        else:
-            render_gpt_box(fallback_cross_section(region_payload))
-            if gpt_region_error:
-                st.caption(f"GPT API 미연결: {gpt_region_error}")
-with g2:
-    st.markdown("#### 글로벌 섹터 비교")
-    if has_rows(global_sector):
-        gsec_table = prep_table(global_sector, GLOBAL_SECTOR, "VT 대비")
-        st.dataframe(
-            gsec_table,
-            use_container_width=True,
-            hide_index=True,
-            column_config={
-                "대상": st.column_config.TextColumn(width="medium"),
-                "비교기준": st.column_config.TextColumn(width="medium"),
-                "빈도 21일": st.column_config.NumberColumn(format="%.1f%%"),
-                "빈도 63일": st.column_config.NumberColumn(format="%.1f%%"),
-                "초과수익 21일": st.column_config.NumberColumn(format="%.2f%%"),
-                "초과수익 63일": st.column_config.NumberColumn(format="%.2f%%"),
-            }
-        )
-        st.markdown(concise_sector_comment(global_sector, GLOBAL_SECTOR))
-        gsec_fig = plot_cross_quadrant_all_periods(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", use_ticker_labels=True)
-        st.plotly_chart(gsec_fig, use_container_width=True, config={"displayModeBar": False})
-        st.caption("세 기간을 같은 축으로 비교합니다. 점에는 ETF 티커만 표시하고 섹터명·수치는 hover에서 확인합니다.")
-        if getattr(gsec_fig, "_missing_points", []):
-            st.caption("미표시 데이터: " + ", ".join(gsec_fig._missing_points))
-        gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "VT 대비")
-        gsec_json = json.dumps(gsec_payload, ensure_ascii=False, sort_keys=True, default=str)
-        gpt_gsec, gpt_gsec_error = generate_gpt_text("gsec:" + gsec_json, model_name, CROSS_SECTION_PROMPT, gsec_json)
-        if gpt_gsec:
-            render_gpt_box(gpt_gsec, "글로벌 섹터")
-        else:
-            render_gpt_box(fallback_cross_section(gsec_payload))
-            if gpt_gsec_error:
-                st.caption(f"GPT API 미연결: {gpt_gsec_error}")
+st.markdown('<div class="section-note">지역과 글로벌 섹터를 각각 한 줄 전체 폭으로 봅니다. 126일 → 63일 → 21일의 분포 이동을 비교합니다.</div>', unsafe_allow_html=True)
+
+st.markdown("#### 지역 비교")
+if has_rows(region):
+    region_table = prep_table(region, REGION_MAP, "VT 대비")
+    st.dataframe(
+        region_table,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "대상": st.column_config.TextColumn(width="medium"),
+            "비교기준": st.column_config.TextColumn(width="medium"),
+            "빈도 21일": st.column_config.NumberColumn(format="%.1f%%"),
+            "빈도 63일": st.column_config.NumberColumn(format="%.1f%%"),
+            "초과수익 21일": st.column_config.NumberColumn(format="%.2f%%"),
+            "초과수익 63일": st.column_config.NumberColumn(format="%.2f%%"),
+        }
+    )
+    st.markdown(concise_sector_comment(region, REGION_MAP))
+    region_fig = plot_cross_quadrant_all_periods(region, REGION_MAP, REGION_SHORT, "VT", use_ticker_labels=True)
+    st.plotly_chart(region_fig, use_container_width=True, config={"displayModeBar": False})
+    st.caption("126일·63일·21일을 같은 축으로 비교합니다. 점에는 지역 ETF 티커만 표시하고, 상세 수치는 hover에서 확인합니다.")
+    if getattr(region_fig, "_missing_points", []):
+        st.caption("미표시 데이터: " + ", ".join(region_fig._missing_points))
+    region_payload = build_cross_section_snapshot(region, REGION_MAP, "VT 대비")
+    region_json = json.dumps(region_payload, ensure_ascii=False, sort_keys=True, default=str)
+    gpt_region, gpt_region_error = generate_gpt_text("region:" + region_json, model_name, CROSS_SECTION_PROMPT, region_json)
+    if gpt_region:
+        render_gpt_box(gpt_region, "지역 비교")
+    else:
+        render_gpt_box(fallback_cross_section(region_payload))
+        if gpt_region_error:
+            st.caption(f"GPT API 미연결: {gpt_region_error}")
+
+st.markdown("#### 글로벌 섹터 비교")
+if has_rows(global_sector):
+    gsec_table = prep_table(global_sector, GLOBAL_SECTOR, "VT 대비")
+    st.dataframe(
+        gsec_table,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "대상": st.column_config.TextColumn(width="medium"),
+            "비교기준": st.column_config.TextColumn(width="medium"),
+            "빈도 21일": st.column_config.NumberColumn(format="%.1f%%"),
+            "빈도 63일": st.column_config.NumberColumn(format="%.1f%%"),
+            "초과수익 21일": st.column_config.NumberColumn(format="%.2f%%"),
+            "초과수익 63일": st.column_config.NumberColumn(format="%.2f%%"),
+        }
+    )
+    st.markdown(concise_sector_comment(global_sector, GLOBAL_SECTOR))
+    gsec_fig = plot_cross_quadrant_all_periods(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", use_ticker_labels=True)
+    st.plotly_chart(gsec_fig, use_container_width=True, config={"displayModeBar": False})
+    st.caption("126일·63일·21일을 같은 축으로 비교합니다. ETF 티커만 표시해 겹침을 줄였고, 섹터명·수치는 hover에서 확인합니다.")
+    if getattr(gsec_fig, "_missing_points", []):
+        st.caption("미표시 데이터: " + ", ".join(gsec_fig._missing_points))
+    gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "VT 대비")
+    gsec_json = json.dumps(gsec_payload, ensure_ascii=False, sort_keys=True, default=str)
+    gpt_gsec, gpt_gsec_error = generate_gpt_text("gsec:" + gsec_json, model_name, CROSS_SECTION_PROMPT, gsec_json)
+    if gpt_gsec:
+        render_gpt_box(gpt_gsec, "글로벌 섹터")
+    else:
+        render_gpt_box(fallback_cross_section(gsec_payload))
+        if gpt_gsec_error:
+            st.caption(f"GPT API 미연결: {gpt_gsec_error}")
 
 st.divider()
 
@@ -1605,7 +1629,7 @@ if has_rows(sector):
     st.markdown(concise_sector_comment(sector, US_SECTOR))
     us_fig = plot_cross_quadrant_all_periods(sector, US_SECTOR, US_SECTOR_SHORT, "SPY", use_ticker_labels=True)
     st.plotly_chart(us_fig, use_container_width=True, config={"displayModeBar": False})
-    st.caption("세 기간을 같은 축으로 비교합니다. 점에는 ETF 티커만 표시하고 섹터명·수치는 hover에서 확인합니다.")
+    st.caption("126일·63일·21일을 같은 축으로 비교합니다. ETF 티커만 표시해 겹침을 줄였고, 섹터명·수치는 hover에서 확인합니다.")
     if getattr(us_fig, "_missing_points", []):
         st.caption("미표시 데이터: " + ", ".join(us_fig._missing_points))
     us_payload = build_cross_section_snapshot(sector, US_SECTOR, "SPY 대비")
@@ -1621,66 +1645,63 @@ if has_rows(sector):
 st.divider()
 
 # ---------- Breadth & Sentiment ----------
-left, right = st.columns(2)
-with left:
-    st.subheader("4. 시장 참여 폭")
-    st.caption("S&P 500 구성종목 중 같은 기간 SPY를 이긴 비율")
-    if has_rows(breadth):
-        b = breadth.copy()
-        b["breadth_pct"] = pd.to_numeric(b["breadth_pct"], errors="coerce") * 100
-        b = b.sort_values("window")
-        st.dataframe(
-            b[["window", "breadth_pct", "n_valid"]].rename(columns={"window": "기간", "breadth_pct": "참여 폭", "n_valid": "유효 종목 수"}),
-            use_container_width=True,
-            hide_index=True,
-            column_config={"참여 폭": st.column_config.NumberColumn(format="%.1f%%")}
-        )
-        st.markdown("숫자가 높을수록 상승이 시장 전반으로 퍼졌다는 뜻입니다.")
-        if has_rows(breadth_hist):
-            bh = breadth_hist.copy()
-            bh["date"] = pd.to_datetime(bh["date"], errors="coerce")
-            window_options = sorted([int(x) for x in bh["window"].dropna().unique().tolist()])
-            default_idx = 1 if len(window_options) > 1 else 0
-            w = st.selectbox("시장 참여 폭 기간", window_options, index=default_idx)
-            x = bh[bh["window"].eq(w)].sort_values("date").copy()
-            x["breadth_pct"] = pd.to_numeric(x["breadth_pct"], errors="coerce") * 100
-            x = x.set_index("date")
-            st.line_chart(x[["breadth_pct"]], use_container_width=True)
-            st.caption("선이 올라갈수록 상승 참여가 넓어집니다.")
-            breadth_payload = build_breadth_snapshot(breadth, breadth_hist, w)
-            breadth_json = json.dumps(breadth_payload, ensure_ascii=False, sort_keys=True, default=str)
-            gpt_breadth, gpt_breadth_error = generate_gpt_text("breadth:" + breadth_json, model_name, BREADTH_PROMPT, breadth_json)
-            if gpt_breadth:
-                render_gpt_box(gpt_breadth, "시장 참여 폭")
-            else:
-                render_gpt_box(fallback_breadth(breadth_payload))
-                if gpt_breadth_error:
-                    st.caption(f"GPT API 미연결: {gpt_breadth_error}")
-with right:
-    st.subheader("5. 심리 지표")
-    if has_rows(sentiment):
-        s = sentiment.iloc[-1]
-        score = s.get("proxy_score", None)
-        stage = s.get("proxy_stage", "—")
-        try:
-            st.metric("시장 암시 점수", f"{float(score):.0f} / 100", fisher_stage_to_kor(str(stage)))
-            st.progress(min(max(float(score) / 100, 0), 1))
-        except Exception:
-            st.metric("시장 암시 점수", "—")
-        detail = pd.DataFrame({
-            "항목": ["VIX", "하이일드 스프레드", "SPY 추세", "SPY 모멘텀"],
-            "점수": [s.get("vix_warmth"), s.get("hy_oas_warmth"), s.get("spy_trend_warmth"), s.get("spy_momentum_warmth")]
-        })
-        st.dataframe(detail, hide_index=True, use_container_width=True)
-        senti_payload = build_sentiment_snapshot(sentiment)
-        senti_json = json.dumps(senti_payload, ensure_ascii=False, sort_keys=True, default=str)
-        gpt_senti, gpt_senti_error = generate_gpt_text("sentiment:" + senti_json, model_name, SENTIMENT_PROMPT, senti_json)
-        if gpt_senti:
-            render_gpt_box(gpt_senti, "심리 지표")
+st.subheader("4. 시장 참여 폭")
+st.caption("S&P 500 구성종목 중 같은 기간 SPY를 이긴 비율")
+if has_rows(breadth):
+    b = breadth.copy()
+    b["breadth_pct"] = pd.to_numeric(b["breadth_pct"], errors="coerce") * 100
+    b = b.sort_values("window")
+    st.dataframe(
+        b[["window", "breadth_pct", "n_valid"]].rename(columns={"window": "기간", "breadth_pct": "참여 폭", "n_valid": "유효 종목 수"}),
+        use_container_width=True,
+        hide_index=True,
+        column_config={"참여 폭": st.column_config.NumberColumn(format="%.1f%%")}
+    )
+    if has_rows(breadth_hist):
+        bh = breadth_hist.copy()
+        bh["date"] = pd.to_datetime(bh["date"], errors="coerce")
+        window_options = sorted([int(x) for x in bh["window"].dropna().unique().tolist()])
+        default_idx = 1 if len(window_options) > 1 else 0
+        w = st.selectbox("시장 참여 폭 기간", window_options, index=default_idx)
+        x = bh[bh["window"].eq(w)].sort_values("date").copy()
+        x["breadth_pct"] = pd.to_numeric(x["breadth_pct"], errors="coerce") * 100
+        x = x.set_index("date")
+        st.line_chart(x[["breadth_pct"]], use_container_width=True)
+        st.caption("선이 올라갈수록 상승 참여가 넓어집니다.")
+        breadth_payload = build_breadth_snapshot(breadth, breadth_hist, w)
+        breadth_json = json.dumps(breadth_payload, ensure_ascii=False, sort_keys=True, default=str)
+        gpt_breadth, gpt_breadth_error = generate_gpt_text("breadth:" + breadth_json, model_name, BREADTH_PROMPT, breadth_json)
+        if gpt_breadth:
+            render_gpt_box(gpt_breadth, "시장 참여 폭")
         else:
-            render_gpt_box("심리 지표는 낙관/비관의 온도를 보여주는 보조 신호입니다. 단독 판단보다 리더십 변화와 함께 보는 것이 좋습니다.")
-            if gpt_senti_error:
-                st.caption(f"GPT API 미연결: {gpt_senti_error}")
+            render_gpt_box(fallback_breadth(breadth_payload))
+            if gpt_breadth_error:
+                st.caption(f"GPT API 미연결: {gpt_breadth_error}")
+
+st.subheader("5. 심리 지표")
+if has_rows(sentiment):
+    s = sentiment.iloc[-1]
+    score = s.get("proxy_score", None)
+    stage = s.get("proxy_stage", "—")
+    try:
+        st.metric("시장 암시 점수", f"{float(score):.0f} / 100", fisher_stage_to_kor(str(stage)))
+        st.progress(min(max(float(score) / 100, 0), 1))
+    except Exception:
+        st.metric("시장 암시 점수", "—")
+    detail = pd.DataFrame({
+        "항목": ["VIX", "하이일드 스프레드", "SPY 추세", "SPY 모멘텀"],
+        "점수": [s.get("vix_warmth"), s.get("hy_oas_warmth"), s.get("spy_trend_warmth"), s.get("spy_momentum_warmth")]
+    })
+    st.dataframe(detail, hide_index=True, use_container_width=True)
+    senti_payload = build_sentiment_snapshot(sentiment)
+    senti_json = json.dumps(senti_payload, ensure_ascii=False, sort_keys=True, default=str)
+    gpt_senti, gpt_senti_error = generate_gpt_text("sentiment:" + senti_json, model_name, SENTIMENT_PROMPT, senti_json)
+    if gpt_senti:
+        render_gpt_box(gpt_senti, "심리 지표")
+    else:
+        render_gpt_box("심리 지표는 낙관/비관의 온도를 보여주는 보조 신호입니다. 단독 판단보다 리더십 변화와 함께 보는 것이 좋습니다.")
+        if gpt_senti_error:
+            st.caption(f"GPT API 미연결: {gpt_senti_error}")
 
 st.divider()
 
@@ -1735,7 +1756,13 @@ if has_rows(stock_supply):
         unsafe_allow_html=True,
     )
 else:
-    st.info("주식 공급 데이터는 새 파이프라인을 한 번 실행하면 생성됩니다. GitHub Actions의 Run workflow를 실행해 주세요.")
+    supply_path = PROCESSED / "stock_supply_sector_latest.csv"
+    if not supply_path.exists():
+        st.error("주식 공급 파일 자체가 없습니다. scripts/fetch_stock_supply.py와 최신 run_pipeline.py가 GitHub에 반영되지 않은 상태일 가능성이 큽니다.")
+    else:
+        st.warning("stock_supply_sector_latest.csv는 있지만 내용이 비어 있습니다. 최신 fetch_stock_supply.py로 교체한 뒤 GitHub Actions를 다시 실행해 주세요.")
+    st.code("scripts/fetch_stock_supply.py\nrun_pipeline.py\nrequirements.txt", language="text")
+    st.caption("Actions 로그에서 'Fetching US and global equity-supply proxy...'와 마지막 'Stock-supply proxy updated:' 문구가 보여야 정상입니다.")
 
 st.divider()
 
