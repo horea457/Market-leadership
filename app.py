@@ -40,11 +40,24 @@ st.markdown("""
     font-weight: 600;
 }
 .metric-value {
-    font-size: 2rem;
-    line-height: 1.18;
+    font-size: 1.9rem;
+    line-height: 1.22;
     font-weight: 700;
     color: #0f172a;
-    word-break: break-word;
+    word-break: keep-all;
+}
+.metric-value-compact {
+    font-size: 1.02rem;
+    line-height: 1.48;
+    font-weight: 600;
+    color: #0f172a;
+    white-space: normal;
+}
+.metric-sub-compact {
+    margin-top: 0.55rem;
+    font-size: 0.86rem;
+    color: #64748b;
+    line-height: 1.3;
 }
 .metric-sub {
     margin-top: 0.7rem;
@@ -59,14 +72,24 @@ st.markdown("""
     margin-bottom: 10px;
 }
 .gpt-insight {
-    background: #f8fafc;
-    border: 1px solid rgba(37,99,235,.20);
-    border-left: 5px solid #2563eb;
-    padding: 16px 18px;
-    border-radius: 12px;
-    margin-top: 12px;
-    margin-bottom: 18px;
-    line-height: 1.65;
+    background: #fbfdff;
+    border: 1px solid rgba(37,99,235,.16);
+    border-left: 4px solid #2563eb;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 14px;
+    line-height: 1.55;
+}
+.gpt-insight p, .gpt-insight ul {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+.gpt-title {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
 }
 .explain-box {
     background: #f8fafc;
@@ -199,6 +222,20 @@ def card(label, value, sub=""):
     )
 
 
+def compact_card(label, lines, sub=""):
+    html_lines = "<br>".join(lines)
+    st.markdown(
+        f"""
+        <div class="metric-card">
+            <div class="metric-label">{label}</div>
+            <div class="metric-value-compact">{html_lines}</div>
+            <div class="metric-sub-compact">{sub}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def state_to_kor(x):
     mapping = {
         "STABLE": "안정",
@@ -310,23 +347,23 @@ def format_state_badge(text):
 
 
 def current_leadership_summary(style_df, sector_df, region_df):
-    parts = []
+    lines = []
     if has_rows(style_df):
-        for pid in ["growth_value", "cap_equal", "us_developed_ex_us"]:
+        mapping = [
+            ("growth_value", "성장/가치"),
+            ("cap_equal", "가중방식"),
+            ("us_developed_ex_us", "지역"),
+        ]
+        for pid, label in mapping:
             x = style_df[style_df["pair_id"].eq(pid)]
             if len(x):
                 r = x.iloc[0]
-                label = PAIR_INFO[pid]["label"].split(" (")[0]
-                parts.append(f"{label}: 63일 {leader_to_kor(r.get('leader_63'))} / 21일 {leader_to_kor(r.get('leader_21'))}")
+                lines.append(f"{label}: 63일 {leader_to_kor(r.get('leader_63'))} · 21일 {leader_to_kor(r.get('leader_21'))}")
     if has_rows(sector_df):
         top = sector_df.sort_values(["rank_21", "rank_63"]).head(2)["ticker"].tolist()
         if top:
-            parts.append("미국 섹터 상위: " + ", ".join(US_SECTOR.get(t, t) for t in top))
-    if has_rows(region_df):
-        top_r = region_df.sort_values(["rank_21", "rank_63"]).head(1)["ticker"].tolist()
-        if top_r:
-            parts.append("지역 상위: " + REGION_MAP.get(top_r[0], top_r[0]))
-    return "<br>".join(parts[:4]) if parts else "—"
+            lines.append("미국 상위: " + ", ".join(US_SECTOR.get(t, t) for t in top))
+    return lines if lines else ["—"]
 
 
 def strongest_change(style_df):
@@ -640,117 +677,111 @@ def generate_gpt_text(cache_key, model_name, system_prompt, payload_json):
 
 
 def render_gpt_box(text, caption=None):
-    st.markdown(f'<div class="gpt-insight">{text}</div>', unsafe_allow_html=True)
-    if caption:
-        st.caption(caption)
+    title_html = f'<div class="gpt-title">{caption}</div>' if caption else ''
+    html = f'<div class="gpt-insight">{title_html}{text}</div>'
+    st.markdown(html, unsafe_allow_html=True)
 
 
 def fallback_main_insight(style, sector, region, breadth):
-    parts = []
+    lines = []
     if has_rows(style):
         gv = style[style["pair_id"].eq("growth_value")].iloc[0]
-        parts.append(f"성장/가치에서는 21일 {leader_to_kor(gv.get('leader_21'))}, 63일 {leader_to_kor(gv.get('leader_63'))}가 우위입니다.")
         ce = style[style["pair_id"].eq("cap_equal")].iloc[0]
-        parts.append(f"가중 방식은 21일 {leader_to_kor(ce.get('leader_21'))}가 앞서고 있습니다.")
         ux = style[style["pair_id"].eq("us_developed_ex_us")].iloc[0]
-        parts.append(f"지역 비교에서는 63일 {leader_to_kor(ux.get('leader_63'))} 쪽이 중심입니다.")
+        lines.append(f"<b>핵심 해석</b>: 성장/가치는 21일 {leader_to_kor(gv.get('leader_21'))}, 63일 {leader_to_kor(gv.get('leader_63'))} 우위입니다. 가중방식은 21일 {leader_to_kor(ce.get('leader_21'))}, 지역은 63일 {leader_to_kor(ux.get('leader_63'))} 쪽이 앞섭니다.")
     if has_rows(sector):
         top = sector.sort_values(["rank_21", "rank_63"]).head(2)["ticker"].tolist()
         if top:
-            parts.append("미국 섹터 상위는 " + ", ".join(US_SECTOR.get(t, t) for t in top) + "입니다.")
+            lines.append("<b>체크포인트</b>: 미국 섹터 상위는 " + ", ".join(US_SECTOR.get(t, t) for t in top) + "입니다.")
     if has_rows(breadth):
         b = breadth[breadth["window"].eq(21)]
         if len(b):
-            parts.append(f"21일 시장 참여 폭은 {pct(b.iloc[0].get('breadth_pct'))}로 확인됩니다.")
-    return " ".join(parts)
+            lines.append(f"<b>제언</b>: 21일 시장 참여 폭은 {pct(b.iloc[0].get('breadth_pct'))}입니다. 리더십이 확산되는지, 일부 종목에 머무는지 먼저 확인하는 것이 좋습니다.")
+    return "".join(f"<p>{x}</p>" for x in lines)
 
 
 def fallback_style_chart_insight(snapshot):
     cur = snapshot["현재"]
-    return f"21일은 {cur['21일리더']}, 63일은 {cur['63일리더']}, 126일은 {cur['126일리더']} 우위입니다. 따라서 단기 변화와 중기 중심축의 차이를 함께 봐야 합니다."
+    return (
+        f"<p><b>판정</b>: 21일 {cur['21일리더']}, 63일 {cur['63일리더']}, 126일 {cur['126일리더']} 우위입니다.</p>"
+        f"<p><b>체크</b>: 단기 신호가 중기 중심축으로 이어지는지 확인하면 됩니다.</p>"
+    )
 
 
 def fallback_cross_section(snapshot):
     top = ", ".join([x["대상"] for x in snapshot.get("상위", [])[:3]])
     emerging = ", ".join(snapshot.get("부상", [])[:2])
     weakening = ", ".join(snapshot.get("약화", [])[:2])
-    text = f"상위권은 {top}입니다."
+    parts = [f"<p><b>주도</b>: {top}</p>"]
     if emerging:
-        text += f" 부상하는 축은 {emerging}입니다."
+        parts.append(f"<p><b>변화</b>: 부상하는 축은 {emerging}</p>")
     if weakening:
-        text += f" 약화되는 축은 {weakening}입니다."
-    return text
+        parts.append(f"<p><b>체크</b>: 약화되는 축은 {weakening}</p>")
+    return "".join(parts)
 
 
 def fallback_breadth(snapshot):
     rows = snapshot.get("현재표", [])
     if not rows:
-        return "데이터가 없습니다."
+        return "<p>데이터가 없습니다.</p>"
     chosen = [r for r in rows if r["기간"] == snapshot["선택기간"]]
     if chosen:
         val = chosen[0]["시장상회비율"]
-        return f"선택한 {snapshot['선택기간']}일 기준 시장 참여 폭은 {val*100:.1f}%입니다. 수치가 낮을수록 상승이 일부 종목에 집중됐을 가능성이 큽니다."
-    return "시장 참여 폭을 통해 상승 참여 범위를 확인할 수 있습니다."
+        return f"<p><b>판정</b>: {snapshot['선택기간']}일 참여 폭은 {val*100:.1f}%입니다.</p><p><b>체크</b>: 수치가 낮으면 상승이 일부 종목에 집중됐을 가능성이 큽니다.</p>"
+    return "<p>시장 참여 폭을 통해 상승 확산 여부를 확인할 수 있습니다.</p>"
 
 
 MAIN_PROMPT = """
 너는 글로벌 주식시장 리더십을 해석하는 투자 리서치 보조자다.
-사용자가 제공한 JSON만 근거로 한국어로 짧고 명확하게 작성한다.
-
+JSON만 근거로 한국어로 작성한다.
 규칙:
-1. 3개 불릿으로만 작성한다.
-2. 불릿 제목은 반드시 다음 3개만 사용한다: "핵심 해석", "체크포인트", "제언".
-3. "핵심 해석"은 현재 시장 국면과 가장 중요한 리더십 구조를 요약한다.
-4. 21일·63일·126일이 엇갈리면 단기 변화와 기존 중심축을 분리해서 설명한다.
-5. 성장/가치만 말하지 말고, 시총가중/동일가중, 미국/비미국, 미국 섹터 또는 글로벌 섹터를 함께 반영한다.
-6. "제언"은 매수/매도 추천이 아니라, 이번 주에 우선 확인할 관찰 포인트를 2~3개 제시한다.
-7. breadth는 리더십 확산 여부를 판단하는 핵심 신호로 반영한다.
-8. Fisher 공개 시각과 현재 해석이 다르면 그 차이를 한 문장으로 정리한다.
-9. 심리 단계 표현은 비관/회의/낙관/유포리아를 사용한다.
-10. 같은 표현을 반복하지 말고 제너럴하게 쓰지 말 것.
+1. 정확히 3개 불릿만 작성한다.
+2. 제목은 반드시 "핵심 해석", "체크포인트", "제언"만 사용한다.
+3. 각 불릿은 1~2문장, 최대 70자 안팎으로 짧게 쓴다.
+4. 성장/가치뿐 아니라 시총가중/동일가중, 미국/비미국, 섹터 흐름을 함께 반영한다.
+5. 21일과 63·126일이 다르면 단기 변화와 중기 중심축을 구분한다.
+6. breadth는 확산 여부, 심리 지표는 보조 신호로만 요약한다.
+7. 매수/매도 추천 말고 이번 주 관찰 포인트를 제시한다.
+8. 도취라는 단어는 쓰지 말고 필요하면 유포리아를 사용한다.
+9. 문장과 표현을 반복하지 말라.
 """
 
 STYLE_CHART_PROMPT = """
-너는 특정 리더십 비교축의 차트를 해석하는 투자 리서치 보조자다.
-주어진 JSON만 보고 한국어로 작성한다.
+너는 특정 리더십 비교축 차트를 해석한다.
 규칙:
-1. 4개 불릿으로 작성한다.
-2. 제목은 "현재 판정", "단기 vs 중기", "의미", "체크포인트"를 사용한다.
-3. 21일·63일·126일 리더를 모두 반영한다.
-4. 차트 선의 최근 방향성과 현재 상태(안정/관찰/회전/확인)를 연결해 설명한다.
-5. 투자 추천이 아니라, 무엇을 확인해야 하는지 써라.
-6. 심리 단계 표현은 비관/회의/낙관/유포리아를 사용한다.
+1. 3개 불릿만 작성한다.
+2. 제목은 "판정", "의미", "체크"를 사용한다.
+3. 각 불릿은 1문장 위주로 짧게 쓴다.
+4. 21일·63일·126일 리더와 상태를 함께 반영한다.
+5. 반복 표현을 피하고, 투자 추천은 하지 말라.
 """
 
 CROSS_SECTION_PROMPT = """
-너는 시장 단면(bar/table) 데이터를 해석하는 투자 리서치 보조자다.
-주어진 JSON만 근거로 한국어로 작성한다.
+너는 섹터·지역 단면 데이터를 해석한다.
 규칙:
-1. 4개 불릿으로 작성한다.
-2. 제목은 "주도 축", "변화 신호", "해석", "체크포인트"를 사용한다.
-3. 비교기준이 무엇인지 먼저 반영한다.
-4. 상위권, 부상, 약화를 모두 짚고, 제너럴한 문장 대신 구체적 대상명을 넣는다.
-5. 매수/매도 추천은 금지한다.
+1. 3개 불릿만 작성한다.
+2. 제목은 "주도", "변화", "체크"를 사용한다.
+3. 각 불릿은 1문장, 최대 70자 안팎으로 짧게 쓴다.
+4. 상위권, 부상, 약화를 구체적 대상명으로 적는다.
+5. 비교기준을 앞에 명시한다.
 """
 
 BREADTH_PROMPT = """
-너는 시장 breadth 차트를 해석하는 보조자다.
-주어진 JSON만 근거로 한국어로 작성한다.
+너는 시장 breadth 차트를 해석한다.
 규칙:
-1. 4개 불릿으로 작성한다.
-2. 제목은 "현재 판정", "추세", "의미", "체크포인트"를 사용한다.
-3. 선택한 기간의 최신 수치와 최근 추세를 함께 설명한다.
-4. breadth가 리더십 확산인지 집중인지 해석해야 한다.
+1. 3개 불릿만 작성한다.
+2. 제목은 "판정", "의미", "체크"를 사용한다.
+3. 각 불릿은 짧게 쓴다.
+4. 선택 기간의 최신 수치와 최근 추세를 함께 반영한다.
 """
 
 SENTIMENT_PROMPT = """
-너는 심리 지표를 해석하는 보조자다.
-주어진 JSON만 근거로 한국어로 작성한다.
+너는 심리 지표를 해석한다.
 규칙:
-1. 3개 불릿으로 작성한다.
-2. 제목은 "현재 판정", "세부 신호", "체크포인트"를 사용한다.
-3. 점수와 단계, 세부 항목(VIX/하이일드/SPY추세/SPY모멘텀)을 함께 반영한다.
-4. 심리 지표는 단독 결론이 아니라 리더십과 함께 봐야 한다는 점을 포함한다.
+1. 3개 불릿만 작성한다.
+2. 제목은 "판정", "세부", "체크"를 사용한다.
+3. 각 불릿은 짧게 쓴다.
+4. 점수·단계와 VIX/하이일드/SPY 추세를 함께 반영한다.
 """
 
 # ---------- Load ----------
@@ -799,7 +830,7 @@ with c3:
     else:
         card("현재 해석", "—", "")
 with c4:
-    card("핵심 리더십", current_leadership_summary(style, sector, region), "스타일·가중방식·지역·미국 섹터 요약")
+    compact_card("핵심 리더십", current_leadership_summary(style, sector, region), "스타일·가중방식·지역·미국 섹터 요약")
 with c5:
     state_k, axis = strongest_change(style)
     card("변화 포착", state_k, axis)
@@ -861,7 +892,7 @@ if has_rows(style):
             style_json = json.dumps(style_payload, ensure_ascii=False, sort_keys=True, default=str)
             gpt_style, gpt_style_error = generate_gpt_text("style:" + style_json, model_name, STYLE_CHART_PROMPT, style_json)
             if gpt_style:
-                render_gpt_box(gpt_style, "선택 차트 GPT 해석")
+                render_gpt_box(gpt_style, "선택 차트")
             else:
                 render_gpt_box(fallback_style_chart_insight(style_payload))
                 if gpt_style_error:
@@ -876,14 +907,14 @@ g1, g2 = st.columns(2)
 with g1:
     st.markdown("#### 지역 비교")
     if has_rows(region):
-        region_table = prep_table(region, REGION_MAP, "글로벌 시장(VT) 대비")
+        region_table = prep_table(region, REGION_MAP, "VT 대비")
         st.dataframe(
             region_table,
             use_container_width=True,
             hide_index=True,
             column_config={
                 "대상": st.column_config.TextColumn(width="medium"),
-                "비교기준": st.column_config.TextColumn(width="small"),
+                "비교기준": st.column_config.TextColumn(width="medium"),
                 "빈도 21일": st.column_config.NumberColumn(format="%.1f%%"),
                 "빈도 63일": st.column_config.NumberColumn(format="%.1f%%"),
                 "초과수익 21일": st.column_config.NumberColumn(format="%.2f%%"),
@@ -897,11 +928,11 @@ with g1:
         region_chart = region_chart.set_index("대상")[["excess_21"]]
         st.bar_chart(region_chart, use_container_width=True)
         st.caption("막대가 높을수록 최근 21일 동안 VT보다 강했습니다.")
-        region_payload = build_cross_section_snapshot(region, REGION_MAP, "글로벌 시장(VT) 대비")
+        region_payload = build_cross_section_snapshot(region, REGION_MAP, "VT 대비")
         region_json = json.dumps(region_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_region, gpt_region_error = generate_gpt_text("region:" + region_json, model_name, CROSS_SECTION_PROMPT, region_json)
         if gpt_region:
-            render_gpt_box(gpt_region, "지역 비교 GPT 해석")
+            render_gpt_box(gpt_region, "지역 비교")
         else:
             render_gpt_box(fallback_cross_section(region_payload))
             if gpt_region_error:
@@ -909,14 +940,14 @@ with g1:
 with g2:
     st.markdown("#### 글로벌 섹터 비교")
     if has_rows(global_sector):
-        gsec_table = prep_table(global_sector, GLOBAL_SECTOR, "글로벌 시장(VT) 대비")
+        gsec_table = prep_table(global_sector, GLOBAL_SECTOR, "VT 대비")
         st.dataframe(
             gsec_table,
             use_container_width=True,
             hide_index=True,
             column_config={
                 "대상": st.column_config.TextColumn(width="medium"),
-                "비교기준": st.column_config.TextColumn(width="small"),
+                "비교기준": st.column_config.TextColumn(width="medium"),
                 "빈도 21일": st.column_config.NumberColumn(format="%.1f%%"),
                 "빈도 63일": st.column_config.NumberColumn(format="%.1f%%"),
                 "초과수익 21일": st.column_config.NumberColumn(format="%.2f%%"),
@@ -930,11 +961,11 @@ with g2:
         gsec_chart = gsec_chart.set_index("대상")[["excess_21"]]
         st.bar_chart(gsec_chart, use_container_width=True)
         st.caption("막대가 높을수록 최근 21일 동안 VT보다 강했습니다.")
-        gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "글로벌 시장(VT) 대비")
+        gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "VT 대비")
         gsec_json = json.dumps(gsec_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_gsec, gpt_gsec_error = generate_gpt_text("gsec:" + gsec_json, model_name, CROSS_SECTION_PROMPT, gsec_json)
         if gpt_gsec:
-            render_gpt_box(gpt_gsec, "글로벌 섹터 GPT 해석")
+            render_gpt_box(gpt_gsec, "글로벌 섹터")
         else:
             render_gpt_box(fallback_cross_section(gsec_payload))
             if gpt_gsec_error:
@@ -946,14 +977,14 @@ st.divider()
 st.subheader("3. 미국 섹터")
 st.markdown('<div class="section-note">각 섹터가 미국 시장 전체(SPY)보다 강했는지, 그리고 어느 쪽이 부상/약화되는지 봅니다.</div>', unsafe_allow_html=True)
 if has_rows(sector):
-    us_table = prep_table(sector, US_SECTOR, "미국 시장(SPY) 대비")
+    us_table = prep_table(sector, US_SECTOR, "SPY 대비")
     st.dataframe(
         us_table,
         use_container_width=True,
         hide_index=True,
         column_config={
             "대상": st.column_config.TextColumn(width="medium"),
-            "비교기준": st.column_config.TextColumn(width="small"),
+            "비교기준": st.column_config.TextColumn(width="medium"),
             "빈도 21일": st.column_config.NumberColumn(format="%.1f%%"),
             "빈도 63일": st.column_config.NumberColumn(format="%.1f%%"),
             "초과수익 21일": st.column_config.NumberColumn(format="%.2f%%"),
@@ -967,11 +998,11 @@ if has_rows(sector):
     chart_df = chart_df.set_index("대상")[["excess_21"]]
     st.bar_chart(chart_df, use_container_width=True)
     st.caption("막대가 높을수록 최근 21일 동안 SPY보다 강했습니다.")
-    us_payload = build_cross_section_snapshot(sector, US_SECTOR, "미국 시장(SPY) 대비")
+    us_payload = build_cross_section_snapshot(sector, US_SECTOR, "SPY 대비")
     us_json = json.dumps(us_payload, ensure_ascii=False, sort_keys=True, default=str)
     gpt_us, gpt_us_error = generate_gpt_text("ussec:" + us_json, model_name, CROSS_SECTION_PROMPT, us_json)
     if gpt_us:
-        render_gpt_box(gpt_us, "미국 섹터 GPT 해석")
+        render_gpt_box(gpt_us, "미국 섹터")
     else:
         render_gpt_box(fallback_cross_section(us_payload))
         if gpt_us_error:
@@ -1010,7 +1041,7 @@ with left:
             breadth_json = json.dumps(breadth_payload, ensure_ascii=False, sort_keys=True, default=str)
             gpt_breadth, gpt_breadth_error = generate_gpt_text("breadth:" + breadth_json, model_name, BREADTH_PROMPT, breadth_json)
             if gpt_breadth:
-                render_gpt_box(gpt_breadth, "시장 참여 폭 GPT 해석")
+                render_gpt_box(gpt_breadth, "시장 참여 폭")
             else:
                 render_gpt_box(fallback_breadth(breadth_payload))
                 if gpt_breadth_error:
@@ -1035,7 +1066,7 @@ with right:
         senti_json = json.dumps(senti_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_senti, gpt_senti_error = generate_gpt_text("sentiment:" + senti_json, model_name, SENTIMENT_PROMPT, senti_json)
         if gpt_senti:
-            render_gpt_box(gpt_senti, "심리 지표 GPT 해석")
+            render_gpt_box(gpt_senti, "심리 지표")
         else:
             render_gpt_box("심리 지표는 낙관/비관의 온도를 보여주는 보조 신호입니다. 단독 판단보다 리더십 변화와 함께 보는 것이 좋습니다.")
             if gpt_senti_error:
