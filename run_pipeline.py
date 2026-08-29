@@ -7,6 +7,7 @@ steps = [
     ROOT / "scripts" / "fetch_prices.py",
     ROOT / "scripts" / "calc_leadership.py",
     ROOT / "scripts" / "fetch_breadth.py",
+    ROOT / "scripts" / "fetch_stock_supply.py",
     ROOT / "scripts" / "fetch_fred.py",
     ROOT / "scripts" / "calc_sentiment.py",
 ]
