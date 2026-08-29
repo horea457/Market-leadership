@@ -1,0 +1,6 @@
+﻿component,weight_when_available,direction_toward_euphoria,examples,reason
+worry_fear_residue,0.2,lower fear / more complacency,VIX; bearish surveys; persistent rate/valuation fear,Wall of worry is supportive before it disappears.
+expectations_gap,0.2,expectations become hard to beat,economic-surprise trend; earnings revisions; consensus forecast error,Reality-vs-expectations is central to price response.
+equity_supply,0.3,more issuance / lower-quality issuance,IPO count/proceeds; SPACs; follow-ons; unprofitable IPO share,Most important late-cycle/euphoria overlay in the author's Fisher-based framework.
+speculative_behavior,0.15,more speculative demand,first-day IPO pops; leveraged ETF flows; meme/speculative activity,Captures investor behavior rather than valuation alone.
+positioning_capitulation,0.15,more fully invested / bears capitulate,AAII/NAAIM; margin debt; equity flows; skeptic capitulation note,Late-stage warning rises as skepticism disappears.
