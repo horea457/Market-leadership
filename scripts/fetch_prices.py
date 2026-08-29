@@ -35,7 +35,8 @@ close.index = pd.to_datetime(close.index).tz_localize(None)
 close = close.sort_index().dropna(how="all")
 close.to_csv(RAW / "prices_close_wide.csv", index_label="date")
 
-long = close.stack(dropna=True).rename("adj_close").reset_index()
+long = close.stack().rename("adj_close").reset_index()
+long = long.dropna(subset=["adj_close"])
 long.columns = ["date", "ticker", "adj_close"]
 long.to_csv(RAW / "prices_close_long.csv", index=False)
 
