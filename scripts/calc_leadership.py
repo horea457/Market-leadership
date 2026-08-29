@@ -113,7 +113,19 @@ for _, p in pairs.iterrows():
     row["change_state"] = state
     style_rows.append(row)
 
-pd.DataFrame(style_rows).to_csv(OUT/"style_leadership_latest.csv", index=False)
+style_latest = pd.DataFrame(style_rows)
+style_latest.to_csv(OUT/"style_leadership_latest.csv", index=False)
+if not style_latest.empty:
+    required_plot_cols = [f"{m}_{n}" for n in windows for m in ["rs_return", "freq"]]
+    missing_cols = [c for c in required_plot_cols if c not in style_latest.columns]
+    empty_cols = [c for c in required_plot_cols if c in style_latest.columns and style_latest[c].isna().all()]
+    print(f"Style leadership rows: {len(style_latest)}")
+    if missing_cols or empty_cols:
+        print("WARNING: style quadrant metrics incomplete:", {"missing": missing_cols, "all_nan": empty_cols})
+    else:
+        print("Style quadrant metrics OK: rs_return + frequency available for 21/63/126 days.")
+else:
+    print("WARNING: style_leadership_latest.csv is empty. Check price inputs and pair tickers.")
 
 # Recent history ~= 6 months
 hist_dates = close.index[-140:]
