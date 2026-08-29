@@ -29,9 +29,11 @@ HOLDINGS_URLS = {
 # We intentionally sample each sector rather than hammering thousands of Yahoo endpoints.
 # The dashboard exposes coverage, so the user can see how much of each ETF sector is represented.
 MAX_NAMES_PER_SECTOR = {
-    "US": 20,
-    "GLOBAL": 20,
-    "EX_US": 12,
+    # Keep the initial weekly job light enough for GitHub Actions/Yahoo limits.
+    # Weighted metrics still cover the largest names; breadth is a sampled proxy.
+    "US": 12,
+    "GLOBAL": 10,
+    "EX_US": 8,
 }
 LOOKBACK_DAYS = 460
 CHANGE_HORIZONS = {"3m": 91, "6m": 182, "12m": 365}
@@ -67,7 +69,8 @@ def _read_ishares_csv(url: str) -> pd.DataFrame:
     lines = text.splitlines()
     header_idx = None
     for i, line in enumerate(lines[:30]):
-        if line.startswith("Ticker,Name,Sector,Asset Class"):
+        clean = line.replace('"', '').strip()
+        if clean.startswith("Ticker,Name,Sector,Asset Class"):
             header_idx = i
             break
     if header_idx is None:
@@ -241,21 +244,59 @@ def _sample_holdings(df: pd.DataFrame, universe: str) -> pd.DataFrame:
     return sampled
 
 
-def _fetch_shares_series(yahoo_ticker: str, start: pd.Timestamp) -> pd.Series:
-    for attempt in range(2):
+def _clean_share_series(s) -> pd.Series:
+    if s is None or len(s) == 0:
+        return pd.Series(dtype=float)
+    s = pd.Series(s).copy()
+    s.index = pd.to_datetime(s.index, utc=True, errors="coerce").tz_convert(None)
+    s = pd.to_numeric(s, errors="coerce").dropna().sort_index()
+    s = s[s > 0]
+    return s[~s.index.duplicated(keep="last")]
+
+
+def _shares_from_statements(t: yf.Ticker) -> pd.Series:
+    """Fallback when Yahoo's shares endpoint is rate-limited.
+
+    Quarterly/annual balance sheets frequently expose Ordinary Shares Number or
+    Share Issued. The series is lower-frequency but sufficient for 3/6/12m supply.
+    """
+    candidates = ["Ordinary Shares Number", "Share Issued"]
+    for attr in ["quarterly_balance_sheet", "balance_sheet"]:
         try:
-            t = yf.Ticker(yahoo_ticker)
-            s = t.get_shares_full(start=start.date().isoformat())
-            if s is None or len(s) == 0:
-                return pd.Series(dtype=float)
-            s = pd.Series(s).copy()
-            s.index = pd.to_datetime(s.index, utc=True, errors="coerce").tz_convert(None)
-            s = pd.to_numeric(s, errors="coerce").dropna().sort_index()
-            s = s[~s.index.duplicated(keep="last")]
-            return s
+            bs = getattr(t, attr)
+            if bs is None or getattr(bs, "empty", True):
+                continue
+            for item in candidates:
+                if item in bs.index:
+                    raw = bs.loc[item].dropna()
+                    if len(raw):
+                        raw.index = pd.to_datetime(raw.index, errors="coerce")
+                        raw = pd.to_numeric(raw, errors="coerce").dropna().sort_index()
+                        raw = raw[raw > 0]
+                        if len(raw):
+                            return raw
         except Exception:
-            if attempt == 0:
-                time.sleep(0.4)
+            continue
+    return pd.Series(dtype=float)
+
+
+def _fetch_shares_series(yahoo_ticker: str, start: pd.Timestamp) -> pd.Series:
+    last_exc = None
+    t = yf.Ticker(yahoo_ticker)
+    for attempt in range(3):
+        try:
+            s = _clean_share_series(t.get_shares_full(start=start.date().isoformat()))
+            if len(s):
+                return s
+        except Exception as exc:
+            last_exc = exc
+        time.sleep(0.8 * (attempt + 1))
+
+    # Important for GitHub Actions: Yahoo often throttles get_shares_full before
+    # it throttles statement data, so use statements as a second source.
+    s = _shares_from_statements(t)
+    if len(s):
+        return s
     return pd.Series(dtype=float)
 
 
@@ -454,6 +495,11 @@ def main() -> None:
         _sample_holdings(global_df, "GLOBAL"),
         _sample_holdings(global_df, "EX_US"),
     ], ignore_index=True)
+    print(f"Sampled holdings: {len(samples)} rows across US / GLOBAL / EX_US")
+    if samples.empty:
+        print("WARNING: no holdings survived ticker mapping; writing empty supply files.")
+        _write_empty_if_needed()
+        return
 
     # Same issuer can occur in multiple universes. Fetch each Yahoo series only once.
     tickers = sorted(samples["yahoo_ticker"].dropna().unique().tolist())
@@ -468,7 +514,7 @@ def main() -> None:
         series_cache[t] = s
         if idx % 25 == 0 or idx == total:
             print(f"  shares: {idx}/{total}")
-        time.sleep(0.08)
+        time.sleep(0.15)
 
     for _, r in samples.iterrows():
         t = r["yahoo_ticker"]
@@ -509,6 +555,8 @@ def main() -> None:
     if valid_ratio < 0.20 and prior_good:
         print(f"WARNING: only {valid}/{len(detail)} rows have 12m data; keeping prior stock-supply snapshot.")
         return
+    if valid_ratio < 0.20:
+        print(f"WARNING: only {valid}/{len(detail)} rows have 12m data. Writing partial snapshot so coverage is visible in the dashboard.")
 
     detail.to_csv(OUT / "stock_supply_company_detail.csv", index=False)
     latest = _aggregate(detail, {"US": us, "GLOBAL": global_df})
