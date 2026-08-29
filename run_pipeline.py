@@ -13,7 +13,9 @@ steps = [
 ]
 
 for step in steps:
-    print(f"\n>>> {step.name}")
+    if not step.exists():
+        raise FileNotFoundError(f"Required pipeline step is missing: {step}")
+    print(f"\n>>> {step.name}", flush=True)
     subprocess.run([sys.executable, str(step)], check=True)
 
-print("\nAll data files updated.")
+print("\nAll data files updated.", flush=True)
