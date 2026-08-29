@@ -4,6 +4,7 @@ import html
 import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 try:
     from openai import OpenAI
@@ -1207,31 +1208,27 @@ def plot_supply_quadrant(stock_supply_df, universe, horizon="12m"):
 
 def plot_style_quadrant(selected_row, pair_id):
     periods = [
-        ("126일", "rs_return_126", "freq_126", "circle-open"),
-        ("63일", "rs_return_63", "freq_63", "diamond"),
-        ("21일", "rs_return_21", "freq_21", "circle"),
+        ("126일", "rs_return_126", "freq_126", "circle-open", "#1d4ed8"),
+        ("63일", "rs_return_63", "freq_63", "diamond", "#ef4444"),
+        ("21일", "rs_return_21", "freq_21", "circle", "#60a5fa"),
     ]
-    xs, ys, names, symbols = [], [], [], []
-    for name, xcol, ycol, symbol in periods:
+    fig = go.Figure()
+    xs, ys = [], []
+    for name, xcol, ycol, symbol, color in periods:
         xv = pd.to_numeric(selected_row.get(xcol), errors="coerce")
         yv = pd.to_numeric(selected_row.get(ycol), errors="coerce")
         if pd.notna(xv) and pd.notna(yv):
-            xs.append(float(xv) * 100)
-            ys.append(float(yv) * 100)
-            names.append(name)
-            symbols.append(symbol)
+            x = float(xv) * 100
+            y = float(yv) * 100
+            xs.append(x)
+            ys.append(y)
+            fig.add_trace(go.Scatter(
+                x=[x], y=[y], mode="markers+text", name=name,
+                marker=dict(size=15, color=color, symbol=symbol, line=dict(width=1.5, color="white")),
+                text=[name], textposition="top center", cliponaxis=False,
+                hovertemplate=f"<b>{name}</b><br>상대강도: %{{x:.2f}}%<br>승리 빈도: %{{y:.1f}}%<extra></extra>",
+            ))
 
-    fig = go.Figure()
-    if xs:
-        fig.add_trace(go.Scatter(
-            x=xs, y=ys, mode="lines+markers+text",
-            line=dict(width=2, color="#64748b"),
-            marker=dict(size=14, color=["#1d4ed8", "#ef4444", "#60a5fa"][:len(xs)], symbol=symbols, line=dict(width=1.5, color="white")),
-            text=names, textposition="top center",
-            customdata=names,
-            hovertemplate="<b>%{customdata}</b><br>상대강도: %{x:.2f}%<br>승리 빈도: %{y:.1f}%<extra></extra>",
-            name="126 → 63 → 21",
-        ))
     _base_quadrant_layout(
         fig,
         PAIR_INFO.get(pair_id, {}).get("label", pair_id),
@@ -1239,70 +1236,155 @@ def plot_style_quadrant(selected_row, pair_id):
         "승리 빈도 (%)",
         y_ref=50,
     )
-    fig.add_annotation(xref="paper", yref="paper", x=.99, y=.98, text="우상단: 왼쪽 항목 우위", showarrow=False, font=dict(size=11, color="#64748b"))
-    fig.add_annotation(xref="paper", yref="paper", x=.01, y=.03, text="좌하단: 오른쪽 항목 우위", showarrow=False, font=dict(size=11, color="#64748b"))
+
+    if xs:
+        xmin, xmax = min(xs + [0]), max(xs + [0])
+        xpad = max((xmax - xmin) * 0.15, 1.5)
+        ymin, ymax = min(ys + [50]), max(ys + [50])
+        ypad = max((ymax - ymin) * 0.18, 2.0)
+        fig.update_xaxes(range=[xmin - xpad, xmax + xpad])
+        fig.update_yaxes(range=[ymin - ypad, ymax + ypad])
+
+    fig.update_layout(
+        height=440,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+    )
     return fig
 
 
-def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label):
+def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label, use_ticker_labels=True):
     colors = [
         "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
         "#65a30d", "#db2777", "#4f46e5", "#b45309", "#059669", "#475569"
     ]
     periods = [
-        (126, "circle-open"),
-        (63, "diamond"),
-        (21, "circle"),
+        (126, "126일 · 기존 추세"),
+        (63, "63일 · 현재 중심"),
+        (21, "21일 · 단기 변화"),
     ]
-    fig = go.Figure()
     work = df.copy().reset_index(drop=True)
 
-    for i, row in work.iterrows():
-        ticker = row.get("ticker")
-        label = short_mapping.get(ticker, mapping.get(ticker, ticker))
-        xs, ys, period_labels, symbols = [], [], [], []
-        for period, symbol in periods:
+    all_x, all_y = [], []
+    for period, _ in periods:
+        xv = pd.to_numeric(work.get(f"excess_{period}"), errors="coerce") * 100
+        yv = pd.to_numeric(work.get(f"freq_{period}"), errors="coerce") * 100
+        all_x.extend(xv.dropna().tolist())
+        all_y.extend(yv.dropna().tolist())
+
+    if all_x:
+        xmin, xmax = min(all_x + [0]), max(all_x + [0])
+        xpad = max((xmax - xmin) * 0.08, 1.0)
+        xrange = [xmin - xpad, xmax + xpad]
+    else:
+        xrange = [-5, 5]
+
+    if all_y:
+        ymin, ymax = min(all_y + [50]), max(all_y + [50])
+        ypad = max((ymax - ymin) * 0.10, 1.5)
+        yrange = [ymin - ypad, ymax + ypad]
+    else:
+        yrange = [40, 60]
+
+    fig = make_subplots(
+        rows=1,
+        cols=3,
+        subplot_titles=[x[1] for x in periods],
+        horizontal_spacing=0.055,
+        shared_yaxes=True,
+    )
+
+    missing = []
+    for col_idx, (period, _) in enumerate(periods, start=1):
+        for i, row in work.iterrows():
+            ticker = row.get("ticker")
+            full_label = short_mapping.get(ticker, mapping.get(ticker, ticker))
+            point_label = str(ticker) if use_ticker_labels else str(full_label)
             xv = pd.to_numeric(row.get(f"excess_{period}"), errors="coerce")
             yv = pd.to_numeric(row.get(f"freq_{period}"), errors="coerce")
-            if pd.notna(xv) and pd.notna(yv):
-                xs.append(float(xv) * 100)
-                ys.append(float(yv) * 100)
-                period_labels.append(f"{period}일")
-                symbols.append(symbol)
-        if not xs:
-            continue
-        # Label only the latest (21D) point to keep the chart readable.
-        texts = ["" for _ in xs]
-        if "21일" in period_labels:
-            texts[period_labels.index("21일")] = str(label)
-        fig.add_trace(go.Scatter(
-            x=xs, y=ys, mode="lines+markers+text", name=str(label),
-            line=dict(width=1.4, color=colors[i % len(colors)]),
-            marker=dict(size=11, color=colors[i % len(colors)], symbol=symbols, line=dict(width=1, color="white")),
-            text=texts, textposition="top center",
-            customdata=period_labels,
-            hovertemplate=f"<b>{label}</b><br>%{{customdata}}<br>{benchmark_label} 대비: %{{x:.2f}}%<br>승리 빈도: %{{y:.1f}}%<extra></extra>",
-            legendgroup=str(label),
-        ))
 
-    # Period-symbol legend helpers.
-    for period, symbol in periods:
-        fig.add_trace(go.Scatter(
-            x=[None], y=[None], mode="markers", name=f"{period}일",
-            marker=dict(size=10, color="#64748b", symbol=symbol),
-            legendgroup="period", legendgrouptitle_text="기간",
-            showlegend=True,
-        ))
+            if pd.isna(xv) or pd.isna(yv):
+                missing.append(f"{ticker} {period}일")
+                continue
 
-    _base_quadrant_layout(
-        fig,
-        "126일 → 63일 → 21일 리더십 변화",
-        f"{benchmark_label} 대비 초과수익 (%)",
-        "승리 빈도 (%)",
-        y_ref=50,
+            fig.add_trace(
+                go.Scatter(
+                    x=[float(xv) * 100],
+                    y=[float(yv) * 100],
+                    mode="markers+text",
+                    name=str(full_label),
+                    legendgroup=str(ticker),
+                    showlegend=(col_idx == 1),
+                    marker=dict(
+                        size=11,
+                        color=colors[i % len(colors)],
+                        line=dict(width=1, color="white"),
+                    ),
+                    text=[point_label],
+                    textposition="top center",
+                    textfont=dict(size=9),
+                    cliponaxis=False,
+                    hovertemplate=(
+                        f"<b>{full_label}</b><br>{period}일"
+                        f"<br>{benchmark_label} 대비 초과수익: %{{x:.2f}}%"
+                        f"<br>승리 빈도: %{{y:.1f}}%<extra></extra>"
+                    ),
+                ),
+                row=1,
+                col=col_idx,
+            )
+
+        fig.add_vline(x=0, line_width=1, line_dash="dash", line_color="#94a3b8", row=1, col=col_idx)
+        fig.add_hline(y=50, line_width=1, line_dash="dash", line_color="#94a3b8", row=1, col=col_idx)
+        fig.update_xaxes(
+            range=xrange,
+            title_text=f"{benchmark_label} 대비 (%)",
+            row=1,
+            col=col_idx,
+            showgrid=True,
+            gridcolor="rgba(148,163,184,.14)",
+            zeroline=False,
+        )
+        fig.update_yaxes(
+            range=yrange,
+            row=1,
+            col=col_idx,
+            showgrid=True,
+            gridcolor="rgba(148,163,184,.14)",
+            zeroline=False,
+        )
+
+    fig.update_yaxes(title_text="승리 빈도 (%)", row=1, col=1)
+    fig.update_layout(
+        height=455,
+        margin=dict(l=45, r=25, t=95, b=55),
+        hovermode="closest",
+        template="plotly_white",
+        font=dict(family="Arial, Apple SD Gothic Neo, Malgun Gothic, sans-serif", size=11),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.13,
+            xanchor="left",
+            x=0,
+            font=dict(size=10),
+        ),
+        title=dict(
+            text="126일 → 63일 → 21일 리더십 비교",
+            x=0.01,
+            xanchor="left",
+            font=dict(size=14),
+        ),
     )
-    fig.add_annotation(xref="paper", yref="paper", x=.99, y=.98, text="우상단: 강한 리더십", showarrow=False, font=dict(size=11, color="#64748b"))
-    fig.add_annotation(xref="paper", yref="paper", x=.01, y=.03, text="좌하단: 약한 상대성과", showarrow=False, font=dict(size=11, color="#64748b"))
+    fig.add_annotation(
+        xref="paper",
+        yref="paper",
+        x=.995,
+        y=.98,
+        text="우상단 = 강한 리더십",
+        showarrow=False,
+        font=dict(size=10, color="#64748b"),
+    )
+    fig._missing_points = sorted(set(missing))
     return fig
 
 # ---------- Load ----------
@@ -1417,7 +1499,7 @@ if has_rows(style):
         if len(chart):
             fig = plot_style_quadrant(selected_now, choice)
             st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
-            st.caption("21일·63일·126일을 현재 시점의 세 점으로 표시합니다. 우상단일수록 왼쪽 항목의 리더십이 더 강합니다.")
+            st.caption("현재 시점의 126일·63일·21일 세 점만 표시합니다. 연결선 없이 위치 변화만 비교합니다.")
 
             style_payload = build_style_chart_snapshot(style, style_hist, choice, bounce)
             style_json = json.dumps(style_payload, ensure_ascii=False, sort_keys=True, default=str)
@@ -1453,9 +1535,11 @@ with g1:
             }
         )
         st.markdown(concise_sector_comment(region, REGION_MAP))
-        region_fig = plot_cross_quadrant_all_periods(region, REGION_MAP, REGION_SHORT, "VT")
+        region_fig = plot_cross_quadrant_all_periods(region, REGION_MAP, REGION_SHORT, "VT", use_ticker_labels=False)
         st.plotly_chart(region_fig, use_container_width=True, config={"displayModeBar": False})
-        st.caption("같은 색은 같은 지역입니다. 선은 126일 → 63일 → 21일 순서로 이어져 최근 변화 방향을 보여줍니다.")
+        st.caption("126일·63일·21일을 같은 축으로 나란히 비교합니다. 정확한 수치는 점에 마우스를 올리면 보입니다.")
+        if getattr(region_fig, "_missing_points", []):
+            st.caption("미표시 데이터: " + ", ".join(region_fig._missing_points))
         region_payload = build_cross_section_snapshot(region, REGION_MAP, "VT 대비")
         region_json = json.dumps(region_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_region, gpt_region_error = generate_gpt_text("region:" + region_json, model_name, CROSS_SECTION_PROMPT, region_json)
@@ -1483,9 +1567,11 @@ with g2:
             }
         )
         st.markdown(concise_sector_comment(global_sector, GLOBAL_SECTOR))
-        gsec_fig = plot_cross_quadrant_all_periods(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT")
+        gsec_fig = plot_cross_quadrant_all_periods(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", use_ticker_labels=True)
         st.plotly_chart(gsec_fig, use_container_width=True, config={"displayModeBar": False})
-        st.caption("같은 색은 같은 글로벌 섹터입니다. 126일 → 63일 → 21일 이동을 한 번에 봅니다.")
+        st.caption("세 기간을 같은 축으로 비교합니다. 점에는 ETF 티커만 표시하고 섹터명·수치는 hover에서 확인합니다.")
+        if getattr(gsec_fig, "_missing_points", []):
+            st.caption("미표시 데이터: " + ", ".join(gsec_fig._missing_points))
         gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "VT 대비")
         gsec_json = json.dumps(gsec_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_gsec, gpt_gsec_error = generate_gpt_text("gsec:" + gsec_json, model_name, CROSS_SECTION_PROMPT, gsec_json)
@@ -1517,9 +1603,11 @@ if has_rows(sector):
         }
     )
     st.markdown(concise_sector_comment(sector, US_SECTOR))
-    us_fig = plot_cross_quadrant_all_periods(sector, US_SECTOR, US_SECTOR_SHORT, "SPY")
+    us_fig = plot_cross_quadrant_all_periods(sector, US_SECTOR, US_SECTOR_SHORT, "SPY", use_ticker_labels=True)
     st.plotly_chart(us_fig, use_container_width=True, config={"displayModeBar": False})
-    st.caption("같은 색은 같은 미국 섹터입니다. 126일 → 63일 → 21일 이동을 한 번에 봅니다.")
+    st.caption("세 기간을 같은 축으로 비교합니다. 점에는 ETF 티커만 표시하고 섹터명·수치는 hover에서 확인합니다.")
+    if getattr(us_fig, "_missing_points", []):
+        st.caption("미표시 데이터: " + ", ".join(us_fig._missing_points))
     us_payload = build_cross_section_snapshot(sector, US_SECTOR, "SPY 대비")
     us_json = json.dumps(us_payload, ensure_ascii=False, sort_keys=True, default=str)
     gpt_us, gpt_us_error = generate_gpt_text("ussec:" + us_json, model_name, CROSS_SECTION_PROMPT, us_json)
