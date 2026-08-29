@@ -8,4 +8,4 @@ streamlit>=1.39
 requests>=2.32
 openai>=2.0
 
-matplotlib>=3.8
+plotly>=5.24
