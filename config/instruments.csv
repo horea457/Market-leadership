@@ -1,0 +1,38 @@
+﻿ticker,name,group,subgroup,benchmark,dashboard_default,notes
+SPY,SPDR S&P 500 ETF Trust,market,us_cap_weight,SPY,TRUE,Primary US benchmark
+RSP,Invesco S&P 500 Equal Weight ETF,market,us_equal_weight,SPY,TRUE,Cap concentration / breadth proxy
+IWF,iShares Russell 1000 Growth ETF,style,large_growth,SPY,TRUE,Growth leg within large-cap universe
+IWD,iShares Russell 1000 Value ETF,style,large_value,SPY,TRUE,Value leg within large-cap universe
+IWB,iShares Russell 1000 ETF,style,large,SPY,TRUE,Large-cap proxy
+IWM,iShares Russell 2000 ETF,style,small,SPY,TRUE,Small-cap proxy
+IWN,iShares Russell 2000 Value ETF,style,small_value,SPY,TRUE,Fisher bounce-effect / early-bull style proxy
+IWO,iShares Russell 2000 Growth ETF,style,small_growth,SPY,FALSE,Optional style decomposition
+XLK,Technology Select Sector SPDR Fund,sector,technology,SPY,TRUE,US sector leadership
+XLF,Financial Select Sector SPDR Fund,sector,financials,SPY,TRUE,US sector leadership
+XLI,Industrial Select Sector SPDR Fund,sector,industrials,SPY,TRUE,US sector leadership
+XLE,Energy Select Sector SPDR Fund,sector,energy,SPY,TRUE,US sector leadership
+XLB,Materials Select Sector SPDR Fund,sector,materials,SPY,TRUE,US sector leadership
+XLY,Consumer Discretionary Select Sector SPDR Fund,sector,consumer_discretionary,SPY,TRUE,US sector leadership
+XLP,Consumer Staples Select Sector SPDR Fund,sector,consumer_staples,SPY,TRUE,US sector leadership
+XLV,Health Care Select Sector SPDR Fund,sector,health_care,SPY,TRUE,US sector leadership
+XLU,Utilities Select Sector SPDR Fund,sector,utilities,SPY,TRUE,US sector leadership
+XLRE,Real Estate Select Sector SPDR Fund,sector,real_estate,SPY,TRUE,US sector leadership
+XLC,Communication Services Select Sector SPDR Fund,sector,communication_services,SPY,TRUE,US sector leadership
+VT,Vanguard Total World Stock ETF,global_market,world,VT,TRUE,Global benchmark
+VTI,Vanguard Total Stock Market ETF,region,us,VT,TRUE,US total market
+VEA,Vanguard FTSE Developed Markets ETF,region,developed_ex_us,VT,TRUE,Developed ex-US
+VWO,Vanguard FTSE Emerging Markets ETF,region,emerging_markets,VT,TRUE,Emerging markets
+VGK,Vanguard FTSE Europe ETF,region,europe,VT,TRUE,Europe
+EWJ,iShares MSCI Japan ETF,region,japan,VT,TRUE,Japan
+MCHI,iShares MSCI China ETF,region,china,VT,FALSE,China optional
+IXN,iShares Global Tech ETF,global_sector,technology,VT,FALSE,Global sector context
+IXG,iShares Global Financials ETF,global_sector,financials,VT,TRUE,Important because Kasugano often distinguishes non-US financials
+EXI,iShares Global Industrials ETF,global_sector,industrials,VT,FALSE,Global sector context
+IXC,iShares Global Energy ETF,global_sector,energy,VT,FALSE,Global sector context
+MXI,iShares Global Materials ETF,global_sector,materials,VT,FALSE,Global sector context
+RXI,iShares Global Consumer Discretionary ETF,global_sector,consumer_discretionary,VT,FALSE,Global sector context
+KXI,iShares Global Consumer Staples ETF,global_sector,consumer_staples,VT,FALSE,Global sector context
+IXJ,iShares Global Healthcare ETF,global_sector,health_care,VT,FALSE,Global sector context
+JXI,iShares Global Utilities ETF,global_sector,utilities,VT,FALSE,Global sector context
+REET,iShares Global REIT ETF,global_sector,real_estate,VT,FALSE,Global real estate proxy
+IXP,iShares Global Comm Services ETF,global_sector,communication_services,VT,FALSE,Global communication-services proxy
