@@ -3,7 +3,7 @@ import json
 import html
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 try:
     from openai import OpenAI
@@ -1150,89 +1150,159 @@ def build_supply_snapshot(stock_supply_df, universe, horizon):
     }
 
 
+
+def _base_quadrant_layout(fig, title, x_title, y_title, y_ref=50):
+    fig.update_layout(
+        title={"text": title, "x": 0.02, "xanchor": "left"},
+        xaxis_title=x_title,
+        yaxis_title=y_title,
+        height=520,
+        margin=dict(l=50, r=30, t=65, b=55),
+        hovermode="closest",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        template="plotly_white",
+        font=dict(family="Arial, Apple SD Gothic Neo, Malgun Gothic, sans-serif", size=12),
+    )
+    fig.add_vline(x=0, line_width=1, line_dash="dash", line_color="#94a3b8")
+    fig.add_hline(y=y_ref, line_width=1, line_dash="dash", line_color="#94a3b8")
+    fig.update_xaxes(showgrid=True, gridcolor="rgba(148,163,184,.16)", zeroline=False)
+    fig.update_yaxes(showgrid=True, gridcolor="rgba(148,163,184,.16)", zeroline=False)
+    return fig
+
+
 def plot_supply_quadrant(stock_supply_df, universe, horizon="12m"):
     x = stock_supply_df[stock_supply_df["universe"].eq(universe)].copy()
     chg = f"weighted_change_{horizon}"
     br = f"net_breadth_{horizon}"
     x[chg] = pd.to_numeric(x[chg], errors="coerce") * 100
     x[br] = pd.to_numeric(x[br], errors="coerce") * 100
-    x = x.dropna(subset=[chg, br])
+    x = x.dropna(subset=[chg, br]).sort_values("sector_ko")
+
     colors = [
         "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
         "#65a30d", "#db2777", "#4f46e5", "#b45309", "#059669", "#475569"
     ]
-    fig, ax = plt.subplots(figsize=(8.2, 5.4))
-    for i, (_, r) in enumerate(x.sort_values("sector_ko").iterrows()):
-        ax.scatter(r[chg], r[br], s=115, color=colors[i % len(colors)], edgecolor="white", linewidth=1.1, zorder=3)
-        ax.annotate(str(r.get("sector_ko", r.get("sector"))), (r[chg], r[br]), textcoords="offset points", xytext=(5, 5), fontsize=9)
-    ax.axvline(0, color="#94a3b8", linestyle="--", linewidth=1)
-    ax.axhline(0, color="#94a3b8", linestyle="--", linewidth=1)
-    ax.text(0.69, 0.97, "우상단: 공급 증가 확산", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
-    ax.text(0.02, 0.03, "좌하단: 주식수 축소 확산", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
-    ax.set_xlabel("가중 발행주식수 증감 (%)")
-    ax.set_ylabel("증가기업 비중 - 감소기업 비중 (%p)")
+    fig = go.Figure()
+    for i, (_, r) in enumerate(x.iterrows()):
+        label = str(r.get("sector_ko", r.get("sector")))
+        fig.add_trace(go.Scatter(
+            x=[r[chg]], y=[r[br]], mode="markers+text", name=label,
+            text=[label], textposition="top center",
+            marker=dict(size=12, color=colors[i % len(colors)], line=dict(width=1, color="white")),
+            hovertemplate=f"<b>{label}</b><br>가중 주식수 증감: %{{x:.2f}}%<br>순 공급 breadth: %{{y:.1f}}%p<extra></extra>",
+        ))
     label = {"US": "미국", "GLOBAL": "글로벌", "EX_US": "글로벌 ex-US"}.get(universe, universe)
     hlabel = {"3m": "3개월", "6m": "6개월", "12m": "12개월"}.get(horizon, horizon)
-    ax.set_title(f"{label} 섹터별 주식 공급 · {hlabel}", fontsize=12)
-    ax.grid(alpha=0.18)
-    fig.tight_layout()
+    _base_quadrant_layout(
+        fig,
+        f"{label} 섹터별 주식 공급 · {hlabel}",
+        "가중 발행주식수 증감 (%)",
+        "증가기업 비중 - 감소기업 비중 (%p)",
+        y_ref=0,
+    )
+    fig.add_annotation(xref="paper", yref="paper", x=.99, y=.98, text="우상단: 공급 증가 확산", showarrow=False, font=dict(size=11, color="#64748b"))
+    fig.add_annotation(xref="paper", yref="paper", x=.01, y=.03, text="좌하단: 주식수 축소 확산", showarrow=False, font=dict(size=11, color="#64748b"))
     return fig
 
 
 def plot_style_quadrant(selected_row, pair_id):
-    fig, ax = plt.subplots(figsize=(7.4, 5.2))
     periods = [
-        ("21일", "rs_return_21", "freq_21", "#60a5fa"),
-        ("63일", "rs_return_63", "freq_63", "#ef4444"),
-        ("126일", "rs_return_126", "freq_126", "#1d4ed8"),
+        ("126일", "rs_return_126", "freq_126", "circle-open"),
+        ("63일", "rs_return_63", "freq_63", "diamond"),
+        ("21일", "rs_return_21", "freq_21", "circle"),
     ]
-    for name, xcol, ycol, color in periods:
-        x = pd.to_numeric(selected_row.get(xcol), errors="coerce")
-        y = pd.to_numeric(selected_row.get(ycol), errors="coerce")
-        if pd.notna(x) and pd.notna(y):
-            ax.scatter(x * 100, y * 100, s=120, color=color, edgecolor='white', linewidth=1.2, zorder=3)
-            ax.annotate(name, (x * 100, y * 100), textcoords="offset points", xytext=(6, 6), fontsize=10)
-    ax.axvline(0, color="#94a3b8", linestyle="--", linewidth=1)
-    ax.axhline(50, color="#94a3b8", linestyle="--", linewidth=1)
-    ax.text(0.02, 0.97, "좌상단: 빈도는 높지만 수익 강도는 약함", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
-    ax.text(0.67, 0.97, "우상단: 왼쪽 항목 우위", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
-    ax.text(0.02, 0.03, "좌하단: 오른쪽 항목 우위", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
-    ax.text(0.67, 0.03, "우하단: 수익은 강하지만 빈도는 낮음", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
-    ax.set_xlabel("상대강도 (%)")
-    ax.set_ylabel("승리 빈도 (%)")
-    ax.set_title(PAIR_INFO.get(pair_id, {}).get("label", pair_id), fontsize=12)
-    ax.grid(alpha=0.2)
-    fig.tight_layout()
+    xs, ys, names, symbols = [], [], [], []
+    for name, xcol, ycol, symbol in periods:
+        xv = pd.to_numeric(selected_row.get(xcol), errors="coerce")
+        yv = pd.to_numeric(selected_row.get(ycol), errors="coerce")
+        if pd.notna(xv) and pd.notna(yv):
+            xs.append(float(xv) * 100)
+            ys.append(float(yv) * 100)
+            names.append(name)
+            symbols.append(symbol)
+
+    fig = go.Figure()
+    if xs:
+        fig.add_trace(go.Scatter(
+            x=xs, y=ys, mode="lines+markers+text",
+            line=dict(width=2, color="#64748b"),
+            marker=dict(size=14, color=["#1d4ed8", "#ef4444", "#60a5fa"][:len(xs)], symbol=symbols, line=dict(width=1.5, color="white")),
+            text=names, textposition="top center",
+            customdata=names,
+            hovertemplate="<b>%{customdata}</b><br>상대강도: %{x:.2f}%<br>승리 빈도: %{y:.1f}%<extra></extra>",
+            name="126 → 63 → 21",
+        ))
+    _base_quadrant_layout(
+        fig,
+        PAIR_INFO.get(pair_id, {}).get("label", pair_id),
+        "상대강도 (%)",
+        "승리 빈도 (%)",
+        y_ref=50,
+    )
+    fig.add_annotation(xref="paper", yref="paper", x=.99, y=.98, text="우상단: 왼쪽 항목 우위", showarrow=False, font=dict(size=11, color="#64748b"))
+    fig.add_annotation(xref="paper", yref="paper", x=.01, y=.03, text="좌하단: 오른쪽 항목 우위", showarrow=False, font=dict(size=11, color="#64748b"))
     return fig
 
 
-def plot_cross_quadrant(df, mapping, short_mapping, benchmark_label, period=21):
-    xcol = f"excess_{period}"
-    ycol = f"freq_{period}"
-    work = df.copy()
-    work = work[["ticker", xcol, ycol]].copy()
-    work[xcol] = pd.to_numeric(work[xcol], errors="coerce") * 100
-    work[ycol] = pd.to_numeric(work[ycol], errors="coerce") * 100
-    work = work.dropna()
-    work["label"] = work["ticker"].map(lambda x: short_mapping.get(x, mapping.get(x, x)))
+def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label):
     colors = [
         "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
         "#65a30d", "#db2777", "#4f46e5", "#b45309", "#059669", "#475569"
     ]
-    fig, ax = plt.subplots(figsize=(7.4, 5.2))
-    for i, (_, row) in enumerate(work.iterrows()):
-        color = colors[i % len(colors)]
-        ax.scatter(row[xcol], row[ycol], s=110, color=color, edgecolor='white', linewidth=1.1, zorder=3)
-        ax.annotate(row["label"], (row[xcol], row[ycol]), textcoords="offset points", xytext=(5, 5), fontsize=9)
-    ax.axvline(0, color="#94a3b8", linestyle="--", linewidth=1)
-    ax.axhline(50, color="#94a3b8", linestyle="--", linewidth=1)
-    ax.text(0.70, 0.97, "우상단: 강한 리더십", transform=ax.transAxes, fontsize=8, color="#64748b", va="top")
-    ax.text(0.02, 0.03, "좌하단: 약한 상대성과", transform=ax.transAxes, fontsize=8, color="#64748b", va="bottom")
-    ax.set_xlabel(f"{benchmark_label} 대비 초과수익 (%)")
-    ax.set_ylabel("승리 빈도 (%)")
-    ax.set_title(f"{period}일 기준 4분면", fontsize=12)
-    ax.grid(alpha=0.2)
-    fig.tight_layout()
+    periods = [
+        (126, "circle-open"),
+        (63, "diamond"),
+        (21, "circle"),
+    ]
+    fig = go.Figure()
+    work = df.copy().reset_index(drop=True)
+
+    for i, row in work.iterrows():
+        ticker = row.get("ticker")
+        label = short_mapping.get(ticker, mapping.get(ticker, ticker))
+        xs, ys, period_labels, symbols = [], [], [], []
+        for period, symbol in periods:
+            xv = pd.to_numeric(row.get(f"excess_{period}"), errors="coerce")
+            yv = pd.to_numeric(row.get(f"freq_{period}"), errors="coerce")
+            if pd.notna(xv) and pd.notna(yv):
+                xs.append(float(xv) * 100)
+                ys.append(float(yv) * 100)
+                period_labels.append(f"{period}일")
+                symbols.append(symbol)
+        if not xs:
+            continue
+        # Label only the latest (21D) point to keep the chart readable.
+        texts = ["" for _ in xs]
+        if "21일" in period_labels:
+            texts[period_labels.index("21일")] = str(label)
+        fig.add_trace(go.Scatter(
+            x=xs, y=ys, mode="lines+markers+text", name=str(label),
+            line=dict(width=1.4, color=colors[i % len(colors)]),
+            marker=dict(size=11, color=colors[i % len(colors)], symbol=symbols, line=dict(width=1, color="white")),
+            text=texts, textposition="top center",
+            customdata=period_labels,
+            hovertemplate=f"<b>{label}</b><br>%{{customdata}}<br>{benchmark_label} 대비: %{{x:.2f}}%<br>승리 빈도: %{{y:.1f}}%<extra></extra>",
+            legendgroup=str(label),
+        ))
+
+    # Period-symbol legend helpers.
+    for period, symbol in periods:
+        fig.add_trace(go.Scatter(
+            x=[None], y=[None], mode="markers", name=f"{period}일",
+            marker=dict(size=10, color="#64748b", symbol=symbol),
+            legendgroup="period", legendgrouptitle_text="기간",
+            showlegend=True,
+        ))
+
+    _base_quadrant_layout(
+        fig,
+        "126일 → 63일 → 21일 리더십 변화",
+        f"{benchmark_label} 대비 초과수익 (%)",
+        "승리 빈도 (%)",
+        y_ref=50,
+    )
+    fig.add_annotation(xref="paper", yref="paper", x=.99, y=.98, text="우상단: 강한 리더십", showarrow=False, font=dict(size=11, color="#64748b"))
+    fig.add_annotation(xref="paper", yref="paper", x=.01, y=.03, text="좌하단: 약한 상대성과", showarrow=False, font=dict(size=11, color="#64748b"))
     return fig
 
 # ---------- Load ----------
@@ -1346,7 +1416,7 @@ if has_rows(style):
         chart = hist[hist["pair_id"].eq(choice)].sort_values("date").copy()
         if len(chart):
             fig = plot_style_quadrant(selected_now, choice)
-            st.pyplot(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
             st.caption("21일·63일·126일을 현재 시점의 세 점으로 표시합니다. 우상단일수록 왼쪽 항목의 리더십이 더 강합니다.")
 
             style_payload = build_style_chart_snapshot(style, style_hist, choice, bounce)
@@ -1383,9 +1453,9 @@ with g1:
             }
         )
         st.markdown(concise_sector_comment(region, REGION_MAP))
-        region_period = st.radio("지역 비교 기간", [21, 63, 126], horizontal=True, key="region_period", format_func=lambda x: f"{x}일")
-        st.pyplot(plot_cross_quadrant(region, REGION_MAP, REGION_SHORT, "VT", period=region_period), use_container_width=True)
-        st.caption("각 점은 한 지역입니다. 오른쪽 위로 갈수록 VT 대비 성과와 승리 빈도가 모두 강합니다.")
+        region_fig = plot_cross_quadrant_all_periods(region, REGION_MAP, REGION_SHORT, "VT")
+        st.plotly_chart(region_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("같은 색은 같은 지역입니다. 선은 126일 → 63일 → 21일 순서로 이어져 최근 변화 방향을 보여줍니다.")
         region_payload = build_cross_section_snapshot(region, REGION_MAP, "VT 대비")
         region_json = json.dumps(region_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_region, gpt_region_error = generate_gpt_text("region:" + region_json, model_name, CROSS_SECTION_PROMPT, region_json)
@@ -1413,9 +1483,9 @@ with g2:
             }
         )
         st.markdown(concise_sector_comment(global_sector, GLOBAL_SECTOR))
-        gsec_period = st.radio("글로벌 섹터 기간", [21, 63, 126], horizontal=True, key="gsec_period", format_func=lambda x: f"{x}일")
-        st.pyplot(plot_cross_quadrant(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", period=gsec_period), use_container_width=True)
-        st.caption("각 점은 한 글로벌 섹터입니다. 색으로 구분했고, 우상단일수록 리더십이 강합니다.")
+        gsec_fig = plot_cross_quadrant_all_periods(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT")
+        st.plotly_chart(gsec_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("같은 색은 같은 글로벌 섹터입니다. 126일 → 63일 → 21일 이동을 한 번에 봅니다.")
         gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "VT 대비")
         gsec_json = json.dumps(gsec_payload, ensure_ascii=False, sort_keys=True, default=str)
         gpt_gsec, gpt_gsec_error = generate_gpt_text("gsec:" + gsec_json, model_name, CROSS_SECTION_PROMPT, gsec_json)
@@ -1447,9 +1517,9 @@ if has_rows(sector):
         }
     )
     st.markdown(concise_sector_comment(sector, US_SECTOR))
-    us_period = st.radio("미국 섹터 기간", [21, 63, 126], horizontal=True, key="us_period", format_func=lambda x: f"{x}일")
-    st.pyplot(plot_cross_quadrant(sector, US_SECTOR, US_SECTOR_SHORT, "SPY", period=us_period), use_container_width=True)
-    st.caption("각 점은 한 미국 섹터입니다. 색으로 구분했고, 우상단일수록 SPY 대비 리더십이 강합니다.")
+    us_fig = plot_cross_quadrant_all_periods(sector, US_SECTOR, US_SECTOR_SHORT, "SPY")
+    st.plotly_chart(us_fig, use_container_width=True, config={"displayModeBar": False})
+    st.caption("같은 색은 같은 미국 섹터입니다. 126일 → 63일 → 21일 이동을 한 번에 봅니다.")
     us_payload = build_cross_section_snapshot(sector, US_SECTOR, "SPY 대비")
     us_json = json.dumps(us_payload, ensure_ascii=False, sort_keys=True, default=str)
     gpt_us, gpt_us_error = generate_gpt_text("ussec:" + us_json, model_name, CROSS_SECTION_PROMPT, us_json)
@@ -1556,7 +1626,7 @@ if has_rows(stock_supply):
                     key=f"supply_period_{universe}",
                     format_func=lambda x: {"3m":"3개월", "6m":"6개월", "12m":"12개월"}[x],
                 )
-                st.pyplot(plot_supply_quadrant(stock_supply, universe, h), use_container_width=True)
+                st.plotly_chart(plot_supply_quadrant(stock_supply, universe, h), use_container_width=True, config={"displayModeBar": False})
                 st.caption("오른쪽은 가중 발행주식수 증가, 위쪽은 주식수가 늘어난 기업의 breadth가 더 넓다는 뜻입니다.")
                 payload = build_supply_snapshot(stock_supply, universe, h)
                 payload_json = json.dumps(payload, ensure_ascii=False, sort_keys=True, default=str)
