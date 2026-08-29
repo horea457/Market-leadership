@@ -715,21 +715,34 @@ def render_gpt_box(text, caption=None):
 
 
 def fallback_main_insight(style, sector, region, breadth):
-    lines = []
+    direction = []
+    trend = []
     if has_rows(style):
         gv = style[style["pair_id"].eq("growth_value")].iloc[0]
         ce = style[style["pair_id"].eq("cap_equal")].iloc[0]
         ux = style[style["pair_id"].eq("us_developed_ex_us")].iloc[0]
-        lines.append(f"<b>핵심 해석</b>: 성장/가치는 21일 {leader_to_kor(gv.get('leader_21'))}, 63일 {leader_to_kor(gv.get('leader_63'))} 우위입니다. 가중방식은 21일 {leader_to_kor(ce.get('leader_21'))}, 지역은 63일 {leader_to_kor(ux.get('leader_63'))} 쪽이 앞섭니다.")
+        direction.append(
+            f"단기 추격보다 확인이 우선입니다. 21일은 {leader_to_kor(gv.get('leader_21'))}·{leader_to_kor(ce.get('leader_21'))}가 강하지만, 63일 중심축은 {leader_to_kor(gv.get('leader_63'))}·{leader_to_kor(ce.get('leader_63'))}에 남아 있습니다."
+        )
+        trend.append(
+            f"스타일 측면에서는 21일 {leader_to_kor(gv.get('leader_21'))}, 63일 {leader_to_kor(gv.get('leader_63'))} 우위로 단기와 중기 신호가 엇갈립니다."
+        )
+        trend.append(
+            f"지역 흐름은 63일 기준 {leader_to_kor(ux.get('leader_63'))}가 앞서고 있어 미국 단독 주도보다 지역 분산 가능성을 시사합니다."
+        )
     if has_rows(sector):
         top = sector.sort_values(["rank_21", "rank_63"]).head(2)["ticker"].tolist()
         if top:
-            lines.append("<b>체크포인트</b>: 미국 섹터 상위는 " + ", ".join(US_SECTOR.get(t, t) for t in top) + "입니다.")
+            direction.append("미국 내부에서는 " + ", ".join(US_SECTOR.get(t, t) for t in top) + " 지속 여부를 먼저 확인하면 됩니다.")
     if has_rows(breadth):
         b = breadth[breadth["window"].eq(21)]
         if len(b):
-            lines.append(f"<b>제언</b>: 21일 시장 참여 폭은 {pct(b.iloc[0].get('breadth_pct'))}입니다. 리더십이 확산되는지, 일부 종목에 머무는지 먼저 확인하는 것이 좋습니다.")
-    return "".join(f"<p>{x}</p>" for x in lines)
+            bp = float(b.iloc[0].get('breadth_pct')) * 100
+            direction.append(f"21일 참여 폭이 {bp:.1f}%로 낮다면 일부 리더에 집중된 상승일 수 있으니, 확산 여부를 확인하기 전까지는 해석을 서두르지 않는 편이 낫습니다.")
+            trend.append(f"참여 폭은 21일 기준 {bp:.1f}%로, 상승이 시장 전반으로 넓게 퍼졌는지 판단하는 핵심 신호입니다.")
+    html = '<p><b>다이렉션</b></p><ul>' + ''.join(f'<li>{x}</li>' for x in direction[:3]) + '</ul>'
+    html += '<p><b>현재 동향</b></p><ul>' + ''.join(f'<li>{x}</li>' for x in trend[:3]) + '</ul>'
+    return html
 
 
 def fallback_style_chart_insight(snapshot):
@@ -766,59 +779,51 @@ def fallback_breadth(snapshot):
 MAIN_PROMPT = """
 너는 글로벌 주식시장 리더십을 해석하는 투자 리서치 보조자다.
 JSON만 근거로 한국어로 작성한다.
-규칙:
-1. 정확히 3개 불릿만 작성한다.
-2. 제목은 반드시 "핵심 해석", "체크포인트", "제언"만 사용한다.
-3. 각 불릿은 1~2문장, 최대 70자 안팎으로 짧게 쓴다.
-4. 성장/가치뿐 아니라 시총가중/동일가중, 미국/비미국, 섹터 흐름을 함께 반영한다.
-5. 21일과 63·126일이 다르면 단기 변화와 중기 중심축을 구분한다.
-6. breadth는 확산 여부, 심리 지표는 보조 신호로만 요약한다.
-7. 매수/매도 추천 말고 이번 주 관찰 포인트를 제시한다.
+출력 형식:
+1. 반드시 HTML만 출력한다. markdown 기호(*,-,#)는 쓰지 말라.
+2. 정확히 두 섹션만 쓴다: <p><b>다이렉션</b></p><ul>...</ul> 와 <p><b>현재 동향</b></p><ul>...</ul>
+3. 각 섹션은 bullet 2~3개로 쓴다.
+4. 다이렉션은 사용자가 지금 어떻게 대응/관찰해야 하는지 명확히 적는다. 매수·매도 추천이 아니라 우선순위와 확인 행동을 제시한다.
+5. 현재 동향은 스타일(성장/가치, 시총가중/동일가중), 지역(미국/비미국), 섹터, breadth, 심리 단서를 함께 요약한다.
+6. 21일과 63·126일이 다르면 단기 변화와 중기 중심축을 분리해서 설명한다.
+7. 제너럴한 문장을 피하고, 무엇을 먼저 보고 무엇은 아직 보류해야 하는지 분명히 적는다.
 8. 도취라는 단어는 쓰지 말고 필요하면 유포리아를 사용한다.
-9. 문장과 표현을 반복하지 말라.
 """
 
 STYLE_CHART_PROMPT = """
 너는 특정 리더십 비교축의 차트를 해석하는 투자 리서치 보조자다.
-주어진 JSON만 보고 한국어로 작성한다.
-규칙:
-1. 4개 불릿으로 작성한다.
-2. 제목은 "현재 판정", "단기 vs 중기", "의미", "체크포인트"를 사용한다.
-3. 21일·63일·126일 리더를 모두 반영한다.
-4. 차트 선의 최근 방향성과 현재 상태(안정/관찰/회전/확인)를 연결해 설명한다.
-5. 투자 추천이 아니라, 무엇을 확인해야 하는지 써라.
-6. 도취라는 표현은 쓰지 말라.
+출력 형식:
+1. HTML만 출력한다.
+2. <ul> 안에 4개 bullet을 쓴다.
+3. bullet 제목은 각각 <b>현재 판정</b>, <b>단기 vs 중기</b>, <b>의미</b>, <b>체크포인트</b>로 시작한다.
+4. 21일·63일·126일 리더와 최근 방향성, 상태를 모두 반영한다.
 """
 
 CROSS_SECTION_PROMPT = """
 너는 시장 단면(bar/table) 데이터를 해석하는 투자 리서치 보조자다.
-주어진 JSON만 근거로 한국어로 작성한다.
-규칙:
-1. 4개 불릿으로 작성한다.
-2. 제목은 "주도 축", "변화 신호", "해석", "체크포인트"를 사용한다.
-3. 비교기준이 무엇인지 먼저 반영한다.
-4. 상위권, 부상, 약화를 모두 짚고, 제너럴한 문장 대신 구체적 대상명을 넣는다.
-5. 매수/매도 추천은 금지한다.
+출력 형식:
+1. HTML만 출력한다.
+2. <ul> 안에 4개 bullet을 쓴다.
+3. bullet 제목은 각각 <b>주도 축</b>, <b>변화 신호</b>, <b>해석</b>, <b>체크포인트</b>로 시작한다.
+4. 비교기준을 먼저 밝히고, 상위권/부상/약화를 구체적 대상명으로 적는다.
 """
 
 BREADTH_PROMPT = """
 너는 시장 breadth 차트를 해석하는 보조자다.
-주어진 JSON만 근거로 한국어로 작성한다.
-규칙:
-1. 4개 불릿으로 작성한다.
-2. 제목은 "현재 판정", "추세", "의미", "체크포인트"를 사용한다.
-3. 선택한 기간의 최신 수치와 최근 추세를 함께 설명한다.
-4. breadth가 리더십 확산인지 집중인지 해석해야 한다.
+출력 형식:
+1. HTML만 출력한다.
+2. <ul> 안에 4개 bullet을 쓴다.
+3. bullet 제목은 각각 <b>현재 판정</b>, <b>추세</b>, <b>의미</b>, <b>체크포인트</b>로 시작한다.
+4. 선택한 기간의 최신 수치와 최근 추세를 함께 설명한다.
 """
 
 SENTIMENT_PROMPT = """
 너는 심리 지표를 해석하는 보조자다.
-주어진 JSON만 근거로 한국어로 작성한다.
-규칙:
-1. 3개 불릿으로 작성한다.
-2. 제목은 "현재 판정", "세부 신호", "체크포인트"를 사용한다.
-3. 점수와 단계, 세부 항목(VIX/하이일드/SPY추세/SPY모멘텀)을 함께 반영한다.
-4. 심리 지표는 단독 결론이 아니라 리더십과 함께 봐야 한다는 점을 포함한다.
+출력 형식:
+1. HTML만 출력한다.
+2. <ul> 안에 3개 bullet을 쓴다.
+3. bullet 제목은 각각 <b>현재 판정</b>, <b>세부 신호</b>, <b>체크포인트</b>로 시작한다.
+4. 점수·단계와 VIX/하이일드/SPY 추세/모멘텀을 함께 반영한다.
 """
 
 # ---------- Load ----------
@@ -879,7 +884,7 @@ snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default
 with st.spinner("최신 리더십 데이터를 종합하는 중..."):
     gpt_main, gpt_main_error = generate_gpt_text("main:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 if gpt_main:
-    render_gpt_box(gpt_main, f"GPT API 종합 해석 · 모델: {model_name} · 동일 데이터는 캐시")
+    render_gpt_box(gpt_main, f"GPT 종합 해석 · {model_name}")
 else:
     render_gpt_box(fallback_main_insight(style, sector, region, breadth))
     if gpt_main_error:
