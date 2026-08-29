@@ -157,6 +157,20 @@ US_SECTOR = {
     "XLC": "XLC (커뮤니케이션서비스)",
 }
 
+US_SECTOR_SHORT = {
+    "XLK": "기술",
+    "XLF": "금융",
+    "XLI": "산업재",
+    "XLE": "에너지",
+    "XLB": "소재",
+    "XLY": "경기소비재",
+    "XLP": "필수소비재",
+    "XLV": "헬스케어",
+    "XLU": "유틸리티",
+    "XLRE": "부동산",
+    "XLC": "커뮤니케이션서비스",
+}
+
 GLOBAL_SECTOR = {
     "IXN": "IXN (글로벌 기술)",
     "IXG": "IXG (글로벌 금융)",
@@ -169,6 +183,20 @@ GLOBAL_SECTOR = {
     "JXI": "JXI (글로벌 유틸리티)",
     "REET": "REET (글로벌 부동산)",
     "IXP": "IXP (글로벌 커뮤니케이션서비스)",
+}
+
+GLOBAL_SECTOR_SHORT = {
+    "IXN": "기술",
+    "IXG": "금융",
+    "EXI": "산업재",
+    "IXC": "에너지",
+    "MXI": "소재",
+    "RXI": "경기소비재",
+    "KXI": "필수소비재",
+    "IXJ": "헬스케어",
+    "JXI": "유틸리티",
+    "REET": "부동산",
+    "IXP": "커뮤니케이션서비스",
 }
 
 REGION_MAP = {
@@ -346,7 +374,7 @@ def format_state_badge(text):
     return f'<span class="small-chip">{text}</span>'
 
 
-def current_leadership_summary(style_df, sector_df, region_df):
+def current_leadership_summary(style_df, sector_df, region_df, global_sector_df):
     lines = []
     if has_rows(style_df):
         mapping = [
@@ -358,11 +386,15 @@ def current_leadership_summary(style_df, sector_df, region_df):
             x = style_df[style_df["pair_id"].eq(pid)]
             if len(x):
                 r = x.iloc[0]
-                lines.append(f"{label}: 63일 {leader_to_kor(r.get('leader_63'))} · 21일 {leader_to_kor(r.get('leader_21'))}")
-    if has_rows(sector_df):
-        top = sector_df.sort_values(["rank_21", "rank_63"]).head(2)["ticker"].tolist()
-        if top:
-            lines.append("미국 상위: " + ", ".join(US_SECTOR.get(t, t) for t in top))
+                lines.append(f"{label}: {leader_to_kor(r.get('leader_21'))} → {leader_to_kor(r.get('leader_63'))}")
+    if has_rows(global_sector_df):
+        top21 = global_sector_df.sort_values(["rank_21", "rank_63"]).iloc[0].get("ticker")
+        top63 = global_sector_df.sort_values(["rank_63", "rank_21"]).iloc[0].get("ticker")
+        lines.append(f"글로벌 섹터: {GLOBAL_SECTOR_SHORT.get(top21, top21)} → {GLOBAL_SECTOR_SHORT.get(top63, top63)}")
+    elif has_rows(sector_df):
+        top21 = sector_df.sort_values(["rank_21", "rank_63"]).iloc[0].get("ticker")
+        top63 = sector_df.sort_values(["rank_63", "rank_21"]).iloc[0].get("ticker")
+        lines.append(f"미국 섹터: {US_SECTOR_SHORT.get(top21, top21)} → {US_SECTOR_SHORT.get(top63, top63)}")
     return lines if lines else ["—"]
 
 
@@ -747,41 +779,46 @@ JSON만 근거로 한국어로 작성한다.
 """
 
 STYLE_CHART_PROMPT = """
-너는 특정 리더십 비교축 차트를 해석한다.
+너는 특정 리더십 비교축의 차트를 해석하는 투자 리서치 보조자다.
+주어진 JSON만 보고 한국어로 작성한다.
 규칙:
-1. 3개 불릿만 작성한다.
-2. 제목은 "판정", "의미", "체크"를 사용한다.
-3. 각 불릿은 1문장 위주로 짧게 쓴다.
-4. 21일·63일·126일 리더와 상태를 함께 반영한다.
-5. 반복 표현을 피하고, 투자 추천은 하지 말라.
+1. 4개 불릿으로 작성한다.
+2. 제목은 "현재 판정", "단기 vs 중기", "의미", "체크포인트"를 사용한다.
+3. 21일·63일·126일 리더를 모두 반영한다.
+4. 차트 선의 최근 방향성과 현재 상태(안정/관찰/회전/확인)를 연결해 설명한다.
+5. 투자 추천이 아니라, 무엇을 확인해야 하는지 써라.
+6. 도취라는 표현은 쓰지 말라.
 """
 
 CROSS_SECTION_PROMPT = """
-너는 섹터·지역 단면 데이터를 해석한다.
+너는 시장 단면(bar/table) 데이터를 해석하는 투자 리서치 보조자다.
+주어진 JSON만 근거로 한국어로 작성한다.
 규칙:
-1. 3개 불릿만 작성한다.
-2. 제목은 "주도", "변화", "체크"를 사용한다.
-3. 각 불릿은 1문장, 최대 70자 안팎으로 짧게 쓴다.
-4. 상위권, 부상, 약화를 구체적 대상명으로 적는다.
-5. 비교기준을 앞에 명시한다.
+1. 4개 불릿으로 작성한다.
+2. 제목은 "주도 축", "변화 신호", "해석", "체크포인트"를 사용한다.
+3. 비교기준이 무엇인지 먼저 반영한다.
+4. 상위권, 부상, 약화를 모두 짚고, 제너럴한 문장 대신 구체적 대상명을 넣는다.
+5. 매수/매도 추천은 금지한다.
 """
 
 BREADTH_PROMPT = """
-너는 시장 breadth 차트를 해석한다.
+너는 시장 breadth 차트를 해석하는 보조자다.
+주어진 JSON만 근거로 한국어로 작성한다.
 규칙:
-1. 3개 불릿만 작성한다.
-2. 제목은 "판정", "의미", "체크"를 사용한다.
-3. 각 불릿은 짧게 쓴다.
-4. 선택 기간의 최신 수치와 최근 추세를 함께 반영한다.
+1. 4개 불릿으로 작성한다.
+2. 제목은 "현재 판정", "추세", "의미", "체크포인트"를 사용한다.
+3. 선택한 기간의 최신 수치와 최근 추세를 함께 설명한다.
+4. breadth가 리더십 확산인지 집중인지 해석해야 한다.
 """
 
 SENTIMENT_PROMPT = """
-너는 심리 지표를 해석한다.
+너는 심리 지표를 해석하는 보조자다.
+주어진 JSON만 근거로 한국어로 작성한다.
 규칙:
-1. 3개 불릿만 작성한다.
-2. 제목은 "판정", "세부", "체크"를 사용한다.
-3. 각 불릿은 짧게 쓴다.
-4. 점수·단계와 VIX/하이일드/SPY 추세를 함께 반영한다.
+1. 3개 불릿으로 작성한다.
+2. 제목은 "현재 판정", "세부 신호", "체크포인트"를 사용한다.
+3. 점수와 단계, 세부 항목(VIX/하이일드/SPY추세/SPY모멘텀)을 함께 반영한다.
+4. 심리 지표는 단독 결론이 아니라 리더십과 함께 봐야 한다는 점을 포함한다.
 """
 
 # ---------- Load ----------
@@ -830,7 +867,7 @@ with c3:
     else:
         card("현재 해석", "—", "")
 with c4:
-    compact_card("핵심 리더십", current_leadership_summary(style, sector, region), "스타일·가중방식·지역·미국 섹터 요약")
+    compact_card("핵심 리더십", current_leadership_summary(style, sector, region, global_sector), "21일 → 63일 기준")
 with c5:
     state_k, axis = strongest_change(style)
     card("변화 포착", state_k, axis)
