@@ -1157,17 +1157,18 @@ MAIN_PROMPT = """
    - 글로벌 섹터와 미국 섹터: 63일 → 21일 리더 변화
    - 의미 없는 변화가 없으면 억지로 쓰지 않는다.
 3. 인사이트는 정확히 3~4개 문장으로 쓴다.
-4. 인사이트 첫 문장은 변화의 지속성을 '일시적 가능성 / 전환 초기 / 전환 진행 / 지속' 중 하나로 판정한다.
-5. 인사이트에는 반드시 breadth를 넣어 리더십이 좁은지 넓어지는지 판단한다.
-6. 주식공급 데이터가 있으면 미국과 글로벌 ex-US에서 공급 증가가 가장 큰 섹터를 명시하고,
+4. 인사이트 첫 문장은 규칙기반_시장심리사이클의 현재단계와 핵심근거를 한 문장으로 요약한다.
+5. 그 다음 변화의 지속성을 '일시적 가능성 / 전환 초기 / 전환 진행 / 지속' 중 하나로 판정한다.
+6. 인사이트에는 반드시 breadth를 넣어 리더십이 좁은지 넓어지는지 판단한다.
+7. 주식공급 데이터가 있으면 미국과 글로벌 ex-US에서 공급 증가가 가장 큰 섹터를 명시하고,
    현재 리더 섹터와 공급 증가가 겹치는지 여부를 한 문장으로 해석한다.
-7. 마지막 인사이트는 '중점 관찰:'로 시작하고,
+8. 마지막 인사이트는 '중점 관찰:'로 시작하고,
    지금 가장 중요하게 볼 지역/섹터 2~3개와 무엇이 63일로 이어져야 하는지를 명확히 적는다.
-8. '확인 필요', '지켜봐야 한다' 같은 모호한 표현만 쓰지 말고 어떤 변화가 이어져야 하는지 구체화한다.
-9. 각 문장은 최대 90자 안팎으로 간결하게 쓴다.
-10. 매수/매도 추천은 하지 않는다.
-11. '도취'라는 단어는 쓰지 않고 '유포리아'를 사용한다.
-12. 특정 필명은 절대 쓰지 않는다.
+9. '확인 필요', '지켜봐야 한다' 같은 모호한 표현만 쓰지 말고 어떤 변화가 이어져야 하는지 구체화한다.
+10. 각 문장은 최대 90자 안팎으로 간결하게 쓴다.
+11. 매수/매도 추천은 하지 않는다.
+12. '도취'라는 단어는 쓰지 않고 '유포리아'를 사용한다.
+13. 특정 필명은 절대 쓰지 않는다.
 """
 
 STYLE_CHART_PROMPT = """
@@ -1611,6 +1612,420 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
     fig._missing_points = sorted(set(missing))
     return fig
 
+
+# ---------- Rule-based sentiment cycle ----------
+def _norm100(value):
+    """Normalize a 0~1 or 0~100 proxy into 0~100."""
+    try:
+        v = float(value)
+    except Exception:
+        return None
+    if pd.isna(v):
+        return None
+    if abs(v) <= 1.5:
+        v *= 100
+    return max(0.0, min(100.0, v))
+
+
+def _breadth_value(breadth_df, window):
+    if not has_rows(breadth_df):
+        return None
+    x = breadth_df[breadth_df["window"].eq(window)]
+    if not len(x):
+        return None
+    try:
+        return float(x.iloc[-1].get("breadth_pct"))
+    except Exception:
+        return None
+
+
+def _style_row(style_df, pair_id):
+    if not has_rows(style_df):
+        return None
+    x = style_df[style_df["pair_id"].eq(pair_id)]
+    return x.iloc[0] if len(x) else None
+
+
+def _supply_universe_summary(stock_supply_df, universe):
+    if not has_rows(stock_supply_df):
+        return None
+    x = stock_supply_df[stock_supply_df["universe"].eq(universe)].copy()
+    if not len(x):
+        return None
+
+    for c in ["sector_weight_pct", "weighted_change_12m", "net_breadth_12m", "coverage_of_sector_weight"]:
+        if c in x.columns:
+            x[c] = pd.to_numeric(x[c], errors="coerce")
+
+    valid = x.dropna(subset=["weighted_change_12m"]).copy()
+    if not len(valid):
+        return None
+
+    weights = valid["sector_weight_pct"].fillna(0) if "sector_weight_pct" in valid.columns else pd.Series(1.0, index=valid.index)
+    if float(weights.sum()) <= 0:
+        weights = pd.Series(1.0, index=valid.index)
+
+    weighted_change = float((valid["weighted_change_12m"] * weights).sum() / weights.sum())
+
+    if "net_breadth_12m" in valid.columns:
+        bmask = valid["net_breadth_12m"].notna()
+        if bmask.any():
+            bw = weights[bmask]
+            net_breadth = float((valid.loc[bmask, "net_breadth_12m"] * bw).sum() / bw.sum())
+        else:
+            net_breadth = None
+    else:
+        net_breadth = None
+
+    if "coverage_of_sector_weight" in valid.columns:
+        coverage = float(valid["coverage_of_sector_weight"].dropna().median()) if valid["coverage_of_sector_weight"].notna().any() else None
+    else:
+        coverage = None
+
+    if weighted_change >= 0.02 and (net_breadth is not None and net_breadth >= 0.15):
+        status = "공급 증가 확산"
+    elif weighted_change >= 0.0075 or (net_breadth is not None and net_breadth >= 0.10):
+        status = "공급 증가 초기"
+    elif weighted_change <= -0.01 and (net_breadth is None or net_breadth <= -0.05):
+        status = "공급 위축"
+    else:
+        status = "중립"
+
+    return {
+        "status": status,
+        "weighted_change": weighted_change,
+        "net_breadth": net_breadth,
+        "coverage": coverage,
+    }
+
+
+def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df, sentiment_df, regime_df, stock_supply_df):
+    """
+    Reproducible state-machine inspired by the Fisher/Kasugano framework.
+
+    Important:
+    - No manual 'current view' CSV is used.
+    - Late euphoria is intentionally NOT confirmed until IPO/SPAC/low-quality issuance
+      and expectations-gap data are connected.
+    """
+    modules = []
+
+    # 1) Market regime
+    mechanical = ""
+    drawdown = None
+    if has_rows(regime_df):
+        rr = regime_df.iloc[-1]
+        mechanical = str(rr.get("mechanical_state", "")).upper()
+        try:
+            drawdown = float(rr.get("spy_drawdown_from_ath"))
+        except Exception:
+            drawdown = None
+
+    if "BEAR" in mechanical:
+        regime_status = "Bear"
+        regime_score = -1
+    elif "CORRECTION" in mechanical:
+        regime_status = "조정"
+        regime_score = 0
+    elif any(k in mechanical for k in ["BULL", "ADVANCE", "NEAR-BULL"]):
+        regime_status = "Bull"
+        regime_score = 1
+    else:
+        regime_status = "불명확"
+        regime_score = 0
+
+    regime_evidence = regime_status
+    if drawdown is not None:
+        regime_evidence += f" · 전고점 대비 {drawdown*100:.1f}%"
+    modules.append({
+        "모듈": "Market Regime",
+        "판정": regime_status,
+        "근거": regime_evidence,
+        "측정": "완료" if has_rows(regime_df) else "미연결",
+    })
+
+    # 2) Wall of worry — only VIX + HY spread, not trend/momentum.
+    worry_status = "미측정"
+    worry_residue = None
+    sentiment_warmth = None
+    if has_rows(sentiment_df):
+        sr = sentiment_df.iloc[-1]
+        vix_w = _norm100(sr.get("vix_warmth"))
+        hy_w = _norm100(sr.get("hy_oas_warmth"))
+        proxy_score = _norm100(sr.get("proxy_score"))
+        vals = [x for x in [vix_w, hy_w] if x is not None]
+        if vals:
+            fear_warmth = sum(vals) / len(vals)
+            worry_residue = 100 - fear_warmth
+            if worry_residue >= 60:
+                worry_status = "걱정의 벽 강함"
+            elif worry_residue >= 35:
+                worry_status = "걱정의 벽 잔존"
+            else:
+                worry_status = "걱정의 벽 약화"
+        sentiment_warmth = proxy_score
+
+    worry_evidence = "VIX·하이일드 proxy"
+    if worry_residue is not None:
+        worry_evidence += f" · 걱정 잔존도 {worry_residue:.0f}/100"
+    modules.append({
+        "모듈": "Wall of Worry",
+        "판정": worry_status,
+        "근거": worry_evidence,
+        "측정": "완료" if worry_residue is not None else "미연결",
+    })
+
+    # 3) Expectations gap — deliberately not invented.
+    modules.append({
+        "모듈": "Expectations Gap",
+        "판정": "미측정",
+        "근거": "실적 surprise·경제 surprise 데이터 필요",
+        "측정": "미연결",
+    })
+
+    # 4) Equity supply — listed-company share count only, so explicitly partial.
+    supply_us = _supply_universe_summary(stock_supply_df, "US")
+    supply_ex = _supply_universe_summary(stock_supply_df, "EX_US")
+    supply_parts = []
+    supply_rank = 0  # -1 contraction, 0 neutral, 1 rising, 2 broad rising
+    supply_coverage = []
+    for obj, label in [(supply_us, "미국"), (supply_ex, "ex-US")]:
+        if not obj:
+            continue
+        supply_parts.append(
+            f"{label} {obj['status']} ({obj['weighted_change']*100:+.1f}%)"
+        )
+        if obj["coverage"] is not None:
+            supply_coverage.append(obj["coverage"])
+        if obj["status"] == "공급 증가 확산":
+            supply_rank = max(supply_rank, 2)
+        elif obj["status"] == "공급 증가 초기":
+            supply_rank = max(supply_rank, 1)
+        elif obj["status"] == "공급 위축" and supply_rank == 0:
+            supply_rank = -1
+
+    if supply_parts:
+        if supply_rank >= 2:
+            supply_status = "공급 증가 확산"
+        elif supply_rank == 1:
+            supply_status = "공급 증가 초기"
+        elif supply_rank < 0:
+            supply_status = "공급 위축"
+        else:
+            supply_status = "중립"
+        supply_evidence = " · ".join(supply_parts)
+        supply_measure = "부분 측정"
+    else:
+        supply_status = "미측정"
+        supply_evidence = "기존 상장기업 발행주식수 데이터 필요"
+        supply_measure = "미연결"
+
+    modules.append({
+        "모듈": "Equity Supply",
+        "판정": supply_status,
+        "근거": supply_evidence,
+        "측정": supply_measure,
+    })
+
+    # 5) Speculation — only a hot-pocket proxy. Never call broad speculation confirmed.
+    gv = _style_row(style_df, "growth_value")
+    ce = _style_row(style_df, "cap_equal")
+    ls = _style_row(style_df, "large_small")
+
+    growth_hot = bool(gv is not None and str(gv.get("leader_21")) == "Growth")
+    cap_hot = bool(ce is not None and str(ce.get("leader_21")) == "Cap-weight")
+    small_hot = bool(ls is not None and str(ls.get("leader_21")) == "Small")
+
+    tech_hot = False
+    tech_evidence = []
+    if has_rows(sector_df):
+        us_tech = sector_df[sector_df["ticker"].eq("XLK")]
+        if len(us_tech):
+            r = us_tech.iloc[0]
+            try:
+                rank21 = int(r.get("rank_21"))
+                if rank21 <= 2:
+                    tech_hot = True
+                    tech_evidence.append(f"미국 기술 21일 {rank21}위")
+            except Exception:
+                pass
+    if has_rows(global_sector_df):
+        gl_tech = global_sector_df[global_sector_df["ticker"].eq("IXN")]
+        if len(gl_tech):
+            r = gl_tech.iloc[0]
+            try:
+                rank21 = int(r.get("rank_21"))
+                if rank21 <= 2:
+                    tech_hot = True
+                    tech_evidence.append(f"글로벌 기술 21일 {rank21}위")
+            except Exception:
+                pass
+
+    hot_points = int(growth_hot) + int(cap_hot) + int(tech_hot)
+    if sentiment_warmth is not None and sentiment_warmth >= 65:
+        hot_points += 1
+
+    if hot_points >= 3:
+        speculation_status = "일부 포켓 과열 후보"
+    elif hot_points >= 2:
+        speculation_status = "낙관적 리더십"
+    else:
+        speculation_status = "과열 신호 제한적"
+
+    spec_bits = []
+    if growth_hot:
+        spec_bits.append("성장주 단기 우위")
+    if cap_hot:
+        spec_bits.append("시총가중 우위")
+    if small_hot:
+        spec_bits.append("소형주 우위")
+    spec_bits.extend(tech_evidence)
+    if sentiment_warmth is not None:
+        spec_bits.append(f"심리 proxy {sentiment_warmth:.0f}/100")
+    if not spec_bits:
+        spec_bits = ["저품질 IPO·SPAC 데이터 미연결"]
+
+    modules.append({
+        "모듈": "Speculation",
+        "판정": speculation_status,
+        "근거": " · ".join(spec_bits),
+        "측정": "부분 측정",
+    })
+
+    # 6) Leadership / breadth
+    b21 = _breadth_value(breadth_df, 21)
+    b63 = _breadth_value(breadth_df, 63)
+    equal21 = bool(ce is not None and str(ce.get("leader_21")) == "Equal-weight")
+
+    if b21 is None:
+        leadership_status = "미측정"
+        lead_evidence = "breadth 데이터 필요"
+    else:
+        if b21 < 0.45 and not equal21:
+            leadership_status = "리더십 집중"
+        elif b21 >= 0.60 and (equal21 or (b63 is not None and b21 >= b63)):
+            leadership_status = "광범위 확산"
+        else:
+            leadership_status = "확산 초기/혼조"
+
+        lead_evidence = f"21일 breadth {b21*100:.1f}%"
+        if b63 is not None:
+            lead_evidence += f" · 63일 {b63*100:.1f}%"
+        if ce is not None:
+            lead_evidence += f" · 21일 {leader_to_kor(ce.get('leader_21'))}"
+
+    modules.append({
+        "모듈": "Leadership / Breadth",
+        "판정": leadership_status,
+        "근거": lead_evidence,
+        "측정": "완료" if b21 is not None else "미연결",
+    })
+
+    # ---------- State machine ----------
+    # Late euphoria is never confirmed without IPO/SPAC/low-quality issuance + expectations gap.
+    if regime_score < 0:
+        if worry_status == "걱정의 벽 강함":
+            stage = "비관"
+        else:
+            stage = "회의"
+    elif regime_score == 0:
+        stage = "회의"
+    else:
+        # Bull market.
+        if worry_status == "걱정의 벽 강함" and supply_rank <= 0:
+            stage = "회의"
+        elif (
+            speculation_status == "일부 포켓 과열 후보"
+            and supply_rank >= 1
+            and worry_status in ["걱정의 벽 잔존", "걱정의 벽 약화"]
+        ):
+            stage = "후기 낙관 → 초기 유포리아 후보"
+        elif (
+            supply_rank >= 1
+            or speculation_status in ["일부 포켓 과열 후보", "낙관적 리더십"]
+            or (sentiment_warmth is not None and sentiment_warmth >= 60)
+        ):
+            stage = "후기 낙관"
+        else:
+            stage = "낙관"
+
+    # Confidence from measured coverage — transparent, not fake precision.
+    measured_weight = 0.0
+    measured_weight += 1.0 if has_rows(regime_df) else 0.0
+    measured_weight += 1.0 if worry_residue is not None else 0.0
+    measured_weight += 0.75 if supply_parts else 0.0
+    measured_weight += 0.5 if has_rows(style_df) else 0.0  # speculation is only partial
+    measured_weight += 1.0 if b21 is not None else 0.0
+    # Expectations gap intentionally gets 0 until real data is connected.
+    coverage_ratio = measured_weight / 5.25
+
+    if supply_coverage and min(supply_coverage) < 0.25:
+        coverage_ratio *= 0.9
+
+    if coverage_ratio >= 0.72:
+        confidence = "중상"
+    elif coverage_ratio >= 0.52:
+        confidence = "중간"
+    else:
+        confidence = "낮음"
+
+    missing = []
+    if not supply_parts:
+        missing.append("주식공급")
+    missing.append("IPO/SPAC·저품질 신규공급")
+    missing.append("실적·경제 expectations gap")
+
+    if stage == "후기 낙관 → 초기 유포리아 후보":
+        headline_reason = "Bull + 일부 과열 포켓 + 공급 증가, 그러나 걱정의 벽이 완전히 사라지진 않음"
+    elif stage == "후기 낙관":
+        headline_reason = "Bull이 진행된 가운데 낙관·공급·리더십 변화가 커졌지만 광범위 유포리아는 미확인"
+    elif stage == "낙관":
+        headline_reason = "Bull 진행과 리더십 확산은 보이지만 공급·투기 과열 신호는 제한적"
+    elif stage == "회의":
+        headline_reason = "가격 회복/상승 대비 걱정의 벽과 제한된 확산이 남아 있음"
+    else:
+        headline_reason = "시장 하락과 높은 불안이 동시에 나타나는 구간"
+
+    return {
+        "stage": stage,
+        "confidence": confidence,
+        "coverage_ratio": coverage_ratio,
+        "reason": headline_reason,
+        "modules": modules,
+        "missing": missing,
+        "late_euphoria_locked": True,
+    }
+
+
+def cycle_rule_table():
+    return pd.DataFrame([
+        {
+            "단계": "비관",
+            "핵심 조건": "Bear/대폭 하락 + 걱정의 벽 강함 + 주식공급 위축",
+        },
+        {
+            "단계": "회의",
+            "핵심 조건": "가격은 회복/상승하지만 걱정의 벽 강함 + 공급/확산 제한",
+        },
+        {
+            "단계": "낙관",
+            "핵심 조건": "Bull 진행 + 걱정 완화 + 정상적 breadth + 공급 과열 없음",
+        },
+        {
+            "단계": "후기 낙관",
+            "핵심 조건": "Bull 고도화 + 공급 증가/뜨거운 리더십 중 일부 발생 + 걱정은 잔존",
+        },
+        {
+            "단계": "초기 유포리아 후보",
+            "핵심 조건": "일부 과열 포켓 + 공급 증가 + 걱정의 벽 약화/잔존",
+        },
+        {
+            "단계": "후기 유포리아",
+            "핵심 조건": "현재 자동 확정 금지 — IPO/SPAC·저품질 신규공급·expectations gap 연결 필요",
+        },
+    ])
+
+
 # ---------- Load ----------
 style = read_csv("style_leadership_latest.csv")
 style_hist = read_csv("style_leadership_history.csv")
@@ -1627,6 +2042,10 @@ stock_supply_hist = read_csv("stock_supply_sector_history.csv")
 fisher = read_csv("fisher_public_view.csv", REFERENCE)
 author_view = read_csv("kasugano_current_view.csv", REFERENCE)
 
+cycle = classify_sentiment_cycle(
+    style, sector, global_sector, breadth, sentiment, regime, stock_supply
+)
+
 try:
     model_name = st.secrets.get("OPENAI_MODEL", "gpt-5.6-terra")
 except Exception:
@@ -1639,7 +2058,7 @@ st.markdown('<div class="dashboard-subtitle">최근 1~6개월 리더십 변화 �
 if not (has_rows(style) and has_rows(sector)):
     st.warning("아직 데이터가 충분히 생성되지 않았습니다. GitHub Actions 실행 여부를 먼저 확인해 주세요.")
 
-c1, c2, c3 = st.columns([1.0, 1.9, 1.15], gap="small")
+c1, c2, c3, c4 = st.columns([0.95, 1.30, 1.85, 1.05], gap="small")
 
 with c1:
     if has_rows(regime):
@@ -1654,12 +2073,19 @@ with c1:
 
 with c2:
     compact_card(
+        "시장 심리 사이클",
+        [cycle["stage"]],
+        f"규칙 기반 · 신뢰도 {cycle['confidence']}"
+    )
+
+with c3:
+    compact_card(
         "핵심 리더십",
         current_leadership_summary(style, sector, region, global_sector),
         "기존 추세(126일) → 중심(63일) → 단기(21일)"
     )
 
-with c3:
+with c4:
     state_k, axis = strongest_change(style, bounce)
     card("변화 포착", state_k, axis)
 
@@ -1670,15 +2096,63 @@ snapshot = build_market_snapshot(
     pd.DataFrame(), pd.DataFrame(),
     bounce=bounce, stock_supply=stock_supply
 )
+snapshot["규칙기반_시장심리사이클"] = {
+    "현재단계": cycle["stage"],
+    "신뢰도": cycle["confidence"],
+    "핵심근거": cycle["reason"],
+    "모듈": cycle["modules"],
+    "미연결": cycle["missing"],
+}
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
 with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.14:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.17-cycle:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply, bounce)
+    sections["인사이트"] = [
+        f"사이클: {cycle['stage']} · {cycle['reason']}"
+    ] + sections.get("인사이트", [])
+    sections["인사이트"] = sections["인사이트"][:4]
 render_main_sections(sections, f"GPT 리더십 변화 해석 · {model_name}" if gpt_main else None)
 if gpt_main_error and not gpt_main:
     st.caption(f"GPT API 미연결: {gpt_main_error}")
+
+st.markdown("### 시장 심리 사이클 판정")
+st.markdown(
+    f'<div class="explain-box"><b>{cycle["stage"]}</b> · 신뢰도 {cycle["confidence"]}<br>'
+    f'{cycle["reason"]}</div>',
+    unsafe_allow_html=True,
+)
+
+cycle_modules_df = pd.DataFrame(cycle["modules"])
+st.dataframe(
+    cycle_modules_df,
+    use_container_width=True,
+    hide_index=True,
+    column_config={
+        "모듈": st.column_config.TextColumn(width="medium"),
+        "판정": st.column_config.TextColumn(width="medium"),
+        "근거": st.column_config.TextColumn(width="large"),
+        "측정": st.column_config.TextColumn(width="small"),
+    },
+)
+
+st.caption(
+    "후기 유포리아는 현재 자동 확정하지 않습니다. "
+    "IPO/SPAC·저품질 신규공급과 실적/경제 expectations gap 데이터가 연결되어야 합니다."
+)
+
+with st.expander("사이클 판정 로직 보기"):
+    st.dataframe(cycle_rule_table(), use_container_width=True, hide_index=True)
+    st.markdown(
+        """
+- **Wall of Worry**: VIX·하이일드 스프레드 proxy로 걱정이 남아있는지 봅니다.
+- **Equity Supply**: 현재는 기존 상장기업의 발행주식수 변화만 반영하므로 `부분 측정`입니다.
+- **Speculation**: 성장/시총가중/기술주 리더십과 심리 proxy로 `일부 포켓`만 탐지합니다.
+- **Expectations Gap**: 실적 surprise·경제 surprise 데이터가 아직 없어 판정에 넣지 않습니다.
+- 따라서 이 모델은 **극단을 억지로 점수화하지 않고 조건을 만족할 때만 단계가 이동**합니다.
+        """
+    )
 
 st.divider()
 
