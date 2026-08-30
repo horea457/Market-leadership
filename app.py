@@ -25,15 +25,30 @@ st.set_page_config(
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 1rem;
+    padding-top: 1.15rem;
     padding-bottom: 2rem;
     max-width: 1500px;
+}
+.block-container h1 {
+    line-height: 1.30 !important;
+    padding-top: 0.06em !important;
+    padding-bottom: 0.18em !important;
+    margin-bottom: 0.10em !important;
+    overflow: visible !important;
+}
+.block-container h1 span,
+.block-container h1 div {
+    line-height: 1.30 !important;
+    overflow: visible !important;
 }
 .metric-card {
     border: 1px solid rgba(128,128,128,.22);
     border-radius: 14px;
     padding: 16px 18px;
-    min-height: 138px;
+    min-height: 150px;
+    height: auto;
+    overflow: visible;
+    box-sizing: border-box;
     background: white;
 }
 .metric-label {
@@ -43,30 +58,38 @@ st.markdown("""
     font-weight: 600;
 }
 .metric-value {
-    font-size: 1.9rem;
+    font-size: clamp(1.35rem, 1.75vw, 1.9rem);
     line-height: 1.22;
     font-weight: 700;
     color: #0f172a;
     word-break: keep-all;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 .metric-value-compact {
-    font-size: 1.02rem;
+    font-size: 0.94rem;
     line-height: 1.48;
     font-weight: 600;
     color: #0f172a;
     white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 .metric-sub-compact {
     margin-top: 0.55rem;
-    font-size: 0.86rem;
+    font-size: 0.82rem;
     color: #64748b;
-    line-height: 1.3;
+    line-height: 1.35;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 .metric-sub {
     margin-top: 0.7rem;
-    font-size: 0.93rem;
+    font-size: 0.88rem;
     color: #64748b;
     line-height: 1.35;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 .section-note {
     font-size: 0.94rem;
@@ -122,7 +145,6 @@ st.markdown("""
 }
 .main-section-card.trend { border-left: 5px solid #2563eb; }
 .main-section-card.insight { border-left: 5px solid #d97706; }
-.main-section-card.direction { border-left: 5px solid #059669; }
 .main-section-title {
     font-size: 1.02rem;
     font-weight: 750;
@@ -915,7 +937,6 @@ def _main_section_html(title, items, css_class):
 def render_main_sections(sections, caption=None):
     st.markdown(_main_section_html("동향", sections.get("동향", []), "trend"), unsafe_allow_html=True)
     st.markdown(_main_section_html("인사이트", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
-    st.markdown(_main_section_html("다이렉션", sections.get("다이렉션", []), "direction"), unsafe_allow_html=True)
     if caption:
         st.caption(caption)
 
@@ -935,7 +956,7 @@ def parse_main_sections(text):
     if not isinstance(obj, dict):
         return None
     out = {}
-    for key in ["동향", "인사이트", "다이렉션"]:
+    for key in ["동향", "인사이트"]:
         val = obj.get(key, [])
         if isinstance(val, str):
             val = [val]
@@ -946,46 +967,107 @@ def parse_main_sections(text):
 
 
 def fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply=None, bounce_df=None):
-    trend, insight, direction = [], [], []
+    trend, insight = [], []
+
+    # Style: only the most important current change.
     if has_rows(style):
         gvx = style[style["pair_id"].eq("growth_value")]
         cex = style[style["pair_id"].eq("cap_equal")]
-        uxx = style[style["pair_id"].eq("us_developed_ex_us")]
+        if len(gvx):
+            gv = gvx.iloc[0]
+            lab, _ = style_change_judgement(gv, bounce_df)
+            trend.append(
+                f"스타일: 성장/가치는 {leader_to_kor(gv.get('leader_126'))} → "
+                f"{leader_to_kor(gv.get('leader_63'))} → {leader_to_kor(gv.get('leader_21'))}; "
+                f"현재 변화판정은 {lab}입니다."
+            )
+        if len(cex):
+            ce = cex.iloc[0]
+            if ce.get("leader_21") != ce.get("leader_63"):
+                trend.append(
+                    f"가중방식: 63일 {leader_to_kor(ce.get('leader_63'))}에서 "
+                    f"21일 {leader_to_kor(ce.get('leader_21'))} 쪽으로 단기 이동 중입니다."
+                )
+
+    # Region: name the 63d leader, 21d leader and strongest riser.
+    if has_rows(region):
+        r = region.copy()
+        top63 = r.sort_values(["rank_63", "rank_21"]).iloc[0]
+        top21 = r.sort_values(["rank_21", "rank_63"]).iloc[0]
+        riser = r.sort_values("rank_change_21_vs_63", ascending=False).iloc[0] if "rank_change_21_vs_63" in r.columns else top21
+        trend.append(
+            f"지역: 63일 리더는 {REGION_MAP.get(top63.get('ticker'), top63.get('ticker'))}, "
+            f"21일 리더는 {REGION_MAP.get(top21.get('ticker'), top21.get('ticker'))}; "
+            f"가장 빠르게 올라오는 지역은 {REGION_MAP.get(riser.get('ticker'), riser.get('ticker'))}입니다."
+        )
+
+    # Global and US sectors: explicit leader transitions.
+    if has_rows(global_sector):
+        g = global_sector.copy()
+        g63 = g.sort_values(["rank_63", "rank_21"]).iloc[0]
+        g21 = g.sort_values(["rank_21", "rank_63"]).iloc[0]
+        trend.append(
+            f"섹터: 글로벌 리더는 63일 {GLOBAL_SECTOR_SHORT.get(g63.get('ticker'), g63.get('ticker'))} → "
+            f"21일 {GLOBAL_SECTOR_SHORT.get(g21.get('ticker'), g21.get('ticker'))}로 이동했습니다."
+        )
+    if has_rows(sector):
+        s = sector.copy()
+        s63 = s.sort_values(["rank_63", "rank_21"]).iloc[0]
+        s21 = s.sort_values(["rank_21", "rank_63"]).iloc[0]
+        trend.append(
+            f"미국 섹터는 63일 {US_SECTOR_SHORT.get(s63.get('ticker'), s63.get('ticker'))} → "
+            f"21일 {US_SECTOR_SHORT.get(s21.get('ticker'), s21.get('ticker'))}가 선두입니다."
+        )
+
+    # Insight: sustainability, breadth and equity supply.
+    if has_rows(style):
+        gvx = style[style["pair_id"].eq("growth_value")]
         if len(gvx):
             gv = gvx.iloc[0]
             lab, why = style_change_judgement(gv, bounce_df)
-            trend.append(f"성장/가치: 126일 {leader_to_kor(gv.get('leader_126'))} → 63일 {leader_to_kor(gv.get('leader_63'))} → 21일 {leader_to_kor(gv.get('leader_21'))}.")
-            insight.append(f"성장/가치 변화는 '{lab}'로 판정: {why}.")
-        if len(cex):
-            ce = cex.iloc[0]
-            lab, why = style_change_judgement(ce, bounce_df)
-            trend.append(f"가중방식: 126일 {leader_to_kor(ce.get('leader_126'))} → 63일 {leader_to_kor(ce.get('leader_63'))} → 21일 {leader_to_kor(ce.get('leader_21'))}.")
-            insight.append(f"가중방식은 '{lab}': {why}.")
-        if len(uxx):
-            ux = uxx.iloc[0]
-            lab, _ = style_change_judgement(ux, bounce_df)
-            trend.append(f"미국/비미국: 126일 {leader_to_kor(ux.get('leader_126'))} → 63일 {leader_to_kor(ux.get('leader_63'))} → 21일 {leader_to_kor(ux.get('leader_21'))}.")
-            insight.append(f"지역 리더십 변화는 '{lab}' 단계입니다.")
-    if has_rows(global_sector):
-        t21 = global_sector.sort_values(["rank_21", "rank_63"]).iloc[0]
-        t63 = global_sector.sort_values(["rank_63", "rank_21"]).iloc[0]
-        trend.append(f"글로벌 섹터는 63일 {GLOBAL_SECTOR_SHORT.get(t63.get('ticker'), t63.get('ticker'))}에서 21일 {GLOBAL_SECTOR_SHORT.get(t21.get('ticker'), t21.get('ticker'))} 쪽으로 단기 리더가 이동했습니다.")
+            insight.append(f"지속성: 성장/가치 변화는 {lab}. {why}.")
+
     if has_rows(breadth):
         b21 = breadth[breadth["window"].eq(21)]
         if len(b21):
             bp = float(b21.iloc[0].get("breadth_pct"))
-            insight.append(f"21일 breadth는 {bp*100:.1f}%로, 신규 리더십이 시장 전반으로 확산됐는지 판단할 핵심 확인 신호입니다.")
+            spread_msg = "아직 리더십 확산이 좁습니다" if bp < 0.5 else "리더십이 시장 전반으로 확산되는 편입니다"
+            insight.append(f"확산성: 21일 breadth {bp*100:.1f}%로 {spread_msg}.")
+
     if has_rows(stock_supply):
-        for universe, label in [("US", "미국"), ("EX_US", "비미국")]:
+        supply_bits = []
+        for universe, label in [("US", "미국"), ("EX_US", "글로벌 ex-US")]:
             u = stock_supply[stock_supply["universe"].eq(universe)].copy()
             if len(u):
                 u["weighted_change_12m"] = pd.to_numeric(u["weighted_change_12m"], errors="coerce")
-                top = u.sort_values("weighted_change_12m", ascending=False).iloc[0]
-                trend.append(f"{label} 주식공급은 {top.get('sector_ko', top.get('sector'))}에서 12개월 주식수 증가가 가장 큽니다.")
-    direction.append("21일만 바뀐 축은 추격하지 말고 63일 정렬 여부를 먼저 확인합니다.")
-    direction.append("21일과 63일이 같은 방향으로 정렬되고 breadth까지 넓어지면 리더십 전환 신뢰도를 한 단계 높입니다.")
-    direction.append("주식공급 증가가 특정 리더 섹터에서 함께 가속되면 후기 낙관/유포리아 위험 신호로 별도 점검합니다.")
-    return {"동향": trend[:4], "인사이트": insight[:4], "다이렉션": direction[:4]}
+                u = u.dropna(subset=["weighted_change_12m"])
+                if len(u):
+                    top = u.sort_values("weighted_change_12m", ascending=False).iloc[0]
+                    supply_bits.append(
+                        f"{label} {top.get('sector_ko', top.get('sector'))} "
+                        f"{float(top.get('weighted_change_12m'))*100:+.1f}%"
+                    )
+        if supply_bits:
+            insight.append("주식공급: 12개월 공급 증가가 큰 축은 " + ", ".join(supply_bits) + "입니다.")
+
+    # Final focus line is insight, not a separate direction section.
+    focus_parts = []
+    if has_rows(region):
+        top21 = region.sort_values(["rank_21", "rank_63"]).iloc[0]
+        focus_parts.append(REGION_MAP.get(top21.get("ticker"), top21.get("ticker")))
+    if has_rows(global_sector):
+        g21 = global_sector.sort_values(["rank_21", "rank_63"]).iloc[0]
+        focus_parts.append("글로벌 " + GLOBAL_SECTOR_SHORT.get(g21.get("ticker"), g21.get("ticker")))
+    if has_rows(sector):
+        s21 = sector.sort_values(["rank_21", "rank_63"]).iloc[0]
+        focus_parts.append("미국 " + US_SECTOR_SHORT.get(s21.get("ticker"), s21.get("ticker")))
+    if focus_parts:
+        insight.append(
+            "중점 관찰: " + " · ".join(focus_parts[:3]) +
+            "의 21일 강세가 63일 리더십으로 이어지는지와 breadth 확대를 함께 봐야 합니다."
+        )
+
+    return {"동향": trend[:4], "인사이트": insight[:4]}
 
 
 def fallback_style_chart_insight(snapshot):
@@ -1021,25 +1103,33 @@ def fallback_breadth(snapshot):
 
 MAIN_PROMPT = """
 너는 글로벌 주식시장 리더십 변화의 지속성을 판별하는 투자 리서치 보조자다.
-입력 JSON에 있는 데이터만 사용한다. 외부 뉴스나 원인을 추측하지 않는다.
+입력 JSON에 있는 데이터만 사용한다. 외부 뉴스나 원인은 추측하지 않는다.
 
 반드시 아래 JSON 객체 하나만 출력한다. 코드펜스나 markdown은 쓰지 않는다.
 {
   "동향": ["문장", "문장", "문장"],
-  "인사이트": ["문장", "문장", "문장"],
-  "다이렉션": ["문장", "문장", "문장"]
+  "인사이트": ["문장", "문장", "문장"]
 }
 
 작성 규칙:
-1. 동향: '무엇이 바뀌고 있는가'만 쓴다. 126일 → 63일 → 21일 순으로 스타일 변화, 미국/비미국, 글로벌/미국 섹터, breadth, 주식공급 변화를 구체적으로 적는다.
-2. 인사이트: 변화가 '일시적 가능성 / 전환 초기 / 전환 진행 / 지속' 중 어디에 가까운지 판단하고 근거를 쓴다. 21일 단독 변화는 약하게, 21·63일 정렬은 강하게 본다.
-3. 일시적 반등 여부를 판단할 때 빈도, 상대강도, 63/126일 정렬, bounce-effect 정보, breadth, 글로벌 확인 신호를 함께 본다.
-4. 주식공급은 미국과 글로벌/ex-US를 구분한다. 주식공급 증가가 강세 리더 섹터와 겹치는지 여부를 late-optimism/euphoria 보조 신호로 해석하되, IPO 전체 공급과 동일시하지 않는다.
-5. 다이렉션: 매수/매도 종목 추천이 아니라 '현재 중심축 유지 / 신규 리더 관찰 / 어떤 조건에서 전환 인정 / 어떤 조건에서 신호 폐기'처럼 행동 규칙을 명확히 쓴다.
-6. '확인 필요'로 끝내지 말고 무엇이 확인되면 판단이 바뀌는지 명시한다. 예: 21일 리더가 63일에도 우위 + breadth 50% 이상 + 글로벌 동조.
-7. 각 배열은 2~4개 문장, 각 문장은 가능한 한 1~2줄로 간결하게 쓴다.
-8. '도취'라는 단어는 쓰지 않고 '유포리아'를 사용한다.
-9. 특정 필명은 절대 쓰지 않는다.
+1. 동향은 정확히 3~4개 문장으로 쓴다.
+2. 동향에서 반드시 다음을 구체적인 이름과 숫자로 다룬다.
+   - 스타일: 126일 → 63일 → 21일 중 실제로 바뀐 축
+   - 지역: 63일 리더, 21일 리더, 가장 빠르게 순위가 상승한 지역
+   - 글로벌 섹터와 미국 섹터: 63일 → 21일 리더 변화
+   - 의미 없는 변화가 없으면 억지로 쓰지 않는다.
+3. 인사이트는 정확히 3~4개 문장으로 쓴다.
+4. 인사이트 첫 문장은 변화의 지속성을 '일시적 가능성 / 전환 초기 / 전환 진행 / 지속' 중 하나로 판정한다.
+5. 인사이트에는 반드시 breadth를 넣어 리더십이 좁은지 넓어지는지 판단한다.
+6. 주식공급 데이터가 있으면 미국과 글로벌 ex-US에서 공급 증가가 가장 큰 섹터를 명시하고,
+   현재 리더 섹터와 공급 증가가 겹치는지 여부를 한 문장으로 해석한다.
+7. 마지막 인사이트는 '중점 관찰:'로 시작하고,
+   지금 가장 중요하게 볼 지역/섹터 2~3개와 무엇이 63일로 이어져야 하는지를 명확히 적는다.
+8. '확인 필요', '지켜봐야 한다' 같은 모호한 표현만 쓰지 말고 어떤 변화가 이어져야 하는지 구체화한다.
+9. 각 문장은 최대 90자 안팎으로 간결하게 쓴다.
+10. 매수/매도 추천은 하지 않는다.
+11. '도취'라는 단어는 쓰지 않고 '유포리아'를 사용한다.
+12. 특정 필명은 절대 쓰지 않는다.
 """
 
 STYLE_CHART_PROMPT = """
@@ -1511,7 +1601,7 @@ st.caption("최근 1~6개월 리더십 변화 · Fisher 심리 사이클 기반"
 if not (has_rows(style) and has_rows(sector)):
     st.warning("아직 데이터가 충분히 생성되지 않았습니다. GitHub Actions 실행 여부를 먼저 확인해 주세요.")
 
-c1, c2, c3, c4, c5 = st.columns(5)
+c1, c2, c3, c4, c5 = st.columns([1.08, 1.08, 1.0, 1.55, 1.12], gap="small")
 with c1:
     if has_rows(regime):
         r = regime.iloc[-1]
@@ -1531,7 +1621,7 @@ with c3:
     else:
         card("현재 해석", "—", "")
 with c4:
-    compact_card("핵심 리더십", current_leadership_summary(style, sector, region, global_sector), "21일 → 63일 기준")
+    compact_card("핵심 리더십", current_leadership_summary(style, sector, region, global_sector), "단기(21일) → 중심(63일)")
 with c5:
     state_k, axis = strongest_change(style, bounce)
     card("변화 포착", state_k, axis)
@@ -1543,12 +1633,12 @@ snapshot = build_market_snapshot(
     bounce=bounce, stock_supply=stock_supply
 )
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
-with st.spinner("변화의 지속성과 다음 확인 조건을 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.6:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.14:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply, bounce)
-render_main_sections(sections, f"GPT 변화 해석 · {model_name}" if gpt_main else None)
+render_main_sections(sections, f"GPT 리더십 변화 해석 · {model_name}" if gpt_main else None)
 if gpt_main_error and not gpt_main:
     st.caption(f"GPT API 미연결: {gpt_main_error}")
 
