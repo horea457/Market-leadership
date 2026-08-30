@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 import html
+import numpy as np
 import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
@@ -272,6 +273,26 @@ st.markdown("""
     color: #334155;
     font-size: .80rem;
     line-height: 1.4;
+}
+
+
+.sector-engine-box {
+    border: 1px solid rgba(148, 163, 184, .26);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: .6rem 0 1rem 0;
+    background: rgba(248, 250, 252, .65);
+}
+.sector-engine-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: .35rem;
+}
+.sector-engine-sub {
+    font-size: .84rem;
+    color: #64748b;
+    line-height: 1.45;
 }
 
 </style>
@@ -1854,12 +1875,18 @@ MAIN_PROMPT = """
 8. 네 번째 문장은 "구 리더:"로 시작하고 이탈 후보가 있는지 명시한다.
 9. 다섯 번째 문장은 "리더십 폭:"으로 시작하고 21일과 63일 breadth를 집중/확산으로 해석한다.
 10. 여섯 번째 문장이 필요하면 "공급:"으로 시작하고 현재 리더와 주식공급의 중첩을 설명한다.
-11. 일반론을 반복하지 말고 실제 ticker·지역·섹터·수치 중심으로 쓴다.
-12. "현재 대응"은 지금 유지할 것, 추격하지 않을 것, 무엇이 확인되면 비중 이동을 검토할지를 한 문장에 쓴다.
-13. 행동 조건은 breadth 50%/60% 같은 고정 임계값이 아니라 63일 지속성 + 교차축 동조 + 구 리더 약화를 사용한다.
-14. 시간제약 레버리지가 있다는 경우에만 점진 축소를 조건부로 언급한다.
-15. 특정 ETF 직접 매수/매도 명령은 하지 않는다.
-16. 특정 필명은 절대 쓰지 않는다.
+11. "섹터리더십엔진"이 있으면 STRUCTURAL/CONSIDER를 최우선으로 언급하고 WATCH를 다음 리서치 후보로 제시한다.
+12. BOUNCE는 "신규 리더 확인 전", DECAY는 "기존 리더 약화"라고 명확히 표현한다.
+13. 일반론을 반복하지 말고 실제 ticker·지역·섹터·수치 중심으로 쓴다.
+14. "현재 대응"은 지금 유지할 것, 리서치를 시작할 섹터, 추격하지 않을 섹터,
+    무엇이 확인되면 실제 편입/비중 확대를 검토할지를 한 문장에 쓴다.
+15. 행동 조건은 breadth 고정 임계값이 아니라 63일 지속성 + 126일 동조 + 반복적 초과성과 + 구 리더 약화를 사용한다.
+16. 섹터리더십엔진의 실제 연결모듈을 읽는다. 12-1/12-7, consistency, Bounce, 내부 breadth, Earnings, Capital, Supply가 판정 근거에 있으면 구체적으로 언급한다.
+17. STRUCTURAL은 가격 persistence뿐 아니라 earnings 확인 + 섹터 내부 확산 + 자본공급 과열 부재가 함께 확인된 경우에만 구조적 리더 후보라고 쓴다.
+18. MATURE는 장기 리더십 자체가 나쁘다는 뜻이 아니라 자본·공급 반응이 커져 신규 추격의 기대수익을 재점검하는 상태라고 설명한다.
+19. 시간제약 레버리지가 있다는 경우에만 점진 축소를 조건부로 언급한다.
+20. 특정 ETF 직접 매수/매도 명령은 하지 않는다.
+21. 특정 필명은 절대 쓰지 않는다.
 """
 
 STYLE_CHART_PROMPT = """
@@ -1890,6 +1917,9 @@ CROSS_SECTION_PROMPT = """
 - 시장 전체가 회복하는데도 과거 리더가 복귀하지 못하는 현상을 새 레짐의 단서로 본다.
 - 다만 현재 데이터는 최대 126일이므로 장기간 구조적 탈락을 확정하지 말고 '후보'로 표현한다.
 - 섹터 ETF가 비리딩이어도 섹터 내부의 신규 대표 기업은 존재할 수 있음을 한 줄에서 주의한다.
+- 21일만 강하면 NOISE/단기 급부상, 63일 개선은 WATCH, 63일+126일 동조는 CONSIDER 후보 관점으로 설명한다.
+- 직전 큰 낙폭 이후 21·63일만 강하면 BOUNCE 가능성을 우선 점검한다.
+- 126일 리더가 63·21일 모두 약하면 DECAY/구 리더 이탈 후보로 설명한다.
 """
 
 BREADTH_PROMPT = """
@@ -2805,6 +2835,496 @@ def cycle_rule_table():
     ])
 
 
+
+# ---------- Sector Leadership Engine · research-integrated ----------
+SECTOR_STATE_KO = {
+    "NOISE": "노이즈",
+    "BOUNCE": "반등 후보",
+    "WATCH": "관심 시작",
+    "CONSIDER": "편입 검토",
+    "STRUCTURAL": "구조적 리더 후보",
+    "MATURE": "성숙 리더",
+    "DECAY": "이탈/약화",
+    "NEUTRAL": "중립",
+}
+
+
+def _eng_num(v):
+    try:
+        x = float(v)
+        return None if pd.isna(x) else x
+    except Exception:
+        return None
+
+
+def _eng_bool(v):
+    if isinstance(v, str):
+        return v.strip().lower() in ["1", "true", "yes", "y"]
+    try:
+        return bool(v) if not pd.isna(v) else False
+    except Exception:
+        return False
+
+
+def _rank_bucket(rank, n):
+    """Cross-sectional bucket; thresholds remain research-stage until event-study validation."""
+    if rank is None or n is None or n <= 0:
+        return None
+    top_cut = max(2, int(np.ceil(n * 0.30)))
+    mid_cut = max(top_cut + 1, int(np.ceil(n * 0.55)))
+    if rank <= top_cut:
+        return "TOP"
+    if rank <= mid_cut:
+        return "MID"
+    return "LOW"
+
+
+def _row_for(df, ticker, window=None):
+    if not has_rows(df) or "ticker" not in df.columns:
+        return None
+    x = df[df["ticker"].eq(ticker)].copy()
+    if window is not None and "window" in x.columns:
+        x["window"] = pd.to_numeric(x["window"], errors="coerce")
+        x = x[x["window"].eq(window)]
+    if not len(x):
+        return None
+    return x.iloc[-1]
+
+
+def _sector_supply_lookup(stock_supply_df, universe, sector_ko):
+    if not has_rows(stock_supply_df):
+        return None
+    x = stock_supply_df[stock_supply_df["universe"].eq(universe)].copy()
+    if not len(x) or "sector_ko" not in x.columns:
+        return None
+    x["weighted_change_12m"] = pd.to_numeric(x["weighted_change_12m"], errors="coerce")
+    norm = str(sector_ko).replace("커뮤니케이션서비스", "커뮤니케이션")
+    x["_norm"] = x["sector_ko"].astype(str).str.replace("커뮤니케이션서비스", "커뮤니케이션", regex=False)
+    m = x[x["_norm"].eq(norm)]
+    if not len(m):
+        return None
+    r = m.iloc[0]
+    # Cross-sector percentile is more defensible than a fixed absolute cut-off.
+    xr = x["weighted_change_12m"].rank(pct=True, ascending=True)
+    pct = xr.loc[r.name] if r.name in xr.index else np.nan
+    return {
+        "weighted_change_12m": _eng_num(r.get("weighted_change_12m")),
+        "supply_percentile": _eng_num(pct),
+        "coverage": _eng_num(r.get("coverage_of_sector_weight")),
+    }
+
+
+def _research_price_row(ticker, research_df):
+    r = _row_for(research_df, ticker)
+    if r is None:
+        return {}
+    keys = [
+        "rank_21","rank_63","rank_126","rank_252","rank_756",
+        "excess_21","excess_63","excess_126","excess_252","excess_756",
+        "excess_12_1","excess_12_7","rank_12_1","rank_12_7",
+        "consistency_12m","rank_consistency_12m",
+        "freq_21","freq_63","freq_126","freq_252",
+        "magnitude_63","monthly_rel_magnitude_12m",
+        "bounce_flag_research","old_leader_failure_flag","rank_improvement_126_to_63",
+        "prior_drawdown_252_ex63","benchmark_prior_drawdown_252_ex63",
+    ]
+    return {k: r.get(k) for k in keys if k in r.index}
+
+
+def _module_label(ok, missing=False, hot=False, weak=False):
+    if missing:
+        return "미연결"
+    if hot:
+        return "과열"
+    if weak:
+        return "약화"
+    return "확인" if ok else "미확인"
+
+
+def classify_sector_leadership(
+    df, mapping, benchmark_label,
+    research_df=None,
+    stock_supply_df=None, supply_universe=None,
+    internal_breadth_df=None,
+    fundamentals_df=None,
+    earnings_df=None,
+    primary_supply_df=None,
+    regime_df=None,
+    is_global=False,
+):
+    """
+    Literature-integrated sector leadership state machine.
+
+    Research modules actually consumed when present:
+    1) 3-12M momentum / industry momentum
+    2) 12-1 and 12-7 intermediate-horizon momentum
+    3) return consistency + win frequency / magnitude
+    4) market-state-conditioned Bounce filter
+    5) old-leader failure / long-horizon persistence (252D/756D)
+    6) US intra-sector breadth / dispersion
+    7) earnings surprise + analyst estimate revisions
+    8) CapEx / asset growth
+    9) share issuance + primary-market issuance context
+
+    Global sectors currently lack comparable SEC/consensus/internal-breadth coverage,
+    therefore their maximum positive state is CONSIDER until those modules are connected.
+    """
+    if not has_rows(df):
+        return pd.DataFrame()
+
+    n = len(df)
+    top_n = max(2, int(np.ceil(n * 0.30)))
+    mid_n = max(top_n + 1, int(np.ceil(n * 0.55)))
+
+    # Build cross-sector ranks for optional research modules.
+    ib_rank = {}
+    if has_rows(internal_breadth_df) and "window" in internal_breadth_df.columns:
+        ib = internal_breadth_df.copy()
+        ib["window"] = pd.to_numeric(ib["window"], errors="coerce")
+        ib = ib[ib["window"].eq(63)].copy()
+        if len(ib) and "breadth_vs_spy_pct" in ib.columns:
+            ib["_rank"] = pd.to_numeric(ib["breadth_vs_spy_pct"], errors="coerce").rank(ascending=False, method="min")
+            ib_rank = dict(zip(ib["ticker"], ib["_rank"]))
+
+    earn_rank = {}
+    if has_rows(earnings_df) and "eps_revision_30d" in earnings_df.columns:
+        er = earnings_df.copy()
+        er["_rank"] = pd.to_numeric(er["eps_revision_30d"], errors="coerce").rank(ascending=False, method="min")
+        earn_rank = dict(zip(er["ticker"], er["_rank"]))
+
+    capex_rank = {}
+    asset_rank = {}
+    if has_rows(fundamentals_df):
+        fr = fundamentals_df.copy()
+        if "median_capex_growth_yoy" in fr.columns:
+            fr["_capex_rank"] = pd.to_numeric(fr["median_capex_growth_yoy"], errors="coerce").rank(ascending=False, method="min")
+            capex_rank = dict(zip(fr["ticker"], fr["_capex_rank"]))
+        if "median_asset_growth_yoy" in fr.columns:
+            fr["_asset_rank"] = pd.to_numeric(fr["median_asset_growth_yoy"], errors="coerce").rank(ascending=False, method="min")
+            asset_rank = dict(zip(fr["ticker"], fr["_asset_rank"]))
+
+    primary_state = None
+    low_quality_state = None
+    if has_rows(primary_supply_df):
+        pr = primary_supply_df.iloc[-1]
+        primary_state = str(pr.get("supply_state", "")).lower()
+        low_quality_state = str(pr.get("low_quality_state", "")).lower()
+
+    market_ctx = market_regime_context(regime_df) if has_rows(regime_df) else {"state": "불명확", "score": 0}
+    market_state = market_ctx.get("state", "불명확")
+
+    rows = []
+    for _, base in df.iterrows():
+        ticker = base.get("ticker")
+        name = mapping.get(ticker, ticker)
+        rp = _research_price_row(ticker, research_df)
+
+        # Prefer research feature file, fall back to existing leadership file.
+        def val(key):
+            v = rp.get(key, None)
+            if v is None or (isinstance(v, float) and pd.isna(v)):
+                v = base.get(key, None)
+            return _eng_num(v)
+
+        r21, r63, r126 = val("rank_21"), val("rank_63"), val("rank_126")
+        r252, r756 = val("rank_252"), val("rank_756")
+        ex21, ex63, ex126 = val("excess_21"), val("excess_63"), val("excess_126")
+        ex252, ex756 = val("excess_252"), val("excess_756")
+        r121, r127 = val("rank_12_1"), val("rank_12_7")
+        ex121, ex127 = val("excess_12_1"), val("excess_12_7")
+        consistency = val("consistency_12m")
+        rc = val("rank_consistency_12m")
+        f63 = val("freq_63")
+        magnitude63 = val("magnitude_63")
+
+        b21, b63, b126 = _rank_bucket(r21, n), _rank_bucket(r63, n), _rank_bucket(r126, n)
+        b252, b756 = _rank_bucket(r252, n), _rank_bucket(r756, n)
+        b121, b127 = _rank_bucket(r121, n), _rank_bucket(r127, n)
+
+        bounce_flag = _eng_bool(rp.get("bounce_flag_research", False))
+        old_fail = _eng_bool(rp.get("old_leader_failure_flag", False))
+
+        # Return path quality.
+        consistency_support = (
+            (rc is not None and rc <= mid_n)
+            or (consistency is not None and consistency >= 0.50)
+        )
+        medium_support = b63 == "TOP" and ex63 is not None and ex63 > 0
+        long_supports = sum([
+            b126 in ["TOP", "MID"] and ex126 is not None and ex126 > 0,
+            b121 in ["TOP", "MID"] and ex121 is not None and ex121 > 0,
+            b127 in ["TOP", "MID"] and ex127 is not None and ex127 > 0,
+        ])
+        long_leader = (
+            (b252 == "TOP" and ex252 is not None and ex252 > 0)
+            or (b756 == "TOP" and ex756 is not None and ex756 > 0)
+        )
+
+        # Intra-sector breadth: relative rank and direction of change, not a 50% gate.
+        ib = _row_for(internal_breadth_df, ticker, 63)
+        ib_value = _eng_num(ib.get("breadth_vs_spy_pct")) if ib is not None else None
+        ib_change = _eng_num(ib.get("breadth_vs_spy_change_1m")) if ib is not None else None
+        ib_disp = _eng_num(ib.get("dispersion_std")) if ib is not None else None
+        ib_support = (
+            ticker in ib_rank and _eng_num(ib_rank[ticker]) is not None and _eng_num(ib_rank[ticker]) <= mid_n
+        ) or (ib_change is not None and ib_change > 0)
+        ib_missing = ib is None
+
+        # Earnings confirmation.
+        er = _row_for(earnings_df, ticker)
+        eps_rev = _eng_num(er.get("eps_revision_30d")) if er is not None else None
+        surprise = _eng_num(er.get("earnings_surprise_4q_avg_pct")) if er is not None else None
+        pos_surprise = _eng_num(er.get("positive_surprise_pct")) if er is not None else None
+        earnings_sample_n = _eng_num(er.get("n_sampled_names")) if er is not None else None
+        earnings_broad = earnings_sample_n is not None and earnings_sample_n >= 2
+        earnings_support = (
+            (eps_rev is not None and eps_rev > 0)
+            or (surprise is not None and surprise > 0 and pos_surprise is not None and pos_surprise >= 0.50)
+        )
+        earnings_weak = (
+            eps_rev is not None and eps_rev < 0
+            and surprise is not None and surprise <= 0
+        )
+        earnings_missing = er is None or (eps_rev is None and surprise is None)
+
+        # Capital-cycle confirmation from official filed fundamentals.
+        fr = _row_for(fundamentals_df, ticker)
+        asset_growth = _eng_num(fr.get("median_asset_growth_yoy")) if fr is not None else None
+        capex_growth = _eng_num(fr.get("median_capex_growth_yoy")) if fr is not None else None
+        capital_hot = (
+            ticker in capex_rank and _eng_num(capex_rank[ticker]) is not None and _eng_num(capex_rank[ticker]) <= top_n
+            and ticker in asset_rank and _eng_num(asset_rank[ticker]) is not None and _eng_num(asset_rank[ticker]) <= mid_n
+        )
+        capital_missing = fr is None
+
+        # Listed share supply.
+        supply = _sector_supply_lookup(stock_supply_df, supply_universe, name) if supply_universe else None
+        share_supply = supply.get("weighted_change_12m") if supply else None
+        share_supply_pct = supply.get("supply_percentile") if supply else None
+        listed_supply_hot = share_supply_pct is not None and share_supply_pct >= 0.70 and share_supply is not None and share_supply > 0
+        primary_hot = primary_state in ["rising", "frenzy"]
+        low_quality_hot = low_quality_state == "high"
+
+        # Evidence coverage used in UI; no hidden score decides state.
+        module_flags = {
+            "중기Momentum": r63 is not None,
+            "Intermediate": r121 is not None or r127 is not None,
+            "Consistency": consistency is not None or f63 is not None,
+            "Bounce": "bounce_flag_research" in rp,
+            "내부Breadth": not ib_missing,
+            "Earnings": not earnings_missing,
+            "Capital": not capital_missing,
+            "Supply": supply is not None,
+            "MarketState": has_rows(regime_df),
+        }
+        evidence_connected = sum(bool(v) for v in module_flags.values())
+        evidence_total = len(module_flags)
+
+        # ----------------------------------------------------
+        # State machine; ordering prevents a rebound from being
+        # promoted simply because its last 1-3 months look strong.
+        # ----------------------------------------------------
+        if old_fail or (
+            (b252 == "TOP" or b756 == "TOP")
+            and b63 == "LOW" and b21 == "LOW"
+            and ex63 is not None and ex63 < 0
+        ):
+            state = "DECAY"
+            reason = "과거 장기 리더가 시장 회복 국면에서도 63·21일 상대강도를 잃음"
+
+        elif b21 == "TOP" and b63 == "LOW":
+            state = "NOISE"
+            reason = "21일만 강하고 63일 persistence가 없어 단기 급부상으로 분류"
+
+        elif bounce_flag:
+            state = "BOUNCE"
+            reason = "직전 큰 낙폭 뒤 시장 반등과 함께 급반등; 12-1/12-7 구조적 momentum 확인 전"
+
+        else:
+            consider_base = medium_support and long_supports >= 2 and consistency_support
+            watch_base = (
+                ex63 is not None and ex63 > 0
+                and b63 in ["TOP", "MID"]
+                and (val("rank_improvement_126_to_63") is None or val("rank_improvement_126_to_63") > 0 or b63 == "TOP")
+            )
+
+            # Mature means long-running price leadership is now meeting a strong capital/supply response.
+            mature = long_leader and (capital_hot or listed_supply_hot) and (primary_hot or earnings_weak or low_quality_hot)
+
+            if mature:
+                state = "MATURE"
+                reason = "장기 리더십에 자본·주식공급 반응이 커졌고 신규 추격의 기대수익 점검이 필요한 단계"
+
+            elif consider_base:
+                if is_global:
+                    state = "CONSIDER"
+                    reason = "가격·intermediate momentum·consistency는 충족; 글로벌 earnings/내부 breadth 데이터 미연결로 구조적 리더 확정 전"
+                elif earnings_support and earnings_broad and ib_support and not capital_hot and not listed_supply_hot:
+                    state = "STRUCTURAL"
+                    reason = "중기·intermediate momentum + 일관성 + earnings + 섹터 내부 확산이 동조하고 자본공급 과열은 미확인"
+                else:
+                    state = "CONSIDER"
+                    missing_parts = []
+                    if earnings_missing:
+                        missing_parts.append("EPS revision")
+                    elif not earnings_support:
+                        missing_parts.append("earnings 확인")
+                    elif not earnings_broad:
+                        missing_parts.append("earnings 표본 확대")
+                    if ib_missing:
+                        missing_parts.append("내부 breadth")
+                    elif not ib_support:
+                        missing_parts.append("내부 확산")
+                    if capital_hot or listed_supply_hot:
+                        missing_parts.append("공급 과열 점검")
+                    suffix = " · ".join(missing_parts[:3])
+                    reason = "63일 + 126일/12-1/12-7 + consistency가 동조해 편입 검토 단계" + (f"; 다음 확인: {suffix}" if suffix else "")
+
+            elif watch_base:
+                state = "WATCH"
+                reason = "63일 초과수익·순위가 개선되어 리서치를 시작할 단계; 장기 persistence는 아직 미완성"
+
+            else:
+                state = "NEUTRAL"
+                reason = "중기·intermediate momentum이 동시에 정렬되지 않음"
+
+        # Cooper-Gutierrez-Hameed market-state conditioning:
+        # in a Bear market, medium-horizon momentum gets lower allocation confidence.
+        if market_state == "Bear" and state in ["STRUCTURAL", "CONSIDER"]:
+            state = "WATCH"
+            reason += "; 시장 전체 Bear 레짐이라 momentum 신뢰도를 낮춰 WATCH로 제한"
+        elif market_state == "조정" and state == "STRUCTURAL":
+            state = "CONSIDER"
+            reason += "; 시장 조정 국면이라 STRUCTURAL 승격은 보류"
+
+        rows.append({
+            "ticker": ticker,
+            "섹터": name,
+            "benchmark": benchmark_label,
+            "상태": state,
+            "상태_한글": SECTOR_STATE_KO[state],
+            "핵심근거": reason,
+            "rank_21": r21, "rank_63": r63, "rank_126": r126,
+            "rank_252": r252, "rank_756": r756,
+            "rank_12_1": r121, "rank_12_7": r127,
+            "excess_63": ex63, "excess_12_1": ex121, "excess_12_7": ex127,
+            "consistency_12m": consistency, "freq_63": f63, "magnitude_63": magnitude63,
+            "bounce_flag": bounce_flag, "old_leader_failure": old_fail,
+            "내부breadth_63": ib_value, "내부breadth_1m변화": ib_change, "dispersion_63": ib_disp,
+            "eps_revision_30d": eps_rev, "earnings_surprise_4q": surprise,
+            "asset_growth_yoy": asset_growth, "capex_growth_yoy": capex_growth,
+            "주식공급_12m": share_supply, "주식공급_percentile": share_supply_pct,
+            "primary_supply_state": primary_state,
+            "연결모듈": f"{evidence_connected}/{evidence_total}",
+            "중기": _module_label(medium_support, missing=r63 is None),
+            "Intermediate": _module_label(long_supports >= 2, missing=(r121 is None and r127 is None)),
+            "Consistency": _module_label(consistency_support, missing=(consistency is None and f63 is None)),
+            "Bounce": "해당" if bounce_flag else ("확인" if "bounce_flag_research" in rp else "미연결"),
+            "내부Breadth": _module_label(ib_support, missing=ib_missing),
+            "Earnings": ("부분 확인" if earnings_support and not earnings_broad else _module_label(earnings_support, missing=earnings_missing, weak=earnings_weak)),
+            "Capital": _module_label(not capital_hot, missing=capital_missing, hot=capital_hot),
+            "Supply": _module_label(not (listed_supply_hot or primary_hot), missing=supply is None, hot=(listed_supply_hot or primary_hot)),
+            "MarketState": market_state,
+        })
+
+    out = pd.DataFrame(rows)
+    priority = {
+        "STRUCTURAL": 0, "CONSIDER": 1, "WATCH": 2, "MATURE": 3,
+        "BOUNCE": 4, "DECAY": 5, "NOISE": 6, "NEUTRAL": 7,
+    }
+    out["_priority"] = out["상태"].map(priority).fillna(99)
+    return out.sort_values(["_priority", "rank_63", "rank_12_1"], na_position="last").drop(columns="_priority").reset_index(drop=True)
+
+
+def sector_engine_summary(us_engine, global_engine):
+    def records(df, states, n=5):
+        if df is None or df.empty:
+            return []
+        cols = ["ticker","섹터","상태","핵심근거","rank_63","rank_12_1","rank_12_7","연결모듈"]
+        cols = [c for c in cols if c in df.columns]
+        return df[df["상태"].isin(states)][cols].head(n).to_dict("records")
+    return {
+        "미국_우선고려": records(us_engine, ["STRUCTURAL","CONSIDER"]),
+        "미국_리서치시작": records(us_engine, ["WATCH"]),
+        "미국_반등후보": records(us_engine, ["BOUNCE"]),
+        "미국_이탈약화": records(us_engine, ["DECAY"]),
+        "글로벌_우선고려": records(global_engine, ["CONSIDER"]),
+        "글로벌_리서치시작": records(global_engine, ["WATCH"]),
+        "글로벌_반등후보": records(global_engine, ["BOUNCE"]),
+        "글로벌_이탈약화": records(global_engine, ["DECAY"]),
+    }
+
+
+def render_sector_engine(us_engine, global_engine, backtest_df=None, ff49_df=None):
+    st.markdown("### 섹터 리더십 엔진")
+    st.markdown(
+        """
+        <div class="sector-engine-box">
+            <div class="sector-engine-title">연구 결과를 실제 데이터 모듈로 연결한 판정</div>
+            <div class="sector-engine-sub">
+                21D·63D·126D뿐 아니라 252D/756D, 12-1·12-7 intermediate momentum,
+                return consistency, market-state conditioning, Bounce, 섹터 내부 breadth, earnings revision/surprise,
+                CapEx·asset growth, 상장주식수와 1차시장 공급을 순서대로 확인합니다.
+                데이터가 없는 모듈은 자동으로 '미연결' 처리하며, 그 상태에서는 STRUCTURAL로 승격하지 않습니다.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    tab_us, tab_global = st.tabs(["미국 섹터", "글로벌 섹터"])
+
+    def show(df, global_flag=False):
+        if df is None or df.empty:
+            st.info("섹터 리더십 엔진 데이터가 없습니다. 다음 pipeline 실행 후 생성됩니다.")
+            return
+        cols = [
+            "ticker","섹터","상태_한글","핵심근거","연결모듈",
+            "rank_63","rank_126","rank_12_1","rank_12_7","consistency_12m",
+            "MarketState","내부Breadth","Earnings","Capital","Supply","Bounce",
+        ]
+        cols = [c for c in cols if c in df.columns]
+        display = df[cols].copy()
+        if "consistency_12m" in display.columns:
+            display["consistency_12m"] = pd.to_numeric(display["consistency_12m"], errors="coerce") * 100
+        display = display.rename(columns={
+            "ticker":"ETF", "상태_한글":"판정", "rank_63":"63D", "rank_126":"126D",
+            "rank_12_1":"12-1", "rank_12_7":"12-7", "consistency_12m":"12M 일관성(%)",
+        })
+        st.dataframe(display, use_container_width=True, hide_index=True,
+            column_config={
+                "ETF": st.column_config.TextColumn(width="small"),
+                "섹터": st.column_config.TextColumn(width="medium"),
+                "판정": st.column_config.TextColumn(width="medium"),
+                "핵심근거": st.column_config.TextColumn(width="large"),
+                "연결모듈": st.column_config.TextColumn(width="small"),
+            })
+        if global_flag:
+            st.caption("글로벌 섹터는 현재 비교 가능한 earnings revision·SEC fundamentals·constituent breadth가 없어 최대 CONSIDER로 제한합니다.")
+
+    with tab_us:
+        show(us_engine, False)
+    with tab_global:
+        show(global_engine, True)
+
+    st.caption(
+        "NOISE=21D만 강함 · BOUNCE=반등 가능성 · WATCH=리서치 시작 · "
+        "CONSIDER=편입 검토 · STRUCTURAL=가격+실적+내부확산+자본사이클 확인 · "
+        "MATURE=장기 리더+공급/투자 반응 확대 · DECAY=구 리더 이탈"
+    )
+
+    with st.expander("연구 검증 결과 보기"):
+        if has_rows(backtest_df):
+            st.markdown("**실제 미국 섹터 ETF event study**")
+            st.dataframe(backtest_df, use_container_width=True, hide_index=True)
+        else:
+            st.caption("첫 pipeline 실행 후 sector_rule_backtest_summary.csv가 생성됩니다.")
+        if has_rows(ff49_df):
+            st.markdown("**Kenneth French 49 Industry 장기 검증**")
+            st.dataframe(ff49_df, use_container_width=True, hide_index=True)
+        else:
+            st.caption("첫 research backtest 실행 후 ff49_research_validation.csv가 생성됩니다.")
+
 # ---------- Load ----------
 style = read_csv("style_leadership_latest.csv")
 style_hist = read_csv("style_leadership_history.csv")
@@ -2819,6 +3339,15 @@ bounce = read_csv("bounce_context_latest.csv")
 stock_supply = read_csv("stock_supply_sector_latest.csv")
 stock_supply_hist = read_csv("stock_supply_sector_history.csv")
 
+# Research-backed sector modules. Missing files degrade gracefully and are shown as 미연결.
+sector_research = read_csv("sector_research_features_latest.csv")
+global_sector_research = read_csv("global_sector_research_features_latest.csv")
+sector_internal_breadth = read_csv("sector_internal_breadth_latest.csv")
+sector_fundamentals = read_csv("sector_fundamentals_latest.csv")
+sector_earnings = read_csv("sector_earnings_confirmation_latest.csv")
+sector_rule_backtest = read_csv("sector_rule_backtest_summary.csv")
+ff49_validation = read_csv("ff49_research_validation.csv")
+
 # Optional future inputs. If files do not exist, the classifier simply marks them unconnected.
 expectations_gap = read_csv("expectations_gap_latest.csv")
 primary_market_supply = read_csv("primary_market_supply_latest.csv")
@@ -2831,6 +3360,30 @@ cycle = classify_sentiment_cycle(
     expectations_gap, primary_market_supply
 )
 
+us_sector_engine = classify_sector_leadership(
+    sector, US_SECTOR, "SPY",
+    research_df=sector_research,
+    stock_supply_df=stock_supply, supply_universe="US",
+    internal_breadth_df=sector_internal_breadth,
+    fundamentals_df=sector_fundamentals,
+    earnings_df=sector_earnings,
+    primary_supply_df=primary_market_supply,
+    regime_df=regime,
+    is_global=False,
+)
+global_sector_engine = classify_sector_leadership(
+    global_sector, GLOBAL_SECTOR, "VT",
+    research_df=global_sector_research,
+    stock_supply_df=stock_supply, supply_universe="EX_US",
+    internal_breadth_df=pd.DataFrame(),
+    fundamentals_df=pd.DataFrame(),
+    earnings_df=pd.DataFrame(),
+    primary_supply_df=primary_market_supply,
+    regime_df=regime,
+    is_global=True,
+)
+sector_engine_state = sector_engine_summary(us_sector_engine, global_sector_engine)
+
 try:
     model_name = st.secrets.get("OPENAI_MODEL", "gpt-5.6-terra")
 except Exception:
@@ -2838,7 +3391,7 @@ except Exception:
 
 # ---------- Header ----------
 st.markdown('<div class="dashboard-title">시장 리더십 대시보드</div>', unsafe_allow_html=True)
-st.markdown('<div class="dashboard-subtitle">최근 1~6개월 리더십 변화 · 지역·섹터·시장 참여 폭·주식공급</div>', unsafe_allow_html=True)
+st.markdown('<div class="dashboard-subtitle">리더십 persistence · 12-1/12-7 · Bounce · 실적 · 자본사이클 · 공급</div>', unsafe_allow_html=True)
 
 if not (has_rows(style) and has_rows(sector)):
     st.warning("아직 데이터가 충분히 생성되지 않았습니다. GitHub Actions 실행 여부를 먼저 확인해 주세요.")
@@ -2906,9 +3459,19 @@ snapshot["구조적_리더십교체"] = structural_leadership_snapshot(
     style, sector, global_sector, region, breadth, stock_supply
 )
 snapshot["현재리더보드"] = leader_board_snapshot(region, global_sector, sector)
+snapshot["섹터리더십엔진"] = sector_engine_state
+snapshot["섹터연구데이터_연결상태"] = {
+    "price_12_1_12_7": has_rows(sector_research),
+    "internal_breadth": has_rows(sector_internal_breadth),
+    "sec_fundamentals": has_rows(sector_fundamentals),
+    "earnings_revision": has_rows(sector_earnings),
+    "primary_market_supply": has_rows(primary_market_supply),
+    "ETF_event_study": has_rows(sector_rule_backtest),
+    "FF49_validation": has_rows(ff49_validation),
+}
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
 with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.23-dynamic-cycle:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.25-full-research-engine:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(
@@ -3022,6 +3585,11 @@ if has_rows(style):
             render_gpt_box(fallback_style_chart_insight(style_payload))
             if gpt_style_error:
                 st.caption(f"GPT API 미연결: {gpt_style_error}")
+
+st.divider()
+
+# ---------- Sector Leadership Engine ----------
+render_sector_engine(us_sector_engine, global_sector_engine, sector_rule_backtest, ff49_validation)
 
 st.divider()
 
@@ -3263,4 +3831,4 @@ if has_rows(bounce):
         st.dataframe(show, use_container_width=True, hide_index=True)
         st.caption("최근 강세가 추세 전환인지, 큰 낙폭 뒤 반등인지 구분할 때 참고합니다.")
 
-st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 시장 레짐 → 구 리더 이탈 → 신규 리더 형성 → 공급 반응 순서")
+st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 시장 레짐 → 섹터 상태(NOISE/BOUNCE/WATCH/CONSIDER) → 구 리더 이탈 → 공급 반응")
