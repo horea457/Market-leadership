@@ -295,6 +295,26 @@ st.markdown("""
     line-height: 1.45;
 }
 
+
+.opportunity-box {
+    border: 1px solid rgba(37, 99, 235, .18);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: .55rem 0 1rem 0;
+    background: rgba(37, 99, 235, .028);
+}
+.opportunity-title {
+    font-size: 1rem;
+    font-weight: 850;
+    color: #0f172a;
+    margin-bottom: .35rem;
+}
+.opportunity-text {
+    font-size: .91rem;
+    line-height: 1.55;
+    color: #334155;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -1875,18 +1895,25 @@ MAIN_PROMPT = """
 8. 네 번째 문장은 "구 리더:"로 시작하고 이탈 후보가 있는지 명시한다.
 9. 다섯 번째 문장은 "리더십 폭:"으로 시작하고 21일과 63일 breadth를 집중/확산으로 해석한다.
 10. 여섯 번째 문장이 필요하면 "공급:"으로 시작하고 현재 리더와 주식공급의 중첩을 설명한다.
-11. "섹터리더십엔진"이 있으면 STRUCTURAL/CONSIDER를 최우선으로 언급하고 WATCH를 다음 리서치 후보로 제시한다.
-12. BOUNCE는 "신규 리더 확인 전", DECAY는 "기존 리더 약화"라고 명확히 표현한다.
-13. 일반론을 반복하지 말고 실제 ticker·지역·섹터·수치 중심으로 쓴다.
-14. "현재 대응"은 지금 유지할 것, 리서치를 시작할 섹터, 추격하지 않을 섹터,
-    무엇이 확인되면 실제 편입/비중 확대를 검토할지를 한 문장에 쓴다.
-15. 행동 조건은 breadth 고정 임계값이 아니라 63일 지속성 + 126일 동조 + 반복적 초과성과 + 구 리더 약화를 사용한다.
-16. 섹터리더십엔진의 실제 연결모듈을 읽는다. 12-1/12-7, consistency, Bounce, 내부 breadth, Earnings, Capital, Supply가 판정 근거에 있으면 구체적으로 언급한다.
-17. STRUCTURAL은 가격 persistence뿐 아니라 earnings 확인 + 섹터 내부 확산 + 자본공급 과열 부재가 함께 확인된 경우에만 구조적 리더 후보라고 쓴다.
-18. MATURE는 장기 리더십 자체가 나쁘다는 뜻이 아니라 자본·공급 반응이 커져 신규 추격의 기대수익을 재점검하는 상태라고 설명한다.
-19. 시간제약 레버리지가 있다는 경우에만 점진 축소를 조건부로 언급한다.
-20. 특정 ETF 직접 매수/매도 명령은 하지 않는다.
-21. 특정 필명은 절대 쓰지 않는다.
+11. 가장 중요한 목적은 섹터를 맞히는 것이 아니라 '리서치 기회비용'을 줄이는 것이다.
+12. "기회비용_리더십교체"가 있으면 ROTATING과 EMERGING을 먼저 읽고,
+    지금 리서치 우선순위를 어디로 옮길지 구체적으로 말한다.
+13. 12-1/12-7·consistency·Earnings·Capital·Supply는 초기 발견의 필수조건이 아니다.
+    이 데이터는 EMERGING/ROTATING 신호의 신뢰도를 MEDIUM/HIGH로 승격하는 확인 장치다.
+14. 기존 리더 DECAY가 새 후보 EMERGING/ROTATING과 동시에 나타나면
+    "기존 리더를 계속 연구·보유하는 기회비용이 커지는 중"이라고 명시한다.
+15. BOUNCE는 초기 변화는 인정하되 "신규 리더 확인 전"이라고 표현한다.
+16. ESTABLISHED는 단기 발견보다 느리지만 실제 편입 검토의 근거가 강화된 단계로 설명한다.
+17. MATURE는 장기 리더십 자체가 나쁘다는 뜻이 아니라 자본·공급 반응이 커져 신규 추격 기대수익을 재점검하는 단계다.
+18. 일반론을 반복하지 말고 실제 ticker·지역·섹터·21/63/126/12-1/12-7 순위 중심으로 쓴다.
+19. "현재 대응"에는 반드시 세 가지를 담는다:
+    (a) 지금 새로 리서치를 시작/확대할 섹터,
+    (b) 기회비용 때문에 재점검할 기존 리더,
+    (c) 실제 편입 또는 비중 확대 전에 필요한 확인조건.
+20. 매수/매도 신호처럼 쓰지 않는다. EMERGING/ROTATING은 '리서치 자원 이동' 신호다.
+21. 시간제약 레버리지가 있다는 경우에만 점진 축소를 조건부로 언급한다.
+22. 특정 ETF 직접 매수/매도 명령은 하지 않는다.
+23. 특정 필명은 절대 쓰지 않는다.
 """
 
 STYLE_CHART_PROMPT = """
@@ -3236,36 +3263,392 @@ def classify_sector_leadership(
     return out.sort_values(["_priority", "rank_63", "rank_12_1"], na_position="last").drop(columns="_priority").reset_index(drop=True)
 
 
-def sector_engine_summary(us_engine, global_engine):
-    def records(df, states, n=5):
+
+# ---------- Opportunity-Cost / Rotation Layer ----------
+ROTATION_STAGE_KO = {
+    "EMERGING": "초기 부상",
+    "ROTATING": "리더십 교체",
+    "ESTABLISHED": "리더십 정착",
+    "MATURE": "성숙 리더",
+    "DECAY": "기존 리더 약화",
+    "NEUTRAL": "중립",
+}
+
+QUALITY_KO = {
+    "LOW": "낮음",
+    "MEDIUM": "중간",
+    "HIGH": "높음",
+    "MATURE": "높음·성숙",
+    "DECAY": "약화",
+}
+
+
+def add_opportunity_cost_layer(engine_df):
+    """
+    Converts the research-heavy sector state into a decision-useful layer.
+
+    Key philosophy:
+    - Early detection should be fast and allowed to be wrong.
+    - 12-1/12-7, consistency, earnings and capital-cycle data are
+      confirmation tools, not prerequisites for starting research.
+    - The main question is whether continuing to focus on the old leader
+      is becoming costly relative to researching the emerging one.
+    """
+    if engine_df is None or engine_df.empty:
+        return pd.DataFrame()
+
+    x = engine_df.copy()
+    n = len(x)
+    top_n = max(2, int(np.ceil(n * 0.30)))
+    mid_n = max(top_n + 1, int(np.ceil(n * 0.55)))
+
+    # Cross-sectional old-leader decay matters because rotation is a relative process.
+    decaying = set(
+        x.loc[
+            x["상태"].eq("DECAY")
+            | x.get("old_leader_failure", pd.Series(False, index=x.index)).fillna(False).astype(bool),
+            "ticker"
+        ].tolist()
+    )
+    has_old_leader_decay = len(decaying) > 0
+
+    stages = []
+    qualities = []
+    actions = []
+    opportunity_reasons = []
+
+    for _, r in x.iterrows():
+        state = str(r.get("상태", "NEUTRAL"))
+        r21 = _eng_num(r.get("rank_21"))
+        r63 = _eng_num(r.get("rank_63"))
+        r126 = _eng_num(r.get("rank_126"))
+        r121 = _eng_num(r.get("rank_12_1"))
+        r127 = _eng_num(r.get("rank_12_7"))
+        consistency = _eng_num(r.get("consistency_12m"))
+        bounce = _eng_bool(r.get("bounce_flag", False))
+        old_fail = _eng_bool(r.get("old_leader_failure", False))
+
+        improvement = (
+            r126 is not None and r63 is not None and (r126 - r63) >= 2
+        )
+        short_hot = r21 is not None and r21 <= top_n
+        medium_visible = r63 is not None and r63 <= mid_n
+        medium_leader = r63 is not None and r63 <= top_n
+
+        # Confirmation modules. These raise quality; they do not determine discovery.
+        intermediate_support = sum([
+            r121 is not None and r121 <= mid_n,
+            r127 is not None and r127 <= mid_n,
+        ])
+        consistency_support = consistency is not None and consistency >= 0.50
+
+        earnings_txt = str(r.get("Earnings", "미연결"))
+        breadth_txt = str(r.get("내부Breadth", "미연결"))
+        capital_txt = str(r.get("Capital", "미연결"))
+        supply_txt = str(r.get("Supply", "미연결"))
+
+        earnings_confirm = earnings_txt in ["확인", "부분 확인"]
+        breadth_confirm = breadth_txt == "확인"
+        capital_not_hot = capital_txt not in ["과열"]
+        supply_not_hot = supply_txt not in ["과열"]
+
+        # --------------------------
+        # A) Change / opportunity stage
+        # --------------------------
+        if old_fail or state == "DECAY":
+            stage = "DECAY"
+            reason = "과거 장기 리더가 63·21일에서 밀려 기존 리더에 계속 머무는 기회비용을 재점검할 단계"
+
+        elif state == "MATURE":
+            stage = "MATURE"
+            reason = "리더십은 강하지만 자본·공급 반응이 커져 신규 추격보다 기대수익 재평가가 필요한 단계"
+
+        elif medium_leader and improvement and has_old_leader_decay:
+            stage = "ROTATING"
+            reason = "새 후보의 63일 리더십 개선과 기존 리더 약화가 동시에 발생해 리서치 우선순위 이동 신호가 강해짐"
+
+        elif (
+            state in ["STRUCTURAL", "CONSIDER"]
+            or (
+                medium_leader
+                and intermediate_support >= 1
+                and consistency_support
+                and not bounce
+            )
+        ):
+            stage = "ESTABLISHED"
+            reason = "63일 리더십이 intermediate momentum·일관성과 연결돼 단기 반등을 넘어 정착 가능성이 높아짐"
+
+        elif (
+            (short_hot and medium_visible)
+            or (medium_visible and improvement)
+            or state == "WATCH"
+        ):
+            stage = "EMERGING"
+            if bounce:
+                reason = "최근 상대강도는 빠르게 개선됐지만 Bounce 가능성이 있어 리서치는 시작하되 리더 확정은 보류"
+            else:
+                reason = "21→63일 상대강도 개선이 시작돼 확정 신호를 기다리기 전에 리서치 우선순위를 올릴 단계"
+
+        else:
+            stage = "NEUTRAL"
+            reason = "새 리더 형성 또는 기존 리더 약화가 아직 뚜렷하지 않음"
+
+        # --------------------------
+        # B) Leader quality
+        # --------------------------
+        if stage == "DECAY":
+            quality = "DECAY"
+        elif stage == "MATURE":
+            quality = "MATURE"
+        elif (
+            intermediate_support >= 2
+            and consistency_support
+            and earnings_confirm
+            and breadth_confirm
+            and capital_not_hot
+            and supply_not_hot
+            and not bounce
+        ):
+            quality = "HIGH"
+        elif (
+            intermediate_support >= 1
+            and consistency_support
+            and not bounce
+        ):
+            quality = "MEDIUM"
+        else:
+            quality = "LOW"
+
+        # --------------------------
+        # C) Decision use
+        # --------------------------
+        if stage == "EMERGING":
+            action = "리서치 시작"
+        elif stage == "ROTATING":
+            action = "기존 리더 대비 기회비용 점검"
+        elif stage == "ESTABLISHED" and quality == "HIGH":
+            action = "편입·비중 확대 검토"
+        elif stage == "ESTABLISHED":
+            action = "편입 검토"
+        elif stage == "MATURE":
+            action = "기존 보유와 신규 추격 분리"
+        elif stage == "DECAY":
+            action = "과거 리더 복귀 가정 재검토"
+        else:
+            action = "우선순위 낮음"
+
+        stages.append(stage)
+        qualities.append(quality)
+        actions.append(action)
+        opportunity_reasons.append(reason)
+
+    x["변화단계"] = stages
+    x["변화단계_한글"] = x["변화단계"].map(ROTATION_STAGE_KO)
+    x["리더품질"] = qualities
+    x["리더품질_한글"] = x["리더품질"].map(QUALITY_KO)
+    x["리서치행동"] = actions
+    x["기회비용_해석"] = opportunity_reasons
+
+    priority = {
+        "ROTATING": 0,
+        "EMERGING": 1,
+        "ESTABLISHED": 2,
+        "MATURE": 3,
+        "DECAY": 4,
+        "NEUTRAL": 5,
+    }
+    x["_opp_priority"] = x["변화단계"].map(priority).fillna(99)
+
+    # Within the same stage, faster medium-horizon improvement gets attention first.
+    x["_rank63_sort"] = pd.to_numeric(x.get("rank_63"), errors="coerce")
+    x = (
+        x.sort_values(["_opp_priority", "_rank63_sort"], na_position="last")
+        .drop(columns=["_opp_priority", "_rank63_sort"])
+        .reset_index(drop=True)
+    )
+    return x
+
+
+def opportunity_cost_snapshot(us_engine, global_engine):
+    """Compact object for the main GPT message."""
+    def extract(df):
+        if df is None or df.empty:
+            return {
+                "리서치이동": [],
+                "초기부상": [],
+                "정착리더": [],
+                "성숙": [],
+                "기존리더약화": [],
+            }
+
+        def rec(stages, n=4):
+            z = df[df["변화단계"].isin(stages)].head(n)
+            cols = [
+                "ticker", "섹터", "변화단계_한글", "리더품질_한글",
+                "리서치행동", "기회비용_해석",
+                "rank_21", "rank_63", "rank_126", "rank_12_1", "rank_12_7"
+            ]
+            cols = [c for c in cols if c in z.columns]
+            return z[cols].to_dict("records")
+
+        return {
+            "리서치이동": rec(["ROTATING"]),
+            "초기부상": rec(["EMERGING"]),
+            "정착리더": rec(["ESTABLISHED"]),
+            "성숙": rec(["MATURE"]),
+            "기존리더약화": rec(["DECAY"]),
+        }
+
+    return {
+        "미국": extract(us_engine),
+        "글로벌": extract(global_engine),
+    }
+
+
+def opportunity_cost_headline(us_engine, global_engine):
+    """One deterministic sentence answering 'where should attention move now?'."""
+    def names(df, stages, n=3):
         if df is None or df.empty:
             return []
-        cols = ["ticker","섹터","상태","핵심근거","rank_63","rank_12_1","rank_12_7","연결모듈"]
+        return (
+            df[df["변화단계"].isin(stages)]
+            .head(n)["섹터"]
+            .astype(str)
+            .tolist()
+        )
+
+    new_us = names(us_engine, ["ROTATING", "EMERGING"], 2)
+    new_gl = names(global_engine, ["ROTATING", "EMERGING"], 2)
+    old_us = names(us_engine, ["DECAY"], 2)
+    old_gl = names(global_engine, ["DECAY"], 2)
+
+    new_parts = []
+    if new_us:
+        new_parts.append("미국 " + "·".join(new_us))
+    if new_gl:
+        new_parts.append("글로벌 " + "·".join(new_gl))
+
+    old_parts = []
+    if old_us:
+        old_parts.append("미국 " + "·".join(old_us))
+    if old_gl:
+        old_parts.append("글로벌 " + "·".join(old_gl))
+
+    if new_parts and old_parts:
+        return (
+            "리서치 우선순위를 "
+            + " / ".join(old_parts)
+            + " 같은 기존 약화 리더에서 "
+            + " / ".join(new_parts)
+            + " 같은 부상 후보로 일부 이동할 필요가 있는지 점검할 구간입니다."
+        )
+    if new_parts:
+        return (
+            "현재는 "
+            + " / ".join(new_parts)
+            + "에서 변화가 먼저 나타나므로, 확정 신호를 기다리기보다 리서치 우선순위를 먼저 높일 구간입니다."
+        )
+    if old_parts:
+        return (
+            "새 리더는 아직 불명확하지만 "
+            + " / ".join(old_parts)
+            + "의 약화가 보여 과거 리더 복귀를 당연하게 가정하지 않는 것이 중요합니다."
+        )
+    return "뚜렷한 리더십 교체 신호가 없어 기존 리서치 우선순위를 크게 바꿀 근거는 아직 제한적입니다."
+
+
+def render_opportunity_cost_summary(us_engine, global_engine):
+    headline = opportunity_cost_headline(us_engine, global_engine)
+
+    st.markdown("### 지금 리서치 자원을 어디로 옮길까")
+    st.markdown(
+        f"""
+        <div class="opportunity-box">
+            <div class="opportunity-title">기회비용 관점</div>
+            <div class="opportunity-text">{html.escape(headline)}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    def pick(df, stages, n=3):
+        if df is None or df.empty:
+            return "없음"
+        z = df[df["변화단계"].isin(stages)].head(n)
+        if not len(z):
+            return "없음"
+        return " · ".join(
+            f"{r['ticker']}({r['섹터']})"
+            for _, r in z.iterrows()
+        )
+
+    c1, c2, c3 = st.columns(3, gap="small")
+    with c1:
+        compact_card(
+            "지금 먼저 볼 섹터",
+            [
+                "미국: " + pick(us_engine, ["ROTATING", "EMERGING"]),
+                "글로벌: " + pick(global_engine, ["ROTATING", "EMERGING"]),
+            ],
+            "초기 신호는 리서치 시작용"
+        )
+    with c2:
+        compact_card(
+            "정착 확인 섹터",
+            [
+                "미국: " + pick(us_engine, ["ESTABLISHED"]),
+                "글로벌: " + pick(global_engine, ["ESTABLISHED"]),
+            ],
+            "12-1·12-7·일관성은 신뢰도 승격용"
+        )
+    with c3:
+        compact_card(
+            "기존 리더 재점검",
+            [
+                "미국: " + pick(us_engine, ["DECAY"]),
+                "글로벌: " + pick(global_engine, ["DECAY"]),
+            ],
+            "과거 리더에 계속 머무는 기회비용"
+        )
+
+
+def sector_engine_summary(us_engine, global_engine):
+    def records(df, stages, n=5):
+        if df is None or df.empty:
+            return []
+        cols = [
+            "ticker","섹터","변화단계","변화단계_한글","리더품질_한글",
+            "리서치행동","기회비용_해석","rank_21","rank_63","rank_126",
+            "rank_12_1","rank_12_7","연결모듈"
+        ]
         cols = [c for c in cols if c in df.columns]
-        return df[df["상태"].isin(states)][cols].head(n).to_dict("records")
+        return df[df["변화단계"].isin(stages)][cols].head(n).to_dict("records")
+
     return {
-        "미국_우선고려": records(us_engine, ["STRUCTURAL","CONSIDER"]),
-        "미국_리서치시작": records(us_engine, ["WATCH"]),
-        "미국_반등후보": records(us_engine, ["BOUNCE"]),
-        "미국_이탈약화": records(us_engine, ["DECAY"]),
-        "글로벌_우선고려": records(global_engine, ["CONSIDER"]),
-        "글로벌_리서치시작": records(global_engine, ["WATCH"]),
-        "글로벌_반등후보": records(global_engine, ["BOUNCE"]),
-        "글로벌_이탈약화": records(global_engine, ["DECAY"]),
+        "미국_리서치이동": records(us_engine, ["ROTATING"]),
+        "미국_초기부상": records(us_engine, ["EMERGING"]),
+        "미국_정착리더": records(us_engine, ["ESTABLISHED"]),
+        "미국_성숙리더": records(us_engine, ["MATURE"]),
+        "미국_기존리더약화": records(us_engine, ["DECAY"]),
+        "글로벌_리서치이동": records(global_engine, ["ROTATING"]),
+        "글로벌_초기부상": records(global_engine, ["EMERGING"]),
+        "글로벌_정착리더": records(global_engine, ["ESTABLISHED"]),
+        "글로벌_성숙리더": records(global_engine, ["MATURE"]),
+        "글로벌_기존리더약화": records(global_engine, ["DECAY"]),
     }
 
 
 def render_sector_engine(us_engine, global_engine, backtest_df=None, ff49_df=None):
-    st.markdown("### 섹터 리더십 엔진")
+    st.markdown("### 기회비용 · 섹터 리더십 교체 엔진")
     st.markdown(
         """
         <div class="sector-engine-box">
-            <div class="sector-engine-title">연구 결과를 실제 데이터 모듈로 연결한 판정</div>
+            <div class="sector-engine-title">목적은 미래를 맞히는 것이 아니라 리서치 기회비용을 줄이는 것입니다</div>
             <div class="sector-engine-sub">
-                21D·63D·126D뿐 아니라 252D/756D, 12-1·12-7 intermediate momentum,
-                return consistency, market-state conditioning, Bounce, 섹터 내부 breadth, earnings revision/surprise,
-                CapEx·asset growth, 상장주식수와 1차시장 공급을 순서대로 확인합니다.
-                데이터가 없는 모듈은 자동으로 '미연결' 처리하며, 그 상태에서는 STRUCTURAL로 승격하지 않습니다.
+                초기 부상은 빠르게 잡아 리서치를 시작하고, 12-1·12-7·consistency·earnings는
+                그 초기 신호를 늦추는 문턱이 아니라 신뢰도를 높이는 확인 장치로 사용합니다.
+                동시에 기존 장기 리더가 약해지는지를 같이 봐서 '계속 과거 리더만 보고 있을 비용'을 표시합니다.
             </div>
         </div>
         """,
@@ -3278,29 +3661,55 @@ def render_sector_engine(us_engine, global_engine, backtest_df=None, ff49_df=Non
         if df is None or df.empty:
             st.info("섹터 리더십 엔진 데이터가 없습니다. 다음 pipeline 실행 후 생성됩니다.")
             return
+
         cols = [
-            "ticker","섹터","상태_한글","핵심근거","연결모듈",
-            "rank_63","rank_126","rank_12_1","rank_12_7","consistency_12m",
-            "MarketState","내부Breadth","Earnings","Capital","Supply","Bounce",
+            "ticker","섹터","변화단계_한글","리더품질_한글","리서치행동",
+            "기회비용_해석","연결모듈",
+            "rank_21","rank_63","rank_126","rank_12_1","rank_12_7",
+            "consistency_12m","MarketState","내부Breadth","Earnings","Capital","Supply","Bounce",
         ]
         cols = [c for c in cols if c in df.columns]
         display = df[cols].copy()
+
         if "consistency_12m" in display.columns:
-            display["consistency_12m"] = pd.to_numeric(display["consistency_12m"], errors="coerce") * 100
+            display["consistency_12m"] = (
+                pd.to_numeric(display["consistency_12m"], errors="coerce") * 100
+            )
+
         display = display.rename(columns={
-            "ticker":"ETF", "상태_한글":"판정", "rank_63":"63D", "rank_126":"126D",
-            "rank_12_1":"12-1", "rank_12_7":"12-7", "consistency_12m":"12M 일관성(%)",
+            "ticker":"ETF",
+            "변화단계_한글":"변화 단계",
+            "리더품질_한글":"리더 품질",
+            "리서치행동":"지금 할 일",
+            "기회비용_해석":"왜 지금 봐야 하나",
+            "rank_21":"21D",
+            "rank_63":"63D",
+            "rank_126":"126D",
+            "rank_12_1":"12-1",
+            "rank_12_7":"12-7",
+            "consistency_12m":"12M 일관성(%)",
         })
-        st.dataframe(display, use_container_width=True, hide_index=True,
+
+        st.dataframe(
+            display,
+            use_container_width=True,
+            hide_index=True,
             column_config={
                 "ETF": st.column_config.TextColumn(width="small"),
                 "섹터": st.column_config.TextColumn(width="medium"),
-                "판정": st.column_config.TextColumn(width="medium"),
-                "핵심근거": st.column_config.TextColumn(width="large"),
+                "변화 단계": st.column_config.TextColumn(width="medium"),
+                "리더 품질": st.column_config.TextColumn(width="small"),
+                "지금 할 일": st.column_config.TextColumn(width="medium"),
+                "왜 지금 봐야 하나": st.column_config.TextColumn(width="large"),
                 "연결모듈": st.column_config.TextColumn(width="small"),
-            })
+            },
+        )
+
         if global_flag:
-            st.caption("글로벌 섹터는 현재 비교 가능한 earnings revision·SEC fundamentals·constituent breadth가 없어 최대 CONSIDER로 제한합니다.")
+            st.caption(
+                "글로벌 섹터는 미국보다 earnings revision·SEC fundamentals·constituent breadth 연결이 제한적이므로 "
+                "리더 품질의 확정도는 보수적으로 해석합니다."
+            )
 
     with tab_us:
         show(us_engine, False)
@@ -3308,9 +3717,10 @@ def render_sector_engine(us_engine, global_engine, backtest_df=None, ff49_df=Non
         show(global_engine, True)
 
     st.caption(
-        "NOISE=21D만 강함 · BOUNCE=반등 가능성 · WATCH=리서치 시작 · "
-        "CONSIDER=편입 검토 · STRUCTURAL=가격+실적+내부확산+자본사이클 확인 · "
-        "MATURE=장기 리더+공급/투자 반응 확대 · DECAY=구 리더 이탈"
+        "초기 부상=리서치 시작 · 리더십 교체=구 리더 대비 기회비용 점검 · "
+        "리더십 정착=편입 검토 · 성숙 리더=기존 보유와 신규 추격 분리 · "
+        "기존 리더 약화=과거 리더 복귀 가정 재검토. "
+        "12-1·12-7·Earnings·Capital은 발견을 늦추는 문턱이 아니라 리더 품질을 확인하는 장치입니다."
     )
 
     with st.expander("연구 검증 결과 보기"):
@@ -3319,11 +3729,13 @@ def render_sector_engine(us_engine, global_engine, backtest_df=None, ff49_df=Non
             st.dataframe(backtest_df, use_container_width=True, hide_index=True)
         else:
             st.caption("첫 pipeline 실행 후 sector_rule_backtest_summary.csv가 생성됩니다.")
+
         if has_rows(ff49_df):
             st.markdown("**Kenneth French 49 Industry 장기 검증**")
             st.dataframe(ff49_df, use_container_width=True, hide_index=True)
         else:
             st.caption("첫 research backtest 실행 후 ff49_research_validation.csv가 생성됩니다.")
+
 
 # ---------- Load ----------
 style = read_csv("style_leadership_latest.csv")
@@ -3382,7 +3794,13 @@ global_sector_engine = classify_sector_leadership(
     regime_df=regime,
     is_global=True,
 )
+
+# A fast opportunity-cost layer sits on top of the slower confirmation engine.
+us_sector_engine = add_opportunity_cost_layer(us_sector_engine)
+global_sector_engine = add_opportunity_cost_layer(global_sector_engine)
+
 sector_engine_state = sector_engine_summary(us_sector_engine, global_sector_engine)
+opportunity_cost_state = opportunity_cost_snapshot(us_sector_engine, global_sector_engine)
 
 try:
     model_name = st.secrets.get("OPENAI_MODEL", "gpt-5.6-terra")
@@ -3435,7 +3853,7 @@ st.caption(
 )
 
 # ---------- Main insight ----------
-st.markdown("### 현재 시장 인사이트")
+st.markdown("### 현재 시장 인사이트 · 리서치 기회비용")
 leader_board = render_current_leader_board(region, global_sector, sector)
 
 snapshot = build_market_snapshot(
@@ -3460,6 +3878,7 @@ snapshot["구조적_리더십교체"] = structural_leadership_snapshot(
 )
 snapshot["현재리더보드"] = leader_board_snapshot(region, global_sector, sector)
 snapshot["섹터리더십엔진"] = sector_engine_state
+snapshot["기회비용_리더십교체"] = opportunity_cost_state
 snapshot["섹터연구데이터_연결상태"] = {
     "price_12_1_12_7": has_rows(sector_research),
     "internal_breadth": has_rows(sector_internal_breadth),
@@ -3471,7 +3890,7 @@ snapshot["섹터연구데이터_연결상태"] = {
 }
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
 with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.25-full-research-engine:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.26-opportunity-cost:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(
@@ -3588,7 +4007,8 @@ if has_rows(style):
 
 st.divider()
 
-# ---------- Sector Leadership Engine ----------
+# ---------- Opportunity Cost / Sector Leadership ----------
+render_opportunity_cost_summary(us_sector_engine, global_sector_engine)
 render_sector_engine(us_sector_engine, global_sector_engine, sector_rule_backtest, ff49_validation)
 
 st.divider()
@@ -3831,4 +4251,4 @@ if has_rows(bounce):
         st.dataframe(show, use_container_width=True, hide_index=True)
         st.caption("최근 강세가 추세 전환인지, 큰 낙폭 뒤 반등인지 구분할 때 참고합니다.")
 
-st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 시장 레짐 → 섹터 상태(NOISE/BOUNCE/WATCH/CONSIDER) → 구 리더 이탈 → 공급 반응")
+st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 시장 레짐 → 초기 부상/리더십 교체 → 구 리더 기회비용 → 리더 품질 확인 → 공급 성숙")
