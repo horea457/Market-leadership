@@ -1,561 +1,641 @@
 date,window,breadth_pct,n_valid,definition
-2026-02-09,21,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-09,63,0.6307385229540918,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-09,126,0.502,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-09,252,0.4308617234468938,499,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-10,21,0.6606786427145709,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-10,63,0.624750499001996,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-10,126,0.51,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-10,252,0.44288577154308617,499,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-11,21,0.6487025948103793,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-11,63,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-11,126,0.514,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-11,252,0.45090180360721444,499,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-12,21,0.6327345309381237,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-12,63,0.6726546906187625,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-12,126,0.514,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-12,252,0.45691382765531063,499,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-13,21,0.6606786427145709,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-13,63,0.676,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-13,126,0.538,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-13,252,0.4589178356713427,499,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-17,21,0.6487025948103793,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-17,63,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-17,126,0.534,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-17,252,0.47,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-18,21,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-18,63,0.6407185628742516,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-18,126,0.536,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-18,252,0.462,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-19,21,0.6287425149700598,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-19,63,0.6407185628742516,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-19,126,0.506,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-19,252,0.468,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-20,21,0.6187624750499002,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-20,63,0.624750499001996,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-20,126,0.504,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-20,252,0.466,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-23,21,0.6167664670658682,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-23,63,0.6467065868263473,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-23,126,0.512,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-23,252,0.46,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-24,21,0.6367265469061876,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-24,63,0.6227544910179641,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-24,126,0.492,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-24,252,0.448,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-25,21,0.6147704590818364,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-25,63,0.592814371257485,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-25,126,0.47,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-25,252,0.418,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-26,21,0.6646706586826348,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-26,63,0.6526946107784432,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-26,126,0.502,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-26,252,0.428,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-27,21,0.6666666666666666,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-27,63,0.656686626746507,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-27,126,0.526,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-02-27,252,0.438,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-02,21,0.6427145708582834,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-02,63,0.654690618762475,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-02,126,0.526,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-02,252,0.416,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-03,21,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-03,63,0.6526946107784432,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-03,126,0.508,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-03,252,0.414,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-04,21,0.6167664670658682,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-04,63,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-04,126,0.492,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-04,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-05,21,0.6147704590818364,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-05,63,0.6387225548902196,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-05,126,0.496,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-05,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-06,21,0.5449101796407185,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-06,63,0.6526946107784432,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-06,126,0.492,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-06,252,0.412,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-09,21,0.49500998003992014,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-09,63,0.6227544910179641,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-09,126,0.478,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-09,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-10,21,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-10,63,0.6027944111776448,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-10,126,0.474,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-10,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-11,21,0.47105788423153694,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-11,63,0.5968063872255489,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-11,126,0.478,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-11,252,0.37,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-12,21,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-12,63,0.5868263473053892,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-12,126,0.49,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-12,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-13,21,0.45109780439121755,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-13,63,0.5828343313373253,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-13,126,0.482,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-13,252,0.408,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-16,21,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-16,63,0.5588822355289421,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-16,126,0.486,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-16,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-17,21,0.40119760479041916,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-17,63,0.5329341317365269,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-17,126,0.518,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-17,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-18,21,0.4151696606786427,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-18,63,0.5129740518962076,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-18,126,0.514,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-18,252,0.386,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-19,21,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-19,63,0.5189620758483033,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-19,126,0.5,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-19,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-20,21,0.42115768463073855,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-20,63,0.499001996007984,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-20,126,0.506,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-20,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-23,21,0.3992015968063872,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-23,63,0.5289421157684631,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-23,126,0.522,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-23,252,0.39,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-24,21,0.43912175648702595,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-24,63,0.5568862275449101,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-24,126,0.534,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-24,252,0.396,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-25,21,0.4351297405189621,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-25,63,0.5409181636726547,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-25,126,0.528,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-25,252,0.404,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-26,21,0.5089820359281437,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-26,63,0.5848303393213573,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-26,126,0.538,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-26,252,0.44,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-27,21,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-27,63,0.5868263473053892,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-27,126,0.558,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-27,252,0.432,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-30,21,0.4550898203592814,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-30,63,0.5868263473053892,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-30,126,0.544,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-30,252,0.436,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-31,21,0.42714570858283435,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-31,63,0.5728542914171657,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-31,126,0.528,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-03-31,252,0.406,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-01,21,0.405189620758483,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-01,63,0.5548902195608783,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-01,126,0.524,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-01,252,0.402,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-02,21,0.47305389221556887,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-02,63,0.5708582834331337,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-02,126,0.532,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-02,252,0.412,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-06,21,0.47105788423153694,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-06,63,0.5528942115768463,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-06,126,0.53,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-06,252,0.402,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-07,21,0.4630738522954092,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-07,63,0.5389221556886228,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-07,126,0.522,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-07,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-08,21,0.500998003992016,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-08,63,0.5489021956087824,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-08,126,0.536,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-08,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-09,21,0.5129740518962076,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-09,63,0.564870259481038,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-09,126,0.54,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-09,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-10,21,0.4870259481037924,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-10,63,0.5249500998003992,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-10,126,0.528,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-10,252,0.38,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-13,21,0.43912175648702595,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-13,63,0.5229540918163673,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-13,126,0.536,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-13,252,0.41,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-14,21,0.4031936127744511,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-14,63,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-14,126,0.49,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-14,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-15,21,0.36926147704590817,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-15,63,0.48502994011976047,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-15,126,0.48,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-15,252,0.366,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-16,21,0.35528942115768464,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-16,63,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-16,126,0.452,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-16,252,0.368,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-17,21,0.37524950099800397,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-17,63,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-17,126,0.472,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-17,252,0.368,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-20,21,0.3912175648702595,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-20,63,0.46706586826347307,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-20,126,0.48,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-20,252,0.374,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-21,21,0.4031936127744511,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-21,63,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-21,126,0.474,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-21,252,0.372,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-22,21,0.3273453093812375,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-22,63,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-22,126,0.462,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-22,252,0.348,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-23,21,0.3153692614770459,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-23,63,0.42714570858283435,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-23,126,0.482,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-23,252,0.354,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-24,21,0.26746506986027946,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-24,63,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-24,126,0.446,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-24,252,0.336,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-27,21,0.24151696606786427,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-27,63,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-27,126,0.444,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-27,252,0.33,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-28,21,0.2554890219560878,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-28,63,0.4411177644710579,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-28,126,0.48,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-28,252,0.334,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-29,21,0.22355289421157684,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-29,63,0.45109780439121755,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-29,126,0.47704590818363274,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-29,252,0.328,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-30,21,0.23952095808383234,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-30,63,0.42714570858283435,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-30,126,0.4870259481037924,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-04-30,252,0.33,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-01,21,0.24151696606786427,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-01,63,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-01,126,0.5109780439121756,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-01,252,0.342,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-04,21,0.2275449101796407,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-04,63,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-04,126,0.49500998003992014,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-04,252,0.348,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-05,21,0.23552894211576847,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-05,63,0.36926147704590817,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-05,126,0.49101796407185627,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-05,252,0.35,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-06,21,0.2315369261477046,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-06,63,0.3093812375249501,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-06,126,0.48502994011976047,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-06,252,0.34,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-07,21,0.21357285429141717,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-07,63,0.27944111776447106,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-07,126,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-07,252,0.328,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-08,21,0.23952095808383234,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-08,63,0.2714570858283433,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-08,126,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-08,252,0.314,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-11,21,0.24550898203592814,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-11,63,0.2934131736526946,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-11,126,0.4171656686626746,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-11,252,0.304,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-12,21,0.22554890219560877,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-12,63,0.2874251497005988,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-12,126,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-12,252,0.314,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-13,21,0.2315369261477046,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-13,63,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-13,126,0.4151696606786427,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-13,252,0.294,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-14,21,0.2375249500998004,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-14,63,0.24750499001996007,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-14,126,0.3932135728542914,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-14,252,0.3,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-15,21,0.25948103792415167,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-15,63,0.23952095808383234,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-15,126,0.396,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-15,252,0.306,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-18,21,0.28542914171656686,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-18,63,0.25149700598802394,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-18,126,0.40119760479041916,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-18,252,0.304,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-19,21,0.2694610778443114,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-19,63,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-19,126,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-19,252,0.306,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-20,21,0.2435129740518962,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-20,63,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-20,126,0.4091816367265469,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-20,252,0.312,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-21,21,0.2754491017964072,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-21,63,0.24750499001996007,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-21,126,0.4031936127744511,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-21,252,0.314,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-22,21,0.2654690618762475,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-22,63,0.26746506986027946,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-22,126,0.4251497005988024,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-22,252,0.324,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-26,21,0.2654690618762475,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-26,63,0.25748502994011974,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-26,126,0.3972055888223553,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-26,252,0.326,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-27,21,0.2834331337325349,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-27,63,0.25948103792415167,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-27,126,0.3852295409181637,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-27,252,0.32,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-28,21,0.2774451097804391,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-28,63,0.2435129740518962,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-28,126,0.39520958083832336,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-28,252,0.312,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-29,21,0.2654690618762475,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-29,63,0.24750499001996007,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-29,126,0.38323353293413176,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-05-29,252,0.316,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-01,21,0.2554890219560878,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-01,63,0.2375249500998004,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-01,126,0.36127744510978044,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-01,252,0.304,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-02,21,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-02,63,0.24151696606786427,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-02,126,0.3712574850299401,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-02,252,0.298,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-03,21,0.26147704590818366,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-03,63,0.2375249500998004,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-03,126,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-03,252,0.308,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-04,21,0.2994011976047904,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-04,63,0.25349301397205587,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-04,126,0.40718562874251496,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-04,252,0.33,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-05,21,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-05,63,0.27944111776447106,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-05,126,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-05,252,0.354,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-08,21,0.45708582834331335,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-08,63,0.2894211576846307,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-08,126,0.4471057884231537,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-08,252,0.352,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-09,21,0.6307385229540918,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-09,63,0.3333333333333333,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-09,126,0.48303393213572854,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-09,252,0.36,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-10,21,0.6666666666666666,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-10,63,0.36726546906187624,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-10,126,0.5089820359281437,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-10,252,0.374,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-11,21,0.6047904191616766,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-11,63,0.36127744510978044,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-11,126,0.4930139720558882,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-11,252,0.366,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-12,21,0.7025948103792415,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-12,63,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-12,126,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-12,252,0.36,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-15,21,0.6347305389221557,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-15,63,0.31736526946107785,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-15,126,0.4491017964071856,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-15,252,0.338,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-16,21,0.6746506986027944,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-16,63,0.3273453093812375,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-16,126,0.4411177644710579,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-16,252,0.354,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-17,21,0.6007984031936128,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-17,63,0.30538922155688625,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-17,126,0.3992015968063872,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-17,252,0.35,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-18,21,0.5129740518962076,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-18,63,0.2994011976047904,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-18,126,0.39520958083832336,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-18,252,0.34,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-22,21,0.5608782435129741,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-22,63,0.3153692614770459,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-22,126,0.38922155688622756,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-22,252,0.346,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-23,21,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-23,63,0.33532934131736525,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-23,126,0.42115768463073855,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-23,252,0.36,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-24,21,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-24,63,0.3473053892215569,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-24,126,0.48303393213572854,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-24,252,0.372,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-25,21,0.6766467065868264,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-25,63,0.35528942115768464,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-25,126,0.49101796407185627,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-25,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-26,21,0.7111553784860558,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-26,63,0.36327345309381237,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-26,126,0.5329341317365269,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-26,252,0.432,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-29,21,0.6912350597609562,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-29,63,0.3393213572854291,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-29,126,0.500998003992016,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-29,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-30,21,0.6613545816733067,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-30,63,0.3073852295409182,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-30,126,0.4750499001996008,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-06-30,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-01,21,0.6653386454183267,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-01,63,0.33532934131736525,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-01,126,0.47704590818363274,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-01,252,0.388,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-02,21,0.6952191235059761,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-02,63,0.36327345309381237,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-02,126,0.5109780439121756,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-02,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-06,21,0.6772908366533864,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-06,63,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-06,126,0.4870259481037924,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-06,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-07,21,0.6633466135458167,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-07,63,0.36327345309381237,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-07,126,0.499001996007984,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-07,252,0.396,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-08,21,0.5537848605577689,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-08,63,0.34530938123752497,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-08,126,0.48502994011976047,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-08,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-09,21,0.5737051792828686,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-09,63,0.34530938123752497,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-09,126,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-09,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-10,21,0.4760956175298805,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-10,63,0.34930139720558884,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-10,126,0.45708582834331335,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-10,252,0.378,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-13,21,0.5219123505976095,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-13,63,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-13,126,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-13,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-14,21,0.5099601593625498,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-14,63,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-14,126,0.44510978043912175,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-14,252,0.39,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-15,21,0.46215139442231074,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-15,63,0.3592814371257485,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-15,126,0.43313373253493015,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-15,252,0.372,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-16,21,0.6441351888667992,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-16,63,0.41916167664670656,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-16,126,0.47305389221556887,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-16,252,0.418,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-17,21,0.6043737574552683,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-17,63,0.4291417165668663,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-17,126,0.4471057884231537,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-17,252,0.42,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-20,21,0.5984095427435387,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-20,63,0.42115768463073855,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-20,126,0.4351297405189621,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-20,252,0.412,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-21,21,0.5825049701789264,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-21,63,0.3812375249500998,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-21,126,0.4171656686626746,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-21,252,0.396,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-22,21,0.6163021868787276,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-22,63,0.3812375249500998,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-22,126,0.40718562874251496,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-22,252,0.408,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-23,21,0.5964214711729622,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-23,63,0.47305389221556887,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-23,126,0.4171656686626746,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-23,252,0.402,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-24,21,0.5864811133200796,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-24,63,0.45109780439121755,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-24,126,0.4530938123752495,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-24,252,0.428,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-27,21,0.610337972166998,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-27,63,0.5269461077844312,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-27,126,0.4810379241516966,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-27,252,0.432,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-28,21,0.5705765407554672,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-28,63,0.5568862275449101,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-28,126,0.5209580838323353,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-28,252,0.448,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-29,21,0.6878727634194831,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-29,63,0.5828343313373253,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-29,126,0.5449101796407185,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-29,252,0.466,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-30,21,0.6341948310139165,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-30,63,0.5409181636726547,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-30,126,0.5069860279441117,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-30,252,0.428,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-31,21,0.5745526838966203,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-31,63,0.48902195608782434,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-31,126,0.4530938123752495,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-07-31,252,0.41,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-03,21,0.46520874751491054,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-03,63,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-03,126,0.4351297405189621,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-03,252,0.414,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-04,21,0.4691848906560636,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-04,63,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-04,126,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-04,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-05,21,0.4552683896620278,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-05,63,0.5209580838323353,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-05,126,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-05,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-06,21,0.4970178926441352,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-06,63,0.5229540918163673,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-06,126,0.32335329341317365,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-06,252,0.386,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-07,21,0.48906560636182905,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-07,63,0.5249500998003992,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-07,126,0.3273453093812375,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-07,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-10,21,0.5059760956175299,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-10,63,0.56,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-10,126,0.33,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-10,252,0.4028056112224449,499,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-11,21,0.4850894632206759,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-11,63,0.5748502994011976,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-11,126,0.35728542914171657,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-11,252,0.404,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-12,21,0.5168986083499006,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-12,63,0.5528942115768463,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-12,126,0.3393213572854291,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-12,252,0.404,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-13,21,0.5407554671968191,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-13,63,0.5848303393213573,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-13,126,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-13,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-14,21,0.4592445328031809,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-14,63,0.6187624750499002,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-14,126,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-14,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-17,21,0.4433399602385686,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-17,63,0.5768463073852296,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-17,126,0.33532934131736525,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-17,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-18,21,0.4691848906560636,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-18,63,0.562874251497006,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-18,126,0.3373253493013972,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-18,252,0.406,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-19,21,0.5089463220675944,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-19,63,0.5728542914171657,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-19,126,0.34530938123752497,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-19,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-20,21,0.5029821073558648,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-20,63,0.5828343313373253,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-20,126,0.3373253493013972,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-20,252,0.388,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-21,21,0.4592445328031809,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-21,63,0.5888223552894212,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-21,126,0.35728542914171657,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-21,252,0.388,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-24,21,0.4532803180914513,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-24,63,0.6027944111776448,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-24,126,0.3652694610778443,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-24,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-25,21,0.415506958250497,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-25,63,0.6027944111776448,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-25,126,0.35728542914171657,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-25,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-26,21,0.3856858846918489,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-26,63,0.5956175298804781,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-26,126,0.36127744510978044,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-26,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-27,21,0.30417495029821073,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-27,63,0.5677290836653387,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-27,126,0.3313373253493014,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-27,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-28,21,0.3518886679920477,503,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-28,63,0.5896414342629482,502,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-28,126,0.313373253493014,501,Percent of current S&P 500 constituents outperforming SPY over trailing window
-2026-08-28,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY over trailing window
+2026-01-09,21,0.6367265469061876,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-09,63,0.488,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-09,126,0.378,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-09,252,0.36472945891783565,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-12,21,0.6287425149700598,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-12,63,0.47,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-12,126,0.364,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-12,252,0.3627254509018036,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-13,21,0.5608782435129741,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-13,63,0.488,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-13,126,0.386,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-13,252,0.37675350701402804,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-14,21,0.5748502994011976,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-14,63,0.494,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-14,126,0.412,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-14,252,0.37675350701402804,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-15,21,0.562874251497006,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-15,63,0.498,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-15,126,0.416,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-15,252,0.3587174348697395,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-16,21,0.6047904191616766,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-16,63,0.5,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-16,126,0.404,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-16,252,0.3807615230460922,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-20,21,0.564870259481038,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-20,63,0.528,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-20,126,0.442,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-20,252,0.3787575150300601,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-21,21,0.6147704590818364,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-21,63,0.55,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-21,126,0.412,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-21,252,0.3907815631262525,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-22,21,0.6207584830339321,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-22,63,0.526,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-22,126,0.406,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-22,252,0.3847695390781563,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-23,21,0.5988023952095808,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-23,63,0.514,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-23,126,0.394,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-23,252,0.3967935871743487,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-26,21,0.6307385229540918,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-26,63,0.51,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-26,126,0.378,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-26,252,0.39478957915831664,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-27,21,0.5748502994011976,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-27,63,0.518,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-27,126,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-27,252,0.39478957915831664,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-28,21,0.5588822355289421,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-28,63,0.530938123752495,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-28,126,0.388,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-28,252,0.3406813627254509,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-29,21,0.5748502994011976,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-29,63,0.590818363273453,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-29,126,0.396,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-29,252,0.3807615230460922,499,Percent of current S&P 500 constituents outperforming SPY
+2026-01-30,21,0.5888223552894212,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-30,63,0.6487025948103793,501,Percent of current S&P 500 constituents outperforming SPY
+2026-01-30,126,0.428,500,Percent of current S&P 500 constituents outperforming SPY
+2026-01-30,252,0.3867735470941884,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-02,21,0.5808383233532934,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-02,63,0.6207584830339321,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-02,126,0.404,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-02,252,0.3787575150300601,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-03,21,0.6087824351297405,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-03,63,0.6427145708582834,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-03,126,0.442,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-03,252,0.41082164328657317,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-04,21,0.6487025948103793,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-04,63,0.6766467065868264,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-04,126,0.472,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-04,252,0.43887775551102204,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-05,21,0.6467065868263473,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-05,63,0.6686626746506986,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-05,126,0.496,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-05,252,0.4529058116232465,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-06,21,0.6706586826347305,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-06,63,0.6606786427145709,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-06,126,0.506,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-06,252,0.43687374749499,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-09,21,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-09,63,0.6307385229540918,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-09,126,0.502,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-09,252,0.4308617234468938,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-10,21,0.6606786427145709,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-10,63,0.624750499001996,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-10,126,0.51,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-10,252,0.44288577154308617,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-11,21,0.6487025948103793,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-11,63,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-11,126,0.514,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-11,252,0.45090180360721444,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-12,21,0.6327345309381237,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-12,63,0.6726546906187625,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-12,126,0.514,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-12,252,0.45691382765531063,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-13,21,0.6606786427145709,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-13,63,0.676,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-13,126,0.538,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-13,252,0.4589178356713427,499,Percent of current S&P 500 constituents outperforming SPY
+2026-02-17,21,0.6487025948103793,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-17,63,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-17,126,0.534,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-17,252,0.47,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-18,21,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-18,63,0.6407185628742516,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-18,126,0.536,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-18,252,0.462,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-19,21,0.6287425149700598,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-19,63,0.6407185628742516,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-19,126,0.506,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-19,252,0.468,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-20,21,0.6187624750499002,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-20,63,0.624750499001996,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-20,126,0.504,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-20,252,0.466,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-23,21,0.6167664670658682,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-23,63,0.6467065868263473,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-23,126,0.512,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-23,252,0.46,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-24,21,0.6367265469061876,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-24,63,0.6227544910179641,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-24,126,0.492,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-24,252,0.448,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-25,21,0.6147704590818364,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-25,63,0.592814371257485,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-25,126,0.47,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-25,252,0.418,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-26,21,0.6646706586826348,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-26,63,0.6526946107784432,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-26,126,0.502,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-26,252,0.428,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-27,21,0.6666666666666666,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-27,63,0.656686626746507,501,Percent of current S&P 500 constituents outperforming SPY
+2026-02-27,126,0.526,500,Percent of current S&P 500 constituents outperforming SPY
+2026-02-27,252,0.438,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-02,21,0.6427145708582834,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-02,63,0.654690618762475,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-02,126,0.526,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-02,252,0.416,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-03,21,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-03,63,0.6526946107784432,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-03,126,0.508,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-03,252,0.414,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-04,21,0.6167664670658682,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-04,63,0.6447105788423154,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-04,126,0.492,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-04,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-05,21,0.6147704590818364,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-05,63,0.6387225548902196,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-05,126,0.496,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-05,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-06,21,0.5449101796407185,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-06,63,0.6526946107784432,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-06,126,0.492,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-06,252,0.412,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-09,21,0.49500998003992014,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-09,63,0.6227544910179641,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-09,126,0.478,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-09,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-10,21,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-10,63,0.6027944111776448,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-10,126,0.474,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-10,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-11,21,0.47105788423153694,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-11,63,0.5968063872255489,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-11,126,0.478,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-11,252,0.37,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-12,21,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-12,63,0.5868263473053892,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-12,126,0.49,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-12,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-13,21,0.45109780439121755,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-13,63,0.5828343313373253,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-13,126,0.482,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-13,252,0.408,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-16,21,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-16,63,0.5588822355289421,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-16,126,0.486,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-16,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-17,21,0.40119760479041916,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-17,63,0.5329341317365269,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-17,126,0.518,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-17,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-18,21,0.4151696606786427,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-18,63,0.5129740518962076,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-18,126,0.514,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-18,252,0.386,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-19,21,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-19,63,0.5189620758483033,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-19,126,0.5,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-19,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-20,21,0.42115768463073855,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-20,63,0.499001996007984,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-20,126,0.506,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-20,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-23,21,0.3992015968063872,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-23,63,0.5289421157684631,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-23,126,0.522,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-23,252,0.39,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-24,21,0.43912175648702595,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-24,63,0.5568862275449101,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-24,126,0.534,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-24,252,0.396,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-25,21,0.4351297405189621,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-25,63,0.5409181636726547,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-25,126,0.528,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-25,252,0.404,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-26,21,0.5089820359281437,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-26,63,0.5848303393213573,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-26,126,0.538,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-26,252,0.44,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-27,21,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-27,63,0.5868263473053892,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-27,126,0.558,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-27,252,0.432,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-30,21,0.4550898203592814,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-30,63,0.5868263473053892,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-30,126,0.544,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-30,252,0.436,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-31,21,0.42714570858283435,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-31,63,0.5728542914171657,501,Percent of current S&P 500 constituents outperforming SPY
+2026-03-31,126,0.528,500,Percent of current S&P 500 constituents outperforming SPY
+2026-03-31,252,0.406,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-01,21,0.405189620758483,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-01,63,0.5548902195608783,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-01,126,0.524,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-01,252,0.402,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-02,21,0.47305389221556887,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-02,63,0.5708582834331337,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-02,126,0.532,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-02,252,0.412,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-06,21,0.47105788423153694,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-06,63,0.5528942115768463,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-06,126,0.53,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-06,252,0.402,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-07,21,0.4630738522954092,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-07,63,0.5389221556886228,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-07,126,0.522,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-07,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-08,21,0.500998003992016,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-08,63,0.5489021956087824,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-08,126,0.536,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-08,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-09,21,0.5129740518962076,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-09,63,0.564870259481038,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-09,126,0.54,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-09,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-10,21,0.4870259481037924,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-10,63,0.5249500998003992,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-10,126,0.528,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-10,252,0.38,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-13,21,0.43912175648702595,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-13,63,0.5229540918163673,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-13,126,0.536,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-13,252,0.41,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-14,21,0.4031936127744511,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-14,63,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-14,126,0.49,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-14,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-15,21,0.36926147704590817,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-15,63,0.48502994011976047,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-15,126,0.48,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-15,252,0.366,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-16,21,0.35528942115768464,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-16,63,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-16,126,0.452,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-16,252,0.368,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-17,21,0.37524950099800397,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-17,63,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-17,126,0.472,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-17,252,0.368,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-20,21,0.3912175648702595,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-20,63,0.46706586826347307,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-20,126,0.48,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-20,252,0.374,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-21,21,0.4031936127744511,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-21,63,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-21,126,0.474,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-21,252,0.372,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-22,21,0.3273453093812375,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-22,63,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-22,126,0.462,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-22,252,0.348,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-23,21,0.3153692614770459,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-23,63,0.42714570858283435,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-23,126,0.482,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-23,252,0.354,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-24,21,0.26746506986027946,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-24,63,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-24,126,0.446,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-24,252,0.336,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-27,21,0.24151696606786427,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-27,63,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-27,126,0.444,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-27,252,0.33,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-28,21,0.2554890219560878,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-28,63,0.4411177644710579,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-28,126,0.48,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-28,252,0.334,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-29,21,0.22355289421157684,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-29,63,0.45109780439121755,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-29,126,0.47704590818363274,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-29,252,0.328,500,Percent of current S&P 500 constituents outperforming SPY
+2026-04-30,21,0.23952095808383234,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-30,63,0.42714570858283435,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-30,126,0.4870259481037924,501,Percent of current S&P 500 constituents outperforming SPY
+2026-04-30,252,0.33,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-01,21,0.24151696606786427,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-01,63,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-01,126,0.5109780439121756,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-01,252,0.342,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-04,21,0.2275449101796407,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-04,63,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-04,126,0.49500998003992014,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-04,252,0.348,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-05,21,0.23552894211576847,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-05,63,0.36926147704590817,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-05,126,0.49101796407185627,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-05,252,0.35,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-06,21,0.2315369261477046,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-06,63,0.3093812375249501,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-06,126,0.48502994011976047,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-06,252,0.34,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-07,21,0.21357285429141717,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-07,63,0.27944111776447106,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-07,126,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-07,252,0.328,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-08,21,0.23952095808383234,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-08,63,0.2714570858283433,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-08,126,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-08,252,0.314,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-11,21,0.24550898203592814,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-11,63,0.2934131736526946,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-11,126,0.4171656686626746,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-11,252,0.304,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-12,21,0.22554890219560877,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-12,63,0.2874251497005988,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-12,126,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-12,252,0.314,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-13,21,0.2315369261477046,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-13,63,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-13,126,0.4151696606786427,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-13,252,0.294,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-14,21,0.2375249500998004,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-14,63,0.24750499001996007,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-14,126,0.3932135728542914,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-14,252,0.3,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-15,21,0.25948103792415167,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-15,63,0.23952095808383234,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-15,126,0.396,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-15,252,0.306,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-18,21,0.28542914171656686,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-18,63,0.25149700598802394,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-18,126,0.40119760479041916,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-18,252,0.304,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-19,21,0.2694610778443114,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-19,63,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-19,126,0.4111776447105788,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-19,252,0.306,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-20,21,0.2435129740518962,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-20,63,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-20,126,0.4091816367265469,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-20,252,0.312,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-21,21,0.2754491017964072,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-21,63,0.24750499001996007,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-21,126,0.4031936127744511,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-21,252,0.314,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-22,21,0.2654690618762475,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-22,63,0.26746506986027946,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-22,126,0.4251497005988024,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-22,252,0.324,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-26,21,0.2654690618762475,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-26,63,0.25748502994011974,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-26,126,0.3972055888223553,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-26,252,0.326,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-27,21,0.2834331337325349,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-27,63,0.25948103792415167,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-27,126,0.3852295409181637,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-27,252,0.32,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-28,21,0.2774451097804391,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-28,63,0.2435129740518962,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-28,126,0.39520958083832336,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-28,252,0.312,500,Percent of current S&P 500 constituents outperforming SPY
+2026-05-29,21,0.2654690618762475,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-29,63,0.24750499001996007,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-29,126,0.38323353293413176,501,Percent of current S&P 500 constituents outperforming SPY
+2026-05-29,252,0.316,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-01,21,0.2554890219560878,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-01,63,0.2375249500998004,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-01,126,0.36127744510978044,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-01,252,0.304,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-02,21,0.249500998003992,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-02,63,0.24151696606786427,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-02,126,0.3712574850299401,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-02,252,0.298,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-03,21,0.26147704590818366,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-03,63,0.2375249500998004,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-03,126,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-03,252,0.308,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-04,21,0.2994011976047904,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-04,63,0.25349301397205587,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-04,126,0.40718562874251496,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-04,252,0.33,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-05,21,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-05,63,0.27944111776447106,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-05,126,0.46506986027944114,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-05,252,0.354,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-08,21,0.45708582834331335,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-08,63,0.2894211576846307,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-08,126,0.4471057884231537,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-08,252,0.352,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-09,21,0.6307385229540918,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-09,63,0.3333333333333333,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-09,126,0.48303393213572854,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-09,252,0.36,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-10,21,0.6666666666666666,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-10,63,0.36726546906187624,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-10,126,0.5089820359281437,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-10,252,0.374,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-11,21,0.6047904191616766,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-11,63,0.36127744510978044,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-11,126,0.4930139720558882,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-11,252,0.366,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-12,21,0.7025948103792415,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-12,63,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-12,126,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-12,252,0.36,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-15,21,0.6347305389221557,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-15,63,0.31736526946107785,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-15,126,0.4491017964071856,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-15,252,0.338,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-16,21,0.6746506986027944,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-16,63,0.3273453093812375,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-16,126,0.4411177644710579,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-16,252,0.354,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-17,21,0.6007984031936128,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-17,63,0.30538922155688625,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-17,126,0.3992015968063872,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-17,252,0.35,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-18,21,0.5129740518962076,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-18,63,0.2994011976047904,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-18,126,0.39520958083832336,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-18,252,0.34,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-22,21,0.5608782435129741,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-22,63,0.3153692614770459,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-22,126,0.38922155688622756,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-22,252,0.346,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-23,21,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-23,63,0.33532934131736525,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-23,126,0.42115768463073855,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-23,252,0.36,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-24,21,0.6506986027944112,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-24,63,0.3473053892215569,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-24,126,0.48303393213572854,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-24,252,0.372,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-25,21,0.6766467065868264,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-25,63,0.35528942115768464,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-25,126,0.49101796407185627,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-25,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-26,21,0.7111553784860558,502,Percent of current S&P 500 constituents outperforming SPY
+2026-06-26,63,0.36327345309381237,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-26,126,0.5329341317365269,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-26,252,0.432,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-29,21,0.6912350597609562,502,Percent of current S&P 500 constituents outperforming SPY
+2026-06-29,63,0.3393213572854291,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-29,126,0.500998003992016,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-29,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY
+2026-06-30,21,0.6613545816733067,502,Percent of current S&P 500 constituents outperforming SPY
+2026-06-30,63,0.3073852295409182,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-30,126,0.4750499001996008,501,Percent of current S&P 500 constituents outperforming SPY
+2026-06-30,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-01,21,0.6653386454183267,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-01,63,0.33532934131736525,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-01,126,0.47704590818363274,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-01,252,0.388,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-02,21,0.6952191235059761,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-02,63,0.36327345309381237,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-02,126,0.5109780439121756,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-02,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-06,21,0.6772908366533864,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-06,63,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-06,126,0.4870259481037924,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-06,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-07,21,0.6633466135458167,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-07,63,0.36327345309381237,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-07,126,0.499001996007984,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-07,252,0.396,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-08,21,0.5537848605577689,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-08,63,0.34530938123752497,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-08,126,0.48502994011976047,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-08,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-09,21,0.5737051792828686,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-09,63,0.34530938123752497,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-09,126,0.437125748502994,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-09,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-10,21,0.4760956175298805,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-10,63,0.34930139720558884,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-10,126,0.45708582834331335,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-10,252,0.378,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-13,21,0.5219123505976095,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-13,63,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-13,126,0.46107784431137727,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-13,252,0.398,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-14,21,0.5099601593625498,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-14,63,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-14,126,0.44510978043912175,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-14,252,0.39,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-15,21,0.46215139442231074,502,Percent of current S&P 500 constituents outperforming SPY
+2026-07-15,63,0.3592814371257485,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-15,126,0.43313373253493015,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-15,252,0.372,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-16,21,0.6441351888667992,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-16,63,0.41916167664670656,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-16,126,0.47305389221556887,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-16,252,0.418,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-17,21,0.6043737574552683,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-17,63,0.4291417165668663,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-17,126,0.4471057884231537,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-17,252,0.42,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-20,21,0.5984095427435387,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-20,63,0.42115768463073855,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-20,126,0.4351297405189621,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-20,252,0.412,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-21,21,0.5825049701789264,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-21,63,0.3812375249500998,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-21,126,0.4171656686626746,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-21,252,0.396,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-22,21,0.6163021868787276,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-22,63,0.3812375249500998,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-22,126,0.40718562874251496,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-22,252,0.408,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-23,21,0.5964214711729622,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-23,63,0.47305389221556887,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-23,126,0.4171656686626746,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-23,252,0.402,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-24,21,0.5864811133200796,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-24,63,0.45109780439121755,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-24,126,0.4530938123752495,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-24,252,0.428,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-27,21,0.610337972166998,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-27,63,0.5269461077844312,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-27,126,0.4810379241516966,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-27,252,0.432,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-28,21,0.5705765407554672,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-28,63,0.5568862275449101,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-28,126,0.5209580838323353,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-28,252,0.448,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-29,21,0.6878727634194831,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-29,63,0.5828343313373253,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-29,126,0.5449101796407185,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-29,252,0.466,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-30,21,0.6341948310139165,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-30,63,0.5409181636726547,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-30,126,0.5069860279441117,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-30,252,0.428,500,Percent of current S&P 500 constituents outperforming SPY
+2026-07-31,21,0.5745526838966203,503,Percent of current S&P 500 constituents outperforming SPY
+2026-07-31,63,0.48902195608782434,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-31,126,0.4530938123752495,501,Percent of current S&P 500 constituents outperforming SPY
+2026-07-31,252,0.41,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-03,21,0.46520874751491054,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-03,63,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-03,126,0.4351297405189621,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-03,252,0.414,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-04,21,0.4691848906560636,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-04,63,0.5029940119760479,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-04,126,0.41317365269461076,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-04,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-05,21,0.4552683896620278,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-05,63,0.5209580838323353,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-05,126,0.37924151696606784,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-05,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-06,21,0.4970178926441352,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-06,63,0.5229540918163673,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-06,126,0.32335329341317365,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-06,252,0.386,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-07,21,0.48906560636182905,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-07,63,0.5249500998003992,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-07,126,0.3273453093812375,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-07,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-10,21,0.5059760956175299,502,Percent of current S&P 500 constituents outperforming SPY
+2026-08-10,63,0.56,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-10,126,0.33,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-10,252,0.4028056112224449,499,Percent of current S&P 500 constituents outperforming SPY
+2026-08-11,21,0.4850894632206759,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-11,63,0.5748502994011976,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-11,126,0.35728542914171657,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-11,252,0.404,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-12,21,0.5168986083499006,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-12,63,0.5528942115768463,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-12,126,0.3393213572854291,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-12,252,0.404,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-13,21,0.5407554671968191,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-13,63,0.5848303393213573,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-13,126,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-13,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-14,21,0.4592445328031809,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-14,63,0.6187624750499002,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-14,126,0.35129740518962077,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-14,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-17,21,0.4433399602385686,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-17,63,0.5768463073852296,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-17,126,0.33532934131736525,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-17,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-18,21,0.4691848906560636,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-18,63,0.562874251497006,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-18,126,0.3373253493013972,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-18,252,0.406,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-19,21,0.5089463220675944,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-19,63,0.5728542914171657,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-19,126,0.34530938123752497,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-19,252,0.392,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-20,21,0.5029821073558648,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-20,63,0.5828343313373253,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-20,126,0.3373253493013972,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-20,252,0.388,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-21,21,0.4592445328031809,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-21,63,0.5888223552894212,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-21,126,0.35728542914171657,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-21,252,0.388,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-24,21,0.4532803180914513,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-24,63,0.6027944111776448,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-24,126,0.3652694610778443,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-24,252,0.394,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-25,21,0.415506958250497,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-25,63,0.6027944111776448,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-25,126,0.35728542914171657,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-25,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-26,21,0.3856858846918489,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-26,63,0.5956175298804781,502,Percent of current S&P 500 constituents outperforming SPY
+2026-08-26,126,0.36127744510978044,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-26,252,0.4,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-27,21,0.30417495029821073,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-27,63,0.5677290836653387,502,Percent of current S&P 500 constituents outperforming SPY
+2026-08-27,126,0.3313373253493014,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-27,252,0.384,500,Percent of current S&P 500 constituents outperforming SPY
+2026-08-28,21,0.3518886679920477,503,Percent of current S&P 500 constituents outperforming SPY
+2026-08-28,63,0.5896414342629482,502,Percent of current S&P 500 constituents outperforming SPY
+2026-08-28,126,0.313373253493014,501,Percent of current S&P 500 constituents outperforming SPY
+2026-08-28,252,0.382,500,Percent of current S&P 500 constituents outperforming SPY
