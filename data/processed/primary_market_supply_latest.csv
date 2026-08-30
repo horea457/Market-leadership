@@ -1,0 +1,2 @@
+as_of,ready,supply_state,low_quality_state,ipo_proxy_424b4_3m,followon_proxy_424b5_3m,s1_registration_3m,spac_proxy_3m,supply_percentile_5y,low_quality_share,low_quality_coverage,method_note,data_source,error_note
+2026-08-30,False,collection_unavailable,unknown,,,,,,,0.0,SEC EDGAR refresh unavailable on this run. Dashboard must treat this module as not connected.,SEC EDGAR,SEC index unavailable and no local SEC filings cache exists.
