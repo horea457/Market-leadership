@@ -22,8 +22,14 @@ OUT.mkdir(parents=True, exist_ok=True)
 # Public iShares holdings files. They provide sector/country/weight metadata;
 # issuer shares outstanding are fetched separately from Yahoo Finance.
 HOLDINGS_URLS = {
-    "US": "https://www.ishares.com/us/products/239726/ishares-core-s-p-500-etf/latest-holdings.csv",
-    "GLOBAL": "https://www.ishares.com/us/products/239600/ishares-msci-acwi-etf/latest-holdings.csv",
+    "US": [
+        "https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf/latest-holdings.csv",
+        "https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf/1467271812596.ajax?fileType=csv&fileName=IVV_holdings&dataType=fund",
+    ],
+    "GLOBAL": [
+        "https://www.ishares.com/us/products/239600/ishares-msci-acwi-etf/latest-holdings.csv",
+        "https://www.ishares.com/us/products/239600/ishares-msci-acwi-etf/1467271812596.ajax?fileType=csv&fileName=ACWI_holdings&dataType=fund",
+    ],
 }
 
 # We intentionally sample each sector rather than hammering thousands of Yahoo endpoints.
@@ -56,19 +62,10 @@ SECTOR_KOR = {
 }
 
 
-def _read_ishares_csv(url: str) -> pd.DataFrame:
-    headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; market-leadership-dashboard/1.0)",
-        "Accept": "text/csv,text/plain,*/*",
-    }
-    r = requests.get(url, headers=headers, timeout=45)
-    r.raise_for_status()
-    text = r.text
-
-    # iShares prepends eight metadata rows before the actual CSV header.
+def _parse_ishares_text(text: str) -> pd.DataFrame:
     lines = text.splitlines()
     header_idx = None
-    for i, line in enumerate(lines[:30]):
+    for i, line in enumerate(lines[:40]):
         clean = line.replace('"', '').strip()
         if clean.startswith("Ticker,Name,Sector,Asset Class"):
             header_idx = i
@@ -77,19 +74,62 @@ def _read_ishares_csv(url: str) -> pd.DataFrame:
         raise RuntimeError("Could not locate iShares holdings CSV header.")
 
     df = pd.read_csv(StringIO("\n".join(lines[header_idx:])))
+    required = {"Ticker", "Name", "Sector", "Asset Class", "Weight (%)"}
+    missing = required - set(df.columns)
+    if missing:
+        raise RuntimeError(f"iShares CSV missing columns: {sorted(missing)}")
+
     for col in ["Weight (%)", "Market Value", "Quantity", "Price"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col].astype(str).str.replace(",", "", regex=False), errors="coerce")
 
-    df = df[df.get("Asset Class", "").astype(str).str.contains("Equity", case=False, na=False)].copy()
+    df = df[df["Asset Class"].astype(str).str.contains("Equity", case=False, na=False)].copy()
     df = df[df["Ticker"].notna() & df["Sector"].notna()].copy()
-    df["Ticker"] = df["Ticker"].astype(str).str.strip()
-    df["Sector"] = df["Sector"].astype(str).str.strip()
-    df["Location"] = df.get("Location", "").astype(str).str.strip()
-    df["Exchange"] = df.get("Exchange", "").astype(str).str.strip()
-    df["ISIN"] = df.get("ISIN", "").astype(str).str.strip()
-    df["Name"] = df.get("Name", "").astype(str).str.strip()
+    for col in ["Ticker", "Sector", "Location", "Exchange", "ISIN", "Name"]:
+        if col not in df.columns:
+            df[col] = ""
+        df[col] = df[col].astype(str).str.strip()
+    if df.empty:
+        raise RuntimeError("Parsed iShares holdings but no equity rows remained.")
     return df
+
+
+def _read_ishares_csv(urls: list[str], cache_path: Path, label: str) -> pd.DataFrame:
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131 Safari/537.36",
+        "Accept": "text/csv,text/plain,*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://www.ishares.com/us/",
+    }
+    errors = []
+    session = requests.Session()
+    for url in urls:
+        for attempt in range(3):
+            try:
+                r = session.get(url, headers=headers, timeout=60, allow_redirects=True)
+                ctype = (r.headers.get("content-type") or "").lower()
+                preview = r.text[:80].replace("\n", " | ")
+                print(f"  {label} holdings attempt {attempt+1}: HTTP {r.status_code}, {len(r.content)} bytes, {ctype}")
+                r.raise_for_status()
+                df = _parse_ishares_text(r.text)
+                print(f"  {label} holdings OK: {len(df)} equity rows")
+                df.to_csv(cache_path, index=False)
+                return df
+            except Exception as exc:
+                errors.append(f"{url} -> {type(exc).__name__}: {exc}")
+                time.sleep(1.5 * (attempt + 1))
+
+    # A transient iShares block should not erase a previously usable universe.
+    if cache_path.exists():
+        try:
+            cached = pd.read_csv(cache_path)
+            if not cached.empty:
+                print(f"WARNING: live {label} holdings failed; using cached {cache_path.name} ({len(cached)} rows).")
+                return cached
+        except Exception as exc:
+            errors.append(f"cache -> {type(exc).__name__}: {exc}")
+
+    raise RuntimeError(f"Unable to load {label} holdings. " + " || ".join(errors[-6:]))
 
 
 def _normalize_us_ticker(ticker: str) -> str:
@@ -479,16 +519,8 @@ def main() -> None:
         print(f"Stock-supply proxy is < {MIN_REFRESH_DAYS} days old; keeping prior snapshot.")
         return
     print("Fetching US and global equity-supply proxy...")
-    try:
-        us = _read_ishares_csv(HOLDINGS_URLS["US"])
-        global_df = _read_ishares_csv(HOLDINGS_URLS["GLOBAL"])
-    except Exception as exc:
-        print(f"WARNING: holdings download failed ({exc}). Keeping prior stock-supply files.")
-        _write_empty_if_needed()
-        return
-
-    us.to_csv(RAW / "ivv_holdings_latest.csv", index=False)
-    global_df.to_csv(RAW / "acwi_holdings_latest.csv", index=False)
+    us = _read_ishares_csv(HOLDINGS_URLS["US"], RAW / "ivv_holdings_latest.csv", "IVV")
+    global_df = _read_ishares_csv(HOLDINGS_URLS["GLOBAL"], RAW / "acwi_holdings_latest.csv", "ACWI")
 
     samples = pd.concat([
         _sample_holdings(us, "US"),
@@ -496,10 +528,10 @@ def main() -> None:
         _sample_holdings(global_df, "EX_US"),
     ], ignore_index=True)
     print(f"Sampled holdings: {len(samples)} rows across US / GLOBAL / EX_US")
+    print("Sample counts:", samples.groupby("universe").size().to_dict())
+    print("Mapped Yahoo tickers:", int(samples["yahoo_ticker"].notna().sum()))
     if samples.empty:
-        print("WARNING: no holdings survived ticker mapping; writing empty supply files.")
-        _write_empty_if_needed()
-        return
+        raise RuntimeError("No holdings survived ticker mapping; check Location/Exchange mappings.")
 
     # Same issuer can occur in multiple universes. Fetch each Yahoo series only once.
     tickers = sorted(samples["yahoo_ticker"].dropna().unique().tolist())
@@ -560,6 +592,8 @@ def main() -> None:
 
     detail.to_csv(OUT / "stock_supply_company_detail.csv", index=False)
     latest = _aggregate(detail, {"US": us, "GLOBAL": global_df})
+    if latest.empty:
+        raise RuntimeError("Stock-supply aggregation produced 0 sector rows; refusing to write an empty latest file.")
     latest.to_csv(OUT / "stock_supply_sector_latest.csv", index=False)
     _append_history(latest)
 
