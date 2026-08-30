@@ -1,0 +1,8 @@
+﻿state,logic,research_basis,dashboard_action,final_threshold_status
+NOISE,21D strong but 63D weak,Short horizon is not enough for medium-horizon momentum,Do not chase; observe only,Backtest pending
+BOUNCE,Prior loser/deep drawdown + recent rebound + market rebound context,Daniel-Moskowitz momentum crash / Fisher Bounce,Treat as rebound until intermediate momentum confirms,Backtest pending
+WATCH,63D excess return positive + rank improvement,3-12 month momentum persistence,Start research,Backtest pending
+CONSIDER,63D leadership + 126D/12-1/12-7 support + consistent path + not Bounce,Industry momentum + intermediate horizon + consistency,Consider portfolio inclusion,Backtest pending
+STRUCTURAL,CONSIDER + earnings confirmation + internal breadth confirmation + capital scarcity/no excess supply,Price+earnings drift + capital-cycle evidence,Priority sector for security research / allocation,Requires earnings module for full confirmation
+MATURE,Long-run leader + asset/CapEx/share issuance expansion and/or hot primary supply; earnings momentum no longer improving,Asset growth / capital investment / share issuance / new issues,Hold may be valid; avoid indiscriminate new chasing,Backtest pending
+DECAY,Former long-horizon leader loses 63D and 21D leadership; recovery failure strengthens signal,Old-leader failure hypothesis + long-horizon reversal literature,Do not assume old leader will automatically return,Direct event-study validation pending
