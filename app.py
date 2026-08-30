@@ -193,6 +193,31 @@ st.markdown("""
     margin-bottom: 1rem;
 }
 
+
+.action-callout {
+    border: 1px solid rgba(37, 99, 235, 0.20);
+    border-left: 5px solid #2563eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    background: rgba(37, 99, 235, 0.035);
+}
+.action-callout-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin-bottom: 5px;
+}
+.action-callout-text {
+    font-size: 1.02rem;
+    line-height: 1.52;
+    font-weight: 650;
+    color: #0f172a;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -597,8 +622,13 @@ def cross_change_judgement(row):
 
 
 def strongest_change(style_df, bounce_df=None):
+    """
+    Return an explicit transition headline and a short explanation.
+    Example: ('대형주 → 소형주', '전환 초기 · IWB/IWM')
+    """
     if not has_rows(style_df):
         return ("—", "—")
+
     candidates = []
     priority = {
         "전환 진행": 5,
@@ -607,15 +637,50 @@ def strongest_change(style_df, bounce_df=None):
         "혼조/재반전": 2,
         "지속": 0,
     }
+
     for _, r in style_df.iterrows():
         label, reason = style_change_judgement(r, bounce_df)
         base = label.split(" · ")[0]
-        candidates.append((priority.get(base, 1), label, r.get("pair_id"), reason))
+        candidates.append((priority.get(base, 1), label, r.get("pair_id"), r, reason))
+
     candidates.sort(key=lambda x: x[0], reverse=True)
+
     if not candidates or candidates[0][0] == 0:
-        return ("안정", "뚜렷한 신규 전환 없음")
-    _, label, pid, _ = candidates[0]
-    return label, PAIR_INFO.get(pid, {}).get("label", pid)
+        return ("뚜렷한 전환 없음", "126·63·21일 리더십이 대체로 정렬")
+
+    _, label, pid, row, _ = candidates[0]
+    l21 = row.get("leader_21")
+    l63 = row.get("leader_63")
+    l126 = row.get("leader_126")
+
+    # Direction should describe the actual old center -> new leader.
+    if l21 != l63:
+        old_leader, new_leader = l63, l21
+    elif l63 != l126:
+        old_leader, new_leader = l126, l63
+    else:
+        old_leader, new_leader = l126, l21
+
+    headline = f"{leader_to_kor(old_leader)} → {leader_to_kor(new_leader)}"
+
+    ticker_hint = {
+        "growth_value": "IWF/IWD",
+        "large_small": "IWB/IWM",
+        "cap_equal": "SPY/RSP",
+        "small_value_large_growth": "IWN/IWF",
+        "us_developed_ex_us": "VTI/VEA",
+        "developed_em": "VEA/VWO",
+        "cyclical_defensive": "경기민감/방어",
+    }.get(pid, "")
+
+    short_label = label.replace(" · 반등효과 주의", "")
+    sub = f"{short_label}"
+    if ticker_hint:
+        sub += f" · {ticker_hint}"
+    if "반등효과 주의" in label:
+        sub += " · 반등효과 주의"
+
+    return headline, sub
 
 
 def style_overall_comment(row):
@@ -975,6 +1040,20 @@ def _main_section_html(title, items, css_class):
 def render_main_sections(sections, caption=None):
     st.markdown(_main_section_html("동향", sections.get("동향", []), "trend"), unsafe_allow_html=True)
     st.markdown(_main_section_html("인사이트", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
+
+    action = str(sections.get("현재 대응", "") or "").strip()
+    if action:
+        safe_action = html.escape(action)
+        st.markdown(
+            f"""
+            <div class="action-callout">
+                <div class="action-callout-title">현재 대응</div>
+                <div class="action-callout-text">{safe_action}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     if caption:
         st.caption(caption)
 
@@ -1001,7 +1080,73 @@ def parse_main_sections(text):
         if not isinstance(val, list):
             val = []
         out[key] = [str(x).strip() for x in val if str(x).strip()][:4]
+
+    action = obj.get("현재 대응", "")
+    if isinstance(action, list):
+        action = " ".join(str(x).strip() for x in action if str(x).strip())
+    out["현재 대응"] = str(action).strip() if action is not None else ""
     return out
+
+
+
+def build_current_action(style, sector, global_sector, region, breadth, cycle=None):
+    """
+    Deterministic portfolio-direction message.
+    No buy/sell command; it tells the user what to keep, what not to chase,
+    and what 63D confirmation would justify a change.
+    """
+    b21 = None
+    b63 = None
+    if has_rows(breadth):
+        x21 = breadth[breadth["window"].eq(21)]
+        x63 = breadth[breadth["window"].eq(63)]
+        if len(x21):
+            try:
+                b21 = float(x21.iloc[-1].get("breadth_pct"))
+            except Exception:
+                pass
+        if len(x63):
+            try:
+                b63 = float(x63.iloc[-1].get("breadth_pct"))
+            except Exception:
+                pass
+
+    focus = []
+
+    if has_rows(region):
+        r21 = region.sort_values(["rank_21", "rank_63"]).iloc[0]
+        ticker = r21.get("ticker")
+        focus.append(REGION_MAP.get(ticker, ticker))
+
+    if has_rows(global_sector):
+        g21 = global_sector.sort_values(["rank_21", "rank_63"]).iloc[0]
+        ticker = g21.get("ticker")
+        focus.append(GLOBAL_SECTOR_SHORT.get(ticker, ticker))
+
+    if has_rows(sector):
+        s21 = sector.sort_values(["rank_21", "rank_63"]).iloc[0]
+        ticker = s21.get("ticker")
+        focus.append(US_SECTOR_SHORT.get(ticker, ticker))
+
+    # remove duplicates while preserving order
+    focus_clean = []
+    for x in focus:
+        if x and x not in focus_clean:
+            focus_clean.append(x)
+    focus_text = "·".join(focus_clean[:3]) if focus_clean else "신규 리더"
+
+    # Determine whether the current signal deserves action or only observation.
+    narrow = (b21 is not None and b21 < 0.50)
+    weakening = (b21 is not None and b63 is not None and b21 + 0.05 < b63)
+
+    if narrow or weakening:
+        stance = "기존 중심축을 유지하고 21일 신규 리더 추격은 보류"
+        trigger = "해당 축이 63일 상위권으로 올라오고 breadth가 50% 이상으로 재확대될 때 비중 이동을 검토"
+    else:
+        stance = "기존 중심축을 유지하되 신규 리더는 관찰 비중으로만 대응"
+        trigger = "해당 축이 63일 리더십까지 이어지고 breadth가 60% 안팎으로 확산되면 비중 확대를 검토"
+
+    return f"{stance}. {focus_text}가 핵심 관찰 대상이며, {trigger}합니다."
 
 
 def fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply=None, bounce_df=None):
@@ -1105,7 +1250,13 @@ def fallback_main_sections(style, sector, global_sector, region, breadth, stock_
             "의 21일 강세가 63일 리더십으로 이어지는지와 breadth 확대를 함께 봐야 합니다."
         )
 
-    return {"동향": trend[:4], "인사이트": insight[:4]}
+    return {
+        "동향": trend[:4],
+        "인사이트": insight[:4],
+        "현재 대응": build_current_action(
+            style, sector, global_sector, region, breadth
+        ),
+    }
 
 
 def fallback_style_chart_insight(snapshot):
@@ -1146,7 +1297,8 @@ MAIN_PROMPT = """
 반드시 아래 JSON 객체 하나만 출력한다. 코드펜스나 markdown은 쓰지 않는다.
 {
   "동향": ["문장", "문장", "문장"],
-  "인사이트": ["문장", "문장", "문장"]
+  "인사이트": ["문장", "문장", "문장"],
+  "현재 대응": "한 문장"
 }
 
 작성 규칙:
@@ -1169,6 +1321,14 @@ MAIN_PROMPT = """
 11. 매수/매도 추천은 하지 않는다.
 12. '도취'라는 단어는 쓰지 않고 '유포리아'를 사용한다.
 13. 특정 필명은 절대 쓰지 않는다.
+14. "현재 대응"은 반드시 한 문장으로만 쓴다.
+15. "현재 대응"에는 세 요소를 순서대로 넣는다:
+    (a) 지금 유지/확대/축소/추격 보류 중 무엇을 할지,
+    (b) 현재 가장 중요한 지역·섹터 2~3개,
+    (c) 무엇이 63일 기준으로 확인되면 행동을 바꿀지.
+16. 21일 변화만으로 신규 리더를 추격하지 않는다. 63일 확인과 breadth 확산을 우선한다.
+17. 데이터가 혼조면 "기존 중심축 유지 + 신규 리더 추격 보류"를 기본값으로 한다.
+18. 특정 ETF의 매수/매도 명령은 하지 말고 "비중 확대 검토 / 비중 축소 검토 / 관찰" 수준으로 쓴다.
 """
 
 STYLE_CHART_PROMPT = """
@@ -1969,6 +2129,11 @@ def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df, 
     else:
         confidence = "낮음"
 
+    # Critical late-cycle modules are not yet connected.
+    # Until Expectations Gap and IPO/SPAC/low-quality issuance are available,
+    # do not display a confidence higher than medium.
+    confidence = "중간" if confidence == "중상" else confidence
+
     missing = []
     if not supply_parts:
         missing.append("주식공급")
@@ -2075,7 +2240,7 @@ with c2:
     compact_card(
         "시장 심리 사이클",
         [cycle["stage"]],
-        f"규칙 기반 · 신뢰도 {cycle['confidence']}"
+        f"잠정 판정 · 신뢰도 {cycle['confidence']}"
     )
 
 with c3:
@@ -2086,8 +2251,13 @@ with c3:
     )
 
 with c4:
-    state_k, axis = strongest_change(style, bounce)
-    card("변화 포착", state_k, axis)
+    change_headline, change_sub = strongest_change(style, bounce)
+    card("가장 큰 스타일 변화", change_headline, change_sub)
+
+st.caption(
+    "스타일 변화는 시장 전체 방향이 아니라 성장/가치·대형/소형·시총/동일가중 등 "
+    "비교축 중 현재 변화 강도가 가장 큰 한 축을 보여줍니다."
+)
 
 # ---------- Main insight ----------
 st.markdown("### 현재 시장 인사이트")
@@ -2105,7 +2275,7 @@ snapshot["규칙기반_시장심리사이클"] = {
 }
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
 with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.17-cycle:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.19-action:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply, bounce)
@@ -2113,6 +2283,12 @@ if not sections:
         f"사이클: {cycle['stage']} · {cycle['reason']}"
     ] + sections.get("인사이트", [])
     sections["인사이트"] = sections["인사이트"][:4]
+
+if not sections.get("현재 대응"):
+    sections["현재 대응"] = build_current_action(
+        style, sector, global_sector, region, breadth, cycle
+    )
+
 render_main_sections(sections, f"GPT 리더십 변화 해석 · {model_name}" if gpt_main else None)
 if gpt_main_error and not gpt_main:
     st.caption(f"GPT API 미연결: {gpt_main_error}")
@@ -2125,8 +2301,10 @@ st.markdown(
 )
 
 cycle_modules_df = pd.DataFrame(cycle["modules"])
+connected_modules_df = cycle_modules_df[cycle_modules_df["측정"] != "미연결"].copy()
+
 st.dataframe(
-    cycle_modules_df,
+    connected_modules_df,
     use_container_width=True,
     hide_index=True,
     column_config={
@@ -2138,14 +2316,15 @@ st.dataframe(
 )
 
 st.caption(
-    "후기 유포리아는 현재 자동 확정하지 않습니다. "
-    "IPO/SPAC·저품질 신규공급과 실적/경제 expectations gap 데이터가 연결되어야 합니다."
+    "현재 판정에서 제외: Expectations Gap(실적·경제 surprise), "
+    "IPO/SPAC·저품질 신규공급. 이 데이터가 연결되기 전에는 신뢰도를 최대 '중간'으로 제한합니다."
 )
 
 with st.expander("사이클 판정 로직 보기"):
     st.dataframe(cycle_rule_table(), use_container_width=True, hide_index=True)
     st.markdown(
         """
+- **전환 초기**: 21일 또는 21·63일 리더가 기존 126일/63일 중심축과 달라지기 시작했지만, 아직 장기축까지 정렬되지 않은 상태입니다.
 - **Wall of Worry**: VIX·하이일드 스프레드 proxy로 걱정이 남아있는지 봅니다.
 - **Equity Supply**: 현재는 기존 상장기업의 발행주식수 변화만 반영하므로 `부분 측정`입니다.
 - **Speculation**: 성장/시총가중/기술주 리더십과 심리 proxy로 `일부 포켓`만 탐지합니다.
