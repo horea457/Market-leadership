@@ -2259,6 +2259,47 @@ def plot_style_quadrant(selected_row, pair_id):
     return fig
 
 
+
+def attach_research_metrics(base_df, research_df):
+    """
+    Add long-horizon research columns (252D/756D/12-1/12-7 etc.)
+    to the ordinary leadership dataframe without changing the base pipeline.
+    """
+    if not has_rows(base_df):
+        return pd.DataFrame()
+    if not has_rows(research_df) or "ticker" not in research_df.columns:
+        return base_df.copy()
+
+    wanted = [
+        "ticker",
+        "excess_252", "freq_252", "rank_252",
+        "excess_756", "freq_756", "rank_756",
+        "excess_12_1", "rank_12_1",
+        "excess_12_7", "rank_12_7",
+        "consistency_12m",
+        "bounce_flag_research", "old_leader_failure_flag",
+    ]
+    wanted = [c for c in wanted if c in research_df.columns]
+    if wanted == ["ticker"]:
+        return base_df.copy()
+
+    r = research_df[wanted].copy()
+    r = r.drop_duplicates("ticker", keep="last")
+
+    out = base_df.copy().merge(r, on="ticker", how="left", suffixes=("", "_research"))
+    for c in wanted:
+        if c == "ticker":
+            continue
+        rc = c + "_research"
+        if rc in out.columns:
+            if c in out.columns:
+                out[c] = out[c].where(out[c].notna(), out[rc])
+            else:
+                out[c] = out[rc]
+            out = out.drop(columns=[rc])
+    return out
+
+
 def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label, use_ticker_labels=True):
     colors = [
         "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
@@ -2381,6 +2422,136 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
     return fig
 
 
+
+
+def plot_cross_quadrant_structure(df, mapping, short_mapping, benchmark_label, use_ticker_labels=True):
+    """
+    Separate structural-confirmation view.
+    Recent-change view remains 126 -> 63 -> 21.
+    This view answers whether the current move is a new rotation or an
+    extension/decay of a longer 252-day leadership structure.
+    """
+    colors = [
+        "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
+        "#65a30d", "#db2777", "#4f46e5", "#b45309", "#059669", "#475569"
+    ]
+    periods = [
+        (252, "252일 · 장기 구조"),
+        (126, "126일 · 기존 추세"),
+        (63, "63일 · 현재 중심"),
+    ]
+    work = df.copy().reset_index(drop=True)
+
+    all_x, all_y = [], []
+    for period, _ in periods:
+        xv = pd.to_numeric(work.get(f"excess_{period}"), errors="coerce") * 100
+        yv = pd.to_numeric(work.get(f"freq_{period}"), errors="coerce") * 100
+        all_x.extend(xv.dropna().tolist())
+        all_y.extend(yv.dropna().tolist())
+
+    if all_x:
+        xmin, xmax = min(all_x + [0]), max(all_x + [0])
+        xpad = max((xmax - xmin) * 0.13, 1.5)
+        xrange = [xmin - xpad, xmax + xpad]
+    else:
+        xrange = [-5, 5]
+
+    if all_y:
+        ymin, ymax = min(all_y + [50]), max(all_y + [50])
+        ypad = max((ymax - ymin) * 0.16, 2.5)
+        yrange = [ymin - ypad, ymax + ypad]
+    else:
+        yrange = [40, 60]
+
+    fig = make_subplots(
+        rows=1,
+        cols=3,
+        subplot_titles=[x[1] for x in periods],
+        horizontal_spacing=0.055,
+        shared_yaxes=True,
+    )
+
+    missing = []
+    for col_idx, (period, _) in enumerate(periods, start=1):
+        for i, row in work.iterrows():
+            ticker = row.get("ticker")
+            full_label = short_mapping.get(ticker, mapping.get(ticker, ticker))
+            point_label = str(ticker) if use_ticker_labels else str(full_label)
+            xv = pd.to_numeric(row.get(f"excess_{period}"), errors="coerce")
+            yv = pd.to_numeric(row.get(f"freq_{period}"), errors="coerce")
+
+            if pd.isna(xv) or pd.isna(yv):
+                missing.append(f"{ticker} {period}일")
+                continue
+
+            fig.add_trace(
+                go.Scatter(
+                    x=[float(xv) * 100],
+                    y=[float(yv) * 100],
+                    mode="markers+text",
+                    name=str(full_label),
+                    legendgroup=str(ticker),
+                    showlegend=False,
+                    marker=dict(
+                        size=11,
+                        color=colors[i % len(colors)],
+                        line=dict(width=1, color="white"),
+                    ),
+                    text=[point_label],
+                    textposition=["top center", "bottom center", "middle right", "middle left"][i % 4],
+                    textfont=dict(size=8),
+                    cliponaxis=False,
+                    hovertemplate=(
+                        f"<b>{full_label}</b><br>{period}일"
+                        f"<br>{benchmark_label} 대비 초과수익: %{{x:.2f}}%"
+                        f"<br>승리 빈도: %{{y:.1f}}%<extra></extra>"
+                    ),
+                ),
+                row=1,
+                col=col_idx,
+            )
+
+        fig.add_vline(x=0, line_width=1, line_dash="dash", line_color="#94a3b8", row=1, col=col_idx)
+        fig.add_hline(y=50, line_width=1, line_dash="dash", line_color="#94a3b8", row=1, col=col_idx)
+        fig.update_xaxes(
+            range=xrange,
+            title_text=f"{benchmark_label} 대비 (%)",
+            row=1,
+            col=col_idx,
+            showgrid=True,
+            gridcolor="rgba(148,163,184,.14)",
+            zeroline=False,
+            automargin=True,
+            title_standoff=12,
+        )
+        fig.update_yaxes(
+            range=yrange,
+            row=1,
+            col=col_idx,
+            showgrid=True,
+            gridcolor="rgba(148,163,184,.14)",
+            zeroline=False,
+        )
+
+    fig.update_yaxes(title_text="승리 빈도 (%)", row=1, col=1)
+    fig.update_layout(
+        height=540,
+        margin=dict(l=75, r=65, t=115, b=85),
+        hovermode="closest",
+        template="plotly_white",
+        font=dict(family="Arial, Apple SD Gothic Neo, Malgun Gothic, sans-serif", size=11),
+        title=dict(
+            text="252일 → 126일 → 63일 구조적 리더십 비교",
+            x=0.01,
+            xanchor="left",
+            font=dict(size=14),
+        ),
+    )
+    fig.update_annotations(font=dict(size=11))
+    fig._missing_points = sorted(set(missing))
+    return fig
+
+
 # ---------- Rule-based sentiment cycle ----------
 def _norm100(value):
     """Normalize a 0~1 or 0~100 proxy into 0~100."""
@@ -2467,61 +2638,221 @@ def _supply_universe_summary(stock_supply_df, universe):
     }
 
 
-def _optional_expectations_gap(expectations_df):
+def _as_bool(v, default=False):
+    if isinstance(v, bool):
+        return v
+    if v is None or (isinstance(v, float) and pd.isna(v)):
+        return default
+    return str(v).strip().lower() in {"1","true","yes","y","ready","connected"}
+
+
+def _first_num(row, names):
+    for c in names:
+        if c in row.index:
+            try:
+                v = float(row.get(c))
+                if pd.notna(v):
+                    return v
+            except Exception:
+                pass
+    return None
+
+
+def _optional_expectations_gap(expectations_df, earnings_df=None):
     """
-    Optional future input.
-    Expected columns if connected:
-    - expectation_state: negative / low / neutral / high / extreme
-    - surprise_state: negative / neutral / positive
+    Market-level expectations gap.
+
+    Preferred source:
+    - expectations_gap_latest.csv generated from public FactSet earnings
+      surprise + estimate-revision publications.
+
+    Fallback:
+    - sector_earnings_confirmation_latest.csv, if available.
+
+    Macro consensus surprise is deliberately NOT fabricated. If it is not
+    connected, the module is marked '부분 연결' rather than '미연결'.
     """
-    if not has_rows(expectations_df):
+    if has_rows(expectations_df):
+        r = expectations_df.iloc[-1]
+        ready = _as_bool(r.get("ready", True), True)
+        earnings_ready = _as_bool(r.get("earnings_ready", ready), ready)
+        macro_ready = _as_bool(r.get("macro_ready", False), False)
+
+        state = str(r.get("expectation_state", r.get("revision_state", "neutral"))).lower()
+        surprise = str(r.get("surprise_state", "neutral")).lower()
+        beat_rate = _first_num(r, ["eps_beat_rate", "positive_eps_surprise_pct"])
+        surprise_mag = _first_num(r, ["eps_surprise_magnitude", "eps_surprise_pct_ex_outliers", "eps_surprise_pct"])
+        revision = _first_num(r, ["eps_revision_pct", "bottom_up_eps_revision_pct"])
+        as_of = str(r.get("as_of", r.get("date", "")) or "")
+
+        parts = []
+        if beat_rate is not None:
+            # Accept either percentage or decimal input.
+            br = beat_rate * 100 if abs(beat_rate) <= 1 else beat_rate
+            parts.append(f"EPS beat {br:.0f}%")
+        if surprise_mag is not None:
+            sm = surprise_mag * 100 if abs(surprise_mag) <= 1 else surprise_mag
+            parts.append(f"surprise {sm:+.1f}%")
+        if revision is not None:
+            rv = revision * 100 if abs(revision) <= 1 else revision
+            parts.append(f"추정치 revision {rv:+.1f}%")
+        if as_of:
+            parts.append(f"기준 {as_of}")
+
+        if earnings_ready and macro_ready:
+            role = "핵심"
+            coverage_credit = 1.0
+            coverage = "실적+거시"
+        elif earnings_ready:
+            role = "부분 연결"
+            coverage_credit = 0.6
+            coverage = "실적 중심"
+            parts.append("거시 consensus surprise는 미수집")
+        else:
+            role = "수집 대기"
+            coverage_credit = 0.0
+            coverage = "미수집"
+
         return {
-            "ready": False,
-            "state": "미연결",
-            "surprise": "미연결",
-            "evidence": "실적·경제 surprise 데이터 미연결",
+            "ready": bool(earnings_ready or macro_ready),
+            "state": state,
+            "surprise": surprise,
+            "evidence": " · ".join(parts) if parts else f"기대 {state} · surprise {surprise}",
+            "role": role,
+            "coverage_credit": coverage_credit,
+            "coverage": coverage,
         }
 
-    r = expectations_df.iloc[-1]
-    state = str(r.get("expectation_state", "neutral")).lower()
-    surprise = str(r.get("surprise_state", "neutral")).lower()
+    # Fallback to sector earnings data instead of generic "미연결".
+    if has_rows(earnings_df):
+        work = earnings_df.copy()
+
+        surprise_cols = [
+            c for c in ["eps_surprise_pct","avg_eps_surprise_pct","surprise_pct","latest_eps_surprise_pct"]
+            if c in work.columns
+        ]
+        revision_cols = [
+            c for c in ["revision_30d_pct","revision_60d_pct","eps_revision_pct","estimate_revision_pct"]
+            if c in work.columns
+        ]
+
+        surprise_vals = []
+        for c in surprise_cols:
+            surprise_vals.extend(pd.to_numeric(work[c], errors="coerce").dropna().tolist())
+        revision_vals = []
+        for c in revision_cols:
+            revision_vals.extend(pd.to_numeric(work[c], errors="coerce").dropna().tolist())
+
+        s_med = float(pd.Series(surprise_vals).median()) if surprise_vals else None
+        r_med = float(pd.Series(revision_vals).median()) if revision_vals else None
+
+        surprise_state = "positive" if s_med is not None and s_med > 0 else ("negative" if s_med is not None and s_med < 0 else "neutral")
+        expectation_state = "rising" if r_med is not None and r_med > 0 else ("falling" if r_med is not None and r_med < 0 else "neutral")
+
+        bits = [f"섹터 earnings 표본 {len(work)}개"]
+        if s_med is not None:
+            bits.append(f"median surprise {s_med:+.1f}%")
+        if r_med is not None:
+            bits.append(f"median revision {r_med:+.1f}%")
+        bits.append("거시 consensus surprise는 미수집")
+
+        return {
+            "ready": True,
+            "state": expectation_state,
+            "surprise": surprise_state,
+            "evidence": " · ".join(bits),
+            "role": "부분 연결",
+            "coverage_credit": 0.5,
+            "coverage": "섹터 실적 표본",
+        }
+
     return {
-        "ready": True,
-        "state": state,
-        "surprise": surprise,
-        "evidence": f"기대 {state} · surprise {surprise}",
+        "ready": False,
+        "state": "수집 대기",
+        "surprise": "수집 대기",
+        "evidence": "FactSet 실적 surprise/estimate revision 자동수집 파일이 아직 생성되지 않음",
+        "role": "수집 대기",
+        "coverage_credit": 0.0,
+        "coverage": "미수집",
     }
 
 
 def _optional_primary_supply(primary_supply_df):
     """
-    Optional future input.
-    Expected columns if connected:
-    - supply_state: closed / subdued / normal / rising / frenzy
-    - low_quality_state: low / normal / high
+    SEC EDGAR primary-market proxy.
+    Expected current columns:
+      ready, supply_state, low_quality_state,
+      ipo_proxy_424b4_3m, followon_proxy_424b5_3m,
+      spac_proxy_3m, supply_percentile_5y,
+      low_quality_share, low_quality_coverage
     """
     if not has_rows(primary_supply_df):
         return {
             "ready": False,
-            "state": "미연결",
-            "low_quality": "미연결",
-            "evidence": "IPO·Follow-on·SPAC·저품질 신규공급 미연결",
+            "state": "수집 대기",
+            "low_quality": "수집 대기",
+            "evidence": "SEC 424B4·424B5·S-1 자동집계 파일이 아직 생성되지 않음",
+            "role": "수집 대기",
+            "coverage_credit": 0.0,
         }
 
     r = primary_supply_df.iloc[-1]
+    ready = _as_bool(r.get("ready", True), True)
     state = str(r.get("supply_state", "normal")).lower()
-    low_quality = str(r.get("low_quality_state", "normal")).lower()
+    low_quality = str(r.get("low_quality_state", "unknown")).lower()
+
+    ipo = _first_num(r, ["ipo_proxy_424b4_3m", "count_424b4_3m"])
+    followon = _first_num(r, ["followon_proxy_424b5_3m", "count_424b5_3m"])
+    spac = _first_num(r, ["spac_proxy_3m", "count_spac_proxy_3m"])
+    pct = _first_num(r, ["supply_percentile_5y"])
+    lq_share = _first_num(r, ["low_quality_share"])
+    lq_cov = _first_num(r, ["low_quality_coverage"])
+    as_of = str(r.get("as_of", r.get("date", "")) or "")
+
+    parts = []
+    if ipo is not None:
+        parts.append(f"424B4 3개월 {int(round(ipo))}건")
+    if followon is not None:
+        parts.append(f"424B5 3개월 {int(round(followon))}건")
+    if spac is not None:
+        parts.append(f"SPAC proxy {int(round(spac))}건")
+    if pct is not None:
+        pp = pct * 100 if abs(pct) <= 1 else pct
+        parts.append(f"5년 공급 percentile {pp:.0f}%")
+    if lq_share is not None:
+        qq = lq_share * 100 if abs(lq_share) <= 1 else lq_share
+        parts.append(f"저품질 proxy {qq:.0f}%")
+    if lq_cov is not None:
+        cc = lq_cov * 100 if abs(lq_cov) <= 1 else lq_cov
+        parts.append(f"품질 coverage {cc:.0f}%")
+    if as_of:
+        parts.append(f"기준 {as_of}")
+
+    if not ready:
+        role = "수집 대기"
+        credit = 0.0
+    elif low_quality in ["unknown", "na", "n/a", "미측정"]:
+        role = "부분 연결"
+        credit = 0.7
+        parts.append("저품질 issuer 판정 coverage 부족")
+    else:
+        role = "핵심"
+        credit = 1.0
+
     return {
-        "ready": True,
+        "ready": ready,
         "state": state,
         "low_quality": low_quality,
-        "evidence": f"1차시장 공급 {state} · 저품질 공급 {low_quality}",
+        "evidence": " · ".join(parts) if parts else f"1차시장 공급 {state} · 저품질 {low_quality}",
+        "role": role,
+        "coverage_credit": credit,
     }
 
 
 def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df,
                              sentiment_df, regime_df, stock_supply_df,
-                             expectations_df=None, primary_supply_df=None):
+                             expectations_df=None, primary_supply_df=None,
+                             earnings_df=None):
     """
     Dynamic four-stage state machine:
     비관 -> 회의 -> 낙관 -> 유포리아
@@ -2721,20 +3052,20 @@ def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df,
     # --------------------------------------------------------
     # 6) Optional future datasets
     # --------------------------------------------------------
-    expectations = _optional_expectations_gap(expectations_df)
+    expectations = _optional_expectations_gap(expectations_df, earnings_df)
     primary_supply = _optional_primary_supply(primary_supply_df)
 
     modules.append({
         "모듈": "Expectations Gap",
         "판정": expectations["state"],
         "근거": expectations["evidence"],
-        "역할": "핵심" if expectations["ready"] else "미연결",
+        "역할": expectations.get("role", "핵심" if expectations["ready"] else "수집 대기"),
     })
     modules.append({
         "모듈": "Primary Market Supply",
         "판정": primary_supply["state"],
         "근거": primary_supply["evidence"],
-        "역할": "핵심" if primary_supply["ready"] else "미연결",
+        "역할": primary_supply.get("role", "핵심" if primary_supply["ready"] else "수집 대기"),
     })
 
     # --------------------------------------------------------
@@ -2801,8 +3132,8 @@ def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df,
     critical_connected += 1 if has_rows(regime_df) else 0
     critical_connected += 1 if supply_parts else 0
     critical_connected += 1 if has_rows(style_df) else 0
-    critical_connected += 1 if expectations["ready"] else 0
-    critical_connected += 1 if primary_supply["ready"] else 0
+    critical_connected += float(expectations.get("coverage_credit", 1.0 if expectations["ready"] else 0.0))
+    critical_connected += float(primary_supply.get("coverage_credit", 1.0 if primary_supply["ready"] else 0.0))
 
     coverage_ratio = critical_connected / critical_total
 
@@ -2822,9 +3153,13 @@ def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df,
 
     missing = []
     if not expectations["ready"]:
-        missing.append("실적·경제 Expectations Gap")
+        missing.append("실적 Expectations Gap 자동수집 대기")
+    elif expectations.get("coverage") != "실적+거시":
+        missing.append("거시경제 consensus surprise는 아직 별도 미수집")
     if not primary_supply["ready"]:
-        missing.append("IPO·Follow-on·SPAC·저품질 신규공급")
+        missing.append("SEC 1차시장 공급 자동집계 대기")
+    elif primary_supply.get("low_quality") in ["unknown", "미측정", "na", "n/a"]:
+        missing.append("1차시장 저품질 issuer 판정 coverage 보강 필요")
 
     return {
         "stage": stage,
@@ -3754,6 +4089,7 @@ stock_supply_hist = read_csv("stock_supply_sector_history.csv")
 # Research-backed sector modules. Missing files degrade gracefully and are shown as 미연결.
 sector_research = read_csv("sector_research_features_latest.csv")
 global_sector_research = read_csv("global_sector_research_features_latest.csv")
+region_research = read_csv("region_research_features_latest.csv")
 sector_internal_breadth = read_csv("sector_internal_breadth_latest.csv")
 sector_fundamentals = read_csv("sector_fundamentals_latest.csv")
 sector_earnings = read_csv("sector_earnings_confirmation_latest.csv")
@@ -3769,7 +4105,7 @@ author_view = read_csv("kasugano_current_view.csv", REFERENCE)
 
 cycle = classify_sentiment_cycle(
     style, sector, global_sector, breadth, sentiment, regime, stock_supply,
-    expectations_gap, primary_market_supply
+    expectations_gap, primary_market_supply, sector_earnings
 )
 
 us_sector_engine = classify_sector_leadership(
@@ -3783,6 +4119,11 @@ us_sector_engine = classify_sector_leadership(
     regime_df=regime,
     is_global=False,
 )
+# Long-horizon metrics for the 252D structural chart.
+region_plot = attach_research_metrics(region, region_research)
+global_sector_plot = attach_research_metrics(global_sector, global_sector_research)
+sector_plot = attach_research_metrics(sector, sector_research)
+
 global_sector_engine = classify_sector_leadership(
     global_sector, GLOBAL_SECTOR, "VT",
     research_df=global_sector_research,
@@ -3884,13 +4225,14 @@ snapshot["섹터연구데이터_연결상태"] = {
     "internal_breadth": has_rows(sector_internal_breadth),
     "sec_fundamentals": has_rows(sector_fundamentals),
     "earnings_revision": has_rows(sector_earnings),
+    "expectations_gap_earnings": has_rows(expectations_gap) or has_rows(sector_earnings),
     "primary_market_supply": has_rows(primary_market_supply),
     "ETF_event_study": has_rows(sector_rule_backtest),
     "FF49_validation": has_rows(ff49_validation),
 }
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
 with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.26-opportunity-cost:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.27-structure-expectations-supply:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(
@@ -4015,7 +4357,7 @@ st.divider()
 
 # ---------- Global ----------
 st.subheader("2. 글로벌 리더십")
-st.markdown('<div class="section-note">지역과 글로벌 섹터를 각각 한 줄 전체 폭으로 봅니다. 126일 → 63일 → 21일의 분포 이동을 비교합니다.</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-note">최근 변화는 126→63→21일로, 구조 확인은 252→126→63일로 분리합니다. 12-1·12-7은 confirmation layer로 사용합니다.</div>', unsafe_allow_html=True)
 
 st.markdown("#### 지역 비교")
 if has_rows(region):
@@ -4034,11 +4376,19 @@ if has_rows(region):
         }
     )
     st.markdown(concise_sector_comment(region, REGION_MAP))
-    region_fig = plot_cross_quadrant_all_periods(region, REGION_MAP, REGION_SHORT, "VT", use_ticker_labels=True)
-    st.plotly_chart(region_fig, use_container_width=True, config={"displayModeBar": False})
-    st.caption("126일·63일·21일을 같은 축으로 비교합니다. 점에는 지역 ETF 티커만 표시하고, 상세 수치는 hover에서 확인합니다.")
-    if getattr(region_fig, "_missing_points", []):
-        st.caption("미표시 데이터: " + ", ".join(region_fig._missing_points))
+    tab_recent, tab_structure = st.tabs(["최근 변화 · 126→63→21", "구조 확인 · 252→126→63"])
+    with tab_recent:
+        region_fig = plot_cross_quadrant_all_periods(region_plot, REGION_MAP, REGION_SHORT, "VT", use_ticker_labels=True)
+        st.plotly_chart(region_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("기회비용 탐지용입니다. 126일 기존 추세 → 63일 현재 중심 → 21일 단기 변화를 봅니다.")
+        if getattr(region_fig, "_missing_points", []):
+            st.caption("미표시 데이터: " + ", ".join(region_fig._missing_points))
+    with tab_structure:
+        region_structure_fig = plot_cross_quadrant_structure(region_plot, REGION_MAP, REGION_SHORT, "VT", use_ticker_labels=True)
+        st.plotly_chart(region_structure_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("구조 확인용입니다. 252일 장기 구조 → 126일 기존 추세 → 63일 현재 중심을 비교해 신규 rotation과 기존 장기 리더를 구분합니다.")
+        if getattr(region_structure_fig, "_missing_points", []):
+            st.warning("252일 연구 데이터가 아직 없는 항목이 있습니다. calc_sector_research_features.py V6.27 실행 후 채워집니다.")
     region_payload = build_cross_section_snapshot(region, REGION_MAP, "VT 대비")
     region_json = json.dumps(region_payload, ensure_ascii=False, sort_keys=True, default=str)
     gpt_region, gpt_region_error = generate_gpt_text("region:" + region_json, model_name, CROSS_SECTION_PROMPT, region_json)
@@ -4066,11 +4416,19 @@ if has_rows(global_sector):
         }
     )
     st.markdown(concise_sector_comment(global_sector, GLOBAL_SECTOR))
-    gsec_fig = plot_cross_quadrant_all_periods(global_sector, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", use_ticker_labels=True)
-    st.plotly_chart(gsec_fig, use_container_width=True, config={"displayModeBar": False})
-    st.caption("126일·63일·21일을 같은 축으로 비교합니다. ETF 티커만 표시해 겹침을 줄였고, 섹터명·수치는 hover에서 확인합니다.")
-    if getattr(gsec_fig, "_missing_points", []):
-        st.caption("미표시 데이터: " + ", ".join(gsec_fig._missing_points))
+    tab_recent, tab_structure = st.tabs(["최근 변화 · 126→63→21", "구조 확인 · 252→126→63"])
+    with tab_recent:
+        gsec_fig = plot_cross_quadrant_all_periods(global_sector_plot, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", use_ticker_labels=True)
+        st.plotly_chart(gsec_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("기회비용 탐지용입니다. 126일 기존 추세 → 63일 현재 중심 → 21일 단기 변화를 봅니다.")
+        if getattr(gsec_fig, "_missing_points", []):
+            st.caption("미표시 데이터: " + ", ".join(gsec_fig._missing_points))
+    with tab_structure:
+        gsec_structure_fig = plot_cross_quadrant_structure(global_sector_plot, GLOBAL_SECTOR, GLOBAL_SECTOR_SHORT, "VT", use_ticker_labels=True)
+        st.plotly_chart(gsec_structure_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("252일 장기 구조와 126·63일을 함께 봅니다. 12-1·12-7은 차트가 아니라 섹터 엔진의 confirmation layer로 유지합니다.")
+        if getattr(gsec_structure_fig, "_missing_points", []):
+            st.warning("252일 연구 데이터가 아직 없는 항목이 있습니다. V6.27 연구 pipeline 실행 후 채워집니다.")
     gsec_payload = build_cross_section_snapshot(global_sector, GLOBAL_SECTOR, "VT 대비")
     gsec_json = json.dumps(gsec_payload, ensure_ascii=False, sort_keys=True, default=str)
     gpt_gsec, gpt_gsec_error = generate_gpt_text("gsec:" + gsec_json, model_name, CROSS_SECTION_PROMPT, gsec_json)
@@ -4102,11 +4460,19 @@ if has_rows(sector):
         }
     )
     st.markdown(concise_sector_comment(sector, US_SECTOR))
-    us_fig = plot_cross_quadrant_all_periods(sector, US_SECTOR, US_SECTOR_SHORT, "SPY", use_ticker_labels=True)
-    st.plotly_chart(us_fig, use_container_width=True, config={"displayModeBar": False})
-    st.caption("126일·63일·21일을 같은 축으로 비교합니다. ETF 티커만 표시해 겹침을 줄였고, 섹터명·수치는 hover에서 확인합니다.")
-    if getattr(us_fig, "_missing_points", []):
-        st.caption("미표시 데이터: " + ", ".join(us_fig._missing_points))
+    tab_recent, tab_structure = st.tabs(["최근 변화 · 126→63→21", "구조 확인 · 252→126→63"])
+    with tab_recent:
+        us_fig = plot_cross_quadrant_all_periods(sector_plot, US_SECTOR, US_SECTOR_SHORT, "SPY", use_ticker_labels=True)
+        st.plotly_chart(us_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("기회비용 탐지용입니다. 126일 기존 추세 → 63일 현재 중심 → 21일 단기 변화를 봅니다.")
+        if getattr(us_fig, "_missing_points", []):
+            st.caption("미표시 데이터: " + ", ".join(us_fig._missing_points))
+    with tab_structure:
+        us_structure_fig = plot_cross_quadrant_structure(sector_plot, US_SECTOR, US_SECTOR_SHORT, "SPY", use_ticker_labels=True)
+        st.plotly_chart(us_structure_fig, use_container_width=True, config={"displayModeBar": False})
+        st.caption("252일 장기 구조 → 126일 기존 추세 → 63일 현재 중심을 비교합니다. 신규 challenger인지 기존 장기 리더의 연장인지 확인하는 화면입니다.")
+        if getattr(us_structure_fig, "_missing_points", []):
+            st.warning("252일 연구 데이터가 아직 없는 항목이 있습니다. V6.27 연구 pipeline 실행 후 채워집니다.")
     us_payload = build_cross_section_snapshot(sector, US_SECTOR, "SPY 대비")
     us_json = json.dumps(us_payload, ensure_ascii=False, sort_keys=True, default=str)
     gpt_us, gpt_us_error = generate_gpt_text("ussec:" + us_json, model_name, CROSS_SECTION_PROMPT, us_json)
