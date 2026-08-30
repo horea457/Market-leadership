@@ -1,43 +1,58 @@
 from pathlib import Path
+import os
 import pandas as pd
 import yfinance as yf
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIG = ROOT / "config" / "instruments.csv"
+CFG = ROOT / "config"
 RAW = ROOT / "data" / "raw"
 RAW.mkdir(parents=True, exist_ok=True)
 
-cfg = pd.read_csv(CONFIG)
-tickers = cfg["ticker"].drop_duplicates().tolist()
+inst = pd.read_csv(CFG / "instruments.csv")
+tickers = inst["ticker"].dropna().astype(str).tolist()
 
-data = yf.download(
-    tickers=tickers,
-    period="5y",
-    interval="1d",
-    auto_adjust=True,
-    actions=False,
-    progress=False,
-    group_by="column",
-    threads=True,
-)
+baskets = CFG / "baskets.csv"
+if baskets.exists():
+    b = pd.read_csv(baskets)
+    if "ticker" in b.columns:
+        tickers += b["ticker"].dropna().astype(str).tolist()
 
-if data.empty:
-    raise RuntimeError("No price data returned by yfinance.")
+tickers = list(dict.fromkeys(tickers))
+period = os.getenv("PRICE_HISTORY_PERIOD", "10y")
 
-if isinstance(data.columns, pd.MultiIndex):
-    # yfinance multi-ticker format: first level field, second level ticker.
-    close = data["Close"].copy()
-else:
-    close = data[["Close"]].copy()
-    close.columns = [tickers[0]]
+parts = []
+for i in range(0, len(tickers), 80):
+    batch = tickers[i:i+80]
+    d = yf.download(
+        batch,
+        period=period,
+        interval="1d",
+        auto_adjust=True,
+        actions=False,
+        progress=False,
+        threads=True,
+        group_by="column",
+    )
+    if d.empty:
+        continue
+    if isinstance(d.columns, pd.MultiIndex):
+        if "Close" not in d.columns.get_level_values(0):
+            continue
+        c = d["Close"].copy()
+    else:
+        c = d[["Close"]].copy()
+        c.columns = [batch[0]]
+    parts.append(c)
 
+if not parts:
+    raise RuntimeError("No price data downloaded.")
+
+close = pd.concat(parts, axis=1)
+close = close.loc[:, ~close.columns.duplicated()].sort_index()
 close.index = pd.to_datetime(close.index).tz_localize(None)
-close = close.sort_index().dropna(how="all")
 close.to_csv(RAW / "prices_close_wide.csv", index_label="date")
 
-long = close.stack().rename("adj_close").reset_index()
-long = long.dropna(subset=["adj_close"])
-long.columns = ["date", "ticker", "adj_close"]
-long.to_csv(RAW / "prices_close_long.csv", index=False)
-
-print(f"Saved {len(close):,} trading days for {len(close.columns)} tickers.")
+missing = [t for t in tickers if t not in close.columns or close[t].dropna().empty]
+print(f"Price history updated: {len(close)} rows, {len(close.columns)} tickers, period={period}")
+if missing:
+    print("WARNING missing tickers:", ", ".join(missing))
