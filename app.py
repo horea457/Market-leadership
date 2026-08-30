@@ -218,6 +218,62 @@ st.markdown("""
     overflow-wrap: anywhere;
 }
 
+
+.leader-board {
+    margin: 0.25rem 0 1rem 0;
+}
+.leader-board-title {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.55rem;
+}
+.leader-card {
+    border: 1px solid rgba(148, 163, 184, .30);
+    border-radius: 13px;
+    padding: 13px 15px;
+    min-height: 154px;
+    background: #fff;
+    box-sizing: border-box;
+}
+.leader-card-label {
+    color: #475569;
+    font-weight: 800;
+    font-size: .88rem;
+    margin-bottom: .5rem;
+}
+.leader-row {
+    display: flex;
+    align-items: baseline;
+    gap: .42rem;
+    margin: .27rem 0;
+    line-height: 1.35;
+    flex-wrap: wrap;
+}
+.leader-horizon {
+    min-width: 74px;
+    color: #64748b;
+    font-size: .79rem;
+    font-weight: 700;
+}
+.leader-name {
+    color: #0f172a;
+    font-size: .94rem;
+    font-weight: 800;
+}
+.leader-return {
+    color: #64748b;
+    font-size: .79rem;
+}
+.leader-status {
+    margin-top: .52rem;
+    padding-top: .48rem;
+    border-top: 1px solid rgba(148, 163, 184, .18);
+    color: #334155;
+    font-size: .80rem;
+    line-height: 1.4;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -1020,7 +1076,7 @@ def generate_gpt_text(cache_key, model_name, system_prompt, payload_json):
             model=model_name,
             instructions=system_prompt,
             input=payload_json,
-            max_output_tokens=800,
+            max_output_tokens=1100,
         )
         return response.output_text.strip(), None
     except Exception as exc:
@@ -1041,7 +1097,7 @@ def _main_section_html(title, items, css_class):
 
 def render_main_sections(sections, caption=None):
     st.markdown(_main_section_html("레짐·시장 구조", sections.get("동향", []), "trend"), unsafe_allow_html=True)
-    st.markdown(_main_section_html("리더십 변화", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
+    st.markdown(_main_section_html("리더십 구조 해석", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
 
     action = str(sections.get("현재 대응", "") or "").strip()
     if action:
@@ -1081,7 +1137,7 @@ def parse_main_sections(text):
             val = [val]
         if not isinstance(val, list):
             val = []
-        out[key] = [str(x).strip() for x in val if str(x).strip()][:4]
+        out[key] = [str(x).strip() for x in val if str(x).strip()][:6]
 
     action = obj.get("현재 대응", "")
     if isinstance(action, list):
@@ -1439,6 +1495,163 @@ def structural_leadership_snapshot(style, sector, global_sector, region, breadth
     }
 
 
+
+def _period_leader(df, mapping, period):
+    """Return the #1 leader for a period with explicit label and excess return."""
+    rank_col = f"rank_{period}"
+    excess_col = f"excess_{period}"
+    if not has_rows(df) or rank_col not in df.columns:
+        return None
+
+    x = df.copy()
+    x[rank_col] = pd.to_numeric(x[rank_col], errors="coerce")
+    if excess_col in x.columns:
+        x[excess_col] = pd.to_numeric(x[excess_col], errors="coerce")
+    x = x.dropna(subset=[rank_col]).sort_values([rank_col, excess_col] if excess_col in x.columns else [rank_col])
+    if not len(x):
+        return None
+
+    r = x.iloc[0]
+    ticker = r.get("ticker")
+    excess = r.get(excess_col) if excess_col in x.columns else None
+    return {
+        "ticker": ticker,
+        "name": mapping.get(ticker, ticker),
+        "rank": int(r.get(rank_col)) if pd.notna(r.get(rank_col)) else None,
+        "excess": float(excess) if excess is not None and pd.notna(excess) else None,
+    }
+
+
+def _top_n_period(df, mapping, period, n=3):
+    rank_col = f"rank_{period}"
+    excess_col = f"excess_{period}"
+    if not has_rows(df) or rank_col not in df.columns:
+        return []
+    x = df.copy()
+    x[rank_col] = pd.to_numeric(x[rank_col], errors="coerce")
+    if excess_col in x.columns:
+        x[excess_col] = pd.to_numeric(x[excess_col], errors="coerce")
+    x = x.dropna(subset=[rank_col]).sort_values(rank_col).head(n)
+    out = []
+    for _, r in x.iterrows():
+        ticker = r.get("ticker")
+        out.append({
+            "ticker": ticker,
+            "name": mapping.get(ticker, ticker),
+            "rank": int(r.get(rank_col)) if pd.notna(r.get(rank_col)) else None,
+            "excess": float(r.get(excess_col)) if excess_col in x.columns and pd.notna(r.get(excess_col)) else None,
+        })
+    return out
+
+
+def current_leader_board(region, global_sector, sector):
+    """
+    63D is the current center.
+    21D is the short-term challenger.
+    126D is the prior / established trend.
+    """
+    boards = []
+    for key, label, df, mapping, benchmark in [
+        ("region", "지역", region, REGION_MAP, "VT"),
+        ("global_sector", "글로벌 섹터", global_sector, GLOBAL_SECTOR, "VT"),
+        ("us_sector", "미국 섹터", sector, US_SECTOR, "SPY"),
+    ]:
+        p126 = _period_leader(df, mapping, 126)
+        p63 = _period_leader(df, mapping, 63)
+        p21 = _period_leader(df, mapping, 21)
+
+        if p126 and p63 and p21:
+            if p126["ticker"] == p63["ticker"] == p21["ticker"]:
+                status = "126·63·21일 모두 1위 → 지속 리더"
+            elif p63["ticker"] == p21["ticker"]:
+                status = "63·21일 1위 일치 → 현재 리더십 강화"
+            elif p126["ticker"] == p63["ticker"] and p21["ticker"] != p63["ticker"]:
+                status = "기존 리더 유지 중, 21일 단기 도전자 출현"
+            else:
+                status = "리더 교체 진행/혼조"
+        else:
+            status = "데이터 확인 필요"
+
+        boards.append({
+            "key": key,
+            "label": label,
+            "benchmark": benchmark,
+            "126": p126,
+            "63": p63,
+            "21": p21,
+            "top3_63": _top_n_period(df, mapping, 63, 3),
+            "top3_21": _top_n_period(df, mapping, 21, 3),
+            "status": status,
+        })
+    return boards
+
+
+def _leader_line_html(horizon_label, obj):
+    if not obj:
+        return (
+            f'<div class="leader-row"><span class="leader-horizon">{horizon_label}</span>'
+            f'<span class="leader-name">—</span></div>'
+        )
+    ex = ""
+    if obj.get("excess") is not None:
+        ex = f'<span class="leader-return">({obj["excess"]*100:+.1f}%p)</span>'
+    return (
+        f'<div class="leader-row"><span class="leader-horizon">{horizon_label}</span>'
+        f'<span class="leader-name">{html.escape(str(obj["name"]))}</span>{ex}</div>'
+    )
+
+
+def render_current_leader_board(region, global_sector, sector):
+    boards = current_leader_board(region, global_sector, sector)
+    st.markdown(
+        '<div class="leader-board-title">현재 리더 · 63일을 현재 중심으로 봅니다</div>',
+        unsafe_allow_html=True,
+    )
+    cols = st.columns(3, gap="small")
+    for col, b in zip(cols, boards):
+        with col:
+            html_block = (
+                '<div class="leader-card">'
+                f'<div class="leader-card-label">{b["label"]} · {b["benchmark"]} 대비</div>'
+                + _leader_line_html("126일 기존", b["126"])
+                + _leader_line_html("63일 현재", b["63"])
+                + _leader_line_html("21일 단기", b["21"])
+                + f'<div class="leader-status">{html.escape(b["status"])}</div>'
+                + '</div>'
+            )
+            st.markdown(html_block, unsafe_allow_html=True)
+    st.caption(
+        "63일 = 현재 중심축, 21일 = 최근 변화/도전자, 126일 = 기존 추세. "
+        "괄호는 각 비교기준 대비 초과수익입니다."
+    )
+    return boards
+
+
+def leader_board_snapshot(region, global_sector, sector):
+    """Compact JSON payload for GPT so it cannot miss who the current leaders are."""
+    boards = current_leader_board(region, global_sector, sector)
+    out = {}
+    for b in boards:
+        def clean(obj):
+            if not obj:
+                return None
+            return {
+                "ticker": obj.get("ticker"),
+                "이름": obj.get("name"),
+                "초과수익": round(obj.get("excess"), 4) if obj.get("excess") is not None else None,
+            }
+        out[b["label"]] = {
+            "비교기준": b["benchmark"],
+            "126일_기존리더": clean(b["126"]),
+            "63일_현재리더": clean(b["63"]),
+            "21일_단기리더": clean(b["21"]),
+            "63일_top3": [clean(x) for x in b["top3_63"]],
+            "21일_top3": [clean(x) for x in b["top3_21"]],
+            "상태": b["status"],
+        }
+    return out
+
+
 def build_current_action(style, sector, global_sector, region, breadth, cycle=None,
                          stock_supply=None, regime=None, style_hist=None):
     """
@@ -1516,37 +1729,35 @@ def fallback_main_sections(style, sector, global_sector, region, breadth, stock_
     structural = structural_leadership_snapshot(
         style, sector, global_sector, region, breadth, stock_supply
     )
+    leaders = current_leader_board(region, global_sector, sector)
 
     if age["bull"]:
         dd = age.get("drawdown")
         dd_txt = f", 전고점 대비 {dd*100:.1f}%" if dd is not None else ""
         regime_lines.append(
-            f"{age['phase']}({age['age_text']}){dd_txt}. 전고점 근처 자체는 약세 전환 신호로 보지 않습니다."
+            f"{age['phase']}({age['age_text']}){dd_txt}. 시장 전체 레짐은 Bull이며 고점권 자체를 약세 전환 신호로 보지 않습니다."
         )
     elif has_rows(regime):
         r = regime.iloc[-1]
         regime_lines.append(
-            f"현재 기계적 시장 레짐은 {regime_to_kor(str(r.get('mechanical_state', '—')))}입니다."
+            f"현재 시장 전체 레짐은 {regime_to_kor(str(r.get('mechanical_state', '—')))}입니다."
         )
 
-    regime_lines.append(
-        "스타일·섹터의 언더퍼폼은 글로벌 베어마켓과 구분합니다. 먼저 시장 전체 레짐, 그 다음 내부 리더십을 봅니다."
-    )
-
-    # Style transition.
-    if has_rows(style):
-        gvx = style[style["pair_id"].eq("growth_value")]
-        if len(gvx):
-            gv = gvx.iloc[0]
-            lab, why = style_change_judgement(gv, bounce_df)
-            leadership_lines.append(
-                f"성장/가치: {leader_to_kor(gv.get('leader_126'))} → "
-                f"{leader_to_kor(gv.get('leader_63'))} → {leader_to_kor(gv.get('leader_21'))}; {lab}. {why}."
-            )
+    # Explicit current leaders.
+    current_parts = []
+    short_parts = []
+    for b in leaders:
+        if b["63"]:
+            current_parts.append(f"{b['label']} {b['63']['name']}")
+        if b["21"] and b["63"] and b["21"]["ticker"] != b["63"]["ticker"]:
+            short_parts.append(f"{b['label']} {b['21']['name']}")
+    if current_parts:
+        leadership_lines.append("현재 63일 리더: " + " / ".join(current_parts) + ".")
+    if short_parts:
+        leadership_lines.append("21일 단기 도전자: " + " / ".join(short_parts) + ".")
 
     # New leaders / old leader failure.
-    new_parts = []
-    old_parts = []
+    new_parts, old_parts, persistent_parts = [], [], []
     for label, block in [
         ("지역", structural["지역"]),
         ("글로벌", structural["글로벌섹터"]),
@@ -1554,15 +1765,19 @@ def fallback_main_sections(style, sector, global_sector, region, breadth, stock_
     ]:
         if block.get("신규리더후보"):
             new_parts.append(f"{label} " + "·".join(block["신규리더후보"][:2]))
-        elif block.get("단기급부상"):
-            new_parts.append(f"{label} " + "·".join(block["단기급부상"][:2]) + "(21일 급부상)")
         if block.get("구리더이탈후보"):
             old_parts.append(f"{label} " + "·".join(block["구리더이탈후보"][:2]))
+        if block.get("지속리더"):
+            persistent_parts.append(f"{label} " + "·".join(block["지속리더"][:2]))
 
+    if persistent_parts:
+        leadership_lines.append("지속 리더: " + " / ".join(persistent_parts) + ".")
     if new_parts:
         leadership_lines.append("신규 리더 후보: " + " / ".join(new_parts) + ".")
     if old_parts:
         leadership_lines.append("기존 리더 이탈 후보: " + " / ".join(old_parts) + ".")
+    elif not new_parts:
+        leadership_lines.append("구 리더의 구조적 이탈과 신규 리더의 63일 정착은 아직 뚜렷하지 않습니다.")
 
     b = structural["breadth"]
     if b.get("21일") is not None:
@@ -1570,18 +1785,18 @@ def fallback_main_sections(style, sector, global_sector, region, breadth, stock_
         if b.get("63일") is not None:
             btxt += f" vs 63일 {b['63일']*100:.1f}%"
         leadership_lines.append(
-            f"리더십 폭: {btxt} — {b['판정']}. 좁아졌다는 사실 자체를 약세 신호로 해석하지 않습니다."
+            f"리더십 폭: {btxt} — {b['판정']}. 이는 약세 신호가 아니라 리더십이 얼마나 집중됐는지 보여줍니다."
         )
 
     supply = structural["주식공급반응"]
     if supply.get("status") != "미측정":
         leadership_lines.append(
-            f"공급 반응: {supply['status']} — {supply['text']}. 가격 리더에 자본공급이 따라붙는지 보는 지표입니다."
+            f"공급 반응: {supply['status']} — {supply['text']}. 현재 가격 리더에 자본공급이 따라붙는지 확인합니다."
         )
 
     return {
-        "동향": regime_lines[:3],
-        "인사이트": leadership_lines[:4],
+        "동향": regime_lines[:2],
+        "인사이트": leadership_lines[:6],
         "현재 대응": build_current_action(
             style, sector, global_sector, region, breadth,
             stock_supply=stock_supply, regime=regime, style_hist=style_hist
@@ -1624,41 +1839,48 @@ MAIN_PROMPT = """
 너는 글로벌 주식시장 레짐과 리더십 변화를 해석하는 투자 리서치 보조자다.
 입력 JSON의 수치만 사용한다. 외부 뉴스나 원인을 만들지 않는다.
 
-반드시 아래 JSON 객체 하나만 출력한다. markdown/code fence는 쓰지 않는다.
+반드시 아래 JSON 객체 하나만 출력한다.
 {
   "동향": ["문장", "문장"],
-  "인사이트": ["문장", "문장", "문장"],
+  "인사이트": ["문장", "문장", "문장", "문장", "문장"],
   "현재 대응": "한 문장"
 }
 
+가장 중요한 정의:
+- 63일 = 현재 시장의 중심 리더십.
+- 21일 = 단기 변화/도전자. 21일만 강하면 현재 리더라고 부르지 않는다.
+- 126일 = 기존 추세/과거 리더.
+- 지역, 글로벌 섹터, 미국 섹터를 반드시 각각 따로 말한다.
+- ticker와 한글 이름을 같이 쓴다. 예: EWY(한국), XLE(에너지), MXI(글로벌 소재).
+
 핵심 방법론:
-- 시장 레짐과 스타일/섹터 상대성과를 분리한다. 성장주·가치주·특정 지역의 부진을 곧바로 베어마켓이라고 부르지 않는다.
-- 126일 → 63일 → 21일 순서로 읽는다. 21일 단독 승자는 '단기 급부상', 63일까지 올라온 대상만 '신규 리더 후보'로 취급한다.
-- 새 리더만 보지 말고, 126일의 과거 리더가 63일·21일에서 동시에 밀리는 '기존 리더 이탈'을 중요하게 본다.
-- breadth는 시장 건강 점수가 아니다. 회의주의 구간에는 후보가 많아 폭이 넓을 수 있고,
-  낙관주의로 갈수록 진짜 리더가 좁아질 수도 있다. breadth는 '리더십 집중/확산'만 설명한다.
-- 시장이 전고점 근처라는 사실 자체를 약세 신호로 쓰지 않는다.
-- 주식공급은 가격 상승의 결과로 자본·경쟁·신규공급이 반응하는지 본다. 공급 증가는 즉시 bearish가 아니다.
-- 공급 반응에는 시차가 있다. 현재 상장사 주식수 감소/증가만으로 IPO 전체 공급을 대신하지 않는다.
-- 단기 반등효과와 구조적 리더십을 구분한다.
-- 섹터 ETF의 부진은 섹터 내부 모든 기업의 부진을 뜻하지 않는다. 내부 신규 대표 기업은 별도 스크리닝 대상이다.
+- 시장 전체 Bull/Bear 레짐과 스타일·지역·섹터 상대성과를 분리한다.
+- 126일 → 63일 → 21일 순서로 구조 변화를 읽되, '현재 리더'라는 표현은 63일 1위에 사용한다.
+- 21일 단독 1위는 '단기 도전자/급부상'으로 부른다.
+- 63일·21일이 함께 강하고 126일보다 순위가 개선된 대상은 '신규 리더 후보'다.
+- 126일 과거 리더가 63일·21일 모두 밀리면 '기존 리더 이탈 후보'다.
+- breadth는 좋고 나쁨이 아니라 리더십 집중/확산만 설명한다.
+- 주식공급은 현재 가격 리더에 자본·경쟁·신규공급이 반응하는지 본다.
+- 공급 감소를 곧바로 bullish, 공급 증가를 곧바로 bearish라고 하지 않는다.
+- 섹터 ETF가 비리딩이어도 내부 신규 대표 기업은 별도 스크리닝 대상이다.
 
 작성 규칙:
-1. "동향"은 2개 문장만 쓴다.
-2. 첫 문장은 시장 전체 레짐과 강세장 연령/전고점 위치를 해석한다.
-3. 두 번째 문장은 스타일 회전과 시장 전체 베어마켓을 명확히 구분한다.
-4. "인사이트"는 3~4개 문장으로 쓴다.
-5. 첫 문장은 신규 리더 후보와 21일 급부상을 구분해 지역·글로벌 섹터·미국 섹터를 구체적으로 적는다.
-6. 두 번째 문장은 기존 리더 이탈 후보가 있으면 명시한다. 없으면 '구 리더 이탈은 아직 확인되지 않음'이라고 쓴다.
-7. 세 번째 문장은 breadth를 집중/확산의 관점에서만 설명한다.
-8. 네 번째 문장이 필요하면 현재 리더와 주식공급 반응이 겹치는지를 설명한다.
-9. "현재 대응"은 한 문장으로 쓴다.
-10. Bull + 성숙한 강세장 + 전고점 근처이면 '시장 이탈/조정 대기'를 기본 대응으로 제시하지 않는다.
-11. 21일 승자는 추격하지 말고 63일 지속성 + 다른 스타일/지역/섹터의 동조 + 구 리더 약화를 확인한다.
-12. 시간제약 레버리지가 있다는 전제에서만 '점진 축소'를 조건부로 언급한다.
-13. 특정 종목/ETF의 직접 매수·매도 명령은 하지 않는다.
-14. 각 문장은 최대 100자 안팎으로 간결하게 쓴다.
-15. 특정 필명은 절대 쓰지 않는다.
+1. "동향"은 2개 문장.
+2. 첫 문장: 시장 레짐, 강세장 연령, 전고점 위치.
+3. 두 번째 문장: 스타일 리더십에서 126→63→21의 가장 중요한 변화.
+4. "인사이트"는 5~6개 문장.
+5. 첫 문장은 반드시 "현재 리더:"로 시작하고 63일 기준 지역·글로벌 섹터·미국 섹터 3개를 모두 명시한다.
+6. 두 번째 문장은 "단기 변화:"로 시작하고 21일 리더가 63일 리더와 다른 축을 구체적으로 쓴다.
+7. 세 번째 문장은 "구조 변화:"로 시작하고 신규 리더 후보와 지속 리더를 구분한다.
+8. 네 번째 문장은 "구 리더:"로 시작하고 이탈 후보가 있는지 명시한다.
+9. 다섯 번째 문장은 "리더십 폭:"으로 시작하고 21일과 63일 breadth를 집중/확산으로 해석한다.
+10. 여섯 번째 문장이 필요하면 "공급:"으로 시작하고 현재 리더와 주식공급의 중첩을 설명한다.
+11. 일반론을 반복하지 말고 실제 ticker·지역·섹터·수치 중심으로 쓴다.
+12. "현재 대응"은 지금 유지할 것, 추격하지 않을 것, 무엇이 확인되면 비중 이동을 검토할지를 한 문장에 쓴다.
+13. 행동 조건은 breadth 50%/60% 같은 고정 임계값이 아니라 63일 지속성 + 교차축 동조 + 구 리더 약화를 사용한다.
+14. 시간제약 레버리지가 있다는 경우에만 점진 축소를 조건부로 언급한다.
+15. 특정 ETF 직접 매수/매도 명령은 하지 않는다.
+16. 특정 필명은 절대 쓰지 않는다.
 """
 
 STYLE_CHART_PROMPT = """
@@ -2607,6 +2829,8 @@ st.caption(
 
 # ---------- Main insight ----------
 st.markdown("### 현재 시장 인사이트")
+leader_board = render_current_leader_board(region, global_sector, sector)
+
 snapshot = build_market_snapshot(
     style, sector, global_sector, region, breadth, sentiment, regime,
     pd.DataFrame(), pd.DataFrame(),
@@ -2627,9 +2851,10 @@ snapshot["강세장_시간축"] = bull_cycle_context(style_hist, regime)
 snapshot["구조적_리더십교체"] = structural_leadership_snapshot(
     style, sector, global_sector, region, breadth, stock_supply
 )
+snapshot["현재리더보드"] = leader_board_snapshot(region, global_sector, sector)
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
 with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.21-regime-leadership:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.22-explicit-leaders:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(
