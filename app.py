@@ -1156,20 +1156,39 @@ def build_supply_snapshot(stock_supply_df, universe, horizon):
 
 def _base_quadrant_layout(fig, title, x_title, y_title, y_ref=50):
     fig.update_layout(
-        title={"text": title, "x": 0.02, "xanchor": "left"},
+        title={"text": title, "x": 0.02, "xanchor": "left", "y": 0.98, "yanchor": "top"},
         xaxis_title=x_title,
         yaxis_title=y_title,
-        height=520,
-        margin=dict(l=50, r=30, t=65, b=55),
+        height=560,
+        margin=dict(l=85, r=85, t=105, b=85),
         hovermode="closest",
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.03,
+            xanchor="left",
+            x=0,
+            font=dict(size=10),
+        ),
         template="plotly_white",
         font=dict(family="Arial, Apple SD Gothic Neo, Malgun Gothic, sans-serif", size=12),
     )
     fig.add_vline(x=0, line_width=1, line_dash="dash", line_color="#94a3b8")
     fig.add_hline(y=y_ref, line_width=1, line_dash="dash", line_color="#94a3b8")
-    fig.update_xaxes(showgrid=True, gridcolor="rgba(148,163,184,.16)", zeroline=False)
-    fig.update_yaxes(showgrid=True, gridcolor="rgba(148,163,184,.16)", zeroline=False)
+    fig.update_xaxes(
+        showgrid=True,
+        gridcolor="rgba(148,163,184,.16)",
+        zeroline=False,
+        automargin=True,
+        title_standoff=14,
+    )
+    fig.update_yaxes(
+        showgrid=True,
+        gridcolor="rgba(148,163,184,.16)",
+        zeroline=False,
+        automargin=True,
+        title_standoff=14,
+    )
     return fig
 
 
@@ -1185,26 +1204,74 @@ def plot_supply_quadrant(stock_supply_df, universe, horizon="12m"):
         "#2563eb", "#16a34a", "#dc2626", "#7c3aed", "#ea580c", "#0891b2",
         "#65a30d", "#db2777", "#4f46e5", "#b45309", "#059669", "#475569"
     ]
+    short_sector = {
+        "커뮤니케이션서비스": "커뮤니케이션",
+        "경기소비재": "경기소비재",
+        "필수소비재": "필수소비재",
+        "헬스케어": "헬스케어",
+        "부동산": "부동산",
+        "유틸리티": "유틸리티",
+        "산업재": "산업재",
+        "에너지": "에너지",
+        "금융": "금융",
+        "기술": "기술",
+        "소재": "소재",
+    }
+
     fig = go.Figure()
+    xs, ys = [], []
+    positions = ["top center", "bottom center", "middle right", "middle left"]
+
     for i, (_, r) in enumerate(x.iterrows()):
-        label = str(r.get("sector_ko", r.get("sector")))
+        full_label = str(r.get("sector_ko", r.get("sector")))
+        point_label = short_sector.get(full_label, full_label)
+        xv, yv = float(r[chg]), float(r[br])
+        xs.append(xv)
+        ys.append(yv)
+
         fig.add_trace(go.Scatter(
-            x=[r[chg]], y=[r[br]], mode="markers+text", name=label,
-            text=[label], textposition="top center",
-            marker=dict(size=12, color=colors[i % len(colors)], line=dict(width=1, color="white")),
-            hovertemplate=f"<b>{label}</b><br>가중 주식수 증감: %{{x:.2f}}%<br>순 공급 breadth: %{{y:.1f}}%p<extra></extra>",
+            x=[xv],
+            y=[yv],
+            mode="markers+text",
+            name=full_label,
+            showlegend=False,
+            text=[point_label],
+            textposition=positions[i % len(positions)],
+            textfont=dict(size=10),
+            cliponaxis=False,
+            marker=dict(
+                size=12,
+                color=colors[i % len(colors)],
+                line=dict(width=1, color="white"),
+            ),
+            hovertemplate=(
+                f"<b>{full_label}</b>"
+                f"<br>가중 주식수 증감: %{{x:.2f}}%"
+                f"<br>순 공급 breadth: %{{y:.1f}}%p"
+                "<extra></extra>"
+            ),
         ))
-    label = {"US": "미국", "GLOBAL": "글로벌", "EX_US": "글로벌 ex-US"}.get(universe, universe)
+
+    market_label = {"US": "미국", "GLOBAL": "글로벌", "EX_US": "글로벌 ex-US"}.get(universe, universe)
     hlabel = {"3m": "3개월", "6m": "6개월", "12m": "12개월"}.get(horizon, horizon)
+
     _base_quadrant_layout(
         fig,
-        f"{label} 섹터별 주식 공급 · {hlabel}",
+        f"{market_label} 섹터별 주식 공급 · {hlabel}",
         "가중 발행주식수 증감 (%)",
         "증가기업 비중 - 감소기업 비중 (%p)",
         y_ref=0,
     )
-    fig.add_annotation(xref="paper", yref="paper", x=.99, y=.98, text="우상단: 공급 증가 확산", showarrow=False, font=dict(size=11, color="#64748b"))
-    fig.add_annotation(xref="paper", yref="paper", x=.01, y=.03, text="좌하단: 주식수 축소 확산", showarrow=False, font=dict(size=11, color="#64748b"))
+
+    if xs:
+        xmin, xmax = min(xs + [0]), max(xs + [0])
+        xpad = max((xmax - xmin) * 0.16, 0.08)
+        fig.update_xaxes(range=[xmin - xpad, xmax + xpad])
+    if ys:
+        ymin, ymax = min(ys + [0]), max(ys + [0])
+        ypad = max((ymax - ymin) * 0.16, 4)
+        fig.update_yaxes(range=[ymin - ypad, ymax + ypad])
+
     return fig
 
 
@@ -1279,9 +1346,19 @@ def plot_style_quadrant(selected_row, pair_id):
         fig.update_yaxes(range=[35, 65])
 
     fig.update_layout(
-        height=440,
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        height=500,
+        margin=dict(l=80, r=70, t=105, b=80),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.04,
+            xanchor="left",
+            x=0,
+            font=dict(size=10),
+        ),
     )
+    fig.update_xaxes(automargin=True, title_standoff=14)
+    fig.update_yaxes(automargin=True, title_standoff=14)
     return fig
 
 
@@ -1306,14 +1383,14 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
 
     if all_x:
         xmin, xmax = min(all_x + [0]), max(all_x + [0])
-        xpad = max((xmax - xmin) * 0.08, 1.0)
+        xpad = max((xmax - xmin) * 0.13, 1.5)
         xrange = [xmin - xpad, xmax + xpad]
     else:
         xrange = [-5, 5]
 
     if all_y:
         ymin, ymax = min(all_y + [50]), max(all_y + [50])
-        ypad = max((ymax - ymin) * 0.10, 1.5)
+        ypad = max((ymax - ymin) * 0.16, 2.5)
         yrange = [ymin - ypad, ymax + ypad]
     else:
         yrange = [40, 60]
@@ -1354,7 +1431,7 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
                     ),
                     text=[point_label],
                     textposition=["top center", "bottom center", "middle right", "middle left"][i % 4],
-                    textfont=dict(size=9),
+                    textfont=dict(size=8),
                     cliponaxis=False,
                     hovertemplate=(
                         f"<b>{full_label}</b><br>{period}일"
@@ -1376,6 +1453,8 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
             showgrid=True,
             gridcolor="rgba(148,163,184,.14)",
             zeroline=False,
+            automargin=True,
+            title_standoff=12,
         )
         fig.update_yaxes(
             range=yrange,
@@ -1388,8 +1467,8 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
 
     fig.update_yaxes(title_text="승리 빈도 (%)", row=1, col=1)
     fig.update_layout(
-        height=500,
-        margin=dict(l=45, r=25, t=95, b=55),
+        height=540,
+        margin=dict(l=75, r=65, t=115, b=85),
         hovermode="closest",
         template="plotly_white",
         font=dict(family="Arial, Apple SD Gothic Neo, Malgun Gothic, sans-serif", size=11),
@@ -1400,15 +1479,7 @@ def plot_cross_quadrant_all_periods(df, mapping, short_mapping, benchmark_label,
             font=dict(size=14),
         ),
     )
-    fig.add_annotation(
-        xref="paper",
-        yref="paper",
-        x=.995,
-        y=.98,
-        text="우상단 = 강한 리더십",
-        showarrow=False,
-        font=dict(size=10, color="#64748b"),
-    )
+    fig.update_annotations(font=dict(size=11))
     fig._missing_points = sorted(set(missing))
     return fig
 
