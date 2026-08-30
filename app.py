@@ -955,8 +955,10 @@ def build_style_chart_snapshot(style_df, style_hist_df, pair_id, bounce_df=None)
 def build_cross_section_snapshot(df, mapping, benchmark_label, top_n=6):
     x = df.sort_values(["rank_21", "rank_63"]).copy()
     use = x.head(top_n)
+    turnover = cross_section_turnover(df, mapping)
     return {
         "비교기준": benchmark_label,
+        "구조판정": turnover,
         "상위": [
             {
                 "대상": mapping.get(r.get("ticker"), r.get("ticker")),
@@ -1038,8 +1040,8 @@ def _main_section_html(title, items, css_class):
 
 
 def render_main_sections(sections, caption=None):
-    st.markdown(_main_section_html("동향", sections.get("동향", []), "trend"), unsafe_allow_html=True)
-    st.markdown(_main_section_html("인사이트", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
+    st.markdown(_main_section_html("레짐·시장 구조", sections.get("동향", []), "trend"), unsafe_allow_html=True)
+    st.markdown(_main_section_html("리더십 변화", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
 
     action = str(sections.get("현재 대응", "") or "").strip()
     if action:
@@ -1089,172 +1091,500 @@ def parse_main_sections(text):
 
 
 
-def build_current_action(style, sector, global_sector, region, breadth, cycle=None):
+
+def _top_ticker(df, rank_col):
+    if not has_rows(df) or rank_col not in df.columns:
+        return None
+    x = df.copy()
+    x[rank_col] = pd.to_numeric(x[rank_col], errors="coerce")
+    x = x.dropna(subset=[rank_col]).sort_values(rank_col)
+    return x.iloc[0].get("ticker") if len(x) else None
+
+
+def leadership_coherence(style, sector, global_sector, region):
     """
-    Deterministic portfolio-direction message.
-    No buy/sell command; it tells the user what to keep, what not to chase,
-    and what 63D confirmation would justify a change.
+    Test whether multiple independent leadership axes tell one coherent story.
+    This is stronger evidence than a single 21D winner.
     """
-    b21 = None
-    b63 = None
-    if has_rows(breadth):
-        x21 = breadth[breadth["window"].eq(21)]
-        x63 = breadth[breadth["window"].eq(63)]
-        if len(x21):
-            try:
-                b21 = float(x21.iloc[-1].get("breadth_pct"))
-            except Exception:
-                pass
-        if len(x63):
-            try:
-                b63 = float(x63.iloc[-1].get("breadth_pct"))
-            except Exception:
-                pass
+    gv = _style_row(style, "growth_value")
+    ls = _style_row(style, "large_small")
+    ce = _style_row(style, "cap_equal")
+    usx = _style_row(style, "us_developed_ex_us")
+    de = _style_row(style, "developed_em")
 
-    focus = []
+    signals = []
+    growth_complex = 0
+    broad_value_complex = 0
 
-    if has_rows(region):
-        r21 = region.sort_values(["rank_21", "rank_63"]).iloc[0]
-        ticker = r21.get("ticker")
-        focus.append(REGION_MAP.get(ticker, ticker))
+    def leader(row, w=21):
+        return str(row.get(f"leader_{w}")) if row is not None else ""
 
-    if has_rows(global_sector):
-        g21 = global_sector.sort_values(["rank_21", "rank_63"]).iloc[0]
-        ticker = g21.get("ticker")
-        focus.append(GLOBAL_SECTOR_SHORT.get(ticker, ticker))
+    if leader(gv) == "Growth":
+        growth_complex += 1
+        signals.append("성장")
+    elif leader(gv) == "Value":
+        broad_value_complex += 1
+        signals.append("가치")
 
-    if has_rows(sector):
-        s21 = sector.sort_values(["rank_21", "rank_63"]).iloc[0]
-        ticker = s21.get("ticker")
-        focus.append(US_SECTOR_SHORT.get(ticker, ticker))
+    if leader(ce) == "Cap-weight":
+        growth_complex += 1
+        signals.append("시총가중")
+    elif leader(ce) == "Equal-weight":
+        broad_value_complex += 1
+        signals.append("동일가중")
 
-    # remove duplicates while preserving order
-    focus_clean = []
-    for x in focus:
-        if x and x not in focus_clean:
-            focus_clean.append(x)
-    focus_text = "·".join(focus_clean[:3]) if focus_clean else "신규 리더"
+    if leader(ls) == "Large":
+        growth_complex += 1
+        signals.append("대형")
+    elif leader(ls) == "Small":
+        broad_value_complex += 1
+        signals.append("소형")
 
-    # Determine whether the current signal deserves action or only observation.
-    narrow = (b21 is not None and b21 < 0.50)
-    weakening = (b21 is not None and b63 is not None and b21 + 0.05 < b63)
+    if leader(usx) in ["US", "United States"]:
+        growth_complex += 1
+        signals.append("미국")
+    elif leader(usx):
+        broad_value_complex += 1
+        signals.append("비미국")
 
-    if narrow or weakening:
-        stance = "기존 중심축을 유지하고 21일 신규 리더 추격은 보류"
-        trigger = "해당 축이 63일 상위권으로 올라오고 breadth가 50% 이상으로 재확대될 때 비중 이동을 검토"
+    if leader(de) in ["Emerging", "EM"]:
+        broad_value_complex += 1
+        signals.append("신흥국")
+
+    us21 = _top_ticker(sector, "rank_21")
+    gl21 = _top_ticker(global_sector, "rank_21")
+    reg21 = _top_ticker(region, "rank_21")
+
+    growth_sectors = {"XLK", "XLC", "XLY", "IXN", "IXP", "RXI"}
+    broad_value_sectors = {"XLF", "XLI", "XLE", "XLB", "XLRE",
+                           "IXG", "EXI", "IXC", "MXI", "REET"}
+
+    if us21 in growth_sectors:
+        growth_complex += 1
+    elif us21 in broad_value_sectors:
+        broad_value_complex += 1
+
+    if gl21 in growth_sectors:
+        growth_complex += 1
+    elif gl21 in broad_value_sectors:
+        broad_value_complex += 1
+
+    if growth_complex >= 4 and growth_complex >= broad_value_complex + 2:
+        state = "성장·대형주 복합 신호"
+        strength = "정렬"
+    elif broad_value_complex >= 4 and broad_value_complex >= growth_complex + 2:
+        state = "가치·확산 복합 신호"
+        strength = "정렬"
     else:
-        stance = "기존 중심축을 유지하되 신규 리더는 관찰 비중으로만 대응"
-        trigger = "해당 축이 63일 리더십까지 이어지고 breadth가 60% 안팎으로 확산되면 비중 확대를 검토"
+        state = "혼합 회전"
+        strength = "비정렬"
 
-    return f"{stance}. {focus_text}가 핵심 관찰 대상이며, {trigger}합니다."
+    return {
+        "state": state,
+        "strength": strength,
+        "growth_points": growth_complex,
+        "broad_value_points": broad_value_complex,
+        "us_sector_21": US_SECTOR_SHORT.get(us21, us21),
+        "global_sector_21": GLOBAL_SECTOR_SHORT.get(gl21, gl21),
+        "region_21": REGION_MAP.get(reg21, reg21),
+    }
 
 
-def fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply=None, bounce_df=None):
-    trend, insight = [], []
+def leader_supply_response(stock_supply, sector, global_sector):
+    """
+    Compare price leaders with listed-company share-count supply.
+    Rising price leadership + rising supply = capital is responding to prices.
+    Contracting supply = no broad equity-supply response yet.
+    """
+    if not has_rows(stock_supply):
+        return {
+            "status": "미측정",
+            "text": "상장기업 주식공급 데이터 없음",
+            "overlap": False,
+        }
 
-    # Style: only the most important current change.
-    if has_rows(style):
-        gvx = style[style["pair_id"].eq("growth_value")]
-        cex = style[style["pair_id"].eq("cap_equal")]
-        if len(gvx):
-            gv = gvx.iloc[0]
-            lab, _ = style_change_judgement(gv, bounce_df)
-            trend.append(
-                f"스타일: 성장/가치는 {leader_to_kor(gv.get('leader_126'))} → "
-                f"{leader_to_kor(gv.get('leader_63'))} → {leader_to_kor(gv.get('leader_21'))}; "
-                f"현재 변화판정은 {lab}입니다."
-            )
-        if len(cex):
-            ce = cex.iloc[0]
-            if ce.get("leader_21") != ce.get("leader_63"):
-                trend.append(
-                    f"가중방식: 63일 {leader_to_kor(ce.get('leader_63'))}에서 "
-                    f"21일 {leader_to_kor(ce.get('leader_21'))} 쪽으로 단기 이동 중입니다."
-                )
+    leaders = []
+    us21 = _top_ticker(sector, "rank_21")
+    gl21 = _top_ticker(global_sector, "rank_21")
+    if us21:
+        leaders.append(("US", US_SECTOR_SHORT.get(us21, us21)))
+    if gl21:
+        leaders.append(("EX_US", GLOBAL_SECTOR_SHORT.get(gl21, gl21)))
 
-    # Region: name the 63d leader, 21d leader and strongest riser.
-    if has_rows(region):
-        r = region.copy()
-        top63 = r.sort_values(["rank_63", "rank_21"]).iloc[0]
-        top21 = r.sort_values(["rank_21", "rank_63"]).iloc[0]
-        riser = r.sort_values("rank_change_21_vs_63", ascending=False).iloc[0] if "rank_change_21_vs_63" in r.columns else top21
-        trend.append(
-            f"지역: 63일 리더는 {REGION_MAP.get(top63.get('ticker'), top63.get('ticker'))}, "
-            f"21일 리더는 {REGION_MAP.get(top21.get('ticker'), top21.get('ticker'))}; "
-            f"가장 빠르게 올라오는 지역은 {REGION_MAP.get(riser.get('ticker'), riser.get('ticker'))}입니다."
+    # sector_ko is the common bridge available in the current supply data.
+    observations = []
+    overlap = False
+    for universe, leader_name in leaders:
+        u = stock_supply[stock_supply["universe"].eq(universe)].copy()
+        if not len(u):
+            continue
+        u["weighted_change_12m"] = pd.to_numeric(u["weighted_change_12m"], errors="coerce")
+        u = u.dropna(subset=["weighted_change_12m"])
+        if not len(u):
+            continue
+
+        # Match by Korean sector label with a few normalization rules.
+        norm = str(leader_name).replace("커뮤니케이션서비스", "커뮤니케이션")
+        def normalize_sector(v):
+            return str(v).replace("커뮤니케이션서비스", "커뮤니케이션")
+        matched = u[u["sector_ko"].map(normalize_sector).eq(norm)] if "sector_ko" in u.columns else pd.DataFrame()
+
+        if len(matched):
+            val = float(matched.iloc[0]["weighted_change_12m"])
+            observations.append(f"{leader_name} {val*100:+.1f}%")
+            if val >= 0.0075:
+                overlap = True
+
+    us_summary = _supply_universe_summary(stock_supply, "US")
+    ex_summary = _supply_universe_summary(stock_supply, "EX_US")
+    broad_contracting = (
+        us_summary and ex_summary
+        and us_summary["weighted_change"] <= 0
+        and ex_summary["weighted_change"] <= 0
+    )
+
+    if overlap:
+        status = "리더에 공급 반응 시작"
+        text = " · ".join(observations) if observations else "현재 리더 섹터에서 주식공급 증가"
+    elif broad_contracting:
+        status = "광범위 공급 반응 없음"
+        text = (
+            f"미국 {us_summary['weighted_change']*100:+.1f}% · "
+            f"ex-US {ex_summary['weighted_change']*100:+.1f}%"
+        )
+    else:
+        status = "공급 반응 혼조"
+        text = " · ".join(observations) if observations else "리더와 공급 증가의 뚜렷한 중첩 없음"
+
+    return {"status": status, "text": text, "overlap": overlap}
+
+
+def leadership_rotation_summary(style, sector, global_sector, region, breadth, stock_supply=None):
+    """
+    Compact interpretation from currently available dashboard data.
+    Breadth describes concentration; it is NOT used as a bullish/bearish veto.
+    """
+    coherence = leadership_coherence(style, sector, global_sector, region)
+    supply = leader_supply_response(stock_supply, sector, global_sector)
+
+    b21 = _breadth_value(breadth, 21)
+    b63 = _breadth_value(breadth, 63)
+    if b21 is None:
+        breadth_text = "breadth 미측정"
+    elif b63 is not None and b21 + 0.05 < b63:
+        breadth_text = f"21일 {b21*100:.1f}% < 63일 {b63*100:.1f}%: 최근 회전은 좁게 진행"
+    elif b63 is not None and b21 > b63 + 0.05:
+        breadth_text = f"21일 {b21*100:.1f}% > 63일 {b63*100:.1f}%: 최근 회전이 넓어지는 중"
+    else:
+        breadth_text = f"21일 {b21*100:.1f}%: 확산 정도는 중립"
+
+    return {
+        "coherence": coherence,
+        "supply": supply,
+        "breadth_text": breadth_text,
+    }
+
+
+
+def bull_cycle_context(style_hist_df, regime_df):
+    """
+    Reference prior for the current global bull cycle.
+    The 2022-10-12 VT low is treated as a cycle anchor, not a trading signal.
+    """
+    anchor = pd.Timestamp("2022-10-12")
+    as_of = None
+
+    if has_rows(style_hist_df) and "date" in style_hist_df.columns:
+        dates = pd.to_datetime(style_hist_df["date"], errors="coerce").dropna()
+        if len(dates):
+            as_of = dates.max().normalize()
+
+    if as_of is None:
+        as_of = pd.Timestamp.now().normalize()
+
+    days = max(0, int((as_of - anchor).days))
+    years = days // 365
+    months = int(round((days - years * 365) / 30.4))
+    if months >= 12:
+        years += 1
+        months -= 12
+    year_no = max(1, int(days // 365.25) + 1)
+
+    drawdown = None
+    regime_state = ""
+    if has_rows(regime_df):
+        r = regime_df.iloc[-1]
+        regime_state = str(r.get("mechanical_state", "")).upper()
+        try:
+            drawdown = float(r.get("spy_drawdown_from_ath"))
+        except Exception:
+            pass
+
+    bull = any(k in regime_state for k in ["BULL", "ADVANCE", "NEAR-BULL"])
+    near_ath = drawdown is not None and drawdown >= -0.03
+
+    if bull and year_no >= 4:
+        phase = f"강세장 {year_no}년차"
+        prior = "초기 강세장보다 성숙한 국면이라는 시간축 prior"
+    elif bull:
+        phase = f"강세장 {year_no}년차"
+        prior = "강세장 진행 구간"
+    else:
+        phase = "강세장 연령 적용 제외"
+        prior = "현재 기계적 레짐이 Bull이 아님"
+
+    return {
+        "anchor": anchor.strftime("%Y-%m-%d"),
+        "as_of": as_of.strftime("%Y-%m-%d"),
+        "age_text": f"{years}년 {months}개월",
+        "year_no": year_no,
+        "phase": phase,
+        "prior": prior,
+        "near_ath": near_ath,
+        "drawdown": drawdown,
+        "bull": bull,
+    }
+
+
+def cross_section_turnover(df, mapping):
+    """
+    Extract four structurally different states from 126D -> 63D -> 21D ranks.
+    """
+    if not has_rows(df):
+        return {
+            "지속리더": [],
+            "신규리더후보": [],
+            "단기급부상": [],
+            "구리더이탈후보": [],
+        }
+
+    out = {
+        "지속리더": [],
+        "신규리더후보": [],
+        "단기급부상": [],
+        "구리더이탈후보": [],
+    }
+
+    for _, r in df.iterrows():
+        try:
+            r126 = float(r.get("rank_126"))
+            r63 = float(r.get("rank_63"))
+            r21 = float(r.get("rank_21"))
+            ex63 = float(r.get("excess_63"))
+            ex21 = float(r.get("excess_21"))
+        except Exception:
+            continue
+
+        name = mapping.get(r.get("ticker"), r.get("ticker"))
+
+        if r126 <= 3 and r63 <= 3 and r21 <= 3 and ex63 > 0 and ex21 > 0:
+            out["지속리더"].append(name)
+
+        # Not merely a bounce: medium-term leadership has already improved.
+        if r126 >= 5 and r63 <= 4 and r21 <= 3 and ex63 > 0 and ex21 > 0:
+            out["신규리더후보"].append(name)
+
+        # 21D only: interesting, but not enough to call a new leader.
+        if r21 <= 3 and r63 >= 6 and ex21 > 0:
+            out["단기급부상"].append(name)
+
+        # Former long-horizon leader that is now weak on both 63D and 21D.
+        if r126 <= 3 and r63 >= 6 and r21 >= 6 and ex63 < 0 and ex21 < 0:
+            out["구리더이탈후보"].append(name)
+
+    return {k: v[:4] for k, v in out.items()}
+
+
+def structural_leadership_snapshot(style, sector, global_sector, region, breadth, stock_supply=None):
+    """
+    Main structural read:
+    1) cross-axis coherence,
+    2) new-leader formation,
+    3) former-leader failure,
+    4) breadth concentration,
+    5) supply response to price leadership.
+    """
+    coherence = leadership_coherence(style, sector, global_sector, region)
+    us_turn = cross_section_turnover(sector, US_SECTOR_SHORT)
+    gl_turn = cross_section_turnover(global_sector, GLOBAL_SECTOR_SHORT)
+    reg_turn = cross_section_turnover(region, REGION_MAP)
+    supply = leader_supply_response(stock_supply, sector, global_sector)
+
+    b21 = _breadth_value(breadth, 21)
+    b63 = _breadth_value(breadth, 63)
+    b126 = _breadth_value(breadth, 126)
+
+    if b21 is None:
+        breadth_state = "미측정"
+    elif b63 is not None and b21 < b63 - 0.05:
+        breadth_state = "최근 리더십 집중"
+    elif b63 is not None and b21 > b63 + 0.05:
+        breadth_state = "최근 리더십 확산"
+    else:
+        breadth_state = "폭 변화 제한적"
+
+    return {
+        "교차축정렬": coherence,
+        "지역": reg_turn,
+        "글로벌섹터": gl_turn,
+        "미국섹터": us_turn,
+        "breadth": {
+            "판정": breadth_state,
+            "21일": b21,
+            "63일": b63,
+            "126일": b126,
+            "주의": "낮은 breadth 자체를 약세 신호로 보지 않음",
+        },
+        "주식공급반응": supply,
+    }
+
+
+def build_current_action(style, sector, global_sector, region, breadth, cycle=None,
+                         stock_supply=None, regime=None, style_hist=None):
+    """
+    Portfolio direction:
+    - Do not exit a bull merely because it is near ATH.
+    - Do not chase a 21D winner.
+    - Prefer 63D persistence + cross-axis alignment + former-leader failure.
+    """
+    structural = structural_leadership_snapshot(
+        style, sector, global_sector, region, breadth, stock_supply
+    )
+    age = bull_cycle_context(style_hist, regime)
+
+    # Best current targets.
+    focus = []
+    for block_key in ["지역", "글로벌섹터", "미국섹터"]:
+        block = structural.get(block_key, {})
+        for k in ["신규리더후보", "단기급부상", "지속리더"]:
+            vals = block.get(k, [])
+            if vals:
+                focus.extend(vals[:1])
+                break
+    focus = [x for i, x in enumerate(focus) if x and x not in focus[:i]]
+    focus_text = "·".join(focus[:3]) if focus else "현재 상위 리더"
+
+    old_fail = (
+        structural["지역"].get("구리더이탈후보", [])
+        + structural["글로벌섹터"].get("구리더이탈후보", [])
+        + structural["미국섹터"].get("구리더이탈후보", [])
+    )
+
+    coherence = structural["교차축정렬"]
+    new_confirmed = (
+        len(structural["지역"].get("신규리더후보", []))
+        + len(structural["글로벌섹터"].get("신규리더후보", []))
+        + len(structural["미국섹터"].get("신규리더후보", []))
+    )
+
+    # Regime action first.
+    if age["bull"] and age["near_ath"] and age["year_no"] >= 4:
+        regime_action = (
+            "시장 이탈보다 핵심 롱은 유지"
+            "; 시간제약 레버리지가 있다면 점진 축소"
+        )
+    elif age["bull"]:
+        regime_action = "핵심 롱 유지"
+    else:
+        regime_action = "시장 레짐 재확인을 우선"
+
+    # Leadership action second.
+    if new_confirmed > 0 and coherence.get("strength") == "정렬":
+        leadership_action = (
+            f"{focus_text}는 63일에서도 리더 후보가 확인되므로 신규 리서치·비중 확대를 단계적으로 검토"
+        )
+    else:
+        leadership_action = (
+            f"{focus_text}는 관찰하되 21일 승자 추격은 보류; "
+            "63일 우위와 다른 스타일·지역·섹터의 동조가 생길 때 비중 이동을 검토"
         )
 
-    # Global and US sectors: explicit leader transitions.
-    if has_rows(global_sector):
-        g = global_sector.copy()
-        g63 = g.sort_values(["rank_63", "rank_21"]).iloc[0]
-        g21 = g.sort_values(["rank_21", "rank_63"]).iloc[0]
-        trend.append(
-            f"섹터: 글로벌 리더는 63일 {GLOBAL_SECTOR_SHORT.get(g63.get('ticker'), g63.get('ticker'))} → "
-            f"21일 {GLOBAL_SECTOR_SHORT.get(g21.get('ticker'), g21.get('ticker'))}로 이동했습니다."
+    if old_fail:
+        old_text = " / ".join(old_fail[:3])
+        tail = f" 기존 리더 중 {old_text}의 복귀 실패가 이어지면 과거 리더 복귀보다 신규 리더 탐색을 우선"
+    else:
+        tail = " 기존 리더의 63·21일 약화가 동시에 확인되는지도 함께 봅니다"
+
+    return f"{regime_action}. {leadership_action}. {tail}."
+
+
+def fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply=None,
+                           bounce_df=None, regime=None, style_hist=None):
+    regime_lines, leadership_lines = [], []
+
+    age = bull_cycle_context(style_hist, regime)
+    structural = structural_leadership_snapshot(
+        style, sector, global_sector, region, breadth, stock_supply
+    )
+
+    if age["bull"]:
+        dd = age.get("drawdown")
+        dd_txt = f", 전고점 대비 {dd*100:.1f}%" if dd is not None else ""
+        regime_lines.append(
+            f"{age['phase']}({age['age_text']}){dd_txt}. 전고점 근처 자체는 약세 전환 신호로 보지 않습니다."
         )
-    if has_rows(sector):
-        s = sector.copy()
-        s63 = s.sort_values(["rank_63", "rank_21"]).iloc[0]
-        s21 = s.sort_values(["rank_21", "rank_63"]).iloc[0]
-        trend.append(
-            f"미국 섹터는 63일 {US_SECTOR_SHORT.get(s63.get('ticker'), s63.get('ticker'))} → "
-            f"21일 {US_SECTOR_SHORT.get(s21.get('ticker'), s21.get('ticker'))}가 선두입니다."
+    elif has_rows(regime):
+        r = regime.iloc[-1]
+        regime_lines.append(
+            f"현재 기계적 시장 레짐은 {regime_to_kor(str(r.get('mechanical_state', '—')))}입니다."
         )
 
-    # Insight: sustainability, breadth and equity supply.
+    regime_lines.append(
+        "스타일·섹터의 언더퍼폼은 글로벌 베어마켓과 구분합니다. 먼저 시장 전체 레짐, 그 다음 내부 리더십을 봅니다."
+    )
+
+    # Style transition.
     if has_rows(style):
         gvx = style[style["pair_id"].eq("growth_value")]
         if len(gvx):
             gv = gvx.iloc[0]
             lab, why = style_change_judgement(gv, bounce_df)
-            insight.append(f"지속성: 성장/가치 변화는 {lab}. {why}.")
+            leadership_lines.append(
+                f"성장/가치: {leader_to_kor(gv.get('leader_126'))} → "
+                f"{leader_to_kor(gv.get('leader_63'))} → {leader_to_kor(gv.get('leader_21'))}; {lab}. {why}."
+            )
 
-    if has_rows(breadth):
-        b21 = breadth[breadth["window"].eq(21)]
-        if len(b21):
-            bp = float(b21.iloc[0].get("breadth_pct"))
-            spread_msg = "아직 리더십 확산이 좁습니다" if bp < 0.5 else "리더십이 시장 전반으로 확산되는 편입니다"
-            insight.append(f"확산성: 21일 breadth {bp*100:.1f}%로 {spread_msg}.")
+    # New leaders / old leader failure.
+    new_parts = []
+    old_parts = []
+    for label, block in [
+        ("지역", structural["지역"]),
+        ("글로벌", structural["글로벌섹터"]),
+        ("미국", structural["미국섹터"]),
+    ]:
+        if block.get("신규리더후보"):
+            new_parts.append(f"{label} " + "·".join(block["신규리더후보"][:2]))
+        elif block.get("단기급부상"):
+            new_parts.append(f"{label} " + "·".join(block["단기급부상"][:2]) + "(21일 급부상)")
+        if block.get("구리더이탈후보"):
+            old_parts.append(f"{label} " + "·".join(block["구리더이탈후보"][:2]))
 
-    if has_rows(stock_supply):
-        supply_bits = []
-        for universe, label in [("US", "미국"), ("EX_US", "글로벌 ex-US")]:
-            u = stock_supply[stock_supply["universe"].eq(universe)].copy()
-            if len(u):
-                u["weighted_change_12m"] = pd.to_numeric(u["weighted_change_12m"], errors="coerce")
-                u = u.dropna(subset=["weighted_change_12m"])
-                if len(u):
-                    top = u.sort_values("weighted_change_12m", ascending=False).iloc[0]
-                    supply_bits.append(
-                        f"{label} {top.get('sector_ko', top.get('sector'))} "
-                        f"{float(top.get('weighted_change_12m'))*100:+.1f}%"
-                    )
-        if supply_bits:
-            insight.append("주식공급: 12개월 공급 증가가 큰 축은 " + ", ".join(supply_bits) + "입니다.")
+    if new_parts:
+        leadership_lines.append("신규 리더 후보: " + " / ".join(new_parts) + ".")
+    if old_parts:
+        leadership_lines.append("기존 리더 이탈 후보: " + " / ".join(old_parts) + ".")
 
-    # Final focus line is insight, not a separate direction section.
-    focus_parts = []
-    if has_rows(region):
-        top21 = region.sort_values(["rank_21", "rank_63"]).iloc[0]
-        focus_parts.append(REGION_MAP.get(top21.get("ticker"), top21.get("ticker")))
-    if has_rows(global_sector):
-        g21 = global_sector.sort_values(["rank_21", "rank_63"]).iloc[0]
-        focus_parts.append("글로벌 " + GLOBAL_SECTOR_SHORT.get(g21.get("ticker"), g21.get("ticker")))
-    if has_rows(sector):
-        s21 = sector.sort_values(["rank_21", "rank_63"]).iloc[0]
-        focus_parts.append("미국 " + US_SECTOR_SHORT.get(s21.get("ticker"), s21.get("ticker")))
-    if focus_parts:
-        insight.append(
-            "중점 관찰: " + " · ".join(focus_parts[:3]) +
-            "의 21일 강세가 63일 리더십으로 이어지는지와 breadth 확대를 함께 봐야 합니다."
+    b = structural["breadth"]
+    if b.get("21일") is not None:
+        btxt = f"21일 {b['21일']*100:.1f}%"
+        if b.get("63일") is not None:
+            btxt += f" vs 63일 {b['63일']*100:.1f}%"
+        leadership_lines.append(
+            f"리더십 폭: {btxt} — {b['판정']}. 좁아졌다는 사실 자체를 약세 신호로 해석하지 않습니다."
+        )
+
+    supply = structural["주식공급반응"]
+    if supply.get("status") != "미측정":
+        leadership_lines.append(
+            f"공급 반응: {supply['status']} — {supply['text']}. 가격 리더에 자본공급이 따라붙는지 보는 지표입니다."
         )
 
     return {
-        "동향": trend[:4],
-        "인사이트": insight[:4],
+        "동향": regime_lines[:3],
+        "인사이트": leadership_lines[:4],
         "현재 대응": build_current_action(
-            style, sector, global_sector, region, breadth
+            style, sector, global_sector, region, breadth,
+            stock_supply=stock_supply, regime=regime, style_hist=style_hist
         ),
     }
 
@@ -1286,100 +1616,120 @@ def fallback_breadth(snapshot):
     chosen = [r for r in rows if r["기간"] == snapshot["선택기간"]]
     if chosen:
         val = chosen[0]["시장상회비율"]
-        return f"<p><b>판정</b>: {snapshot['선택기간']}일 참여 폭은 {val*100:.1f}%입니다.</p><p><b>체크</b>: 수치가 낮으면 상승이 일부 종목에 집중됐을 가능성이 큽니다.</p>"
+        return f"<p><b>판정</b>: {snapshot['선택기간']}일 참여 폭은 {val*100:.1f}%입니다.</p><p><b>의미</b>: 수치가 낮으면 리더십이 일부 종목에 집중된 것이며, 그 자체를 약세 신호로 보지는 않습니다.</p>"
     return "<p>시장 참여 폭을 통해 상승 확산 여부를 확인할 수 있습니다.</p>"
 
 
 MAIN_PROMPT = """
-너는 글로벌 주식시장 리더십 변화의 지속성을 판별하는 투자 리서치 보조자다.
-입력 JSON에 있는 데이터만 사용한다. 외부 뉴스나 원인은 추측하지 않는다.
+너는 글로벌 주식시장 레짐과 리더십 변화를 해석하는 투자 리서치 보조자다.
+입력 JSON의 수치만 사용한다. 외부 뉴스나 원인을 만들지 않는다.
 
-반드시 아래 JSON 객체 하나만 출력한다. 코드펜스나 markdown은 쓰지 않는다.
+반드시 아래 JSON 객체 하나만 출력한다. markdown/code fence는 쓰지 않는다.
 {
-  "동향": ["문장", "문장", "문장"],
+  "동향": ["문장", "문장"],
   "인사이트": ["문장", "문장", "문장"],
   "현재 대응": "한 문장"
 }
 
+핵심 방법론:
+- 시장 레짐과 스타일/섹터 상대성과를 분리한다. 성장주·가치주·특정 지역의 부진을 곧바로 베어마켓이라고 부르지 않는다.
+- 126일 → 63일 → 21일 순서로 읽는다. 21일 단독 승자는 '단기 급부상', 63일까지 올라온 대상만 '신규 리더 후보'로 취급한다.
+- 새 리더만 보지 말고, 126일의 과거 리더가 63일·21일에서 동시에 밀리는 '기존 리더 이탈'을 중요하게 본다.
+- breadth는 시장 건강 점수가 아니다. 회의주의 구간에는 후보가 많아 폭이 넓을 수 있고,
+  낙관주의로 갈수록 진짜 리더가 좁아질 수도 있다. breadth는 '리더십 집중/확산'만 설명한다.
+- 시장이 전고점 근처라는 사실 자체를 약세 신호로 쓰지 않는다.
+- 주식공급은 가격 상승의 결과로 자본·경쟁·신규공급이 반응하는지 본다. 공급 증가는 즉시 bearish가 아니다.
+- 공급 반응에는 시차가 있다. 현재 상장사 주식수 감소/증가만으로 IPO 전체 공급을 대신하지 않는다.
+- 단기 반등효과와 구조적 리더십을 구분한다.
+- 섹터 ETF의 부진은 섹터 내부 모든 기업의 부진을 뜻하지 않는다. 내부 신규 대표 기업은 별도 스크리닝 대상이다.
+
 작성 규칙:
-1. 동향은 정확히 3~4개 문장으로 쓴다.
-2. 동향에서 반드시 다음을 구체적인 이름과 숫자로 다룬다.
-   - 스타일: 126일 → 63일 → 21일 중 실제로 바뀐 축
-   - 지역: 63일 리더, 21일 리더, 가장 빠르게 순위가 상승한 지역
-   - 글로벌 섹터와 미국 섹터: 63일 → 21일 리더 변화
-   - 의미 없는 변화가 없으면 억지로 쓰지 않는다.
-3. 인사이트는 정확히 3~4개 문장으로 쓴다.
-4. 인사이트 첫 문장은 규칙기반_시장심리사이클의 현재단계와 핵심근거를 한 문장으로 요약한다.
-5. 그 다음 변화의 지속성을 '일시적 가능성 / 전환 초기 / 전환 진행 / 지속' 중 하나로 판정한다.
-6. 인사이트에는 반드시 breadth를 넣어 리더십이 좁은지 넓어지는지 판단한다.
-7. 주식공급 데이터가 있으면 미국과 글로벌 ex-US에서 공급 증가가 가장 큰 섹터를 명시하고,
-   현재 리더 섹터와 공급 증가가 겹치는지 여부를 한 문장으로 해석한다.
-8. 마지막 인사이트는 '중점 관찰:'로 시작하고,
-   지금 가장 중요하게 볼 지역/섹터 2~3개와 무엇이 63일로 이어져야 하는지를 명확히 적는다.
-9. '확인 필요', '지켜봐야 한다' 같은 모호한 표현만 쓰지 말고 어떤 변화가 이어져야 하는지 구체화한다.
-10. 각 문장은 최대 90자 안팎으로 간결하게 쓴다.
-11. 매수/매도 추천은 하지 않는다.
-12. '도취'라는 단어는 쓰지 않고 '유포리아'를 사용한다.
-13. 특정 필명은 절대 쓰지 않는다.
-14. "현재 대응"은 반드시 한 문장으로만 쓴다.
-15. "현재 대응"에는 세 요소를 순서대로 넣는다:
-    (a) 지금 유지/확대/축소/추격 보류 중 무엇을 할지,
-    (b) 현재 가장 중요한 지역·섹터 2~3개,
-    (c) 무엇이 63일 기준으로 확인되면 행동을 바꿀지.
-16. 21일 변화만으로 신규 리더를 추격하지 않는다. 63일 확인과 breadth 확산을 우선한다.
-17. 데이터가 혼조면 "기존 중심축 유지 + 신규 리더 추격 보류"를 기본값으로 한다.
-18. 특정 ETF의 매수/매도 명령은 하지 말고 "비중 확대 검토 / 비중 축소 검토 / 관찰" 수준으로 쓴다.
+1. "동향"은 2개 문장만 쓴다.
+2. 첫 문장은 시장 전체 레짐과 강세장 연령/전고점 위치를 해석한다.
+3. 두 번째 문장은 스타일 회전과 시장 전체 베어마켓을 명확히 구분한다.
+4. "인사이트"는 3~4개 문장으로 쓴다.
+5. 첫 문장은 신규 리더 후보와 21일 급부상을 구분해 지역·글로벌 섹터·미국 섹터를 구체적으로 적는다.
+6. 두 번째 문장은 기존 리더 이탈 후보가 있으면 명시한다. 없으면 '구 리더 이탈은 아직 확인되지 않음'이라고 쓴다.
+7. 세 번째 문장은 breadth를 집중/확산의 관점에서만 설명한다.
+8. 네 번째 문장이 필요하면 현재 리더와 주식공급 반응이 겹치는지를 설명한다.
+9. "현재 대응"은 한 문장으로 쓴다.
+10. Bull + 성숙한 강세장 + 전고점 근처이면 '시장 이탈/조정 대기'를 기본 대응으로 제시하지 않는다.
+11. 21일 승자는 추격하지 말고 63일 지속성 + 다른 스타일/지역/섹터의 동조 + 구 리더 약화를 확인한다.
+12. 시간제약 레버리지가 있다는 전제에서만 '점진 축소'를 조건부로 언급한다.
+13. 특정 종목/ETF의 직접 매수·매도 명령은 하지 않는다.
+14. 각 문장은 최대 100자 안팎으로 간결하게 쓴다.
+15. 특정 필명은 절대 쓰지 않는다.
 """
 
 STYLE_CHART_PROMPT = """
-너는 특정 리더십 비교축의 현재 4분면과 21·63·126일 신호를 해석하는 투자 리서치 보조자다.
-출력 형식:
-1. HTML만 출력한다.
-2. <ul> 안에 4개 bullet을 쓴다.
-3. bullet 제목은 각각 <b>현재 판정</b>, <b>변화의 지속성</b>, <b>의미</b>, <b>확인 조건</b>으로 시작한다.
-4. 126일 → 63일 → 21일 순서로 리더가 어떻게 바뀌었는지 먼저 읽는다.
-5. 입력의 변화판정(일시적 가능성/전환 초기/전환 진행/지속)과 빈도·상대강도·반등효과 정보를 반드시 반영한다.
-6. '확인 필요'로 끝내지 말고 무엇이 바뀌면 전환을 인정하거나 폐기할지 구체적으로 쓴다.
+너는 특정 스타일 리더십 축을 해석하는 투자 리서치 보조자다.
+출력은 HTML <ul> 안 4개 bullet만 쓴다.
+제목은 <b>현재 구조</b>, <b>지속성</b>, <b>반등효과</b>, <b>다음 판정</b>.
+
+규칙:
+- 반드시 126일 → 63일 → 21일 순서로 읽는다.
+- 21일 단독 반전은 중기 리더십 전환으로 과대평가하지 않는다.
+- 21·63일 정렬 + 빈도와 상대강도 동조는 전환 신뢰도를 높인다.
+- frequency는 얼마나 자주 이겼는지, magnitude/상대수익은 얼마나 크게 이겼는지를 구분해 설명한다.
+- 큰 과거 낙폭 뒤의 21일 강세는 반등효과 가능성을 먼저 점검한다.
+- 성장/가치·대형/소형 상대성과를 '성장주 베어마켓/가치주 베어마켓'이라고 부르지 않는다.
+- 무엇이 63일 또는 126일까지 이어지면 구조적 전환으로 승격할지 한 문장으로 명시한다.
 """
 
 CROSS_SECTION_PROMPT = """
-너는 지역/섹터 리더십 4분면과 순위 변화를 해석하는 투자 리서치 보조자다.
-출력 형식:
-1. HTML만 출력한다.
-2. <ul> 안에 4개 bullet을 쓴다.
-3. bullet 제목은 각각 <b>주도 축</b>, <b>변화의 지속성</b>, <b>해석</b>, <b>확인 조건</b>으로 시작한다.
-4. 비교기준을 먼저 밝히고, 126일 → 63일 → 21일 순위 변화와 초과수익을 연결한다.
-5. 단기 급부상과 지속 리더를 구분하고, 구체적 대상명을 사용한다.
+너는 지역/섹터 리더십의 교체 과정을 해석하는 투자 리서치 보조자다.
+출력은 HTML <ul> 안 4개 bullet만 쓴다.
+제목은 <b>기존 리더</b>, <b>신규 리더 후보</b>, <b>이탈 후보</b>, <b>다음 판정</b>.
+
+규칙:
+- 비교기준(SPY 또는 VT)을 먼저 밝힌다.
+- 126일→63일→21일 순위를 본다.
+- 21일만 상위권이면 '단기 급부상', 63일·21일이 함께 상위권이고 초과수익이 양수면 '신규 리더 후보'로 표현한다.
+- 126일 상위권이던 대상이 63일·21일 모두 하위권이고 초과수익도 음수면 '기존 리더 이탈 후보'로 표현한다.
+- 시장 전체가 회복하는데도 과거 리더가 복귀하지 못하는 현상을 새 레짐의 단서로 본다.
+- 다만 현재 데이터는 최대 126일이므로 장기간 구조적 탈락을 확정하지 말고 '후보'로 표현한다.
+- 섹터 ETF가 비리딩이어도 섹터 내부의 신규 대표 기업은 존재할 수 있음을 한 줄에서 주의한다.
 """
 
 BREADTH_PROMPT = """
-너는 시장 breadth 차트를 해석하는 보조자다.
-출력 형식:
-1. HTML만 출력한다.
-2. <ul> 안에 4개 bullet을 쓴다.
-3. bullet 제목은 각각 <b>현재 판정</b>, <b>추세</b>, <b>의미</b>, <b>체크포인트</b>로 시작한다.
-4. 선택한 기간의 최신 수치와 최근 추세를 함께 설명한다.
+너는 시장 breadth를 '리더십의 폭'으로 해석하는 보조자다.
+출력은 HTML <ul> 안 4개 bullet만 쓴다.
+제목은 <b>현재 폭</b>, <b>21일 vs 63일</b>, <b>레짐 의미</b>, <b>다음 관찰</b>.
+
+규칙:
+- breadth가 낮으면 '나쁜 시장', 높으면 '좋은 시장'이라고 말하지 않는다.
+- 회의주의에서는 리딩 후보가 많아 폭이 넓고 상대수익 차이가 작을 수 있다.
+- 낙관주의로 넘어갈수록 진짜 리딩 섹터가 형성되며 breadth가 좁아질 수 있다.
+- 따라서 21일 breadth가 63일보다 낮으면 '최근 리더십 집중', 높으면 '최근 리더십 확산'이라고 표현한다.
+- breadth는 리더십 교체의 승인 임계값이 아니다. 50%/60% 같은 고정 임계값으로 매매 조건을 만들지 않는다.
+- 스타일·지역·섹터의 63일 지속성과 함께 읽는다.
 """
 
 SENTIMENT_PROMPT = """
-너는 심리 지표를 해석하는 보조자다.
-출력 형식:
-1. HTML만 출력한다.
-2. <ul> 안에 3개 bullet을 쓴다.
-3. bullet 제목은 각각 <b>현재 판정</b>, <b>세부 신호</b>, <b>체크포인트</b>로 시작한다.
-4. 점수·단계와 VIX/하이일드/SPY 추세/모멘텀을 함께 반영한다.
-"""
+너는 VIX·하이일드·시장추세 proxy를 해석하는 보조자다.
+출력은 HTML <ul> 안 3개 bullet만 쓴다.
+제목은 <b>현재 위험 스트레스</b>, <b>무엇을 말해주나</b>, <b>무엇을 말해주지 못하나</b>.
 
+규칙:
+- VIX·HY는 현재 위험 스트레스의 동행 지표로 설명한다.
+- VIX가 낮다는 이유만으로 유포리아, 높다는 이유만으로 비관주의를 판정하지 않는다.
+- 심리 사이클에는 expectations gap, 전문가/대중의 기대, IPO·신규공급이 추가로 필요하다고 명시한다.
+"""
 
 SUPPLY_PROMPT = """
-너는 섹터별 기업 주식공급 데이터를 해석하는 투자 리서치 보조자다.
-입력은 기존 상장기업의 발행주식수 증감 프록시다. IPO 전체 공급과 동일시하면 안 된다.
-출력은 HTML <ul> 안의 3개 bullet만 작성한다.
-각 bullet은 <b>공급 확대</b>, <b>공급 축소</b>, <b>의미</b>로 시작한다.
-어느 섹터에서 발행주식수가 늘고 줄었는지 구체적으로 쓰고, 주가 리더십과 결합할 때 late-optimism/euphoria 경계 신호가 될 수 있다는 점을 조건부로 설명한다.
-데이터 커버리지가 낮은 섹터는 단정하지 않는다.
-"""
+너는 섹터별 주식공급을 자본사이클 관점에서 해석하는 투자 리서치 보조자다.
+입력은 기존 상장기업의 발행주식수 증감 proxy이며 IPO 전체 공급과 동일하지 않다.
+출력은 HTML <ul> 안 4개 bullet만 쓴다.
+제목은 <b>공급 상태</b>, <b>가격 리더와 중첩</b>, <b>시차</b>, <b>의미</b>.
 
+규칙:
+- 주가 상승은 미래 공급·창업·모방·경쟁을 유도하는 인센티브가 될 수 있다.
+- 공급 반응에는 시차가 있으므로 현재 공급 축소를 곧바로 bullish, 공급 증가를 곧바로 bearish로 해석하지 않는다.
+- 현재 가격 리더 섹터에서 공급이 늘기 시작하는지를 가장 중요하게 본다.
+- 가격 리더십은 강한데 공급이 아직 제한적이면 자본 부족/희소성 구간일 수 있다.
+- 가격 리더십과 광범위 공급 확대가 겹치기 시작하면 사이클 성숙·경쟁 증가의 단서로 본다.
+- 커버리지가 낮으면 단정하지 않는다.
+"""
 
 def prep_supply_table(stock_supply_df, universe):
     if not has_rows(stock_supply_df):
@@ -1904,35 +2254,34 @@ def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df, 
         "측정": "완료" if has_rows(regime_df) else "미연결",
     })
 
-    # 2) Wall of worry — only VIX + HY spread, not trend/momentum.
-    worry_status = "미측정"
-    worry_residue = None
+    # 2) Risk stress — descriptive only.
+    # VIX is contemporaneous/lagging and must NOT determine the sentiment stage.
+    risk_status = "미측정"
     sentiment_warmth = None
+    risk_score = None
     if has_rows(sentiment_df):
         sr = sentiment_df.iloc[-1]
         vix_w = _norm100(sr.get("vix_warmth"))
         hy_w = _norm100(sr.get("hy_oas_warmth"))
-        proxy_score = _norm100(sr.get("proxy_score"))
+        sentiment_warmth = _norm100(sr.get("proxy_score"))
         vals = [x for x in [vix_w, hy_w] if x is not None]
         if vals:
-            fear_warmth = sum(vals) / len(vals)
-            worry_residue = 100 - fear_warmth
-            if worry_residue >= 60:
-                worry_status = "걱정의 벽 강함"
-            elif worry_residue >= 35:
-                worry_status = "걱정의 벽 잔존"
+            risk_score = sum(vals) / len(vals)
+            if risk_score >= 70:
+                risk_status = "스트레스 낮음"
+            elif risk_score >= 40:
+                risk_status = "중립"
             else:
-                worry_status = "걱정의 벽 약화"
-        sentiment_warmth = proxy_score
+                risk_status = "스트레스 높음"
 
-    worry_evidence = "VIX·하이일드 proxy"
-    if worry_residue is not None:
-        worry_evidence += f" · 걱정 잔존도 {worry_residue:.0f}/100"
+    risk_evidence = "VIX·하이일드 proxy · 사이클 단계 판정에는 미사용"
+    if risk_score is not None:
+        risk_evidence += f" · 안정도 {risk_score:.0f}/100"
     modules.append({
-        "모듈": "Wall of Worry",
-        "판정": worry_status,
-        "근거": worry_evidence,
-        "측정": "완료" if worry_residue is not None else "미연결",
+        "모듈": "Risk Stress",
+        "판정": risk_status,
+        "근거": risk_evidence,
+        "측정": "보조",
     })
 
     # 3) Expectations gap — deliberately not invented.
@@ -2081,43 +2430,35 @@ def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df, 
         "측정": "완료" if b21 is not None else "미연결",
     })
 
-    # ---------- State machine ----------
-    # Late euphoria is never confirmed without IPO/SPAC/low-quality issuance + expectations gap.
+    # ---------- Provisional cycle interpretation ----------
+    # The broad sentiment stage is not allowed to be "confirmed" without
+    # expectations-gap + primary-market supply data. Current data only narrows the range.
     if regime_score < 0:
-        if worry_status == "걱정의 벽 강함":
-            stage = "비관"
-        else:
-            stage = "회의"
+        stage = "비관~회의"
     elif regime_score == 0:
-        stage = "회의"
+        stage = "회의 가능성"
     else:
-        # Bull market.
-        if worry_status == "걱정의 벽 강함" and supply_rank <= 0:
-            stage = "회의"
-        elif (
-            speculation_status == "일부 포켓 과열 후보"
-            and supply_rank >= 1
-            and worry_status in ["걱정의 벽 잔존", "걱정의 벽 약화"]
-        ):
-            stage = "후기 낙관 → 초기 유포리아 후보"
-        elif (
-            supply_rank >= 1
-            or speculation_status in ["일부 포켓 과열 후보", "낙관적 리더십"]
-            or (sentiment_warmth is not None and sentiment_warmth >= 60)
-        ):
-            stage = "후기 낙관"
+        # Bull market. Use supply response and speculative pockets only to narrow
+        # the optimism-side range; do not infer Wall of Worry from VIX.
+        if speculation_status == "일부 포켓 과열 후보":
+            if supply_rank >= 1:
+                stage = "후기 낙관~초기 유포리아 가능성"
+            else:
+                stage = "낙관~후기 낙관 가능성"
+        elif supply_rank >= 1 or speculation_status == "낙관적 리더십":
+            stage = "낙관~후기 낙관 가능성"
         else:
-            stage = "낙관"
+            stage = "낙관 가능성"
 
     # Confidence from measured coverage — transparent, not fake precision.
     measured_weight = 0.0
     measured_weight += 1.0 if has_rows(regime_df) else 0.0
-    measured_weight += 1.0 if worry_residue is not None else 0.0
+    measured_weight += 0.25 if risk_score is not None else 0.0  # descriptive only
     measured_weight += 0.75 if supply_parts else 0.0
     measured_weight += 0.5 if has_rows(style_df) else 0.0  # speculation is only partial
-    measured_weight += 1.0 if b21 is not None else 0.0
-    # Expectations gap intentionally gets 0 until real data is connected.
-    coverage_ratio = measured_weight / 5.25
+    measured_weight += 0.5 if b21 is not None else 0.0  # distribution, not stage
+    # Expectations gap + IPO/SPAC/primary supply intentionally get 0 until connected.
+    coverage_ratio = measured_weight / 4.0
 
     if supply_coverage and min(supply_coverage) < 0.25:
         coverage_ratio *= 0.9
@@ -2139,17 +2480,18 @@ def classify_sentiment_cycle(style_df, sector_df, global_sector_df, breadth_df, 
         missing.append("주식공급")
     missing.append("IPO/SPAC·저품질 신규공급")
     missing.append("실적·경제 expectations gap")
+    missing.append("뉴스·전문가 기대/회의론의 정량화")
 
-    if stage == "후기 낙관 → 초기 유포리아 후보":
-        headline_reason = "Bull + 일부 과열 포켓 + 공급 증가, 그러나 걱정의 벽이 완전히 사라지진 않음"
-    elif stage == "후기 낙관":
-        headline_reason = "Bull이 진행된 가운데 낙관·공급·리더십 변화가 커졌지만 광범위 유포리아는 미확인"
-    elif stage == "낙관":
-        headline_reason = "Bull 진행과 리더십 확산은 보이지만 공급·투기 과열 신호는 제한적"
-    elif stage == "회의":
-        headline_reason = "가격 회복/상승 대비 걱정의 벽과 제한된 확산이 남아 있음"
+    if "초기 유포리아" in stage:
+        headline_reason = "Bull + 일부 과열 포켓 + 공급 반응이 나타나지만 핵심 1차시장·기대 데이터가 부족"
+    elif "후기 낙관" in stage:
+        headline_reason = "Bull 진행과 일부 뜨거운 리더십은 보이지만 광범위 신규공급·기대과열은 확인되지 않음"
+    elif "낙관" in stage:
+        headline_reason = "Bull은 진행 중이나 현재 데이터만으로 후기 단계나 유포리아를 확정할 근거는 부족"
+    elif "회의" in stage:
+        headline_reason = "시장 국면과 리더십만으로는 낙관 단계 진입을 확정하기 어려움"
     else:
-        headline_reason = "시장 하락과 높은 불안이 동시에 나타나는 구간"
+        headline_reason = "약세 국면에서 비관·회의 구간 가능성이 높음"
 
     return {
         "stage": stage,
@@ -2170,19 +2512,19 @@ def cycle_rule_table():
         },
         {
             "단계": "회의",
-            "핵심 조건": "가격은 회복/상승하지만 걱정의 벽 강함 + 공급/확산 제한",
+            "핵심 조건": "가격은 회복/상승하지만 기대가 낮고 신규공급·낙관 확산이 제한",
         },
         {
             "단계": "낙관",
-            "핵심 조건": "Bull 진행 + 걱정 완화 + 정상적 breadth + 공급 과열 없음",
+            "핵심 조건": "Bull 진행 + 현실이 낮은 기대를 상회 + 공급 과열 없음",
         },
         {
             "단계": "후기 낙관",
-            "핵심 조건": "Bull 고도화 + 공급 증가/뜨거운 리더십 중 일부 발생 + 걱정은 잔존",
+            "핵심 조건": "Bull 고도화 + 공급 증가/뜨거운 리더십 + 기대치 상승, 아직 광범위 과열은 아님",
         },
         {
             "단계": "초기 유포리아 후보",
-            "핵심 조건": "일부 과열 포켓 + 공급 증가 + 걱정의 벽 약화/잔존",
+            "핵심 조건": "일부 과열 포켓 + 신규공급 반응 + 기대치 상승이 동시에 나타남",
         },
         {
             "단계": "후기 유포리아",
@@ -2228,10 +2570,14 @@ c1, c2, c3, c4 = st.columns([0.95, 1.30, 1.85, 1.05], gap="small")
 with c1:
     if has_rows(regime):
         r = regime.iloc[-1]
+        age_ctx = bull_cycle_context(style_hist, regime)
+        sub = f"전고점 대비 {pct(r.get('spy_drawdown_from_ath'))}"
+        if age_ctx["bull"]:
+            sub = f"{age_ctx['phase']} · " + sub
         card(
             "시장 국면",
             regime_to_kor(str(r.get("mechanical_state", "—"))),
-            f"전고점 대비 {pct(r.get('spy_drawdown_from_ath'))}"
+            sub
         )
     else:
         card("시장 국면", "—", "")
@@ -2240,7 +2586,7 @@ with c2:
     compact_card(
         "시장 심리 사이클",
         [cycle["stage"]],
-        f"잠정 판정 · 신뢰도 {cycle['confidence']}"
+        f"범위 추정 · 신뢰도 {cycle['confidence']}"
     )
 
 with c3:
@@ -2273,29 +2619,37 @@ snapshot["규칙기반_시장심리사이클"] = {
     "모듈": cycle["modules"],
     "미연결": cycle["missing"],
 }
+rotation_snapshot = leadership_rotation_summary(
+    style, sector, global_sector, region, breadth, stock_supply
+)
+snapshot["리더십_구조"] = rotation_snapshot
+snapshot["강세장_시간축"] = bull_cycle_context(style_hist, regime)
+snapshot["구조적_리더십교체"] = structural_leadership_snapshot(
+    style, sector, global_sector, region, breadth, stock_supply
+)
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
 with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.19-action:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.21-regime-leadership:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
-    sections = fallback_main_sections(style, sector, global_sector, region, breadth, stock_supply, bounce)
-    sections["인사이트"] = [
-        f"사이클: {cycle['stage']} · {cycle['reason']}"
-    ] + sections.get("인사이트", [])
-    sections["인사이트"] = sections["인사이트"][:4]
+    sections = fallback_main_sections(
+        style, sector, global_sector, region, breadth, stock_supply, bounce,
+        regime=regime, style_hist=style_hist
+    )
 
 if not sections.get("현재 대응"):
     sections["현재 대응"] = build_current_action(
-        style, sector, global_sector, region, breadth, cycle
+        style, sector, global_sector, region, breadth, cycle, stock_supply,
+        regime=regime, style_hist=style_hist
     )
 
 render_main_sections(sections, f"GPT 리더십 변화 해석 · {model_name}" if gpt_main else None)
 if gpt_main_error and not gpt_main:
     st.caption(f"GPT API 미연결: {gpt_main_error}")
 
-st.markdown("### 시장 심리 사이클 판정")
+st.markdown("### 보조: 시장 심리 사이클 범위")
 st.markdown(
-    f'<div class="explain-box"><b>{cycle["stage"]}</b> · 신뢰도 {cycle["confidence"]}<br>'
+    f'<div class="explain-box"><b>{cycle["stage"]}</b> · 보조 추정 · 신뢰도 {cycle["confidence"]}<br>'
     f'{cycle["reason"]}</div>',
     unsafe_allow_html=True,
 )
@@ -2316,8 +2670,8 @@ st.dataframe(
 )
 
 st.caption(
-    "현재 판정에서 제외: Expectations Gap(실적·경제 surprise), "
-    "IPO/SPAC·저품질 신규공급. 이 데이터가 연결되기 전에는 신뢰도를 최대 '중간'으로 제한합니다."
+    "사이클은 현재 '범위 추정'입니다. VIX·HY는 위험 스트레스 설명에만 쓰고 단계 판정에는 사용하지 않습니다. "
+    "Expectations Gap과 IPO/SPAC·저품질 신규공급이 연결되기 전에는 신뢰도를 최대 '중간'으로 제한합니다."
 )
 
 with st.expander("사이클 판정 로직 보기"):
@@ -2325,7 +2679,7 @@ with st.expander("사이클 판정 로직 보기"):
     st.markdown(
         """
 - **전환 초기**: 21일 또는 21·63일 리더가 기존 126일/63일 중심축과 달라지기 시작했지만, 아직 장기축까지 정렬되지 않은 상태입니다.
-- **Wall of Worry**: VIX·하이일드 스프레드 proxy로 걱정이 남아있는지 봅니다.
+- **Risk Stress**: VIX·하이일드 스프레드는 현재 위험 스트레스의 동행 지표로만 봅니다. 심리 단계의 선행 판정에는 사용하지 않습니다.
 - **Equity Supply**: 현재는 기존 상장기업의 발행주식수 변화만 반영하므로 `부분 측정`입니다.
 - **Speculation**: 성장/시총가중/기술주 리더십과 심리 proxy로 `일부 포켓`만 탐지합니다.
 - **Expectations Gap**: 실적 surprise·경제 surprise 데이터가 아직 없어 판정에 넣지 않습니다.
@@ -2630,4 +2984,4 @@ if has_rows(bounce):
         st.dataframe(show, use_container_width=True, hide_index=True)
         st.caption("최근 강세가 추세 전환인지, 큰 낙폭 뒤 반등인지 구분할 때 참고합니다.")
 
-st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 리더십·breadth·주식공급 중심")
+st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 시장 레짐 → 구 리더 이탈 → 신규 리더 형성 → 공급 반응 순서")
