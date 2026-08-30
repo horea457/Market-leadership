@@ -173,6 +173,26 @@ st.markdown("""
     font-size: .87rem;
     line-height: 1.45;
 }
+
+.dashboard-title {
+    display: block;
+    font-size: clamp(2.0rem, 3vw, 3.0rem);
+    font-weight: 800;
+    line-height: 1.55;
+    letter-spacing: -0.035em;
+    color: #0f172a;
+    margin: 0 0 0.25rem 0;
+    padding: 0.16em 0 0.34em 0;
+    min-height: 1.8em;
+    overflow: visible !important;
+    white-space: normal;
+}
+.dashboard-subtitle {
+    color: #64748b;
+    font-size: 0.92rem;
+    margin-bottom: 1rem;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -461,15 +481,33 @@ def current_leadership_summary(style_df, sector_df, region_df, global_sector_df)
             x = style_df[style_df["pair_id"].eq(pid)]
             if len(x):
                 r = x.iloc[0]
-                lines.append(f"{label}: {leader_to_kor(r.get('leader_21'))} → {leader_to_kor(r.get('leader_63'))}")
+                lines.append(
+                    f"{label}: "
+                    f"{leader_to_kor(r.get('leader_126'))} → "
+                    f"{leader_to_kor(r.get('leader_63'))} → "
+                    f"{leader_to_kor(r.get('leader_21'))}"
+                )
+
     if has_rows(global_sector_df):
-        top21 = global_sector_df.sort_values(["rank_21", "rank_63"]).iloc[0].get("ticker")
+        top126 = global_sector_df.sort_values(["rank_126", "rank_63", "rank_21"]).iloc[0].get("ticker")
         top63 = global_sector_df.sort_values(["rank_63", "rank_21"]).iloc[0].get("ticker")
-        lines.append(f"글로벌 섹터: {GLOBAL_SECTOR_SHORT.get(top21, top21)} → {GLOBAL_SECTOR_SHORT.get(top63, top63)}")
+        top21 = global_sector_df.sort_values(["rank_21", "rank_63"]).iloc[0].get("ticker")
+        lines.append(
+            f"글로벌 섹터: "
+            f"{GLOBAL_SECTOR_SHORT.get(top126, top126)} → "
+            f"{GLOBAL_SECTOR_SHORT.get(top63, top63)} → "
+            f"{GLOBAL_SECTOR_SHORT.get(top21, top21)}"
+        )
     elif has_rows(sector_df):
-        top21 = sector_df.sort_values(["rank_21", "rank_63"]).iloc[0].get("ticker")
+        top126 = sector_df.sort_values(["rank_126", "rank_63", "rank_21"]).iloc[0].get("ticker")
         top63 = sector_df.sort_values(["rank_63", "rank_21"]).iloc[0].get("ticker")
-        lines.append(f"미국 섹터: {US_SECTOR_SHORT.get(top21, top21)} → {US_SECTOR_SHORT.get(top63, top63)}")
+        top21 = sector_df.sort_values(["rank_21", "rank_63"]).iloc[0].get("ticker")
+        lines.append(
+            f"미국 섹터: "
+            f"{US_SECTOR_SHORT.get(top126, top126)} → "
+            f"{US_SECTOR_SHORT.get(top63, top63)} → "
+            f"{US_SECTOR_SHORT.get(top21, top21)}"
+        )
     return lines if lines else ["—"]
 
 
@@ -1595,41 +1633,41 @@ except Exception:
     model_name = "gpt-5.6-terra"
 
 # ---------- Header ----------
-st.title("시장 리더십 대시보드")
-st.caption("최근 1~6개월 리더십 변화 · Fisher 심리 사이클 기반")
+st.markdown('<div class="dashboard-title">시장 리더십 대시보드</div>', unsafe_allow_html=True)
+st.markdown('<div class="dashboard-subtitle">최근 1~6개월 리더십 변화 · 지역·섹터·시장 참여 폭·주식공급</div>', unsafe_allow_html=True)
 
 if not (has_rows(style) and has_rows(sector)):
     st.warning("아직 데이터가 충분히 생성되지 않았습니다. GitHub Actions 실행 여부를 먼저 확인해 주세요.")
 
-c1, c2, c3, c4, c5 = st.columns([1.08, 1.08, 1.0, 1.55, 1.12], gap="small")
+c1, c2, c3 = st.columns([1.0, 1.9, 1.15], gap="small")
+
 with c1:
     if has_rows(regime):
         r = regime.iloc[-1]
-        card("시장 국면", regime_to_kor(str(r.get("mechanical_state", "—"))), f"전고점 대비 {pct(r.get('spy_drawdown_from_ath'))}")
+        card(
+            "시장 국면",
+            regime_to_kor(str(r.get("mechanical_state", "—"))),
+            f"전고점 대비 {pct(r.get('spy_drawdown_from_ath'))}"
+        )
     else:
         card("시장 국면", "—", "")
+
 with c2:
-    if has_rows(fisher):
-        r = fisher.iloc[-1]
-        card("Fisher 공개 시각", fisher_stage_to_kor(str(r.get("stage_label", "—"))), f"기준일: {r.get('source_date', '—')}")
-    else:
-        card("Fisher 공개 시각", "—", "")
+    compact_card(
+        "핵심 리더십",
+        current_leadership_summary(style, sector, region, global_sector),
+        "기존 추세(126일) → 중심(63일) → 단기(21일)"
+    )
+
 with c3:
-    if has_rows(author_view):
-        r = author_view.iloc[-1]
-        card("현재 해석", fisher_stage_to_kor(str(r.get("stage_label", "—"))), f"확신도: {confidence_to_kor(r.get('confidence', '—'))}")
-    else:
-        card("현재 해석", "—", "")
-with c4:
-    compact_card("핵심 리더십", current_leadership_summary(style, sector, region, global_sector), "단기(21일) → 중심(63일)")
-with c5:
     state_k, axis = strongest_change(style, bounce)
     card("변화 포착", state_k, axis)
 
 # ---------- Main insight ----------
 st.markdown("### 현재 시장 인사이트")
 snapshot = build_market_snapshot(
-    style, sector, global_sector, region, breadth, sentiment, regime, fisher, author_view,
+    style, sector, global_sector, region, breadth, sentiment, regime,
+    pd.DataFrame(), pd.DataFrame(),
     bounce=bounce, stock_supply=stock_supply
 )
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
@@ -1929,25 +1967,8 @@ else:
 
 st.divider()
 
-# ---------- Qualitative anchors ----------
-st.subheader("7. 해석 메모")
-q1, q2 = st.columns(2)
-with q1:
-    st.markdown("#### Fisher 공개 시각")
-    if has_rows(fisher):
-        r = fisher.iloc[-1]
-        st.markdown(f"**{r.get('source_date', '')} · {fisher_stage_to_kor(r.get('stage_label', ''))}**")
-        st.write(translate_free_text(r.get("dashboard_interpretation", r.get("public_view", ""))))
-with q2:
-    st.markdown("#### 현재 해석")
-    if has_rows(author_view):
-        r = author_view.iloc[-1]
-        st.markdown(f"**{fisher_stage_to_kor(r.get('stage_label', '—'))}**")
-        st.write(translate_free_text(r.get("evidence", "")))
-        st.caption(f"경계 신호: {translate_free_text(r.get('warning_trigger', '—'))}")
-
 if has_rows(bounce):
-    with st.expander("8. 반등 효과 점검"):
+    with st.expander("7. 반등 효과 점검"):
         cols = [c for c in ["ticker", "group", "subgroup", "max_drawdown_252", "max_drawdown_126", "rebound_from_126d_low", "current_drawdown_from_126d_high"] if c in bounce.columns]
         show = bounce[cols].copy()
         for c in ["max_drawdown_252", "max_drawdown_126", "rebound_from_126d_low", "current_drawdown_from_126d_high"]:
@@ -1956,4 +1977,4 @@ if has_rows(bounce):
         st.dataframe(show, use_container_width=True, hide_index=True)
         st.caption("최근 강세가 추세 전환인지, 큰 낙폭 뒤 반등인지 구분할 때 참고합니다.")
 
-st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 차트/섹션별 GPT 해석은 동일 데이터 기준 캐시됩니다.")
+st.caption("매주 미국 금요일 장 마감 후 자동 업데이트 · 리더십·breadth·주식공급 중심")
