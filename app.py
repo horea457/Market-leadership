@@ -247,6 +247,7 @@ REGION_MAP = {
     "VWO": "VWO (신흥국)",
     "VGK": "VGK (유럽)",
     "EWJ": "EWJ (일본)",
+    "EWY": "EWY (한국)",
     "MCHI": "MCHI (중국)",
 }
 
@@ -256,6 +257,7 @@ REGION_SHORT = {
     "VWO": "신흥국",
     "VGK": "유럽",
     "EWJ": "일본",
+    "EWY": "한국",
     "MCHI": "중국",
 }
 
