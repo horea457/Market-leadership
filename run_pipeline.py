@@ -18,8 +18,11 @@ OPTIONAL_RESEARCH = [
     ROOT / "scripts" / "fetch_primary_market_supply_sec.py",
 ]
 
-TAIL_REQUIRED = [
+OPTIONAL_MACRO = [
     ROOT / "scripts" / "fetch_macro_cycle.py",
+]
+
+TAIL_REQUIRED = [
     ROOT / "scripts" / "fetch_fred.py",
     ROOT / "scripts" / "calc_sentiment.py",
 ]
@@ -54,6 +57,11 @@ def main():
 
     # stock_supply detail is available at this point; SEC/earnings samplers can use it.
     for step in OPTIONAL_RESEARCH:
+        run_optional(step)
+
+    # Public macro endpoints (OECD / PMI pages / FRED) should enrich the dashboard,
+    # but a temporary upstream outage must never block the core leadership refresh.
+    for step in OPTIONAL_MACRO:
         run_optional(step)
 
     for step in TAIL_REQUIRED:
