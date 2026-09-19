@@ -52,7 +52,6 @@ jobs:
       - name: Run market leadership pipeline
         run: |
           python run_pipeline.py
-          python run_v627_addons.py
 
       - name: Commit updated processed data
         shell: bash
@@ -81,8 +80,11 @@ jobs:
 
           git commit -m "Update market leadership data"
 
-          # A code push can land while a long data refresh is running.
-          # Rebase the generated-data commit on the newest main before pushing.
+          # The runner may contain disposable unstaged cache/output files.
+          # Keep the committed data snapshot, discard only uncommitted leftovers,
+          # then replay the data commit on top of the newest main.
+          git reset --hard HEAD
+          git clean -fd
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
