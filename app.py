@@ -1138,6 +1138,9 @@ def _main_section_html(title, items, css_class):
 
 def render_main_sections(sections, caption=None):
     st.markdown(_main_section_html("레짐·시장 구조", sections.get("동향", []), "trend"), unsafe_allow_html=True)
+    macro_items = sections.get("매크로", [])
+    if macro_items:
+        st.markdown(_main_section_html("매크로·경기 확인", macro_items, "trend"), unsafe_allow_html=True)
     st.markdown(_main_section_html("리더십 구조 해석", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
 
     action = str(sections.get("현재 대응", "") or "").strip()
@@ -1172,13 +1175,14 @@ def parse_main_sections(text):
     if not isinstance(obj, dict):
         return None
     out = {}
-    for key in ["동향", "인사이트"]:
+    for key in ["동향", "매크로", "인사이트"]:
         val = obj.get(key, [])
         if isinstance(val, str):
             val = [val]
         if not isinstance(val, list):
             val = []
-        out[key] = [str(x).strip() for x in val if str(x).strip()][:6]
+        limit = 4 if key == "매크로" else 6
+        out[key] = [str(x).strip() for x in val if str(x).strip()][:limit]
 
     action = obj.get("현재 대응", "")
     if isinstance(action, list):
@@ -1862,6 +1866,7 @@ MAIN_PROMPT = """
 반드시 아래 JSON 객체 하나만 출력한다.
 {
   "동향": ["문장", "문장"],
+  "매크로": ["문장", "문장", "문장"],
   "인사이트": ["문장", "문장", "문장", "문장", "문장"],
   "현재 대응": "한 문장"
 }
@@ -1883,13 +1888,23 @@ MAIN_PROMPT = """
 - 주식공급은 현재 가격 리더에 자본·경쟁·신규공급이 반응하는지 본다.
 - 공급 감소를 곧바로 bullish, 공급 증가를 곧바로 bearish라고 하지 않는다.
 - 섹터 ETF가 비리딩이어도 내부 신규 대표 기업은 별도 스크리닝 대상이다.
+- "매크로_사이클"은 가격 리더십을 대체하는 매수/매도 신호가 아니라 확인·반증 레이어다.
+- 매크로는 글로벌 일드커브 → 글로벌 CLI → 글로벌 PMI 순으로 읽고, 로컬은 글로벌 대비 변화속도를 비교한다.
+- PMI는 50의 절대수준과 1개월 방향을 함께 본다. 50 아래에서 상승은 수축 완화, 50 위에서 하락은 확장 둔화다.
+- CLI는 100 자체보다 1개월 방향과 바닥/고점 전환을 중시한다.
+- 일드커브는 스티프닝 자체를 무조건 긍정적으로 해석하지 말고, 현재 가격 리더십·CLI·PMI와 같이 확인한다.
+- 한국처럼 주가지수가 특정 글로벌 산업에 집중된 국가는 로컬 CLI/PMI를 주가지수의 단독 신호로 사용하지 않는다.
 
 작성 규칙:
 1. "동향"은 2개 문장.
 2. 첫 문장: 최신 시장 레짐과 전고점 대비 위치. 고정된 강세장 시작일/연차는 사용하지 않는다.
 3. 두 번째 문장: 스타일 리더십에서 126→63→21의 가장 중요한 변화.
-4. "인사이트"는 5~6개 문장.
-5. 첫 문장은 반드시 "현재 리더:"로 시작하고 63일 기준 지역·글로벌 섹터·미국 섹터 3개를 모두 명시한다.
+4. "매크로"는 2~3개 문장이다.
+5. 매크로 첫 문장은 "글로벌 경기:"로 시작해 글로벌 PMI 중앙값·확장국가비중·G20 CLI 방향을 요약한다.
+6. 매크로 두 번째 문장은 "금융조건:"으로 시작해 글로벌 일드커브 수준과 최근 스티프닝/플래트닝을 설명한다.
+7. 필요하면 세 번째 문장은 "지역 괴리:"로 시작해 글로벌보다 CLI/PMI가 빠르게 개선 또는 악화되는 지역을 적고, 가격 리더십과 같은 방향인지 다른 방향인지 말한다.
+8. "인사이트"는 5~6개 문장.
+9. 첫 문장은 반드시 "현재 리더:"로 시작하고 63일 기준 지역·글로벌 섹터·미국 섹터 3개를 모두 명시한다.
 6. 두 번째 문장은 "단기 변화:"로 시작하고 21일 리더가 63일 리더와 다른 축을 구체적으로 쓴다.
 7. 세 번째 문장은 "구조 변화:"로 시작하고 신규 리더 후보와 지속 리더를 구분한다.
 8. 네 번째 문장은 "구 리더:"로 시작하고 이탈 후보가 있는지 명시한다.
@@ -1906,10 +1921,11 @@ MAIN_PROMPT = """
 16. ESTABLISHED는 단기 발견보다 느리지만 실제 편입 검토의 근거가 강화된 단계로 설명한다.
 17. MATURE는 장기 리더십 자체가 나쁘다는 뜻이 아니라 자본·공급 반응이 커져 신규 추격 기대수익을 재점검하는 단계다.
 18. 일반론을 반복하지 말고 실제 ticker·지역·섹터·21/63/126/12-1/12-7 순위 중심으로 쓴다.
-19. "현재 대응"에는 반드시 세 가지를 담는다:
+19. "현재 대응"에는 반드시 네 가지를 한 문장에 자연스럽게 담는다:
     (a) 지금 새로 리서치를 시작/확대할 섹터,
     (b) 기회비용 때문에 재점검할 기존 리더,
-    (c) 실제 편입 또는 비중 확대 전에 필요한 확인조건.
+    (c) 실제 편입 또는 비중 확대 전에 필요한 확인조건,
+    (d) 매크로_사이클이 현재 리더십을 확인하는지, 아직 확인하지 못하는지, 또는 반대 방향인지.
 20. 매수/매도 신호처럼 쓰지 않는다. EMERGING/ROTATING은 '리서치 자원 이동' 신호다.
 21. 시간제약 레버리지가 있다는 경우에만 점진 축소를 조건부로 언급한다.
 22. 특정 ETF 직접 매수/매도 명령은 하지 않는다.
@@ -4139,6 +4155,129 @@ def _macro_line_chart(df, column, title, pivot=None, y_title=""):
     return fig
 
 
+def build_macro_cycle_snapshot(latest_df):
+    if not has_rows(latest_df):
+        return {"연결상태": "미연결"}
+
+    x = latest_df.copy()
+    for col in [
+        "pmi", "pmi_1m_change", "pmi_breadth_above_50",
+        "cli", "cli_1m_change", "curve_spread", "curve_1m_change",
+        "long_rate", "short_rate",
+    ]:
+        if col in x.columns:
+            x[col] = pd.to_numeric(x[col], errors="coerce")
+
+    g = x[x["area_code"].eq("GLOBAL")]
+    g = g.iloc[-1] if len(g) else pd.Series(dtype=object)
+
+    local_rows = []
+    for _, r in x[~x["area_code"].eq("GLOBAL")].iterrows():
+        local_rows.append({
+            "지역": r.get("area"),
+            "코드": r.get("area_code"),
+            "PMI": _macro_float(r.get("pmi")),
+            "PMI_1M": _macro_float(r.get("pmi_1m_change")),
+            "PMI상태": r.get("pmi_state"),
+            "CLI": _macro_float(r.get("cli")),
+            "CLI_1M": _macro_float(r.get("cli_1m_change")),
+            "CLI상태": r.get("cli_state"),
+            "커브": _macro_float(r.get("curve_spread")),
+            "커브_1M": _macro_float(r.get("curve_1m_change")),
+            "커브상태": r.get("curve_state"),
+            "종합국면": _macro_cycle_phase(r),
+        })
+
+    return {
+        "연결상태": "연결",
+        "글로벌": {
+            "주요국_PMI_중앙값": _macro_float(g.get("pmi")),
+            "PMI_1M": _macro_float(g.get("pmi_1m_change")),
+            "PMI상태": g.get("pmi_state"),
+            "PMI_확장국가비중": _macro_float(g.get("pmi_breadth_above_50")),
+            "G20_CLI": _macro_float(g.get("cli")),
+            "G20_CLI_1M": _macro_float(g.get("cli_1m_change")),
+            "G20_CLI상태": g.get("cli_state"),
+            "글로벌_커브_중앙값": _macro_float(g.get("curve_spread")),
+            "글로벌_커브_1M": _macro_float(g.get("curve_1m_change")),
+            "글로벌_커브상태": g.get("curve_state"),
+        },
+        "로컬": local_rows,
+        "해석원칙": (
+            "글로벌 커브→CLI→PMI 순으로 금융조건·선행경기·현재 기업활동을 확인하고, "
+            "로컬은 글로벌 대비 개선 속도와 주가 상대강도의 괴리를 본다."
+        ),
+    }
+
+
+def macro_cycle_headline(latest_df):
+    snap = build_macro_cycle_snapshot(latest_df)
+    if snap.get("연결상태") != "연결":
+        return "—", "PMI · CLI · 일드커브 데이터 대기"
+
+    g = snap.get("글로벌", {})
+    pmi = g.get("주요국_PMI_중앙값")
+    pmi_d = g.get("PMI_1M")
+    cli = g.get("G20_CLI")
+    cli_d = g.get("G20_CLI_1M")
+    curve = g.get("글로벌_커브_중앙값")
+    curve_d = g.get("글로벌_커브_1M")
+
+    if pmi is not None and cli_d is not None:
+        if pmi >= 50 and pmi_d is not None and pmi_d > 0 and cli_d > 0:
+            state = "확장 가속"
+        elif pmi >= 50 and pmi_d is not None and pmi_d < 0:
+            state = "확장 둔화"
+        elif pmi < 50 and pmi_d is not None and pmi_d > 0 and cli_d > 0:
+            state = "초기 턴어라운드"
+        elif pmi < 50 and pmi_d is not None and pmi_d < 0:
+            state = "수축 심화"
+        else:
+            state = "혼합"
+    elif cli_d is not None:
+        state = "선행 개선" if cli_d > 0 else "선행 둔화"
+    else:
+        state = "데이터 확인"
+
+    parts = []
+    if pmi is not None:
+        parts.append(f"PMI {pmi:.1f}")
+    if cli is not None:
+        parts.append(f"CLI {cli:.2f}")
+    if curve is not None:
+        curve_word = "스티프닝" if (curve_d is not None and curve_d > 0) else "플래트닝" if (curve_d is not None and curve_d < 0) else "횡보"
+        parts.append(f"커브 {curve_word}")
+    return state, " · ".join(parts) if parts else "글로벌 매크로 확인"
+
+
+def fallback_macro_sections(latest_df):
+    snap = build_macro_cycle_snapshot(latest_df)
+    if snap.get("연결상태") != "연결":
+        return ["PMI·CLI·일드커브 데이터가 아직 연결되지 않아 가격 리더십만으로 판단합니다."]
+
+    g = snap.get("글로벌", {})
+    lines = []
+    pmi = g.get("주요국_PMI_중앙값")
+    breadth = g.get("PMI_확장국가비중")
+    cli = g.get("G20_CLI")
+    cli_d = g.get("G20_CLI_1M")
+    curve = g.get("글로벌_커브_중앙값")
+    curve_d = g.get("글로벌_커브_1M")
+
+    if pmi is not None:
+        txt = f"글로벌 PMI 중앙값은 {pmi:.1f}"
+        if breadth is not None:
+            txt += f", 표시 국가의 {breadth*100:.0f}%가 50 이상"
+        lines.append(txt + "입니다.")
+    if cli is not None:
+        direction = "상승" if (cli_d is not None and cli_d > 0) else "하락" if (cli_d is not None and cli_d < 0) else "횡보"
+        lines.append(f"G20 OECD CLI는 {cli:.2f}이며 최근 1개월 기준 {direction}입니다.")
+    if curve is not None:
+        direction = "스티프닝" if (curve_d is not None and curve_d > 0) else "플래트닝" if (curve_d is not None and curve_d < 0) else "횡보"
+        lines.append(f"글로벌 장단기 금리차 중앙값은 {curve:.2f}%p이며 최근에는 {direction}입니다.")
+    return lines[:3]
+
+
 def render_macro_cycle(latest_df, hist_df):
     st.subheader("2. 글로벌 · 로컬 경기 사이클")
     st.markdown(
@@ -4370,12 +4509,12 @@ except Exception:
 
 # ---------- Header ----------
 st.markdown('<div class="dashboard-title">시장 리더십 대시보드</div>', unsafe_allow_html=True)
-st.markdown('<div class="dashboard-subtitle">리더십 persistence · 12-1/12-7 · Bounce · 실적 · 자본사이클 · 공급</div>', unsafe_allow_html=True)
+st.markdown('<div class="dashboard-subtitle">매크로 사이클 · 리더십 persistence · 12-1/12-7 · Bounce · 실적 · 자본사이클 · 공급</div>', unsafe_allow_html=True)
 
 if not (has_rows(style) and has_rows(sector)):
     st.warning("아직 데이터가 충분히 생성되지 않았습니다. GitHub Actions 실행 여부를 먼저 확인해 주세요.")
 
-c1, c2, c3, c4 = st.columns([0.95, 1.30, 1.85, 1.05], gap="small")
+c1, c2, c3, c4, c5 = st.columns([0.90, 1.18, 1.65, 1.00, 1.18], gap="small")
 
 with c1:
     if has_rows(regime):
@@ -4407,6 +4546,10 @@ with c3:
 with c4:
     change_headline, change_sub = strongest_change(style, bounce)
     card("가장 큰 스타일 변화", change_headline, change_sub)
+
+with c5:
+    macro_headline, macro_sub = macro_cycle_headline(macro_cycle)
+    card("매크로 사이클", macro_headline, macro_sub)
 
 st.caption(
     "스타일 변화는 시장 전체 방향이 아니라 성장/가치·대형/소형·시총/동일가중 등 "
@@ -4440,6 +4583,7 @@ snapshot["구조적_리더십교체"] = structural_leadership_snapshot(
 snapshot["현재리더보드"] = leader_board_snapshot(region, global_sector, sector)
 snapshot["섹터리더십엔진"] = sector_engine_state
 snapshot["기회비용_리더십교체"] = opportunity_cost_state
+snapshot["매크로_사이클"] = build_macro_cycle_snapshot(macro_cycle)
 snapshot["섹터연구데이터_연결상태"] = {
     "price_12_1_12_7": has_rows(sector_research),
     "internal_breadth": has_rows(sector_internal_breadth),
@@ -4451,14 +4595,18 @@ snapshot["섹터연구데이터_연결상태"] = {
     "FF49_validation": has_rows(ff49_validation),
 }
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
-with st.spinner("지역·섹터·주식공급의 리더십 변화를 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.27-structure-expectations-supply:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+with st.spinner("시장 레짐·매크로·지역·섹터·공급을 종합하는 중..."):
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.28-macro-cycle-integrated:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(
         style, sector, global_sector, region, breadth, stock_supply, bounce,
         regime=regime, style_hist=style_hist
     )
+    sections["매크로"] = fallback_macro_sections(macro_cycle)
+
+if not sections.get("매크로"):
+    sections["매크로"] = fallback_macro_sections(macro_cycle)
 
 if not sections.get("현재 대응"):
     sections["현재 대응"] = build_current_action(
