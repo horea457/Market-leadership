@@ -358,8 +358,8 @@ def recent_unavailable_cooldown(days=3):
 def main():
     print("SEC User-Agent:", SEC_UA)
 
-    if recent_unavailable_cooldown(3):
-        print("SEC primary-supply module is in a recent 403 cooldown; keeping prior unavailable status.")
+    if recent_unavailable_cooldown(30):
+        print("SEC primary-supply module is in a 30-day 403 cooldown; keeping prior unavailable status.")
         return
 
     try:
