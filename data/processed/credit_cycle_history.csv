@@ -1,0 +1,2518 @@
+date,metric_code,metric,group,value,unit,source_series
+1945-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,44653.0,$mn SAAR,BCNSDODNS
+1946-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,49889.0,$mn SAAR,BCNSDODNS
+1947-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.6,% annualized,H8B1020NCBCMG
+1947-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.2,% annualized,H8B1020NCBCMG
+1947-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.0,% annualized,H8B1020NCBCMG
+1947-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.9,% annualized,H8B1020NCBCMG
+1947-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,33.2,% annualized,H8B1020NCBCMG
+1947-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,111.8,% annualized,H8B1020NCBCMG
+1947-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.3,% annualized,H8B1020NCBCMG
+1947-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1947-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.3,% annualized,H8B1020NCBCMG
+1947-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,56781.0,$mn SAAR,BCNSDODNS
+1947-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.3,% annualized,H8B1020NCBCMG
+1947-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1948-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.9,% annualized,H8B1020NCBCMG
+1948-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.1,% annualized,H8B1020NCBCMG
+1948-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,24.2,% annualized,H8B1020NCBCMG
+1948-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,23.7,% annualized,H8B1020NCBCMG
+1948-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,21.2,% annualized,H8B1020NCBCMG
+1948-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.7,% annualized,H8B1020NCBCMG
+1948-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.2,% annualized,H8B1020NCBCMG
+1948-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+1948-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.0,% annualized,H8B1020NCBCMG
+1948-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1948-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,62811.0,$mn SAAR,BCNSDODNS
+1948-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1948-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.0,% annualized,H8B1020NCBCMG
+1949-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.1,% annualized,H8B1020NCBCMG
+1949-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.0,% annualized,H8B1020NCBCMG
+1949-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.8,% annualized,H8B1020NCBCMG
+1949-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.6,% annualized,H8B1020NCBCMG
+1949-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.5,% annualized,H8B1020NCBCMG
+1949-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.4,% annualized,H8B1020NCBCMG
+1949-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.8,% annualized,H8B1020NCBCMG
+1949-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-3.8,% annualized,H8B1020NCBCMG
+1949-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.7,% annualized,H8B1020NCBCMG
+1949-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.6,% annualized,H8B1020NCBCMG
+1949-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,64395.0,$mn SAAR,BCNSDODNS
+1949-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.7,% annualized,H8B1020NCBCMG
+1949-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.8,% annualized,H8B1020NCBCMG
+1950-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.7,% annualized,H8B1020NCBCMG
+1950-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.1,% annualized,H8B1020NCBCMG
+1950-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.7,% annualized,H8B1020NCBCMG
+1950-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.5,% annualized,H8B1020NCBCMG
+1950-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.4,% annualized,H8B1020NCBCMG
+1950-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+1950-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.5,% annualized,H8B1020NCBCMG
+1950-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,22.7,% annualized,H8B1020NCBCMG
+1950-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.6,% annualized,H8B1020NCBCMG
+1950-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.9,% annualized,H8B1020NCBCMG
+1950-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,70439.0,$mn SAAR,BCNSDODNS
+1950-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.6,% annualized,H8B1020NCBCMG
+1950-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.4,% annualized,H8B1020NCBCMG
+1951-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.8,% annualized,H8B1020NCBCMG
+1951-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.9,% annualized,H8B1020NCBCMG
+1951-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.3,% annualized,H8B1020NCBCMG
+1951-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.5,% annualized,H8B1020NCBCMG
+1951-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.8,% annualized,H8B1020NCBCMG
+1951-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.1,% annualized,H8B1020NCBCMG
+1951-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.5,% annualized,H8B1020NCBCMG
+1951-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.4,% annualized,H8B1020NCBCMG
+1951-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+1951-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+1951-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,78867.0,$mn SAAR,BCNSDODNS
+1951-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.8,% annualized,H8B1020NCBCMG
+1951-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+1952-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-16.0,% annualized,H8B1020NCBCMG
+1952-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,79982.0,$mn SAAR,BCNSDODNS
+1952-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.7,% annualized,H8B1020NCBCMG
+1952-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.1,% annualized,H8B1020NCBCMG
+1952-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,36.0,% annualized,H8B1020NCBCMG
+1952-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,81411.0,$mn SAAR,BCNSDODNS
+1952-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,30.7,% annualized,H8B1020NCBCMG
+1952-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.4,% annualized,H8B1020NCBCMG
+1952-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.4,% annualized,H8B1020NCBCMG
+1952-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,83192.0,$mn SAAR,BCNSDODNS
+1952-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-10.6,% annualized,H8B1020NCBCMG
+1952-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-18.8,% annualized,H8B1020NCBCMG
+1952-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.7,% annualized,H8B1020NCBCMG
+1952-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,85098.0,$mn SAAR,BCNSDODNS
+1952-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.2,% annualized,H8B1020NCBCMG
+1952-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.7,% annualized,H8B1020NCBCMG
+1953-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-6.7,% annualized,H8B1020NCBCMG
+1953-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,86711.0,$mn SAAR,BCNSDODNS
+1953-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.7,% annualized,H8B1020NCBCMG
+1953-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.5,% annualized,H8B1020NCBCMG
+1953-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.0,% annualized,H8B1020NCBCMG
+1953-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,87961.0,$mn SAAR,BCNSDODNS
+1953-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+1953-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.5,% annualized,H8B1020NCBCMG
+1953-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+1953-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,89017.0,$mn SAAR,BCNSDODNS
+1953-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-6.5,% annualized,H8B1020NCBCMG
+1953-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-11.7,% annualized,H8B1020NCBCMG
+1953-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-15.8,% annualized,H8B1020NCBCMG
+1953-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,89253.0,$mn SAAR,BCNSDODNS
+1953-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.0,% annualized,H8B1020NCBCMG
+1953-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.1,% annualized,H8B1020NCBCMG
+1954-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-15.9,% annualized,H8B1020NCBCMG
+1954-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,90352.0,$mn SAAR,BCNSDODNS
+1954-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-12.1,% annualized,H8B1020NCBCMG
+1954-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.4,% annualized,H8B1020NCBCMG
+1954-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+1954-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,90725.0,$mn SAAR,BCNSDODNS
+1954-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.3,% annualized,H8B1020NCBCMG
+1954-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,23.7,% annualized,H8B1020NCBCMG
+1954-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.2,% annualized,H8B1020NCBCMG
+1954-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,91872.0,$mn SAAR,BCNSDODNS
+1954-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1954-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.5,% annualized,H8B1020NCBCMG
+1954-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.5,% annualized,H8B1020NCBCMG
+1954-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,92843.0,$mn SAAR,BCNSDODNS
+1954-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+1954-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,30.2,% annualized,H8B1020NCBCMG
+1955-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.0,% annualized,H8B1020NCBCMG
+1955-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,93896.0,$mn SAAR,BCNSDODNS
+1955-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.6,% annualized,H8B1020NCBCMG
+1955-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.9,% annualized,H8B1020NCBCMG
+1955-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.5,% annualized,H8B1020NCBCMG
+1955-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,95914.0,$mn SAAR,BCNSDODNS
+1955-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.6,% annualized,H8B1020NCBCMG
+1955-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,30.1,% annualized,H8B1020NCBCMG
+1955-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.9,% annualized,H8B1020NCBCMG
+1955-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,97632.0,$mn SAAR,BCNSDODNS
+1955-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.1,% annualized,H8B1020NCBCMG
+1955-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+1955-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.6,% annualized,H8B1020NCBCMG
+1955-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,101216.0,$mn SAAR,BCNSDODNS
+1955-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,22.0,% annualized,H8B1020NCBCMG
+1955-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,29.1,% annualized,H8B1020NCBCMG
+1956-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.4,% annualized,H8B1020NCBCMG
+1956-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,103791.0,$mn SAAR,BCNSDODNS
+1956-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.1,% annualized,H8B1020NCBCMG
+1956-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.7,% annualized,H8B1020NCBCMG
+1956-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+1956-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,106472.0,$mn SAAR,BCNSDODNS
+1956-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.2,% annualized,H8B1020NCBCMG
+1956-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.1,% annualized,H8B1020NCBCMG
+1956-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.0,% annualized,H8B1020NCBCMG
+1956-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,108575.0,$mn SAAR,BCNSDODNS
+1956-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-14.0,% annualized,H8B1020NCBCMG
+1956-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+1956-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+1956-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,110961.0,$mn SAAR,BCNSDODNS
+1956-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+1956-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.1,% annualized,H8B1020NCBCMG
+1957-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-6.0,% annualized,H8B1020NCBCMG
+1957-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,113756.0,$mn SAAR,BCNSDODNS
+1957-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.0,% annualized,H8B1020NCBCMG
+1957-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+1957-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.0,% annualized,H8B1020NCBCMG
+1957-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,116774.0,$mn SAAR,BCNSDODNS
+1957-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.9,% annualized,H8B1020NCBCMG
+1957-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.8,% annualized,H8B1020NCBCMG
+1957-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.9,% annualized,H8B1020NCBCMG
+1957-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,118734.0,$mn SAAR,BCNSDODNS
+1957-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.0,% annualized,H8B1020NCBCMG
+1957-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+1957-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.9,% annualized,H8B1020NCBCMG
+1957-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,120633.0,$mn SAAR,BCNSDODNS
+1957-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.0,% annualized,H8B1020NCBCMG
+1957-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-6.8,% annualized,H8B1020NCBCMG
+1958-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-36.3,% annualized,H8B1020NCBCMG
+1958-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,122620.0,$mn SAAR,BCNSDODNS
+1958-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.1,% annualized,H8B1020NCBCMG
+1958-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.0,% annualized,H8B1020NCBCMG
+1958-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.0,% annualized,H8B1020NCBCMG
+1958-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,123714.0,$mn SAAR,BCNSDODNS
+1958-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+1958-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.0,% annualized,H8B1020NCBCMG
+1958-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.8,% annualized,H8B1020NCBCMG
+1958-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,125303.0,$mn SAAR,BCNSDODNS
+1958-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.0,% annualized,H8B1020NCBCMG
+1958-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+1958-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.8,% annualized,H8B1020NCBCMG
+1958-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,127968.0,$mn SAAR,BCNSDODNS
+1958-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.7,% annualized,H8B1020NCBCMG
+1958-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.4,% annualized,H8B1020NCBCMG
+1959-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.4,% annualized,H8B1020NCBCMG
+1959-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,129231.0,$mn SAAR,BCNSDODNS
+1959-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.7,% annualized,H8B1020NCBCMG
+1959-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.7,% annualized,H8B1020NCBCMG
+1959-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.9,% annualized,H8B1020NCBCMG
+1959-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,132392.0,$mn SAAR,BCNSDODNS
+1959-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.7,% annualized,H8B1020NCBCMG
+1959-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.1,% annualized,H8B1020NCBCMG
+1959-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,21.5,% annualized,H8B1020NCBCMG
+1959-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,134057.0,$mn SAAR,BCNSDODNS
+1959-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.2,% annualized,H8B1020NCBCMG
+1959-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.8,% annualized,H8B1020NCBCMG
+1959-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+1959-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,136647.0,$mn SAAR,BCNSDODNS
+1959-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+1959-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,24.0,% annualized,H8B1020NCBCMG
+1960-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.4,% annualized,H8B1020NCBCMG
+1960-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,139272.0,$mn SAAR,BCNSDODNS
+1960-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.5,% annualized,H8B1020NCBCMG
+1960-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+1960-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.4,% annualized,H8B1020NCBCMG
+1960-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,141913.0,$mn SAAR,BCNSDODNS
+1960-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.8,% annualized,H8B1020NCBCMG
+1960-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.8,% annualized,H8B1020NCBCMG
+1960-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+1960-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,143167.0,$mn SAAR,BCNSDODNS
+1960-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.8,% annualized,H8B1020NCBCMG
+1960-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+1960-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.8,% annualized,H8B1020NCBCMG
+1960-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,145595.0,$mn SAAR,BCNSDODNS
+1960-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.6,% annualized,H8B1020NCBCMG
+1960-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.5,% annualized,H8B1020NCBCMG
+1961-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.7,% annualized,H8B1020NCBCMG
+1961-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,146198.0,$mn SAAR,BCNSDODNS
+1961-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.6,% annualized,H8B1020NCBCMG
+1961-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1961-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.6,% annualized,H8B1020NCBCMG
+1961-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,148196.0,$mn SAAR,BCNSDODNS
+1961-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.7,% annualized,H8B1020NCBCMG
+1961-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.8,% annualized,H8B1020NCBCMG
+1961-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.9,% annualized,H8B1020NCBCMG
+1961-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,149684.0,$mn SAAR,BCNSDODNS
+1961-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1961-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.2,% annualized,H8B1020NCBCMG
+1961-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+1961-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,152991.0,$mn SAAR,BCNSDODNS
+1961-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+1961-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+1962-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+1962-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,154537.0,$mn SAAR,BCNSDODNS
+1962-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+1962-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.5,% annualized,H8B1020NCBCMG
+1962-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.9,% annualized,H8B1020NCBCMG
+1962-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,157694.0,$mn SAAR,BCNSDODNS
+1962-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.6,% annualized,H8B1020NCBCMG
+1962-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.5,% annualized,H8B1020NCBCMG
+1962-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+1962-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,160115.0,$mn SAAR,BCNSDODNS
+1962-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.4,% annualized,H8B1020NCBCMG
+1962-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.2,% annualized,H8B1020NCBCMG
+1962-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+1962-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,163471.0,$mn SAAR,BCNSDODNS
+1962-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.9,% annualized,H8B1020NCBCMG
+1962-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.6,% annualized,H8B1020NCBCMG
+1963-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.5,% annualized,H8B1020NCBCMG
+1963-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,165593.0,$mn SAAR,BCNSDODNS
+1963-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+1963-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.2,% annualized,H8B1020NCBCMG
+1963-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.0,% annualized,H8B1020NCBCMG
+1963-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,167943.0,$mn SAAR,BCNSDODNS
+1963-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.6,% annualized,H8B1020NCBCMG
+1963-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.7,% annualized,H8B1020NCBCMG
+1963-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.5,% annualized,H8B1020NCBCMG
+1963-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,170151.0,$mn SAAR,BCNSDODNS
+1963-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.2,% annualized,H8B1020NCBCMG
+1963-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.4,% annualized,H8B1020NCBCMG
+1963-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.9,% annualized,H8B1020NCBCMG
+1963-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,174187.0,$mn SAAR,BCNSDODNS
+1963-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.1,% annualized,H8B1020NCBCMG
+1963-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.2,% annualized,H8B1020NCBCMG
+1964-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.0,% annualized,H8B1020NCBCMG
+1964-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,176590.0,$mn SAAR,BCNSDODNS
+1964-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.4,% annualized,H8B1020NCBCMG
+1964-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.2,% annualized,H8B1020NCBCMG
+1964-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.0,% annualized,H8B1020NCBCMG
+1964-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,179981.0,$mn SAAR,BCNSDODNS
+1964-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.1,% annualized,H8B1020NCBCMG
+1964-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+1964-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.6,% annualized,H8B1020NCBCMG
+1964-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,183449.0,$mn SAAR,BCNSDODNS
+1964-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.4,% annualized,H8B1020NCBCMG
+1964-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.6,% annualized,H8B1020NCBCMG
+1964-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.7,% annualized,H8B1020NCBCMG
+1964-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,187929.0,$mn SAAR,BCNSDODNS
+1964-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.0,% annualized,H8B1020NCBCMG
+1964-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.2,% annualized,H8B1020NCBCMG
+1965-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.3,% annualized,H8B1020NCBCMG
+1965-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,193189.0,$mn SAAR,BCNSDODNS
+1965-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.7,% annualized,H8B1020NCBCMG
+1965-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.9,% annualized,H8B1020NCBCMG
+1965-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.0,% annualized,H8B1020NCBCMG
+1965-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,197976.0,$mn SAAR,BCNSDODNS
+1965-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.0,% annualized,H8B1020NCBCMG
+1965-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.4,% annualized,H8B1020NCBCMG
+1965-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.6,% annualized,H8B1020NCBCMG
+1965-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,202871.0,$mn SAAR,BCNSDODNS
+1965-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+1965-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.0,% annualized,H8B1020NCBCMG
+1965-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.9,% annualized,H8B1020NCBCMG
+1965-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,208197.0,$mn SAAR,BCNSDODNS
+1965-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.8,% annualized,H8B1020NCBCMG
+1965-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,21.4,% annualized,H8B1020NCBCMG
+1966-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.0,% annualized,H8B1020NCBCMG
+1966-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,214567.0,$mn SAAR,BCNSDODNS
+1966-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.9,% annualized,H8B1020NCBCMG
+1966-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.4,% annualized,H8B1020NCBCMG
+1966-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.4,% annualized,H8B1020NCBCMG
+1966-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,222360.0,$mn SAAR,BCNSDODNS
+1966-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.5,% annualized,H8B1020NCBCMG
+1966-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.7,% annualized,H8B1020NCBCMG
+1966-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.7,% annualized,H8B1020NCBCMG
+1966-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,228551.0,$mn SAAR,BCNSDODNS
+1966-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.9,% annualized,H8B1020NCBCMG
+1966-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.6,% annualized,H8B1020NCBCMG
+1966-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.3,% annualized,H8B1020NCBCMG
+1966-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,232927.0,$mn SAAR,BCNSDODNS
+1966-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.2,% annualized,H8B1020NCBCMG
+1966-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.8,% annualized,H8B1020NCBCMG
+1967-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.1,% annualized,H8B1020NCBCMG
+1967-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,239692.0,$mn SAAR,BCNSDODNS
+1967-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.9,% annualized,H8B1020NCBCMG
+1967-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.0,% annualized,H8B1020NCBCMG
+1967-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.8,% annualized,H8B1020NCBCMG
+1967-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,246049.0,$mn SAAR,BCNSDODNS
+1967-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+1967-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+1967-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.0,% annualized,H8B1020NCBCMG
+1967-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,251645.0,$mn SAAR,BCNSDODNS
+1967-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.4,% annualized,H8B1020NCBCMG
+1967-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.8,% annualized,H8B1020NCBCMG
+1967-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.7,% annualized,H8B1020NCBCMG
+1967-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,255253.0,$mn SAAR,BCNSDODNS
+1967-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.5,% annualized,H8B1020NCBCMG
+1967-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+1968-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.5,% annualized,H8B1020NCBCMG
+1968-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,263718.0,$mn SAAR,BCNSDODNS
+1968-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.8,% annualized,H8B1020NCBCMG
+1968-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+1968-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.0,% annualized,H8B1020NCBCMG
+1968-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,270520.0,$mn SAAR,BCNSDODNS
+1968-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+1968-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.3,% annualized,H8B1020NCBCMG
+1968-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+1968-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,278278.0,$mn SAAR,BCNSDODNS
+1968-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.9,% annualized,H8B1020NCBCMG
+1968-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.7,% annualized,H8B1020NCBCMG
+1968-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.8,% annualized,H8B1020NCBCMG
+1968-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,286805.0,$mn SAAR,BCNSDODNS
+1968-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.1,% annualized,H8B1020NCBCMG
+1968-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.1,% annualized,H8B1020NCBCMG
+1969-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+1969-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,295197.0,$mn SAAR,BCNSDODNS
+1969-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.1,% annualized,H8B1020NCBCMG
+1969-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.1,% annualized,H8B1020NCBCMG
+1969-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.6,% annualized,H8B1020NCBCMG
+1969-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,304811.0,$mn SAAR,BCNSDODNS
+1969-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.7,% annualized,H8B1020NCBCMG
+1969-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.6,% annualized,H8B1020NCBCMG
+1969-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.2,% annualized,H8B1020NCBCMG
+1969-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,313227.0,$mn SAAR,BCNSDODNS
+1969-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-3.9,% annualized,H8B1020NCBCMG
+1969-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.0,% annualized,H8B1020NCBCMG
+1969-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.8,% annualized,H8B1020NCBCMG
+1969-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,320276.0,$mn SAAR,BCNSDODNS
+1969-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.3,% annualized,H8B1020NCBCMG
+1969-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.5,% annualized,H8B1020NCBCMG
+1970-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.1,% annualized,H8B1020NCBCMG
+1970-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,340260.0,$mn SAAR,BCNSDODNS
+1970-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.1,% annualized,H8B1020NCBCMG
+1970-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.5,% annualized,H8B1020NCBCMG
+1970-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+1970-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,351045.0,$mn SAAR,BCNSDODNS
+1970-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.7,% annualized,H8B1020NCBCMG
+1970-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+1970-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.3,% annualized,H8B1020NCBCMG
+1970-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,358709.0,$mn SAAR,BCNSDODNS
+1970-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+1970-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.4,% annualized,H8B1020NCBCMG
+1970-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.0,% annualized,H8B1020NCBCMG
+1970-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,365371.0,$mn SAAR,BCNSDODNS
+1970-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+1970-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+1971-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.6,% annualized,H8B1020NCBCMG
+1971-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,372802.0,$mn SAAR,BCNSDODNS
+1971-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.8,% annualized,H8B1020NCBCMG
+1971-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.4,% annualized,H8B1020NCBCMG
+1971-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.6,% annualized,H8B1020NCBCMG
+1971-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,380947.0,$mn SAAR,BCNSDODNS
+1971-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.9,% annualized,H8B1020NCBCMG
+1971-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+1971-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.4,% annualized,H8B1020NCBCMG
+1971-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,389653.0,$mn SAAR,BCNSDODNS
+1971-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.9,% annualized,H8B1020NCBCMG
+1971-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.2,% annualized,H8B1020NCBCMG
+1971-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.8,% annualized,H8B1020NCBCMG
+1971-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,395247.0,$mn SAAR,BCNSDODNS
+1971-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.3,% annualized,H8B1020NCBCMG
+1971-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.4,% annualized,H8B1020NCBCMG
+1972-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+1972-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,406924.0,$mn SAAR,BCNSDODNS
+1972-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.0,% annualized,H8B1020NCBCMG
+1972-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.6,% annualized,H8B1020NCBCMG
+1972-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.5,% annualized,H8B1020NCBCMG
+1972-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,415268.0,$mn SAAR,BCNSDODNS
+1972-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.4,% annualized,H8B1020NCBCMG
+1972-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.4,% annualized,H8B1020NCBCMG
+1972-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.3,% annualized,H8B1020NCBCMG
+1972-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,424653.0,$mn SAAR,BCNSDODNS
+1972-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.9,% annualized,H8B1020NCBCMG
+1972-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.9,% annualized,H8B1020NCBCMG
+1972-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,21.1,% annualized,H8B1020NCBCMG
+1972-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,436833.0,$mn SAAR,BCNSDODNS
+1972-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.2,% annualized,H8B1020NCBCMG
+1972-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,21.9,% annualized,H8B1020NCBCMG
+1973-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.8,% annualized,H8B1020NCBCMG
+1973-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,452646.0,$mn SAAR,BCNSDODNS
+1973-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,29.2,% annualized,H8B1020NCBCMG
+1973-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,28.5,% annualized,H8B1020NCBCMG
+1973-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.0,% annualized,H8B1020NCBCMG
+1973-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,468869.0,$mn SAAR,BCNSDODNS
+1973-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.1,% annualized,H8B1020NCBCMG
+1973-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.7,% annualized,H8B1020NCBCMG
+1973-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.8,% annualized,H8B1020NCBCMG
+1973-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,489094.0,$mn SAAR,BCNSDODNS
+1973-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.6,% annualized,H8B1020NCBCMG
+1973-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+1973-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.4,% annualized,H8B1020NCBCMG
+1973-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,506316.0,$mn SAAR,BCNSDODNS
+1973-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+1973-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.3,% annualized,H8B1020NCBCMG
+1974-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.9,% annualized,H8B1020NCBCMG
+1974-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,522214.0,$mn SAAR,BCNSDODNS
+1974-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.5,% annualized,H8B1020NCBCMG
+1974-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.9,% annualized,H8B1020NCBCMG
+1974-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,27.4,% annualized,H8B1020NCBCMG
+1974-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,540484.0,$mn SAAR,BCNSDODNS
+1974-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.5,% annualized,H8B1020NCBCMG
+1974-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.9,% annualized,H8B1020NCBCMG
+1974-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+1974-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,553784.0,$mn SAAR,BCNSDODNS
+1974-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+1974-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.4,% annualized,H8B1020NCBCMG
+1974-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+1974-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,565221.0,$mn SAAR,BCNSDODNS
+1974-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.1,% annualized,H8B1020NCBCMG
+1974-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.0,% annualized,H8B1020NCBCMG
+1975-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.6,% annualized,H8B1020NCBCMG
+1975-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,570316.0,$mn SAAR,BCNSDODNS
+1975-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.8,% annualized,H8B1020NCBCMG
+1975-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.3,% annualized,H8B1020NCBCMG
+1975-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.3,% annualized,H8B1020NCBCMG
+1975-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,572345.0,$mn SAAR,BCNSDODNS
+1975-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.2,% annualized,H8B1020NCBCMG
+1975-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.4,% annualized,H8B1020NCBCMG
+1975-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.7,% annualized,H8B1020NCBCMG
+1975-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,576400.0,$mn SAAR,BCNSDODNS
+1975-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.6,% annualized,H8B1020NCBCMG
+1975-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.7,% annualized,H8B1020NCBCMG
+1975-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.7,% annualized,H8B1020NCBCMG
+1975-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,579983.0,$mn SAAR,BCNSDODNS
+1975-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.2,% annualized,H8B1020NCBCMG
+1975-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.6,% annualized,H8B1020NCBCMG
+1976-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-8.5,% annualized,H8B1020NCBCMG
+1976-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,584730.0,$mn SAAR,BCNSDODNS
+1976-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.1,% annualized,H8B1020NCBCMG
+1976-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.6,% annualized,H8B1020NCBCMG
+1976-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+1976-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,595318.0,$mn SAAR,BCNSDODNS
+1976-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.8,% annualized,H8B1020NCBCMG
+1976-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.1,% annualized,H8B1020NCBCMG
+1976-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+1976-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,607147.0,$mn SAAR,BCNSDODNS
+1976-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.8,% annualized,H8B1020NCBCMG
+1976-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.7,% annualized,H8B1020NCBCMG
+1976-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.2,% annualized,H8B1020NCBCMG
+1976-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,620242.0,$mn SAAR,BCNSDODNS
+1976-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.6,% annualized,H8B1020NCBCMG
+1976-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.2,% annualized,H8B1020NCBCMG
+1977-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.5,% annualized,H8B1020NCBCMG
+1977-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,637664.0,$mn SAAR,BCNSDODNS
+1977-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.9,% annualized,H8B1020NCBCMG
+1977-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.9,% annualized,H8B1020NCBCMG
+1977-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.7,% annualized,H8B1020NCBCMG
+1977-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,653209.0,$mn SAAR,BCNSDODNS
+1977-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.5,% annualized,H8B1020NCBCMG
+1977-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.7,% annualized,H8B1020NCBCMG
+1977-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.9,% annualized,H8B1020NCBCMG
+1977-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,670301.0,$mn SAAR,BCNSDODNS
+1977-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.7,% annualized,H8B1020NCBCMG
+1977-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+1977-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+1977-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,694536.0,$mn SAAR,BCNSDODNS
+1977-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.3,% annualized,H8B1020NCBCMG
+1977-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.3,% annualized,H8B1020NCBCMG
+1978-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+1978-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,714469.0,$mn SAAR,BCNSDODNS
+1978-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.4,% annualized,H8B1020NCBCMG
+1978-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.9,% annualized,H8B1020NCBCMG
+1978-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.6,% annualized,H8B1020NCBCMG
+1978-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,734520.0,$mn SAAR,BCNSDODNS
+1978-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.5,% annualized,H8B1020NCBCMG
+1978-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,23.3,% annualized,H8B1020NCBCMG
+1978-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+1978-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,749185.0,$mn SAAR,BCNSDODNS
+1978-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.5,% annualized,H8B1020NCBCMG
+1978-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,20.2,% annualized,H8B1020NCBCMG
+1978-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.8,% annualized,H8B1020NCBCMG
+1978-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,769609.0,$mn SAAR,BCNSDODNS
+1978-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.9,% annualized,H8B1020NCBCMG
+1978-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.7,% annualized,H8B1020NCBCMG
+1979-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1979-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,793376.0,$mn SAAR,BCNSDODNS
+1979-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.7,% annualized,H8B1020NCBCMG
+1979-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.0,% annualized,H8B1020NCBCMG
+1979-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.7,% annualized,H8B1020NCBCMG
+1979-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,815005.0,$mn SAAR,BCNSDODNS
+1979-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+1979-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,22.5,% annualized,H8B1020NCBCMG
+1979-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.8,% annualized,H8B1020NCBCMG
+1979-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,837024.0,$mn SAAR,BCNSDODNS
+1979-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.6,% annualized,H8B1020NCBCMG
+1979-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.1,% annualized,H8B1020NCBCMG
+1979-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.1,% annualized,H8B1020NCBCMG
+1979-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,854982.0,$mn SAAR,BCNSDODNS
+1979-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.7,% annualized,H8B1020NCBCMG
+1979-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.6,% annualized,H8B1020NCBCMG
+1980-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.3,% annualized,H8B1020NCBCMG
+1980-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,876745.0,$mn SAAR,BCNSDODNS
+1980-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.9,% annualized,H8B1020NCBCMG
+1980-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.2,% annualized,H8B1020NCBCMG
+1980-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.9,% annualized,H8B1020NCBCMG
+1980-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,883840.0,$mn SAAR,BCNSDODNS
+1980-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.6,% annualized,H8B1020NCBCMG
+1980-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-3.0,% annualized,H8B1020NCBCMG
+1980-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+1980-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,895758.0,$mn SAAR,BCNSDODNS
+1980-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.8,% annualized,H8B1020NCBCMG
+1980-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.6,% annualized,H8B1020NCBCMG
+1980-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+1980-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,922667.0,$mn SAAR,BCNSDODNS
+1980-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.3,% annualized,H8B1020NCBCMG
+1980-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.1,% annualized,H8B1020NCBCMG
+1981-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.9,% annualized,H8B1020NCBCMG
+1981-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,938293.0,$mn SAAR,BCNSDODNS
+1981-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+1981-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+1981-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.8,% annualized,H8B1020NCBCMG
+1981-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,979539.0,$mn SAAR,BCNSDODNS
+1981-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.5,% annualized,H8B1020NCBCMG
+1981-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.5,% annualized,H8B1020NCBCMG
+1981-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.1,% annualized,H8B1020NCBCMG
+1981-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1017419.0,$mn SAAR,BCNSDODNS
+1981-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+1981-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.1,% annualized,H8B1020NCBCMG
+1981-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+1981-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1041690.0,$mn SAAR,BCNSDODNS
+1981-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.6,% annualized,H8B1020NCBCMG
+1981-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-12.0,% annualized,H8B1020NCBCMG
+1982-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+1982-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1070947.0,$mn SAAR,BCNSDODNS
+1982-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.2,% annualized,H8B1020NCBCMG
+1982-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.5,% annualized,H8B1020NCBCMG
+1982-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.3,% annualized,H8B1020NCBCMG
+1982-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1101141.0,$mn SAAR,BCNSDODNS
+1982-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.0,% annualized,H8B1020NCBCMG
+1982-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+1982-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+1982-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1127930.0,$mn SAAR,BCNSDODNS
+1982-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.8,% annualized,H8B1020NCBCMG
+1982-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.8,% annualized,H8B1020NCBCMG
+1982-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.2,% annualized,H8B1020NCBCMG
+1982-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1133060.0,$mn SAAR,BCNSDODNS
+1982-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.8,% annualized,H8B1020NCBCMG
+1982-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.1,% annualized,H8B1020NCBCMG
+1983-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.0,% annualized,H8B1020NCBCMG
+1983-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1164624.0,$mn SAAR,BCNSDODNS
+1983-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+1983-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+1983-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+1983-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1188301.0,$mn SAAR,BCNSDODNS
+1983-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+1983-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+1983-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.1,% annualized,H8B1020NCBCMG
+1983-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1220561.0,$mn SAAR,BCNSDODNS
+1983-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.8,% annualized,H8B1020NCBCMG
+1983-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.5,% annualized,H8B1020NCBCMG
+1983-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.5,% annualized,H8B1020NCBCMG
+1983-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1250208.0,$mn SAAR,BCNSDODNS
+1983-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.4,% annualized,H8B1020NCBCMG
+1983-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.5,% annualized,H8B1020NCBCMG
+1984-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+1984-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1298722.0,$mn SAAR,BCNSDODNS
+1984-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,19.1,% annualized,H8B1020NCBCMG
+1984-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.0,% annualized,H8B1020NCBCMG
+1984-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.6,% annualized,H8B1020NCBCMG
+1984-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1356792.0,$mn SAAR,BCNSDODNS
+1984-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+1984-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.4,% annualized,H8B1020NCBCMG
+1984-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.7,% annualized,H8B1020NCBCMG
+1984-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1404956.0,$mn SAAR,BCNSDODNS
+1984-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.9,% annualized,H8B1020NCBCMG
+1984-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.5,% annualized,H8B1020NCBCMG
+1984-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.4,% annualized,H8B1020NCBCMG
+1984-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1463098.0,$mn SAAR,BCNSDODNS
+1984-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.1,% annualized,H8B1020NCBCMG
+1984-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.5,% annualized,H8B1020NCBCMG
+1985-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+1985-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.28,%,CORBLACBS
+1985-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1494791.0,$mn SAAR,BCNSDODNS
+1985-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.7,% annualized,H8B1020NCBCMG
+1985-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.4,% annualized,H8B1020NCBCMG
+1985-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.4,% annualized,H8B1020NCBCMG
+1985-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.2,%,CORBLACBS
+1985-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1534690.0,$mn SAAR,BCNSDODNS
+1985-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.1,% annualized,H8B1020NCBCMG
+1985-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.7,% annualized,H8B1020NCBCMG
+1985-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+1985-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.42,%,CORBLACBS
+1985-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1578046.0,$mn SAAR,BCNSDODNS
+1985-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+1985-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.4,% annualized,H8B1020NCBCMG
+1985-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.2,% annualized,H8B1020NCBCMG
+1985-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.45,%,CORBLACBS
+1985-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1645088.0,$mn SAAR,BCNSDODNS
+1985-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.9,% annualized,H8B1020NCBCMG
+1985-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.9,% annualized,H8B1020NCBCMG
+1986-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.9,% annualized,H8B1020NCBCMG
+1986-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.46,%,CORBLACBS
+1986-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1689872.0,$mn SAAR,BCNSDODNS
+1986-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.8,% annualized,H8B1020NCBCMG
+1986-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.8,% annualized,H8B1020NCBCMG
+1986-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+1986-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.47,%,CORBLACBS
+1986-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1744363.0,$mn SAAR,BCNSDODNS
+1986-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+1986-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.8,% annualized,H8B1020NCBCMG
+1986-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.6,% annualized,H8B1020NCBCMG
+1986-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.56,%,CORBLACBS
+1986-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1804994.0,$mn SAAR,BCNSDODNS
+1986-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.3,% annualized,H8B1020NCBCMG
+1986-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.6,% annualized,H8B1020NCBCMG
+1986-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.6,% annualized,H8B1020NCBCMG
+1986-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.48,%,CORBLACBS
+1986-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1874981.0,$mn SAAR,BCNSDODNS
+1986-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.5,% annualized,H8B1020NCBCMG
+1986-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,23.3,% annualized,H8B1020NCBCMG
+1987-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+1987-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.27,%,CORBLACBS
+1987-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1919802.0,$mn SAAR,BCNSDODNS
+1987-01-01,delinquency,Business Loan Delinquency Rate,신용손실,6.75,%,DRBLACBS
+1987-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+1987-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.8,% annualized,H8B1020NCBCMG
+1987-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.3,% annualized,H8B1020NCBCMG
+1987-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.2,%,CORBLACBS
+1987-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,1961382.0,$mn SAAR,BCNSDODNS
+1987-04-01,delinquency,Business Loan Delinquency Rate,신용손실,6.75,%,DRBLACBS
+1987-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+1987-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.8,% annualized,H8B1020NCBCMG
+1987-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.5,% annualized,H8B1020NCBCMG
+1987-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.11,%,CORBLACBS
+1987-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2014688.0,$mn SAAR,BCNSDODNS
+1987-07-01,delinquency,Business Loan Delinquency Rate,신용손실,6.4,%,DRBLACBS
+1987-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+1987-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.7,% annualized,H8B1020NCBCMG
+1987-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+1987-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.15,%,CORBLACBS
+1987-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2071514.0,$mn SAAR,BCNSDODNS
+1987-10-01,delinquency,Business Loan Delinquency Rate,신용손실,6.23,%,DRBLACBS
+1987-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+1987-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.7,% annualized,H8B1020NCBCMG
+1988-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.9,% annualized,H8B1020NCBCMG
+1988-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.18,%,CORBLACBS
+1988-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2121675.0,$mn SAAR,BCNSDODNS
+1988-01-01,delinquency,Business Loan Delinquency Rate,신용손실,5.85,%,DRBLACBS
+1988-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.2,% annualized,H8B1020NCBCMG
+1988-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.1,% annualized,H8B1020NCBCMG
+1988-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.0,% annualized,H8B1020NCBCMG
+1988-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.35,%,CORBLACBS
+1988-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2177149.0,$mn SAAR,BCNSDODNS
+1988-04-01,delinquency,Business Loan Delinquency Rate,신용손실,5.46,%,DRBLACBS
+1988-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.5,% annualized,H8B1020NCBCMG
+1988-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.8,% annualized,H8B1020NCBCMG
+1988-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.8,% annualized,H8B1020NCBCMG
+1988-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.04,%,CORBLACBS
+1988-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2218830.0,$mn SAAR,BCNSDODNS
+1988-07-01,delinquency,Business Loan Delinquency Rate,신용손실,5.4,%,DRBLACBS
+1988-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.9,% annualized,H8B1020NCBCMG
+1988-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.4,% annualized,H8B1020NCBCMG
+1988-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.9,% annualized,H8B1020NCBCMG
+1988-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.94,%,CORBLACBS
+1988-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2289762.0,$mn SAAR,BCNSDODNS
+1988-10-01,delinquency,Business Loan Delinquency Rate,신용손실,5.0,%,DRBLACBS
+1988-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+1988-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.5,% annualized,H8B1020NCBCMG
+1989-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.0,% annualized,H8B1020NCBCMG
+1989-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.92,%,CORBLACBS
+1989-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2344385.0,$mn SAAR,BCNSDODNS
+1989-01-01,delinquency,Business Loan Delinquency Rate,신용손실,5.25,%,DRBLACBS
+1989-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.2,% annualized,H8B1020NCBCMG
+1989-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+1989-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.7,% annualized,H8B1020NCBCMG
+1989-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.89,%,CORBLACBS
+1989-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2403860.0,$mn SAAR,BCNSDODNS
+1989-04-01,delinquency,Business Loan Delinquency Rate,신용손실,5.18,%,DRBLACBS
+1989-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.4,% annualized,H8B1020NCBCMG
+1989-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+1989-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.2,% annualized,H8B1020NCBCMG
+1989-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.91,%,CORBLACBS
+1989-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2432747.0,$mn SAAR,BCNSDODNS
+1989-07-01,delinquency,Business Loan Delinquency Rate,신용손실,5.2,%,DRBLACBS
+1989-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.5,% annualized,H8B1020NCBCMG
+1989-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.5,% annualized,H8B1020NCBCMG
+1989-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.9,% annualized,H8B1020NCBCMG
+1989-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.41,%,CORBLACBS
+1989-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2482035.0,$mn SAAR,BCNSDODNS
+1989-10-01,delinquency,Business Loan Delinquency Rate,신용손실,5.15,%,DRBLACBS
+1989-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.9,% annualized,H8B1020NCBCMG
+1989-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.4,% annualized,H8B1020NCBCMG
+1990-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+1990-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.41,%,CORBLACBS
+1990-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2529951.0,$mn SAAR,BCNSDODNS
+1990-01-01,delinquency,Business Loan Delinquency Rate,신용손실,5.17,%,DRBLACBS
+1990-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.8,% annualized,H8B1020NCBCMG
+1990-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+1990-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.4,% annualized,H8B1020NCBCMG
+1990-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.43,%,CORBLACBS
+1990-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2566832.0,$mn SAAR,BCNSDODNS
+1990-04-01,delinquency,Business Loan Delinquency Rate,신용손실,5.35,%,DRBLACBS
+1990-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,54.4,%,DRTSCILM
+1990-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.7,% annualized,H8B1020NCBCMG
+1990-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.8,% annualized,H8B1020NCBCMG
+1990-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+1990-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.28,%,CORBLACBS
+1990-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2593249.0,$mn SAAR,BCNSDODNS
+1990-07-01,delinquency,Business Loan Delinquency Rate,신용손실,5.46,%,DRBLACBS
+1990-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,46.7,%,DRTSCILM
+1990-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+1990-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.1,% annualized,H8B1020NCBCMG
+1990-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.2,% annualized,H8B1020NCBCMG
+1990-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.3,%,CORBLACBS
+1990-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2613894.0,$mn SAAR,BCNSDODNS
+1990-10-01,delinquency,Business Loan Delinquency Rate,신용손실,6.27,%,DRBLACBS
+1990-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,54.2,%,DRTSCILM
+1990-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+1990-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.4,% annualized,H8B1020NCBCMG
+1991-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.6,% annualized,H8B1020NCBCMG
+1991-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.48,%,CORBLACBS
+1991-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2595754.0,$mn SAAR,BCNSDODNS
+1991-01-01,delinquency,Business Loan Delinquency Rate,신용손실,6.29,%,DRBLACBS
+1991-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,38.6,%,DRTSCILM
+1991-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+1991-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+1991-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.3,% annualized,H8B1020NCBCMG
+1991-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.86,%,CORBLACBS
+1991-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2595735.0,$mn SAAR,BCNSDODNS
+1991-04-01,delinquency,Business Loan Delinquency Rate,신용손실,6.41,%,DRBLACBS
+1991-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,20.0,%,DRTSCILM
+1991-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.4,% annualized,H8B1020NCBCMG
+1991-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.3,% annualized,H8B1020NCBCMG
+1991-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.9,% annualized,H8B1020NCBCMG
+1991-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.97,%,CORBLACBS
+1991-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2581301.0,$mn SAAR,BCNSDODNS
+1991-07-01,delinquency,Business Loan Delinquency Rate,신용손실,6.22,%,DRBLACBS
+1991-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,18.6,%,DRTSCILM
+1991-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-3.8,% annualized,H8B1020NCBCMG
+1991-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.5,% annualized,H8B1020NCBCMG
+1991-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+1991-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.83,%,CORBLACBS
+1991-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2556446.0,$mn SAAR,BCNSDODNS
+1991-10-01,delinquency,Business Loan Delinquency Rate,신용손실,6.03,%,DRBLACBS
+1991-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,16.7,%,DRTSCILM
+1991-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.2,% annualized,H8B1020NCBCMG
+1991-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+1992-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1992-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.95,%,CORBLACBS
+1992-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2564386.0,$mn SAAR,BCNSDODNS
+1992-01-01,delinquency,Business Loan Delinquency Rate,신용손실,5.76,%,DRBLACBS
+1992-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,10.0,%,DRTSCILM
+1992-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.0,% annualized,H8B1020NCBCMG
+1992-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.1,% annualized,H8B1020NCBCMG
+1992-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.1,% annualized,H8B1020NCBCMG
+1992-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.32,%,CORBLACBS
+1992-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2564493.0,$mn SAAR,BCNSDODNS
+1992-04-01,delinquency,Business Loan Delinquency Rate,신용손실,5.49,%,DRBLACBS
+1992-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,3.5,%,DRTSCILM
+1992-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.9,% annualized,H8B1020NCBCMG
+1992-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.9,% annualized,H8B1020NCBCMG
+1992-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.6,% annualized,H8B1020NCBCMG
+1992-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.43,%,CORBLACBS
+1992-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2575089.0,$mn SAAR,BCNSDODNS
+1992-07-01,delinquency,Business Loan Delinquency Rate,신용손실,5.25,%,DRBLACBS
+1992-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-3.4,%,DRTSCILM
+1992-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.1,% annualized,H8B1020NCBCMG
+1992-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.4,% annualized,H8B1020NCBCMG
+1992-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.4,% annualized,H8B1020NCBCMG
+1992-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.03,%,CORBLACBS
+1992-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2574349.0,$mn SAAR,BCNSDODNS
+1992-10-01,delinquency,Business Loan Delinquency Rate,신용손실,4.76,%,DRBLACBS
+1992-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,5.2,%,DRTSCILM
+1992-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.4,% annualized,H8B1020NCBCMG
+1992-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.4,% annualized,H8B1020NCBCMG
+1993-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.2,% annualized,H8B1020NCBCMG
+1993-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.94,%,CORBLACBS
+1993-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2601186.0,$mn SAAR,BCNSDODNS
+1993-01-01,delinquency,Business Loan Delinquency Rate,신용손실,4.41,%,DRBLACBS
+1993-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,3.4,%,DRTSCILM
+1993-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.2,% annualized,H8B1020NCBCMG
+1993-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.6,% annualized,H8B1020NCBCMG
+1993-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.9,% annualized,H8B1020NCBCMG
+1993-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.85,%,CORBLACBS
+1993-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2638699.0,$mn SAAR,BCNSDODNS
+1993-04-01,delinquency,Business Loan Delinquency Rate,신용손실,4.01,%,DRBLACBS
+1993-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-12.1,%,DRTSCILM
+1993-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.6,% annualized,H8B1020NCBCMG
+1993-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+1993-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+1993-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.68,%,CORBLACBS
+1993-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2681075.0,$mn SAAR,BCNSDODNS
+1993-07-01,delinquency,Business Loan Delinquency Rate,신용손실,3.61,%,DRBLACBS
+1993-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-25.0,%,DRTSCILM
+1993-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+1993-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+1993-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+1993-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.56,%,CORBLACBS
+1993-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2722099.0,$mn SAAR,BCNSDODNS
+1993-10-01,delinquency,Business Loan Delinquency Rate,신용손실,3.05,%,DRBLACBS
+1993-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-20.0,%,DRTSCILM
+1993-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.0,% annualized,H8B1020NCBCMG
+1993-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+1994-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+1994-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.3,%,CORBLACBS
+1994-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2784412.0,$mn SAAR,BCNSDODNS
+1994-01-01,delinquency,Business Loan Delinquency Rate,신용손실,2.79,%,DRBLACBS
+1994-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-18.6,%,DRTSCILM
+1994-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.4,% annualized,H8B1020NCBCMG
+1994-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+1994-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.6,% annualized,H8B1020NCBCMG
+1994-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.31,%,CORBLACBS
+1994-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2830783.0,$mn SAAR,BCNSDODNS
+1994-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.4,%,DRBLACBS
+1994-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-15.5,%,DRTSCILM
+1994-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+1994-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.3,% annualized,H8B1020NCBCMG
+1994-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.8,% annualized,H8B1020NCBCMG
+1994-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.19,%,CORBLACBS
+1994-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2879971.0,$mn SAAR,BCNSDODNS
+1994-07-01,delinquency,Business Loan Delinquency Rate,신용손실,2.22,%,DRBLACBS
+1994-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.3,%,DRTSCILM
+1994-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.7,% annualized,H8B1020NCBCMG
+1994-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.1,% annualized,H8B1020NCBCMG
+1994-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.5,% annualized,H8B1020NCBCMG
+1994-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.24,%,CORBLACBS
+1994-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2930133.0,$mn SAAR,BCNSDODNS
+1994-10-01,delinquency,Business Loan Delinquency Rate,신용손실,2.18,%,DRBLACBS
+1994-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-22.4,%,DRTSCILM
+1994-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.8,% annualized,H8B1020NCBCMG
+1994-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.9,% annualized,H8B1020NCBCMG
+1995-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.3,% annualized,H8B1020NCBCMG
+1995-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.17,%,CORBLACBS
+1995-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,2988770.0,$mn SAAR,BCNSDODNS
+1995-01-01,delinquency,Business Loan Delinquency Rate,신용손실,2.12,%,DRBLACBS
+1995-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.2,%,DRTSCILM
+1995-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.1,% annualized,H8B1020NCBCMG
+1995-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.3,% annualized,H8B1020NCBCMG
+1995-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.5,% annualized,H8B1020NCBCMG
+1995-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.12,%,CORBLACBS
+1995-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3054812.0,$mn SAAR,BCNSDODNS
+1995-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.1,%,DRBLACBS
+1995-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-6.8,%,DRTSCILM
+1995-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.0,% annualized,H8B1020NCBCMG
+1995-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.3,% annualized,H8B1020NCBCMG
+1995-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.7,% annualized,H8B1020NCBCMG
+1995-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.33,%,CORBLACBS
+1995-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3089682.0,$mn SAAR,BCNSDODNS
+1995-07-01,delinquency,Business Loan Delinquency Rate,신용손실,2.07,%,DRBLACBS
+1995-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.6,%,DRTSCILM
+1995-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.4,% annualized,H8B1020NCBCMG
+1995-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.4,% annualized,H8B1020NCBCMG
+1995-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.8,% annualized,H8B1020NCBCMG
+1995-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.27,%,CORBLACBS
+1995-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3141423.0,$mn SAAR,BCNSDODNS
+1995-10-01,delinquency,Business Loan Delinquency Rate,신용손실,2.07,%,DRBLACBS
+1995-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-5.2,%,DRTSCILM
+1995-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.7,% annualized,H8B1020NCBCMG
+1995-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+1996-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.0,% annualized,H8B1020NCBCMG
+1996-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.31,%,CORBLACBS
+1996-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3172843.0,$mn SAAR,BCNSDODNS
+1996-01-01,delinquency,Business Loan Delinquency Rate,신용손실,2.06,%,DRBLACBS
+1996-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,6.9,%,DRTSCILM
+1996-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.1,% annualized,H8B1020NCBCMG
+1996-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.7,% annualized,H8B1020NCBCMG
+1996-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.4,% annualized,H8B1020NCBCMG
+1996-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.28,%,CORBLACBS
+1996-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3232368.0,$mn SAAR,BCNSDODNS
+1996-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.06,%,DRBLACBS
+1996-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-1.8,%,DRTSCILM
+1996-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.4,% annualized,H8B1020NCBCMG
+1996-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.1,% annualized,H8B1020NCBCMG
+1996-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+1996-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.23,%,CORBLACBS
+1996-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3277777.0,$mn SAAR,BCNSDODNS
+1996-07-01,delinquency,Business Loan Delinquency Rate,신용손실,2.01,%,DRBLACBS
+1996-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-7.4,%,DRTSCILM
+1996-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.9,% annualized,H8B1020NCBCMG
+1996-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.0,% annualized,H8B1020NCBCMG
+1996-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.2,% annualized,H8B1020NCBCMG
+1996-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.2,%,CORBLACBS
+1996-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3302602.0,$mn SAAR,BCNSDODNS
+1996-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.95,%,DRBLACBS
+1996-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.6,%,DRTSCILM
+1996-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+1996-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.9,% annualized,H8B1020NCBCMG
+1997-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.2,% annualized,H8B1020NCBCMG
+1997-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.21,%,CORBLACBS
+1997-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3366649.0,$mn SAAR,BCNSDODNS
+1997-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.9,%,DRBLACBS
+1997-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.9,%,DRTSCILM
+1997-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+1997-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.6,% annualized,H8B1020NCBCMG
+1997-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.9,% annualized,H8B1020NCBCMG
+1997-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.23,%,CORBLACBS
+1997-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3441517.0,$mn SAAR,BCNSDODNS
+1997-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.81,%,DRBLACBS
+1997-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.3,%,DRTSCILM
+1997-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.2,% annualized,H8B1020NCBCMG
+1997-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.7,% annualized,H8B1020NCBCMG
+1997-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+1997-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.35,%,CORBLACBS
+1997-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3544383.0,$mn SAAR,BCNSDODNS
+1997-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.72,%,DRBLACBS
+1997-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-5.8,%,DRTSCILM
+1997-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.7,% annualized,H8B1020NCBCMG
+1997-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+1997-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+1997-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.27,%,CORBLACBS
+1997-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3623539.0,$mn SAAR,BCNSDODNS
+1997-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.7,%,DRBLACBS
+1997-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-7.0,%,DRTSCILM
+1997-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.2,% annualized,H8B1020NCBCMG
+1997-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+1998-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.9,% annualized,H8B1020NCBCMG
+1998-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.34,%,CORBLACBS
+1998-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3738257.0,$mn SAAR,BCNSDODNS
+1998-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.81,%,DRBLACBS
+1998-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,1.8,%,DRTSCILM
+1998-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.7,% annualized,H8B1020NCBCMG
+1998-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.8,% annualized,H8B1020NCBCMG
+1998-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.7,% annualized,H8B1020NCBCMG
+1998-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.35,%,CORBLACBS
+1998-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3868850.0,$mn SAAR,BCNSDODNS
+1998-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.73,%,DRBLACBS
+1998-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-7.1,%,DRTSCILM
+1998-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+1998-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.1,% annualized,H8B1020NCBCMG
+1998-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.2,% annualized,H8B1020NCBCMG
+1998-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.41,%,CORBLACBS
+1998-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,3971834.0,$mn SAAR,BCNSDODNS
+1998-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.77,%,DRBLACBS
+1998-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,0.0,%,DRTSCILM
+1998-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.8,% annualized,H8B1020NCBCMG
+1998-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.7,% annualized,H8B1020NCBCMG
+1998-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.9,% annualized,H8B1020NCBCMG
+1998-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.44,%,CORBLACBS
+1998-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4070607.0,$mn SAAR,BCNSDODNS
+1998-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.87,%,DRBLACBS
+1998-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,36.4,%,DRTSCILM
+1998-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.7,% annualized,H8B1020NCBCMG
+1998-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+1999-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.5,% annualized,H8B1020NCBCMG
+1999-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.51,%,CORBLACBS
+1999-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4191035.0,$mn SAAR,BCNSDODNS
+1999-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.97,%,DRBLACBS
+1999-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,7.4,%,DRTSCILM
+1999-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.4,% annualized,H8B1020NCBCMG
+1999-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.8,% annualized,H8B1020NCBCMG
+1999-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.6,% annualized,H8B1020NCBCMG
+1999-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.54,%,CORBLACBS
+1999-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4259533.0,$mn SAAR,BCNSDODNS
+1999-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.0,%,DRBLACBS
+1999-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,10.0,%,DRTSCILM
+1999-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+1999-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.5,% annualized,H8B1020NCBCMG
+1999-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+1999-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.56,%,CORBLACBS
+1999-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4412803.0,$mn SAAR,BCNSDODNS
+1999-07-01,delinquency,Business Loan Delinquency Rate,신용손실,2.06,%,DRBLACBS
+1999-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,5.4,%,DRTSCILM
+1999-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+1999-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.9,% annualized,H8B1020NCBCMG
+1999-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+1999-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.57,%,CORBLACBS
+1999-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4477210.0,$mn SAAR,BCNSDODNS
+1999-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.99,%,DRBLACBS
+1999-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,9.1,%,DRTSCILM
+1999-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+1999-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+2000-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.7,% annualized,H8B1020NCBCMG
+2000-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.61,%,CORBLACBS
+2000-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4598224.0,$mn SAAR,BCNSDODNS
+2000-01-01,delinquency,Business Loan Delinquency Rate,신용손실,2.11,%,DRBLACBS
+2000-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,10.9,%,DRTSCILM
+2000-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+2000-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.4,% annualized,H8B1020NCBCMG
+2000-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.9,% annualized,H8B1020NCBCMG
+2000-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.7,%,CORBLACBS
+2000-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4707875.0,$mn SAAR,BCNSDODNS
+2000-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.24,%,DRBLACBS
+2000-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,24.6,%,DRTSCILM
+2000-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.4,% annualized,H8B1020NCBCMG
+2000-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.3,% annualized,H8B1020NCBCMG
+2000-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+2000-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.74,%,CORBLACBS
+2000-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4767862.0,$mn SAAR,BCNSDODNS
+2000-07-01,delinquency,Business Loan Delinquency Rate,신용손실,2.33,%,DRBLACBS
+2000-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,33.9,%,DRTSCILM
+2000-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.3,% annualized,H8B1020NCBCMG
+2000-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+2000-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.9,% annualized,H8B1020NCBCMG
+2000-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.92,%,CORBLACBS
+2000-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4828105.0,$mn SAAR,BCNSDODNS
+2000-10-01,delinquency,Business Loan Delinquency Rate,신용손실,2.52,%,DRBLACBS
+2000-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,43.9,%,DRTSCILM
+2000-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.4,% annualized,H8B1020NCBCMG
+2000-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.4,% annualized,H8B1020NCBCMG
+2001-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+2001-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.06,%,CORBLACBS
+2001-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4833040.0,$mn SAAR,BCNSDODNS
+2001-01-01,delinquency,Business Loan Delinquency Rate,신용손실,2.65,%,DRBLACBS
+2001-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,59.6,%,DRTSCILM
+2001-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.6,% annualized,H8B1020NCBCMG
+2001-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.5,% annualized,H8B1020NCBCMG
+2001-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.9,% annualized,H8B1020NCBCMG
+2001-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.24,%,CORBLACBS
+2001-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4916971.0,$mn SAAR,BCNSDODNS
+2001-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.94,%,DRBLACBS
+2001-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,50.9,%,DRTSCILM
+2001-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+2001-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.6,% annualized,H8B1020NCBCMG
+2001-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.2,% annualized,H8B1020NCBCMG
+2001-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.43,%,CORBLACBS
+2001-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4951040.0,$mn SAAR,BCNSDODNS
+2001-07-01,delinquency,Business Loan Delinquency Rate,신용손실,3.26,%,DRBLACBS
+2001-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,40.4,%,DRTSCILM
+2001-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.8,% annualized,H8B1020NCBCMG
+2001-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,18.5,% annualized,H8B1020NCBCMG
+2001-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-16.8,% annualized,H8B1020NCBCMG
+2001-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.78,%,CORBLACBS
+2001-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4969335.0,$mn SAAR,BCNSDODNS
+2001-10-01,delinquency,Business Loan Delinquency Rate,신용손실,3.48,%,DRBLACBS
+2001-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,50.9,%,DRTSCILM
+2001-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.0,% annualized,H8B1020NCBCMG
+2001-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+2002-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.0,% annualized,H8B1020NCBCMG
+2002-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.74,%,CORBLACBS
+2002-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4984769.0,$mn SAAR,BCNSDODNS
+2002-01-01,delinquency,Business Loan Delinquency Rate,신용손실,3.69,%,DRBLACBS
+2002-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,45.5,%,DRTSCILM
+2002-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.6,% annualized,H8B1020NCBCMG
+2002-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.5,% annualized,H8B1020NCBCMG
+2002-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.1,% annualized,H8B1020NCBCMG
+2002-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.89,%,CORBLACBS
+2002-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4982689.0,$mn SAAR,BCNSDODNS
+2002-04-01,delinquency,Business Loan Delinquency Rate,신용손실,3.92,%,DRBLACBS
+2002-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,25.0,%,DRTSCILM
+2002-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-8.5,% annualized,H8B1020NCBCMG
+2002-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.8,% annualized,H8B1020NCBCMG
+2002-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.0,% annualized,H8B1020NCBCMG
+2002-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,2.24,%,CORBLACBS
+2002-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4978336.0,$mn SAAR,BCNSDODNS
+2002-07-01,delinquency,Business Loan Delinquency Rate,신용손실,3.88,%,DRBLACBS
+2002-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,21.4,%,DRTSCILM
+2002-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.7,% annualized,H8B1020NCBCMG
+2002-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.5,% annualized,H8B1020NCBCMG
+2002-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.9,% annualized,H8B1020NCBCMG
+2002-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.32,%,CORBLACBS
+2002-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4986596.0,$mn SAAR,BCNSDODNS
+2002-10-01,delinquency,Business Loan Delinquency Rate,신용손실,3.88,%,DRBLACBS
+2002-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,20.0,%,DRTSCILM
+2002-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.8,% annualized,H8B1020NCBCMG
+2002-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+2003-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.8,% annualized,H8B1020NCBCMG
+2003-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.65,%,CORBLACBS
+2003-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4982694.0,$mn SAAR,BCNSDODNS
+2003-01-01,delinquency,Business Loan Delinquency Rate,신용손실,3.65,%,DRBLACBS
+2003-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,22.0,%,DRTSCILM
+2003-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.4,% annualized,H8B1020NCBCMG
+2003-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+2003-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+2003-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.41,%,CORBLACBS
+2003-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,4986319.0,$mn SAAR,BCNSDODNS
+2003-04-01,delinquency,Business Loan Delinquency Rate,신용손실,3.56,%,DRBLACBS
+2003-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,8.9,%,DRTSCILM
+2003-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.4,% annualized,H8B1020NCBCMG
+2003-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+2003-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.2,% annualized,H8B1020NCBCMG
+2003-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.29,%,CORBLACBS
+2003-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5027031.0,$mn SAAR,BCNSDODNS
+2003-07-01,delinquency,Business Loan Delinquency Rate,신용손실,3.27,%,DRBLACBS
+2003-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,3.4,%,DRTSCILM
+2003-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.3,% annualized,H8B1020NCBCMG
+2003-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.4,% annualized,H8B1020NCBCMG
+2003-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-15.7,% annualized,H8B1020NCBCMG
+2003-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.83,%,CORBLACBS
+2003-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5022043.0,$mn SAAR,BCNSDODNS
+2003-10-01,delinquency,Business Loan Delinquency Rate,신용손실,2.85,%,DRBLACBS
+2003-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,0.0,%,DRTSCILM
+2003-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.8,% annualized,H8B1020NCBCMG
+2003-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.9,% annualized,H8B1020NCBCMG
+2004-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.9,% annualized,H8B1020NCBCMG
+2004-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.8,%,CORBLACBS
+2004-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5096747.0,$mn SAAR,BCNSDODNS
+2004-01-01,delinquency,Business Loan Delinquency Rate,신용손실,2.57,%,DRBLACBS
+2004-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-17.9,%,DRTSCILM
+2004-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.2,% annualized,H8B1020NCBCMG
+2004-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.5,% annualized,H8B1020NCBCMG
+2004-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.9,% annualized,H8B1020NCBCMG
+2004-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.58,%,CORBLACBS
+2004-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5110462.0,$mn SAAR,BCNSDODNS
+2004-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.3,%,DRBLACBS
+2004-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-22.8,%,DRTSCILM
+2004-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.2,% annualized,H8B1020NCBCMG
+2004-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.5,% annualized,H8B1020NCBCMG
+2004-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+2004-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.45,%,CORBLACBS
+2004-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5175727.0,$mn SAAR,BCNSDODNS
+2004-07-01,delinquency,Business Loan Delinquency Rate,신용손실,2.03,%,DRBLACBS
+2004-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-20.0,%,DRTSCILM
+2004-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.3,% annualized,H8B1020NCBCMG
+2004-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+2004-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.4,% annualized,H8B1020NCBCMG
+2004-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.39,%,CORBLACBS
+2004-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5253078.0,$mn SAAR,BCNSDODNS
+2004-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.82,%,DRBLACBS
+2004-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-21.1,%,DRTSCILM
+2004-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.0,% annualized,H8B1020NCBCMG
+2004-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.8,% annualized,H8B1020NCBCMG
+2005-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.6,% annualized,H8B1020NCBCMG
+2005-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.26,%,CORBLACBS
+2005-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5321793.0,$mn SAAR,BCNSDODNS
+2005-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.62,%,DRBLACBS
+2005-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-23.6,%,DRTSCILM
+2005-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+2005-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.9,% annualized,H8B1020NCBCMG
+2005-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+2005-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.24,%,CORBLACBS
+2005-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5395225.0,$mn SAAR,BCNSDODNS
+2005-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.5,%,DRBLACBS
+2005-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-24.1,%,DRTSCILM
+2005-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.0,% annualized,H8B1020NCBCMG
+2005-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.6,% annualized,H8B1020NCBCMG
+2005-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.5,% annualized,H8B1020NCBCMG
+2005-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.21,%,CORBLACBS
+2005-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5434412.0,$mn SAAR,BCNSDODNS
+2005-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.47,%,DRBLACBS
+2005-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-16.7,%,DRTSCILM
+2005-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.8,% annualized,H8B1020NCBCMG
+2005-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+2005-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.3,% annualized,H8B1020NCBCMG
+2005-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.31,%,CORBLACBS
+2005-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5535493.0,$mn SAAR,BCNSDODNS
+2005-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.44,%,DRBLACBS
+2005-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.8,%,DRTSCILM
+2005-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.8,% annualized,H8B1020NCBCMG
+2005-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.6,% annualized,H8B1020NCBCMG
+2006-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.1,% annualized,H8B1020NCBCMG
+2006-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.21,%,CORBLACBS
+2006-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5653569.0,$mn SAAR,BCNSDODNS
+2006-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.39,%,DRBLACBS
+2006-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.7,%,DRTSCILM
+2006-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.1,% annualized,H8B1020NCBCMG
+2006-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.9,% annualized,H8B1020NCBCMG
+2006-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.6,% annualized,H8B1020NCBCMG
+2006-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.27,%,CORBLACBS
+2006-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5762306.0,$mn SAAR,BCNSDODNS
+2006-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.3,%,DRBLACBS
+2006-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-12.3,%,DRTSCILM
+2006-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.6,% annualized,H8B1020NCBCMG
+2006-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,13.5,% annualized,H8B1020NCBCMG
+2006-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.0,% annualized,H8B1020NCBCMG
+2006-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.3,%,CORBLACBS
+2006-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5806411.0,$mn SAAR,BCNSDODNS
+2006-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.26,%,DRBLACBS
+2006-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.9,%,DRTSCILM
+2006-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.2,% annualized,H8B1020NCBCMG
+2006-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.2,% annualized,H8B1020NCBCMG
+2006-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+2006-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.34,%,CORBLACBS
+2006-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,5948598.0,$mn SAAR,BCNSDODNS
+2006-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.15,%,DRBLACBS
+2006-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,0.0,%,DRTSCILM
+2006-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.6,% annualized,H8B1020NCBCMG
+2006-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.8,% annualized,H8B1020NCBCMG
+2007-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+2007-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.37,%,CORBLACBS
+2007-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6080711.0,$mn SAAR,BCNSDODNS
+2007-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.19,%,DRBLACBS
+2007-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,0.0,%,DRTSCILM
+2007-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.3,% annualized,H8B1020NCBCMG
+2007-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.9,% annualized,H8B1020NCBCMG
+2007-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.6,% annualized,H8B1020NCBCMG
+2007-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.42,%,CORBLACBS
+2007-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6278737.0,$mn SAAR,BCNSDODNS
+2007-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.19,%,DRBLACBS
+2007-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-3.8,%,DRTSCILM
+2007-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+2007-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.3,% annualized,H8B1020NCBCMG
+2007-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+2007-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.46,%,CORBLACBS
+2007-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6484418.0,$mn SAAR,BCNSDODNS
+2007-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.21,%,DRBLACBS
+2007-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,7.5,%,DRTSCILM
+2007-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,16.2,% annualized,H8B1020NCBCMG
+2007-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.5,% annualized,H8B1020NCBCMG
+2007-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.3,% annualized,H8B1020NCBCMG
+2007-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.65,%,CORBLACBS
+2007-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6641937.0,$mn SAAR,BCNSDODNS
+2007-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.3,%,DRBLACBS
+2007-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,19.2,%,DRTSCILM
+2007-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.8,% annualized,H8B1020NCBCMG
+2007-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+2008-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.7,% annualized,H8B1020NCBCMG
+2008-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.71,%,CORBLACBS
+2008-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6767013.0,$mn SAAR,BCNSDODNS
+2008-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.44,%,DRBLACBS
+2008-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,32.1,%,DRTSCILM
+2008-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.0,% annualized,H8B1020NCBCMG
+2008-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.0,% annualized,H8B1020NCBCMG
+2008-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+2008-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.84,%,CORBLACBS
+2008-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6886046.0,$mn SAAR,BCNSDODNS
+2008-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.77,%,DRBLACBS
+2008-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,55.4,%,DRTSCILM
+2008-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-2.4,% annualized,H8B1020NCBCMG
+2008-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.2,% annualized,H8B1020NCBCMG
+2008-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.4,% annualized,H8B1020NCBCMG
+2008-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.03,%,CORBLACBS
+2008-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6957255.0,$mn SAAR,BCNSDODNS
+2008-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.77,%,DRBLACBS
+2008-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,57.7,%,DRTSCILM
+2008-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.4,% annualized,H8B1020NCBCMG
+2008-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.0,% annualized,H8B1020NCBCMG
+2008-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.3,% annualized,H8B1020NCBCMG
+2008-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.27,%,CORBLACBS
+2008-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6919403.0,$mn SAAR,BCNSDODNS
+2008-10-01,delinquency,Business Loan Delinquency Rate,신용손실,2.54,%,DRBLACBS
+2008-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,83.6,%,DRTSCILM
+2008-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-9.3,% annualized,H8B1020NCBCMG
+2008-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-8.4,% annualized,H8B1020NCBCMG
+2009-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.6,% annualized,H8B1020NCBCMG
+2009-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.94,%,CORBLACBS
+2009-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6863715.0,$mn SAAR,BCNSDODNS
+2009-01-01,delinquency,Business Loan Delinquency Rate,신용손실,3.17,%,DRBLACBS
+2009-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,64.2,%,DRTSCILM
+2009-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.9,% annualized,H8B1020NCBCMG
+2009-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.0,% annualized,H8B1020NCBCMG
+2009-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.7,% annualized,H8B1020NCBCMG
+2009-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,2.43,%,CORBLACBS
+2009-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6797247.0,$mn SAAR,BCNSDODNS
+2009-04-01,delinquency,Business Loan Delinquency Rate,신용손실,3.78,%,DRBLACBS
+2009-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,39.6,%,DRTSCILM
+2009-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-6.8,% annualized,H8B1020NCBCMG
+2009-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-11.0,% annualized,H8B1020NCBCMG
+2009-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-12.6,% annualized,H8B1020NCBCMG
+2009-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,2.57,%,CORBLACBS
+2009-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6651003.0,$mn SAAR,BCNSDODNS
+2009-07-01,delinquency,Business Loan Delinquency Rate,신용손실,4.39,%,DRBLACBS
+2009-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,31.5,%,DRTSCILM
+2009-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-15.4,% annualized,H8B1020NCBCMG
+2009-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-16.1,% annualized,H8B1020NCBCMG
+2009-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-15.4,% annualized,H8B1020NCBCMG
+2009-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,2.27,%,CORBLACBS
+2009-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6478010.0,$mn SAAR,BCNSDODNS
+2009-10-01,delinquency,Business Loan Delinquency Rate,신용손실,4.27,%,DRBLACBS
+2009-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,14.0,%,DRTSCILM
+2009-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-9.8,% annualized,H8B1020NCBCMG
+2009-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-12.0,% annualized,H8B1020NCBCMG
+2010-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-9.3,% annualized,H8B1020NCBCMG
+2010-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,2.1,%,CORBLACBS
+2010-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6456421.0,$mn SAAR,BCNSDODNS
+2010-01-01,delinquency,Business Loan Delinquency Rate,신용손실,3.92,%,DRBLACBS
+2010-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-5.5,%,DRTSCILM
+2010-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-11.8,% annualized,H8B1020NCBCMG
+2010-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-9.0,% annualized,H8B1020NCBCMG
+2010-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-9.3,% annualized,H8B1020NCBCMG
+2010-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.85,%,CORBLACBS
+2010-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6396429.0,$mn SAAR,BCNSDODNS
+2010-04-01,delinquency,Business Loan Delinquency Rate,신용손실,3.64,%,DRBLACBS
+2010-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-7.1,%,DRTSCILM
+2010-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-6.2,% annualized,H8B1020NCBCMG
+2010-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.5,% annualized,H8B1020NCBCMG
+2010-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.2,% annualized,H8B1020NCBCMG
+2010-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.71,%,CORBLACBS
+2010-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6440965.0,$mn SAAR,BCNSDODNS
+2010-07-01,delinquency,Business Loan Delinquency Rate,신용손실,3.32,%,DRBLACBS
+2010-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.8,%,DRTSCILM
+2010-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.4,% annualized,H8B1020NCBCMG
+2010-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.5,% annualized,H8B1020NCBCMG
+2010-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-3.4,% annualized,H8B1020NCBCMG
+2010-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.29,%,CORBLACBS
+2010-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6375802.0,$mn SAAR,BCNSDODNS
+2010-10-01,delinquency,Business Loan Delinquency Rate,신용손실,2.96,%,DRBLACBS
+2010-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.5,%,DRTSCILM
+2010-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.2,% annualized,H8B1020NCBCMG
+2010-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.8,% annualized,H8B1020NCBCMG
+2011-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.9,% annualized,H8B1020NCBCMG
+2011-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,1.17,%,CORBLACBS
+2011-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6401571.0,$mn SAAR,BCNSDODNS
+2011-01-01,delinquency,Business Loan Delinquency Rate,신용손실,2.44,%,DRBLACBS
+2011-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.5,%,DRTSCILM
+2011-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.5,% annualized,H8B1020NCBCMG
+2011-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-3.2,% annualized,H8B1020NCBCMG
+2011-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.3,% annualized,H8B1020NCBCMG
+2011-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.87,%,CORBLACBS
+2011-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6504844.0,$mn SAAR,BCNSDODNS
+2011-04-01,delinquency,Business Loan Delinquency Rate,신용손실,2.12,%,DRBLACBS
+2011-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-16.4,%,DRTSCILM
+2011-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.4,% annualized,H8B1020NCBCMG
+2011-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.4,% annualized,H8B1020NCBCMG
+2011-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.0,% annualized,H8B1020NCBCMG
+2011-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.74,%,CORBLACBS
+2011-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6603912.0,$mn SAAR,BCNSDODNS
+2011-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.84,%,DRBLACBS
+2011-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-21.8,%,DRTSCILM
+2011-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+2011-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+2011-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+2011-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.68,%,CORBLACBS
+2011-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6714524.0,$mn SAAR,BCNSDODNS
+2011-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.64,%,DRBLACBS
+2011-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-5.9,%,DRTSCILM
+2011-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+2011-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+2012-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.2,% annualized,H8B1020NCBCMG
+2012-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.57,%,CORBLACBS
+2012-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6759870.0,$mn SAAR,BCNSDODNS
+2012-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.53,%,DRBLACBS
+2012-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,5.4,%,DRTSCILM
+2012-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+2012-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.9,% annualized,H8B1020NCBCMG
+2012-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.2,% annualized,H8B1020NCBCMG
+2012-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.55,%,CORBLACBS
+2012-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6830050.0,$mn SAAR,BCNSDODNS
+2012-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.4,%,DRBLACBS
+2012-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-6.9,%,DRTSCILM
+2012-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+2012-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.1,% annualized,H8B1020NCBCMG
+2012-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+2012-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.48,%,CORBLACBS
+2012-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,6964904.0,$mn SAAR,BCNSDODNS
+2012-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.25,%,DRBLACBS
+2012-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-9.5,%,DRTSCILM
+2012-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.9,% annualized,H8B1020NCBCMG
+2012-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.5,% annualized,H8B1020NCBCMG
+2012-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.1,% annualized,H8B1020NCBCMG
+2012-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.35,%,CORBLACBS
+2012-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,7193984.0,$mn SAAR,BCNSDODNS
+2012-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.18,%,DRBLACBS
+2012-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-7.6,%,DRTSCILM
+2012-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.1,% annualized,H8B1020NCBCMG
+2012-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.1,% annualized,H8B1020NCBCMG
+2013-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+2013-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.36,%,CORBLACBS
+2013-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,7261926.0,$mn SAAR,BCNSDODNS
+2013-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.11,%,DRBLACBS
+2013-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-7.4,%,DRTSCILM
+2013-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+2013-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.4,% annualized,H8B1020NCBCMG
+2013-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.5,% annualized,H8B1020NCBCMG
+2013-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.31,%,CORBLACBS
+2013-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,7403829.0,$mn SAAR,BCNSDODNS
+2013-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.04,%,DRBLACBS
+2013-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-19.1,%,DRTSCILM
+2013-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.5,% annualized,H8B1020NCBCMG
+2013-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.9,% annualized,H8B1020NCBCMG
+2013-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.8,% annualized,H8B1020NCBCMG
+2013-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.27,%,CORBLACBS
+2013-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,7580001.0,$mn SAAR,BCNSDODNS
+2013-07-01,delinquency,Business Loan Delinquency Rate,신용손실,0.98,%,DRBLACBS
+2013-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-18.1,%,DRTSCILM
+2013-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.3,% annualized,H8B1020NCBCMG
+2013-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+2013-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.2,% annualized,H8B1020NCBCMG
+2013-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.25,%,CORBLACBS
+2013-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,7687311.0,$mn SAAR,BCNSDODNS
+2013-10-01,delinquency,Business Loan Delinquency Rate,신용손실,0.89,%,DRBLACBS
+2013-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.3,%,DRTSCILM
+2013-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.0,% annualized,H8B1020NCBCMG
+2013-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.7,% annualized,H8B1020NCBCMG
+2014-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+2014-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.23,%,CORBLACBS
+2014-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,7811130.0,$mn SAAR,BCNSDODNS
+2014-01-01,delinquency,Business Loan Delinquency Rate,신용손실,0.9,%,DRBLACBS
+2014-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-13.7,%,DRTSCILM
+2014-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.9,% annualized,H8B1020NCBCMG
+2014-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+2014-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.4,% annualized,H8B1020NCBCMG
+2014-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.21,%,CORBLACBS
+2014-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,7927756.0,$mn SAAR,BCNSDODNS
+2014-04-01,delinquency,Business Loan Delinquency Rate,신용손실,0.8,%,DRBLACBS
+2014-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-11.1,%,DRTSCILM
+2014-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.6,% annualized,H8B1020NCBCMG
+2014-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+2014-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.0,% annualized,H8B1020NCBCMG
+2014-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.2,%,CORBLACBS
+2014-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,8057849.0,$mn SAAR,BCNSDODNS
+2014-07-01,delinquency,Business Loan Delinquency Rate,신용손실,0.77,%,DRBLACBS
+2014-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.7,%,DRTSCILM
+2014-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.8,% annualized,H8B1020NCBCMG
+2014-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.5,% annualized,H8B1020NCBCMG
+2014-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.5,% annualized,H8B1020NCBCMG
+2014-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.23,%,CORBLACBS
+2014-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,8235111.0,$mn SAAR,BCNSDODNS
+2014-10-01,delinquency,Business Loan Delinquency Rate,신용손실,0.72,%,DRBLACBS
+2014-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.5,%,DRTSCILM
+2014-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.7,% annualized,H8B1020NCBCMG
+2014-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.4,% annualized,H8B1020NCBCMG
+2015-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,17.2,% annualized,H8B1020NCBCMG
+2015-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.17,%,CORBLACBS
+2015-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,8410997.0,$mn SAAR,BCNSDODNS
+2015-01-01,delinquency,Business Loan Delinquency Rate,신용손실,0.75,%,DRBLACBS
+2015-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-5.5,%,DRTSCILM
+2015-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.7,% annualized,H8B1020NCBCMG
+2015-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.8,% annualized,H8B1020NCBCMG
+2015-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.2,% annualized,H8B1020NCBCMG
+2015-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.21,%,CORBLACBS
+2015-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,8632138.0,$mn SAAR,BCNSDODNS
+2015-04-01,delinquency,Business Loan Delinquency Rate,신용손실,0.81,%,DRBLACBS
+2015-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-5.3,%,DRTSCILM
+2015-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.2,% annualized,H8B1020NCBCMG
+2015-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+2015-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.9,% annualized,H8B1020NCBCMG
+2015-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.25,%,CORBLACBS
+2015-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,8763607.0,$mn SAAR,BCNSDODNS
+2015-07-01,delinquency,Business Loan Delinquency Rate,신용손실,0.9,%,DRBLACBS
+2015-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-7.0,%,DRTSCILM
+2015-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+2015-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.1,% annualized,H8B1020NCBCMG
+2015-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.0,% annualized,H8B1020NCBCMG
+2015-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.32,%,CORBLACBS
+2015-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,8870864.0,$mn SAAR,BCNSDODNS
+2015-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.02,%,DRBLACBS
+2015-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,7.4,%,DRTSCILM
+2015-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+2015-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.0,% annualized,H8B1020NCBCMG
+2016-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+2016-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.44,%,CORBLACBS
+2016-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9066083.0,$mn SAAR,BCNSDODNS
+2016-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.5,%,DRBLACBS
+2016-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,8.2,%,DRTSCILM
+2016-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.5,% annualized,H8B1020NCBCMG
+2016-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+2016-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.3,% annualized,H8B1020NCBCMG
+2016-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.43,%,CORBLACBS
+2016-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9119919.0,$mn SAAR,BCNSDODNS
+2016-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.6,%,DRBLACBS
+2016-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,11.6,%,DRTSCILM
+2016-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.5,% annualized,H8B1020NCBCMG
+2016-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+2016-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.5,% annualized,H8B1020NCBCMG
+2016-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.45,%,CORBLACBS
+2016-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9208703.0,$mn SAAR,BCNSDODNS
+2016-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.59,%,DRBLACBS
+2016-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,8.5,%,DRTSCILM
+2016-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+2016-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.3,% annualized,H8B1020NCBCMG
+2016-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.4,% annualized,H8B1020NCBCMG
+2016-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.41,%,CORBLACBS
+2016-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9170176.0,$mn SAAR,BCNSDODNS
+2016-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.58,%,DRBLACBS
+2016-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,1.5,%,DRTSCILM
+2016-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.2,% annualized,H8B1020NCBCMG
+2016-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.3,% annualized,H8B1020NCBCMG
+2017-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.1,% annualized,H8B1020NCBCMG
+2017-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.34,%,CORBLACBS
+2017-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9344660.0,$mn SAAR,BCNSDODNS
+2017-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.53,%,DRBLACBS
+2017-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,1.4,%,DRTSCILM
+2017-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.6,% annualized,H8B1020NCBCMG
+2017-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.5,% annualized,H8B1020NCBCMG
+2017-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.5,% annualized,H8B1020NCBCMG
+2017-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.37,%,CORBLACBS
+2017-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9492492.0,$mn SAAR,BCNSDODNS
+2017-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.35,%,DRBLACBS
+2017-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-2.8,%,DRTSCILM
+2017-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.7,% annualized,H8B1020NCBCMG
+2017-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.0,% annualized,H8B1020NCBCMG
+2017-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+2017-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.34,%,CORBLACBS
+2017-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9593440.0,$mn SAAR,BCNSDODNS
+2017-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.27,%,DRBLACBS
+2017-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-3.9,%,DRTSCILM
+2017-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+2017-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+2017-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.6,% annualized,H8B1020NCBCMG
+2017-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.36,%,CORBLACBS
+2017-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9766226.0,$mn SAAR,BCNSDODNS
+2017-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.18,%,DRBLACBS
+2017-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-8.5,%,DRTSCILM
+2017-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+2017-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.1,% annualized,H8B1020NCBCMG
+2018-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+2018-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.3,%,CORBLACBS
+2018-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,9876284.0,$mn SAAR,BCNSDODNS
+2018-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.11,%,DRBLACBS
+2018-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-10.0,%,DRTSCILM
+2018-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+2018-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.1,% annualized,H8B1020NCBCMG
+2018-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.2,% annualized,H8B1020NCBCMG
+2018-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.29,%,CORBLACBS
+2018-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,10268595.0,$mn SAAR,BCNSDODNS
+2018-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.08,%,DRBLACBS
+2018-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-11.3,%,DRTSCILM
+2018-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+2018-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.2,% annualized,H8B1020NCBCMG
+2018-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.7,% annualized,H8B1020NCBCMG
+2018-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.26,%,CORBLACBS
+2018-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,10394857.0,$mn SAAR,BCNSDODNS
+2018-07-01,delinquency,Business Loan Delinquency Rate,신용손실,0.99,%,DRBLACBS
+2018-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-15.9,%,DRTSCILM
+2018-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.4,% annualized,H8B1020NCBCMG
+2018-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+2018-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.7,% annualized,H8B1020NCBCMG
+2018-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.28,%,CORBLACBS
+2018-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,10523606.0,$mn SAAR,BCNSDODNS
+2018-10-01,delinquency,Business Loan Delinquency Rate,신용손실,0.94,%,DRBLACBS
+2018-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-15.9,%,DRTSCILM
+2018-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.8,% annualized,H8B1020NCBCMG
+2018-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,7.9,% annualized,H8B1020NCBCMG
+2019-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.0,% annualized,H8B1020NCBCMG
+2019-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.3,%,CORBLACBS
+2019-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,10749528.0,$mn SAAR,BCNSDODNS
+2019-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.16,%,DRBLACBS
+2019-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,2.8,%,DRTSCILM
+2019-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.9,% annualized,H8B1020NCBCMG
+2019-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.8,% annualized,H8B1020NCBCMG
+2019-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.0,% annualized,H8B1020NCBCMG
+2019-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.31,%,CORBLACBS
+2019-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,10882992.0,$mn SAAR,BCNSDODNS
+2019-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.07,%,DRBLACBS
+2019-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-4.2,%,DRTSCILM
+2019-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+2019-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.0,% annualized,H8B1020NCBCMG
+2019-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+2019-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.44,%,CORBLACBS
+2019-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,11097265.0,$mn SAAR,BCNSDODNS
+2019-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.12,%,DRBLACBS
+2019-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-2.8,%,DRTSCILM
+2019-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+2019-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.9,% annualized,H8B1020NCBCMG
+2019-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+2019-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.36,%,CORBLACBS
+2019-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,11165603.0,$mn SAAR,BCNSDODNS
+2019-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.09,%,DRBLACBS
+2019-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,5.4,%,DRTSCILM
+2019-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.8,% annualized,H8B1020NCBCMG
+2019-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.7,% annualized,H8B1020NCBCMG
+2020-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.2,% annualized,H8B1020NCBCMG
+2020-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.56,%,CORBLACBS
+2020-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,11938553.0,$mn SAAR,BCNSDODNS
+2020-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.14,%,DRBLACBS
+2020-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,0.0,%,DRTSCILM
+2020-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+2020-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,41.0,% annualized,H8B1020NCBCMG
+2020-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,40.2,% annualized,H8B1020NCBCMG
+2020-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.59,%,CORBLACBS
+2020-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,12417163.0,$mn SAAR,BCNSDODNS
+2020-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.28,%,DRBLACBS
+2020-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,41.5,%,DRTSCILM
+2020-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.6,% annualized,H8B1020NCBCMG
+2020-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-15.2,% annualized,H8B1020NCBCMG
+2020-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-9.7,% annualized,H8B1020NCBCMG
+2020-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.52,%,CORBLACBS
+2020-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,12323069.0,$mn SAAR,BCNSDODNS
+2020-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.3,%,DRBLACBS
+2020-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,71.2,%,DRTSCILM
+2020-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-5.1,% annualized,H8B1020NCBCMG
+2020-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.0,% annualized,H8B1020NCBCMG
+2020-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-7.2,% annualized,H8B1020NCBCMG
+2020-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.42,%,CORBLACBS
+2020-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,12279638.0,$mn SAAR,BCNSDODNS
+2020-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.24,%,DRBLACBS
+2020-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,37.7,%,DRTSCILM
+2020-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-6.4,% annualized,H8B1020NCBCMG
+2020-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-4.4,% annualized,H8B1020NCBCMG
+2021-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-0.5,% annualized,H8B1020NCBCMG
+2021-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.29,%,CORBLACBS
+2021-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,12423979.0,$mn SAAR,BCNSDODNS
+2021-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.16,%,DRBLACBS
+2021-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,5.5,%,DRTSCILM
+2021-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.9,% annualized,H8B1020NCBCMG
+2021-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.6,% annualized,H8B1020NCBCMG
+2021-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-3.4,% annualized,H8B1020NCBCMG
+2021-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.21,%,CORBLACBS
+2021-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,12699446.0,$mn SAAR,BCNSDODNS
+2021-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.06,%,DRBLACBS
+2021-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-15.1,%,DRTSCILM
+2021-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.9,% annualized,H8B1020NCBCMG
+2021-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.6,% annualized,H8B1020NCBCMG
+2021-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.3,% annualized,H8B1020NCBCMG
+2021-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.16,%,CORBLACBS
+2021-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,12903311.0,$mn SAAR,BCNSDODNS
+2021-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.03,%,DRBLACBS
+2021-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-32.4,%,DRTSCILM
+2021-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.8,% annualized,H8B1020NCBCMG
+2021-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.5,% annualized,H8B1020NCBCMG
+2021-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+2021-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.12,%,CORBLACBS
+2021-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,13177755.0,$mn SAAR,BCNSDODNS
+2021-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.12,%,DRBLACBS
+2021-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-18.2,%,DRTSCILM
+2021-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.2,% annualized,H8B1020NCBCMG
+2021-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.0,% annualized,H8B1020NCBCMG
+2022-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.5,% annualized,H8B1020NCBCMG
+2022-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.12,%,CORBLACBS
+2022-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,13433616.0,$mn SAAR,BCNSDODNS
+2022-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.05,%,DRBLACBS
+2022-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-14.5,%,DRTSCILM
+2022-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+2022-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,12.2,% annualized,H8B1020NCBCMG
+2022-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.7,% annualized,H8B1020NCBCMG
+2022-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.14,%,CORBLACBS
+2022-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,13682639.0,$mn SAAR,BCNSDODNS
+2022-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.03,%,DRBLACBS
+2022-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,-1.5,%,DRTSCILM
+2022-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,14.8,% annualized,H8B1020NCBCMG
+2022-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,15.7,% annualized,H8B1020NCBCMG
+2022-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,11.7,% annualized,H8B1020NCBCMG
+2022-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.16,%,CORBLACBS
+2022-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,13787910.0,$mn SAAR,BCNSDODNS
+2022-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.12,%,DRBLACBS
+2022-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,24.2,%,DRTSCILM
+2022-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.9,% annualized,H8B1020NCBCMG
+2022-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.7,% annualized,H8B1020NCBCMG
+2022-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.2,% annualized,H8B1020NCBCMG
+2022-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.23,%,CORBLACBS
+2022-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,13782477.0,$mn SAAR,BCNSDODNS
+2022-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.02,%,DRBLACBS
+2022-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,39.1,%,DRTSCILM
+2022-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.4,% annualized,H8B1020NCBCMG
+2022-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.7,% annualized,H8B1020NCBCMG
+2023-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.9,% annualized,H8B1020NCBCMG
+2023-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.28,%,CORBLACBS
+2023-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,13937471.0,$mn SAAR,BCNSDODNS
+2023-01-01,delinquency,Business Loan Delinquency Rate,신용손실,0.97,%,DRBLACBS
+2023-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,44.8,%,DRTSCILM
+2023-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.7,% annualized,H8B1020NCBCMG
+2023-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.9,% annualized,H8B1020NCBCMG
+2023-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.9,% annualized,H8B1020NCBCMG
+2023-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.31,%,CORBLACBS
+2023-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,13997119.0,$mn SAAR,BCNSDODNS
+2023-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.0,%,DRBLACBS
+2023-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,46.0,%,DRTSCILM
+2023-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.8,% annualized,H8B1020NCBCMG
+2023-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,-1.3,% annualized,H8B1020NCBCMG
+2023-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.0,% annualized,H8B1020NCBCMG
+2023-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.39,%,CORBLACBS
+2023-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14052647.0,$mn SAAR,BCNSDODNS
+2023-07-01,delinquency,Business Loan Delinquency Rate,신용손실,0.98,%,DRBLACBS
+2023-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,50.8,%,DRTSCILM
+2023-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.4,% annualized,H8B1020NCBCMG
+2023-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+2023-09-19,hy_oas,US High Yield OAS,신용가격,3.82,%p,BAMLH0A0HYM2
+2023-09-20,hy_oas,US High Yield OAS,신용가격,3.77,%p,BAMLH0A0HYM2
+2023-09-21,hy_oas,US High Yield OAS,신용가격,3.89,%p,BAMLH0A0HYM2
+2023-09-22,hy_oas,US High Yield OAS,신용가격,3.93,%p,BAMLH0A0HYM2
+2023-09-25,hy_oas,US High Yield OAS,신용가격,3.97,%p,BAMLH0A0HYM2
+2023-09-26,hy_oas,US High Yield OAS,신용가격,4.04,%p,BAMLH0A0HYM2
+2023-09-27,hy_oas,US High Yield OAS,신용가격,4.03,%p,BAMLH0A0HYM2
+2023-09-28,hy_oas,US High Yield OAS,신용가격,4.09,%p,BAMLH0A0HYM2
+2023-09-29,hy_oas,US High Yield OAS,신용가격,4.03,%p,BAMLH0A0HYM2
+2023-09-30,hy_oas,US High Yield OAS,신용가격,4.03,%p,BAMLH0A0HYM2
+2023-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.3,% annualized,H8B1020NCBCMG
+2023-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.42,%,CORBLACBS
+2023-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14076821.0,$mn SAAR,BCNSDODNS
+2023-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.02,%,DRBLACBS
+2023-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,33.9,%,DRTSCILM
+2023-10-02,hy_oas,US High Yield OAS,신용가격,4.11,%p,BAMLH0A0HYM2
+2023-10-03,hy_oas,US High Yield OAS,신용가격,4.26,%p,BAMLH0A0HYM2
+2023-10-04,hy_oas,US High Yield OAS,신용가격,4.37,%p,BAMLH0A0HYM2
+2023-10-05,hy_oas,US High Yield OAS,신용가격,4.38,%p,BAMLH0A0HYM2
+2023-10-06,hy_oas,US High Yield OAS,신용가격,4.33,%p,BAMLH0A0HYM2
+2023-10-09,hy_oas,US High Yield OAS,신용가격,4.34,%p,BAMLH0A0HYM2
+2023-10-10,hy_oas,US High Yield OAS,신용가격,4.26,%p,BAMLH0A0HYM2
+2023-10-11,hy_oas,US High Yield OAS,신용가격,4.25,%p,BAMLH0A0HYM2
+2023-10-12,hy_oas,US High Yield OAS,신용가격,4.25,%p,BAMLH0A0HYM2
+2023-10-13,hy_oas,US High Yield OAS,신용가격,4.3,%p,BAMLH0A0HYM2
+2023-10-16,hy_oas,US High Yield OAS,신용가격,4.27,%p,BAMLH0A0HYM2
+2023-10-17,hy_oas,US High Yield OAS,신용가격,4.25,%p,BAMLH0A0HYM2
+2023-10-18,hy_oas,US High Yield OAS,신용가격,4.32,%p,BAMLH0A0HYM2
+2023-10-19,hy_oas,US High Yield OAS,신용가격,4.37,%p,BAMLH0A0HYM2
+2023-10-20,hy_oas,US High Yield OAS,신용가격,4.52,%p,BAMLH0A0HYM2
+2023-10-23,hy_oas,US High Yield OAS,신용가격,4.51,%p,BAMLH0A0HYM2
+2023-10-24,hy_oas,US High Yield OAS,신용가격,4.41,%p,BAMLH0A0HYM2
+2023-10-25,hy_oas,US High Yield OAS,신용가격,4.37,%p,BAMLH0A0HYM2
+2023-10-26,hy_oas,US High Yield OAS,신용가격,4.5,%p,BAMLH0A0HYM2
+2023-10-27,hy_oas,US High Yield OAS,신용가격,4.53,%p,BAMLH0A0HYM2
+2023-10-30,hy_oas,US High Yield OAS,신용가격,4.5,%p,BAMLH0A0HYM2
+2023-10-31,hy_oas,US High Yield OAS,신용가격,4.42,%p,BAMLH0A0HYM2
+2023-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.0,% annualized,H8B1020NCBCMG
+2023-11-01,hy_oas,US High Yield OAS,신용가격,4.47,%p,BAMLH0A0HYM2
+2023-11-02,hy_oas,US High Yield OAS,신용가격,4.15,%p,BAMLH0A0HYM2
+2023-11-03,hy_oas,US High Yield OAS,신용가격,4.04,%p,BAMLH0A0HYM2
+2023-11-06,hy_oas,US High Yield OAS,신용가격,4.0,%p,BAMLH0A0HYM2
+2023-11-07,hy_oas,US High Yield OAS,신용가격,4.08,%p,BAMLH0A0HYM2
+2023-11-08,hy_oas,US High Yield OAS,신용가격,4.08,%p,BAMLH0A0HYM2
+2023-11-09,hy_oas,US High Yield OAS,신용가격,4.04,%p,BAMLH0A0HYM2
+2023-11-10,hy_oas,US High Yield OAS,신용가격,4.03,%p,BAMLH0A0HYM2
+2023-11-13,hy_oas,US High Yield OAS,신용가격,4.03,%p,BAMLH0A0HYM2
+2023-11-14,hy_oas,US High Yield OAS,신용가격,3.92,%p,BAMLH0A0HYM2
+2023-11-15,hy_oas,US High Yield OAS,신용가격,3.89,%p,BAMLH0A0HYM2
+2023-11-16,hy_oas,US High Yield OAS,신용가격,4.02,%p,BAMLH0A0HYM2
+2023-11-17,hy_oas,US High Yield OAS,신용가격,3.99,%p,BAMLH0A0HYM2
+2023-11-20,hy_oas,US High Yield OAS,신용가격,3.92,%p,BAMLH0A0HYM2
+2023-11-21,hy_oas,US High Yield OAS,신용가격,3.95,%p,BAMLH0A0HYM2
+2023-11-22,hy_oas,US High Yield OAS,신용가격,3.9,%p,BAMLH0A0HYM2
+2023-11-23,hy_oas,US High Yield OAS,신용가격,3.9,%p,BAMLH0A0HYM2
+2023-11-24,hy_oas,US High Yield OAS,신용가격,3.85,%p,BAMLH0A0HYM2
+2023-11-27,hy_oas,US High Yield OAS,신용가격,3.89,%p,BAMLH0A0HYM2
+2023-11-28,hy_oas,US High Yield OAS,신용가격,3.9,%p,BAMLH0A0HYM2
+2023-11-29,hy_oas,US High Yield OAS,신용가격,3.8,%p,BAMLH0A0HYM2
+2023-11-30,hy_oas,US High Yield OAS,신용가격,3.84,%p,BAMLH0A0HYM2
+2023-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.3,% annualized,H8B1020NCBCMG
+2023-12-01,hy_oas,US High Yield OAS,신용가격,3.87,%p,BAMLH0A0HYM2
+2023-12-04,hy_oas,US High Yield OAS,신용가격,3.8,%p,BAMLH0A0HYM2
+2023-12-05,hy_oas,US High Yield OAS,신용가격,3.8,%p,BAMLH0A0HYM2
+2023-12-06,hy_oas,US High Yield OAS,신용가격,3.79,%p,BAMLH0A0HYM2
+2023-12-07,hy_oas,US High Yield OAS,신용가격,3.77,%p,BAMLH0A0HYM2
+2023-12-08,hy_oas,US High Yield OAS,신용가격,3.75,%p,BAMLH0A0HYM2
+2023-12-11,hy_oas,US High Yield OAS,신용가격,3.79,%p,BAMLH0A0HYM2
+2023-12-12,hy_oas,US High Yield OAS,신용가격,3.76,%p,BAMLH0A0HYM2
+2023-12-13,hy_oas,US High Yield OAS,신용가격,3.79,%p,BAMLH0A0HYM2
+2023-12-14,hy_oas,US High Yield OAS,신용가격,3.47,%p,BAMLH0A0HYM2
+2023-12-15,hy_oas,US High Yield OAS,신용가격,3.51,%p,BAMLH0A0HYM2
+2023-12-18,hy_oas,US High Yield OAS,신용가격,3.51,%p,BAMLH0A0HYM2
+2023-12-19,hy_oas,US High Yield OAS,신용가격,3.46,%p,BAMLH0A0HYM2
+2023-12-20,hy_oas,US High Yield OAS,신용가격,3.43,%p,BAMLH0A0HYM2
+2023-12-21,hy_oas,US High Yield OAS,신용가격,3.41,%p,BAMLH0A0HYM2
+2023-12-22,hy_oas,US High Yield OAS,신용가격,3.39,%p,BAMLH0A0HYM2
+2023-12-26,hy_oas,US High Yield OAS,신용가격,3.37,%p,BAMLH0A0HYM2
+2023-12-27,hy_oas,US High Yield OAS,신용가격,3.34,%p,BAMLH0A0HYM2
+2023-12-28,hy_oas,US High Yield OAS,신용가격,3.32,%p,BAMLH0A0HYM2
+2023-12-29,hy_oas,US High Yield OAS,신용가격,3.34,%p,BAMLH0A0HYM2
+2023-12-31,hy_oas,US High Yield OAS,신용가격,3.39,%p,BAMLH0A0HYM2
+2024-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.4,% annualized,H8B1020NCBCMG
+2024-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.44,%,CORBLACBS
+2024-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14261646.0,$mn SAAR,BCNSDODNS
+2024-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.11,%,DRBLACBS
+2024-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,14.5,%,DRTSCILM
+2024-01-02,hy_oas,US High Yield OAS,신용가격,3.54,%p,BAMLH0A0HYM2
+2024-01-03,hy_oas,US High Yield OAS,신용가격,3.71,%p,BAMLH0A0HYM2
+2024-01-04,hy_oas,US High Yield OAS,신용가격,3.69,%p,BAMLH0A0HYM2
+2024-01-05,hy_oas,US High Yield OAS,신용가격,3.68,%p,BAMLH0A0HYM2
+2024-01-08,hy_oas,US High Yield OAS,신용가격,3.63,%p,BAMLH0A0HYM2
+2024-01-09,hy_oas,US High Yield OAS,신용가격,3.59,%p,BAMLH0A0HYM2
+2024-01-10,hy_oas,US High Yield OAS,신용가격,3.5,%p,BAMLH0A0HYM2
+2024-01-11,hy_oas,US High Yield OAS,신용가격,3.55,%p,BAMLH0A0HYM2
+2024-01-12,hy_oas,US High Yield OAS,신용가격,3.56,%p,BAMLH0A0HYM2
+2024-01-15,hy_oas,US High Yield OAS,신용가격,3.54,%p,BAMLH0A0HYM2
+2024-01-16,hy_oas,US High Yield OAS,신용가격,3.58,%p,BAMLH0A0HYM2
+2024-01-17,hy_oas,US High Yield OAS,신용가격,3.62,%p,BAMLH0A0HYM2
+2024-01-18,hy_oas,US High Yield OAS,신용가격,3.58,%p,BAMLH0A0HYM2
+2024-01-19,hy_oas,US High Yield OAS,신용가격,3.54,%p,BAMLH0A0HYM2
+2024-01-22,hy_oas,US High Yield OAS,신용가격,3.49,%p,BAMLH0A0HYM2
+2024-01-23,hy_oas,US High Yield OAS,신용가격,3.51,%p,BAMLH0A0HYM2
+2024-01-24,hy_oas,US High Yield OAS,신용가격,3.44,%p,BAMLH0A0HYM2
+2024-01-25,hy_oas,US High Yield OAS,신용가격,3.45,%p,BAMLH0A0HYM2
+2024-01-26,hy_oas,US High Yield OAS,신용가격,3.39,%p,BAMLH0A0HYM2
+2024-01-29,hy_oas,US High Yield OAS,신용가격,3.41,%p,BAMLH0A0HYM2
+2024-01-30,hy_oas,US High Yield OAS,신용가격,3.42,%p,BAMLH0A0HYM2
+2024-01-31,hy_oas,US High Yield OAS,신용가격,3.59,%p,BAMLH0A0HYM2
+2024-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.1,% annualized,H8B1020NCBCMG
+2024-02-01,hy_oas,US High Yield OAS,신용가격,3.56,%p,BAMLH0A0HYM2
+2024-02-02,hy_oas,US High Yield OAS,신용가격,3.47,%p,BAMLH0A0HYM2
+2024-02-05,hy_oas,US High Yield OAS,신용가격,3.5,%p,BAMLH0A0HYM2
+2024-02-06,hy_oas,US High Yield OAS,신용가격,3.52,%p,BAMLH0A0HYM2
+2024-02-07,hy_oas,US High Yield OAS,신용가격,3.43,%p,BAMLH0A0HYM2
+2024-02-08,hy_oas,US High Yield OAS,신용가격,3.38,%p,BAMLH0A0HYM2
+2024-02-09,hy_oas,US High Yield OAS,신용가격,3.33,%p,BAMLH0A0HYM2
+2024-02-12,hy_oas,US High Yield OAS,신용가격,3.35,%p,BAMLH0A0HYM2
+2024-02-13,hy_oas,US High Yield OAS,신용가격,3.36,%p,BAMLH0A0HYM2
+2024-02-14,hy_oas,US High Yield OAS,신용가격,3.38,%p,BAMLH0A0HYM2
+2024-02-15,hy_oas,US High Yield OAS,신용가격,3.35,%p,BAMLH0A0HYM2
+2024-02-16,hy_oas,US High Yield OAS,신용가격,3.34,%p,BAMLH0A0HYM2
+2024-02-19,hy_oas,US High Yield OAS,신용가격,3.34,%p,BAMLH0A0HYM2
+2024-02-20,hy_oas,US High Yield OAS,신용가격,3.37,%p,BAMLH0A0HYM2
+2024-02-21,hy_oas,US High Yield OAS,신용가격,3.34,%p,BAMLH0A0HYM2
+2024-02-22,hy_oas,US High Yield OAS,신용가격,3.22,%p,BAMLH0A0HYM2
+2024-02-23,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2024-02-26,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2024-02-27,hy_oas,US High Yield OAS,신용가격,3.26,%p,BAMLH0A0HYM2
+2024-02-28,hy_oas,US High Yield OAS,신용가격,3.31,%p,BAMLH0A0HYM2
+2024-02-29,hy_oas,US High Yield OAS,신용가격,3.29,%p,BAMLH0A0HYM2
+2024-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,0.7,% annualized,H8B1020NCBCMG
+2024-03-01,hy_oas,US High Yield OAS,신용가격,3.32,%p,BAMLH0A0HYM2
+2024-03-04,hy_oas,US High Yield OAS,신용가격,3.26,%p,BAMLH0A0HYM2
+2024-03-05,hy_oas,US High Yield OAS,신용가격,3.31,%p,BAMLH0A0HYM2
+2024-03-06,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2024-03-07,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2024-03-08,hy_oas,US High Yield OAS,신용가격,3.26,%p,BAMLH0A0HYM2
+2024-03-11,hy_oas,US High Yield OAS,신용가격,3.26,%p,BAMLH0A0HYM2
+2024-03-12,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-03-13,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-03-14,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-03-15,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2024-03-18,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2024-03-19,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2024-03-20,hy_oas,US High Yield OAS,신용가격,3.14,%p,BAMLH0A0HYM2
+2024-03-21,hy_oas,US High Yield OAS,신용가격,3.05,%p,BAMLH0A0HYM2
+2024-03-22,hy_oas,US High Yield OAS,신용가격,3.08,%p,BAMLH0A0HYM2
+2024-03-25,hy_oas,US High Yield OAS,신용가격,3.11,%p,BAMLH0A0HYM2
+2024-03-26,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-03-27,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-03-28,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2024-03-31,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,1.2,% annualized,H8B1020NCBCMG
+2024-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.48,%,CORBLACBS
+2024-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14463791.0,$mn SAAR,BCNSDODNS
+2024-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.15,%,DRBLACBS
+2024-04-01,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2024-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,15.6,%,DRTSCILM
+2024-04-02,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2024-04-03,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2024-04-04,hy_oas,US High Yield OAS,신용가격,3.24,%p,BAMLH0A0HYM2
+2024-04-05,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2024-04-08,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-04-09,hy_oas,US High Yield OAS,신용가격,3.14,%p,BAMLH0A0HYM2
+2024-04-10,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2024-04-11,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2024-04-12,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2024-04-15,hy_oas,US High Yield OAS,신용가격,3.28,%p,BAMLH0A0HYM2
+2024-04-16,hy_oas,US High Yield OAS,신용가격,3.36,%p,BAMLH0A0HYM2
+2024-04-17,hy_oas,US High Yield OAS,신용가격,3.42,%p,BAMLH0A0HYM2
+2024-04-18,hy_oas,US High Yield OAS,신용가격,3.39,%p,BAMLH0A0HYM2
+2024-04-19,hy_oas,US High Yield OAS,신용가격,3.37,%p,BAMLH0A0HYM2
+2024-04-22,hy_oas,US High Yield OAS,신용가격,3.29,%p,BAMLH0A0HYM2
+2024-04-23,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-04-24,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-04-25,hy_oas,US High Yield OAS,신용가격,3.24,%p,BAMLH0A0HYM2
+2024-04-26,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2024-04-29,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2024-04-30,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2024-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.0,% annualized,H8B1020NCBCMG
+2024-05-01,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-05-02,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2024-05-03,hy_oas,US High Yield OAS,신용가격,3.08,%p,BAMLH0A0HYM2
+2024-05-06,hy_oas,US High Yield OAS,신용가격,3.03,%p,BAMLH0A0HYM2
+2024-05-07,hy_oas,US High Yield OAS,신용가격,3.06,%p,BAMLH0A0HYM2
+2024-05-08,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2024-05-09,hy_oas,US High Yield OAS,신용가격,3.14,%p,BAMLH0A0HYM2
+2024-05-10,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2024-05-13,hy_oas,US High Yield OAS,신용가격,3.14,%p,BAMLH0A0HYM2
+2024-05-14,hy_oas,US High Yield OAS,신용가격,3.14,%p,BAMLH0A0HYM2
+2024-05-15,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2024-05-16,hy_oas,US High Yield OAS,신용가격,3.08,%p,BAMLH0A0HYM2
+2024-05-17,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2024-05-20,hy_oas,US High Yield OAS,신용가격,3.07,%p,BAMLH0A0HYM2
+2024-05-21,hy_oas,US High Yield OAS,신용가격,3.07,%p,BAMLH0A0HYM2
+2024-05-22,hy_oas,US High Yield OAS,신용가격,3.11,%p,BAMLH0A0HYM2
+2024-05-23,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2024-05-24,hy_oas,US High Yield OAS,신용가격,3.11,%p,BAMLH0A0HYM2
+2024-05-27,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2024-05-28,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2024-05-29,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-05-30,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-05-31,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+2024-06-03,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2024-06-04,hy_oas,US High Yield OAS,신용가격,3.22,%p,BAMLH0A0HYM2
+2024-06-05,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-06-06,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-06-07,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-06-10,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-06-11,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-06-12,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2024-06-13,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-06-14,hy_oas,US High Yield OAS,신용가격,3.29,%p,BAMLH0A0HYM2
+2024-06-17,hy_oas,US High Yield OAS,신용가격,3.26,%p,BAMLH0A0HYM2
+2024-06-18,hy_oas,US High Yield OAS,신용가격,3.24,%p,BAMLH0A0HYM2
+2024-06-19,hy_oas,US High Yield OAS,신용가격,3.24,%p,BAMLH0A0HYM2
+2024-06-20,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2024-06-21,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-06-24,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-06-25,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-06-26,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2024-06-27,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-06-28,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2024-06-30,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.9,% annualized,H8B1020NCBCMG
+2024-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.55,%,CORBLACBS
+2024-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14637028.0,$mn SAAR,BCNSDODNS
+2024-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.18,%,DRBLACBS
+2024-07-01,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,7.9,%,DRTSCILM
+2024-07-02,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2024-07-03,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2024-07-04,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2024-07-05,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2024-07-08,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-07-09,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-07-10,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2024-07-11,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2024-07-12,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-07-15,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2024-07-16,hy_oas,US High Yield OAS,신용가격,3.08,%p,BAMLH0A0HYM2
+2024-07-17,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2024-07-18,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2024-07-19,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2024-07-22,hy_oas,US High Yield OAS,신용가격,3.05,%p,BAMLH0A0HYM2
+2024-07-23,hy_oas,US High Yield OAS,신용가격,3.02,%p,BAMLH0A0HYM2
+2024-07-24,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2024-07-25,hy_oas,US High Yield OAS,신용가격,3.08,%p,BAMLH0A0HYM2
+2024-07-26,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2024-07-29,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2024-07-30,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2024-07-31,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2024-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.5,% annualized,H8B1020NCBCMG
+2024-08-01,hy_oas,US High Yield OAS,신용가격,3.35,%p,BAMLH0A0HYM2
+2024-08-02,hy_oas,US High Yield OAS,신용가격,3.72,%p,BAMLH0A0HYM2
+2024-08-05,hy_oas,US High Yield OAS,신용가격,3.93,%p,BAMLH0A0HYM2
+2024-08-06,hy_oas,US High Yield OAS,신용가격,3.67,%p,BAMLH0A0HYM2
+2024-08-07,hy_oas,US High Yield OAS,신용가격,3.57,%p,BAMLH0A0HYM2
+2024-08-08,hy_oas,US High Yield OAS,신용가격,3.48,%p,BAMLH0A0HYM2
+2024-08-09,hy_oas,US High Yield OAS,신용가격,3.49,%p,BAMLH0A0HYM2
+2024-08-12,hy_oas,US High Yield OAS,신용가격,3.52,%p,BAMLH0A0HYM2
+2024-08-13,hy_oas,US High Yield OAS,신용가격,3.54,%p,BAMLH0A0HYM2
+2024-08-14,hy_oas,US High Yield OAS,신용가격,3.46,%p,BAMLH0A0HYM2
+2024-08-15,hy_oas,US High Yield OAS,신용가격,3.31,%p,BAMLH0A0HYM2
+2024-08-16,hy_oas,US High Yield OAS,신용가격,3.29,%p,BAMLH0A0HYM2
+2024-08-19,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-08-20,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2024-08-21,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2024-08-22,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-08-23,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-08-26,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-08-27,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2024-08-28,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-08-29,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-08-30,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2024-08-31,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2024-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.5,% annualized,H8B1020NCBCMG
+2024-09-02,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2024-09-03,hy_oas,US High Yield OAS,신용가격,3.31,%p,BAMLH0A0HYM2
+2024-09-04,hy_oas,US High Yield OAS,신용가격,3.35,%p,BAMLH0A0HYM2
+2024-09-05,hy_oas,US High Yield OAS,신용가격,3.29,%p,BAMLH0A0HYM2
+2024-09-06,hy_oas,US High Yield OAS,신용가격,3.39,%p,BAMLH0A0HYM2
+2024-09-09,hy_oas,US High Yield OAS,신용가격,3.36,%p,BAMLH0A0HYM2
+2024-09-10,hy_oas,US High Yield OAS,신용가격,3.46,%p,BAMLH0A0HYM2
+2024-09-11,hy_oas,US High Yield OAS,신용가격,3.44,%p,BAMLH0A0HYM2
+2024-09-12,hy_oas,US High Yield OAS,신용가격,3.39,%p,BAMLH0A0HYM2
+2024-09-13,hy_oas,US High Yield OAS,신용가격,3.37,%p,BAMLH0A0HYM2
+2024-09-16,hy_oas,US High Yield OAS,신용가격,3.32,%p,BAMLH0A0HYM2
+2024-09-17,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2024-09-18,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-09-19,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2024-09-20,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-09-23,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2024-09-24,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2024-09-25,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2024-09-26,hy_oas,US High Yield OAS,신용가격,3.14,%p,BAMLH0A0HYM2
+2024-09-27,hy_oas,US High Yield OAS,신용가격,3.14,%p,BAMLH0A0HYM2
+2024-09-30,hy_oas,US High Yield OAS,신용가격,3.03,%p,BAMLH0A0HYM2
+2024-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.2,% annualized,H8B1020NCBCMG
+2024-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.52,%,CORBLACBS
+2024-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14548273.0,$mn SAAR,BCNSDODNS
+2024-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.27,%,DRBLACBS
+2024-10-01,hy_oas,US High Yield OAS,신용가격,3.07,%p,BAMLH0A0HYM2
+2024-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,0.0,%,DRTSCILM
+2024-10-02,hy_oas,US High Yield OAS,신용가격,3.06,%p,BAMLH0A0HYM2
+2024-10-03,hy_oas,US High Yield OAS,신용가격,3.04,%p,BAMLH0A0HYM2
+2024-10-04,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2024-10-07,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2024-10-08,hy_oas,US High Yield OAS,신용가격,2.99,%p,BAMLH0A0HYM2
+2024-10-09,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2024-10-10,hy_oas,US High Yield OAS,신용가격,2.99,%p,BAMLH0A0HYM2
+2024-10-11,hy_oas,US High Yield OAS,신용가격,2.98,%p,BAMLH0A0HYM2
+2024-10-14,hy_oas,US High Yield OAS,신용가격,2.97,%p,BAMLH0A0HYM2
+2024-10-15,hy_oas,US High Yield OAS,신용가격,2.93,%p,BAMLH0A0HYM2
+2024-10-16,hy_oas,US High Yield OAS,신용가격,2.9,%p,BAMLH0A0HYM2
+2024-10-17,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2024-10-18,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2024-10-21,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2024-10-22,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2024-10-23,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2024-10-24,hy_oas,US High Yield OAS,신용가격,2.93,%p,BAMLH0A0HYM2
+2024-10-25,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2024-10-28,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2024-10-29,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2024-10-30,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2024-10-31,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2024-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.5,% annualized,H8B1020NCBCMG
+2024-11-01,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2024-11-04,hy_oas,US High Yield OAS,신용가격,2.87,%p,BAMLH0A0HYM2
+2024-11-05,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2024-11-06,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2024-11-07,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2024-11-08,hy_oas,US High Yield OAS,신용가격,2.63,%p,BAMLH0A0HYM2
+2024-11-11,hy_oas,US High Yield OAS,신용가격,2.63,%p,BAMLH0A0HYM2
+2024-11-12,hy_oas,US High Yield OAS,신용가격,2.61,%p,BAMLH0A0HYM2
+2024-11-13,hy_oas,US High Yield OAS,신용가격,2.64,%p,BAMLH0A0HYM2
+2024-11-14,hy_oas,US High Yield OAS,신용가격,2.6,%p,BAMLH0A0HYM2
+2024-11-15,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2024-11-18,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2024-11-19,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2024-11-20,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2024-11-21,hy_oas,US High Yield OAS,신용가격,2.61,%p,BAMLH0A0HYM2
+2024-11-22,hy_oas,US High Yield OAS,신용가격,2.61,%p,BAMLH0A0HYM2
+2024-11-25,hy_oas,US High Yield OAS,신용가격,2.64,%p,BAMLH0A0HYM2
+2024-11-26,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2024-11-27,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2024-11-28,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2024-11-29,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2024-11-30,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2024-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.8,% annualized,H8B1020NCBCMG
+2024-12-02,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2024-12-03,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2024-12-04,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2024-12-05,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2024-12-06,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2024-12-09,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2024-12-10,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2024-12-11,hy_oas,US High Yield OAS,신용가격,2.64,%p,BAMLH0A0HYM2
+2024-12-12,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2024-12-13,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2024-12-16,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2024-12-17,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2024-12-18,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2024-12-19,hy_oas,US High Yield OAS,신용가격,2.91,%p,BAMLH0A0HYM2
+2024-12-20,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2024-12-23,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2024-12-24,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2024-12-26,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2024-12-27,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2024-12-30,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2024-12-31,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2025-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,2.9,% annualized,H8B1020NCBCMG
+2025-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.55,%,CORBLACBS
+2025-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14714367.0,$mn SAAR,BCNSDODNS
+2025-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.28,%,DRBLACBS
+2025-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,6.2,%,DRTSCILM
+2025-01-02,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-01-03,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2025-01-06,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2025-01-07,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2025-01-08,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-01-09,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2025-01-10,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2025-01-13,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2025-01-14,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2025-01-15,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2025-01-16,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2025-01-17,hy_oas,US High Yield OAS,신용가격,2.64,%p,BAMLH0A0HYM2
+2025-01-20,hy_oas,US High Yield OAS,신용가격,2.64,%p,BAMLH0A0HYM2
+2025-01-21,hy_oas,US High Yield OAS,신용가격,2.61,%p,BAMLH0A0HYM2
+2025-01-22,hy_oas,US High Yield OAS,신용가격,2.59,%p,BAMLH0A0HYM2
+2025-01-23,hy_oas,US High Yield OAS,신용가격,2.61,%p,BAMLH0A0HYM2
+2025-01-24,hy_oas,US High Yield OAS,신용가격,2.6,%p,BAMLH0A0HYM2
+2025-01-27,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2025-01-28,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2025-01-29,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2025-01-30,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2025-01-31,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2025-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.5,% annualized,H8B1020NCBCMG
+2025-02-03,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2025-02-04,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2025-02-05,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2025-02-06,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2025-02-07,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2025-02-10,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2025-02-11,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2025-02-12,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2025-02-13,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2025-02-14,hy_oas,US High Yield OAS,신용가격,2.62,%p,BAMLH0A0HYM2
+2025-02-17,hy_oas,US High Yield OAS,신용가격,2.62,%p,BAMLH0A0HYM2
+2025-02-18,hy_oas,US High Yield OAS,신용가격,2.62,%p,BAMLH0A0HYM2
+2025-02-19,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2025-02-20,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2025-02-21,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2025-02-24,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2025-02-25,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-02-26,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2025-02-27,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2025-02-28,hy_oas,US High Yield OAS,신용가격,2.87,%p,BAMLH0A0HYM2
+2025-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.1,% annualized,H8B1020NCBCMG
+2025-03-03,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2025-03-04,hy_oas,US High Yield OAS,신용가격,2.99,%p,BAMLH0A0HYM2
+2025-03-05,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-03-06,hy_oas,US High Yield OAS,신용가격,2.99,%p,BAMLH0A0HYM2
+2025-03-07,hy_oas,US High Yield OAS,신용가격,2.97,%p,BAMLH0A0HYM2
+2025-03-10,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2025-03-11,hy_oas,US High Yield OAS,신용가격,3.22,%p,BAMLH0A0HYM2
+2025-03-12,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2025-03-13,hy_oas,US High Yield OAS,신용가격,3.4,%p,BAMLH0A0HYM2
+2025-03-14,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2025-03-17,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2025-03-18,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2025-03-19,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2025-03-20,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2025-03-21,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2025-03-24,hy_oas,US High Yield OAS,신용가격,3.05,%p,BAMLH0A0HYM2
+2025-03-25,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2025-03-26,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2025-03-27,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2025-03-28,hy_oas,US High Yield OAS,신용가격,3.47,%p,BAMLH0A0HYM2
+2025-03-31,hy_oas,US High Yield OAS,신용가격,3.55,%p,BAMLH0A0HYM2
+2025-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.7,% annualized,H8B1020NCBCMG
+2025-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.58,%,CORBLACBS
+2025-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14890244.0,$mn SAAR,BCNSDODNS
+2025-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.29,%,DRBLACBS
+2025-04-01,hy_oas,US High Yield OAS,신용가격,3.5,%p,BAMLH0A0HYM2
+2025-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,18.5,%,DRTSCILM
+2025-04-02,hy_oas,US High Yield OAS,신용가격,3.42,%p,BAMLH0A0HYM2
+2025-04-03,hy_oas,US High Yield OAS,신용가격,4.01,%p,BAMLH0A0HYM2
+2025-04-04,hy_oas,US High Yield OAS,신용가격,4.45,%p,BAMLH0A0HYM2
+2025-04-07,hy_oas,US High Yield OAS,신용가격,4.61,%p,BAMLH0A0HYM2
+2025-04-08,hy_oas,US High Yield OAS,신용가격,4.57,%p,BAMLH0A0HYM2
+2025-04-09,hy_oas,US High Yield OAS,신용가격,4.37,%p,BAMLH0A0HYM2
+2025-04-10,hy_oas,US High Yield OAS,신용가격,4.42,%p,BAMLH0A0HYM2
+2025-04-11,hy_oas,US High Yield OAS,신용가격,4.26,%p,BAMLH0A0HYM2
+2025-04-14,hy_oas,US High Yield OAS,신용가격,4.14,%p,BAMLH0A0HYM2
+2025-04-15,hy_oas,US High Yield OAS,신용가격,4.09,%p,BAMLH0A0HYM2
+2025-04-16,hy_oas,US High Yield OAS,신용가격,4.16,%p,BAMLH0A0HYM2
+2025-04-17,hy_oas,US High Yield OAS,신용가격,4.02,%p,BAMLH0A0HYM2
+2025-04-21,hy_oas,US High Yield OAS,신용가격,4.16,%p,BAMLH0A0HYM2
+2025-04-22,hy_oas,US High Yield OAS,신용가격,3.99,%p,BAMLH0A0HYM2
+2025-04-23,hy_oas,US High Yield OAS,신용가격,3.75,%p,BAMLH0A0HYM2
+2025-04-24,hy_oas,US High Yield OAS,신용가격,3.73,%p,BAMLH0A0HYM2
+2025-04-25,hy_oas,US High Yield OAS,신용가격,3.67,%p,BAMLH0A0HYM2
+2025-04-28,hy_oas,US High Yield OAS,신용가격,3.73,%p,BAMLH0A0HYM2
+2025-04-29,hy_oas,US High Yield OAS,신용가격,3.74,%p,BAMLH0A0HYM2
+2025-04-30,hy_oas,US High Yield OAS,신용가격,3.94,%p,BAMLH0A0HYM2
+2025-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,4.9,% annualized,H8B1020NCBCMG
+2025-05-01,hy_oas,US High Yield OAS,신용가격,3.78,%p,BAMLH0A0HYM2
+2025-05-02,hy_oas,US High Yield OAS,신용가격,3.6,%p,BAMLH0A0HYM2
+2025-05-05,hy_oas,US High Yield OAS,신용가격,3.6,%p,BAMLH0A0HYM2
+2025-05-06,hy_oas,US High Yield OAS,신용가격,3.66,%p,BAMLH0A0HYM2
+2025-05-07,hy_oas,US High Yield OAS,신용가격,3.67,%p,BAMLH0A0HYM2
+2025-05-08,hy_oas,US High Yield OAS,신용가격,3.51,%p,BAMLH0A0HYM2
+2025-05-09,hy_oas,US High Yield OAS,신용가격,3.53,%p,BAMLH0A0HYM2
+2025-05-12,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2025-05-13,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2025-05-14,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2025-05-15,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2025-05-16,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2025-05-19,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2025-05-20,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2025-05-21,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
+2025-05-22,hy_oas,US High Yield OAS,신용가격,3.32,%p,BAMLH0A0HYM2
+2025-05-23,hy_oas,US High Yield OAS,신용가격,3.4,%p,BAMLH0A0HYM2
+2025-05-26,hy_oas,US High Yield OAS,신용가격,3.4,%p,BAMLH0A0HYM2
+2025-05-27,hy_oas,US High Yield OAS,신용가격,3.24,%p,BAMLH0A0HYM2
+2025-05-28,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2025-05-29,hy_oas,US High Yield OAS,신용가격,3.22,%p,BAMLH0A0HYM2
+2025-05-30,hy_oas,US High Yield OAS,신용가격,3.31,%p,BAMLH0A0HYM2
+2025-05-31,hy_oas,US High Yield OAS,신용가격,3.32,%p,BAMLH0A0HYM2
+2025-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.2,% annualized,H8B1020NCBCMG
+2025-06-02,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2025-06-03,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2025-06-04,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2025-06-05,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2025-06-06,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2025-06-09,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2025-06-10,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2025-06-11,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2025-06-12,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2025-06-13,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2025-06-16,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2025-06-17,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2025-06-18,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2025-06-19,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2025-06-20,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2025-06-23,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2025-06-24,hy_oas,US High Yield OAS,신용가격,3.06,%p,BAMLH0A0HYM2
+2025-06-25,hy_oas,US High Yield OAS,신용가격,3.04,%p,BAMLH0A0HYM2
+2025-06-26,hy_oas,US High Yield OAS,신용가격,3.04,%p,BAMLH0A0HYM2
+2025-06-27,hy_oas,US High Yield OAS,신용가격,3.02,%p,BAMLH0A0HYM2
+2025-06-30,hy_oas,US High Yield OAS,신용가격,2.96,%p,BAMLH0A0HYM2
+2025-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.4,% annualized,H8B1020NCBCMG
+2025-07-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.57,%,CORBLACBS
+2025-07-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,15074246.0,$mn SAAR,BCNSDODNS
+2025-07-01,delinquency,Business Loan Delinquency Rate,신용손실,1.33,%,DRBLACBS
+2025-07-01,hy_oas,US High Yield OAS,신용가격,2.91,%p,BAMLH0A0HYM2
+2025-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,9.5,%,DRTSCILM
+2025-07-02,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-07-03,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2025-07-04,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2025-07-07,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2025-07-08,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2025-07-09,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2025-07-10,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2025-07-11,hy_oas,US High Yield OAS,신용가격,2.97,%p,BAMLH0A0HYM2
+2025-07-14,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-07-15,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-07-16,hy_oas,US High Yield OAS,신용가격,3.0,%p,BAMLH0A0HYM2
+2025-07-17,hy_oas,US High Yield OAS,신용가격,2.91,%p,BAMLH0A0HYM2
+2025-07-18,hy_oas,US High Yield OAS,신용가격,2.93,%p,BAMLH0A0HYM2
+2025-07-21,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2025-07-22,hy_oas,US High Yield OAS,신용가격,2.9,%p,BAMLH0A0HYM2
+2025-07-23,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2025-07-24,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2025-07-25,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-07-28,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2025-07-29,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2025-07-30,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2025-07-31,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2025-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.9,% annualized,H8B1020NCBCMG
+2025-08-01,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2025-08-04,hy_oas,US High Yield OAS,신용가격,3.02,%p,BAMLH0A0HYM2
+2025-08-05,hy_oas,US High Yield OAS,신용가격,2.98,%p,BAMLH0A0HYM2
+2025-08-06,hy_oas,US High Yield OAS,신용가격,2.98,%p,BAMLH0A0HYM2
+2025-08-07,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-08-08,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2025-08-11,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2025-08-12,hy_oas,US High Yield OAS,신용가격,2.93,%p,BAMLH0A0HYM2
+2025-08-13,hy_oas,US High Yield OAS,신용가격,2.9,%p,BAMLH0A0HYM2
+2025-08-14,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2025-08-15,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-08-18,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-08-19,hy_oas,US High Yield OAS,신용가격,2.9,%p,BAMLH0A0HYM2
+2025-08-20,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2025-08-21,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-08-22,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-08-25,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2025-08-26,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2025-08-27,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2025-08-28,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2025-08-29,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2025-08-31,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-09-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.3,% annualized,H8B1020NCBCMG
+2025-09-01,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-09-02,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2025-09-03,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-09-04,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-09-05,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2025-09-08,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-09-09,hy_oas,US High Yield OAS,신용가격,2.87,%p,BAMLH0A0HYM2
+2025-09-10,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-09-11,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2025-09-12,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2025-09-15,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2025-09-16,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2025-09-17,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2025-09-18,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2025-09-19,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2025-09-22,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2025-09-23,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2025-09-24,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2025-09-25,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2025-09-26,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2025-09-29,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2025-09-30,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2025-10-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.4,% annualized,H8B1020NCBCMG
+2025-10-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.56,%,CORBLACBS
+2025-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,15169385.0,$mn SAAR,BCNSDODNS
+2025-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.34,%,DRBLACBS
+2025-10-01,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2025-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,6.5,%,DRTSCILM
+2025-10-02,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2025-10-03,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2025-10-06,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2025-10-07,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2025-10-08,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-10-09,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-10-10,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2025-10-13,hy_oas,US High Yield OAS,신용가격,3.18,%p,BAMLH0A0HYM2
+2025-10-14,hy_oas,US High Yield OAS,신용가격,3.11,%p,BAMLH0A0HYM2
+2025-10-15,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-10-16,hy_oas,US High Yield OAS,신용가격,3.04,%p,BAMLH0A0HYM2
+2025-10-17,hy_oas,US High Yield OAS,신용가격,3.04,%p,BAMLH0A0HYM2
+2025-10-20,hy_oas,US High Yield OAS,신용가격,2.99,%p,BAMLH0A0HYM2
+2025-10-21,hy_oas,US High Yield OAS,신용가격,2.97,%p,BAMLH0A0HYM2
+2025-10-22,hy_oas,US High Yield OAS,신용가격,3.01,%p,BAMLH0A0HYM2
+2025-10-23,hy_oas,US High Yield OAS,신용가격,2.96,%p,BAMLH0A0HYM2
+2025-10-24,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-10-27,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2025-10-28,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2025-10-29,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2025-10-30,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2025-10-31,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2025-11-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+2025-11-03,hy_oas,US High Yield OAS,신용가격,3.04,%p,BAMLH0A0HYM2
+2025-11-04,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2025-11-05,hy_oas,US High Yield OAS,신용가격,3.05,%p,BAMLH0A0HYM2
+2025-11-06,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2025-11-07,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2025-11-10,hy_oas,US High Yield OAS,신용가격,3.02,%p,BAMLH0A0HYM2
+2025-11-11,hy_oas,US High Yield OAS,신용가격,3.02,%p,BAMLH0A0HYM2
+2025-11-12,hy_oas,US High Yield OAS,신용가격,3.02,%p,BAMLH0A0HYM2
+2025-11-13,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2025-11-14,hy_oas,US High Yield OAS,신용가격,3.07,%p,BAMLH0A0HYM2
+2025-11-17,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2025-11-18,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2025-11-19,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2025-11-20,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2025-11-21,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2025-11-24,hy_oas,US High Yield OAS,신용가격,3.15,%p,BAMLH0A0HYM2
+2025-11-25,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2025-11-26,hy_oas,US High Yield OAS,신용가격,3.0,%p,BAMLH0A0HYM2
+2025-11-27,hy_oas,US High Yield OAS,신용가격,3.0,%p,BAMLH0A0HYM2
+2025-11-28,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-11-30,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2025-12-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.5,% annualized,H8B1020NCBCMG
+2025-12-01,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2025-12-02,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2025-12-03,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2025-12-04,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-12-05,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2025-12-08,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2025-12-09,hy_oas,US High Yield OAS,신용가격,2.89,%p,BAMLH0A0HYM2
+2025-12-10,hy_oas,US High Yield OAS,신용가격,2.91,%p,BAMLH0A0HYM2
+2025-12-11,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-12-12,hy_oas,US High Yield OAS,신용가격,2.91,%p,BAMLH0A0HYM2
+2025-12-15,hy_oas,US High Yield OAS,신용가격,2.91,%p,BAMLH0A0HYM2
+2025-12-16,hy_oas,US High Yield OAS,신용가격,2.98,%p,BAMLH0A0HYM2
+2025-12-17,hy_oas,US High Yield OAS,신용가격,2.99,%p,BAMLH0A0HYM2
+2025-12-18,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2025-12-19,hy_oas,US High Yield OAS,신용가격,2.9,%p,BAMLH0A0HYM2
+2025-12-22,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2025-12-23,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2025-12-24,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-12-26,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2025-12-29,hy_oas,US High Yield OAS,신용가격,2.87,%p,BAMLH0A0HYM2
+2025-12-30,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2025-12-31,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2026-01-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.7,% annualized,H8B1020NCBCMG
+2026-01-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.59,%,CORBLACBS
+2026-01-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,15486358.0,$mn SAAR,BCNSDODNS
+2026-01-01,delinquency,Business Loan Delinquency Rate,신용손실,1.33,%,DRBLACBS
+2026-01-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,5.3,%,DRTSCILM
+2026-01-02,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2026-01-05,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2026-01-06,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2026-01-07,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2026-01-08,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2026-01-09,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-01-12,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-01-13,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-01-14,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2026-01-15,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-01-16,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2026-01-19,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2026-01-20,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2026-01-21,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2026-01-22,hy_oas,US High Yield OAS,신용가격,2.64,%p,BAMLH0A0HYM2
+2026-01-23,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2026-01-26,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2026-01-27,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-01-28,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-01-29,hy_oas,US High Yield OAS,신용가격,2.77,%p,BAMLH0A0HYM2
+2026-01-30,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2026-01-31,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2026-02-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,10.3,% annualized,H8B1020NCBCMG
+2026-02-02,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2026-02-03,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2026-02-04,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-02-05,hy_oas,US High Yield OAS,신용가격,2.97,%p,BAMLH0A0HYM2
+2026-02-06,hy_oas,US High Yield OAS,신용가격,2.87,%p,BAMLH0A0HYM2
+2026-02-09,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2026-02-10,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-02-11,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2026-02-12,hy_oas,US High Yield OAS,신용가격,2.92,%p,BAMLH0A0HYM2
+2026-02-13,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2026-02-16,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2026-02-17,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2026-02-18,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-02-19,hy_oas,US High Yield OAS,신용가격,2.88,%p,BAMLH0A0HYM2
+2026-02-20,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-02-23,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2026-02-24,hy_oas,US High Yield OAS,신용가격,2.97,%p,BAMLH0A0HYM2
+2026-02-25,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2026-02-26,hy_oas,US High Yield OAS,신용가격,2.98,%p,BAMLH0A0HYM2
+2026-02-27,hy_oas,US High Yield OAS,신용가격,3.1,%p,BAMLH0A0HYM2
+2026-02-28,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2026-03-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.0,% annualized,H8B1020NCBCMG
+2026-03-02,hy_oas,US High Yield OAS,신용가격,3.03,%p,BAMLH0A0HYM2
+2026-03-03,hy_oas,US High Yield OAS,신용가격,3.08,%p,BAMLH0A0HYM2
+2026-03-04,hy_oas,US High Yield OAS,신용가격,2.97,%p,BAMLH0A0HYM2
+2026-03-05,hy_oas,US High Yield OAS,신용가격,3.0,%p,BAMLH0A0HYM2
+2026-03-06,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2026-03-09,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2026-03-10,hy_oas,US High Yield OAS,신용가격,3.06,%p,BAMLH0A0HYM2
+2026-03-11,hy_oas,US High Yield OAS,신용가격,3.09,%p,BAMLH0A0HYM2
+2026-03-12,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2026-03-13,hy_oas,US High Yield OAS,신용가격,3.28,%p,BAMLH0A0HYM2
+2026-03-16,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2026-03-17,hy_oas,US High Yield OAS,신용가격,3.22,%p,BAMLH0A0HYM2
+2026-03-18,hy_oas,US High Yield OAS,신용가격,3.2,%p,BAMLH0A0HYM2
+2026-03-19,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2026-03-20,hy_oas,US High Yield OAS,신용가격,3.24,%p,BAMLH0A0HYM2
+2026-03-23,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2026-03-24,hy_oas,US High Yield OAS,신용가격,3.19,%p,BAMLH0A0HYM2
+2026-03-25,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2026-03-26,hy_oas,US High Yield OAS,신용가격,3.21,%p,BAMLH0A0HYM2
+2026-03-27,hy_oas,US High Yield OAS,신용가격,3.42,%p,BAMLH0A0HYM2
+2026-03-30,hy_oas,US High Yield OAS,신용가격,3.46,%p,BAMLH0A0HYM2
+2026-03-31,hy_oas,US High Yield OAS,신용가격,3.28,%p,BAMLH0A0HYM2
+2026-04-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,9.0,% annualized,H8B1020NCBCMG
+2026-04-01,chargeoff,Business Loan Charge-off Rate,신용손실,0.58,%,CORBLACBS
+2026-04-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,15698562.0,$mn SAAR,BCNSDODNS
+2026-04-01,delinquency,Business Loan Delinquency Rate,신용손실,1.27,%,DRBLACBS
+2026-04-01,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
+2026-04-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,8.1,%,DRTSCILM
+2026-04-02,hy_oas,US High Yield OAS,신용가격,3.17,%p,BAMLH0A0HYM2
+2026-04-03,hy_oas,US High Yield OAS,신용가격,3.13,%p,BAMLH0A0HYM2
+2026-04-06,hy_oas,US High Yield OAS,신용가격,3.05,%p,BAMLH0A0HYM2
+2026-04-07,hy_oas,US High Yield OAS,신용가격,3.12,%p,BAMLH0A0HYM2
+2026-04-08,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2026-04-09,hy_oas,US High Yield OAS,신용가격,2.9,%p,BAMLH0A0HYM2
+2026-04-10,hy_oas,US High Yield OAS,신용가격,2.94,%p,BAMLH0A0HYM2
+2026-04-13,hy_oas,US High Yield OAS,신용가격,2.95,%p,BAMLH0A0HYM2
+2026-04-14,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2026-04-15,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2026-04-16,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-04-17,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2026-04-20,hy_oas,US High Yield OAS,신용가격,2.87,%p,BAMLH0A0HYM2
+2026-04-21,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2026-04-22,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2026-04-23,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-04-24,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-04-27,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2026-04-28,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2026-04-29,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2026-04-30,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2026-05-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,6.1,% annualized,H8B1020NCBCMG
+2026-05-01,hy_oas,US High Yield OAS,신용가격,2.77,%p,BAMLH0A0HYM2
+2026-05-04,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2026-05-05,hy_oas,US High Yield OAS,신용가격,2.77,%p,BAMLH0A0HYM2
+2026-05-06,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-05-07,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2026-05-08,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2026-05-11,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2026-05-12,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2026-05-13,hy_oas,US High Yield OAS,신용가격,2.82,%p,BAMLH0A0HYM2
+2026-05-14,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2026-05-15,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2026-05-18,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2026-05-19,hy_oas,US High Yield OAS,신용가격,2.86,%p,BAMLH0A0HYM2
+2026-05-20,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2026-05-21,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2026-05-22,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-05-25,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-05-26,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-05-27,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-05-28,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-05-29,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-05-31,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-06-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,5.6,% annualized,H8B1020NCBCMG
+2026-06-01,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-06-02,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-06-03,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-06-04,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-06-05,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2026-06-08,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-06-09,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2026-06-10,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2026-06-11,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2026-06-12,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-06-15,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2026-06-16,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-06-17,hy_oas,US High Yield OAS,신용가격,2.63,%p,BAMLH0A0HYM2
+2026-06-18,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2026-06-19,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2026-06-22,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2026-06-23,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-06-24,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2026-06-25,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2026-06-26,hy_oas,US High Yield OAS,신용가격,2.83,%p,BAMLH0A0HYM2
+2026-06-29,hy_oas,US High Yield OAS,신용가격,2.8,%p,BAMLH0A0HYM2
+2026-06-30,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-07-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,3.8,% annualized,H8B1020NCBCMG
+2026-07-01,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-07-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,0.0,%,DRTSCILM
+2026-07-02,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-07-03,hy_oas,US High Yield OAS,신용가격,2.74,%p,BAMLH0A0HYM2
+2026-07-06,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-07-07,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2026-07-08,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-07-09,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-07-10,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2026-07-13,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2026-07-14,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-07-15,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-07-16,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-07-17,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2026-07-20,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2026-07-21,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2026-07-22,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2026-07-23,hy_oas,US High Yield OAS,신용가격,2.77,%p,BAMLH0A0HYM2
+2026-07-24,hy_oas,US High Yield OAS,신용가격,2.79,%p,BAMLH0A0HYM2
+2026-07-27,hy_oas,US High Yield OAS,신용가격,2.81,%p,BAMLH0A0HYM2
+2026-07-28,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2026-07-29,hy_oas,US High Yield OAS,신용가격,2.87,%p,BAMLH0A0HYM2
+2026-07-30,hy_oas,US High Yield OAS,신용가격,2.84,%p,BAMLH0A0HYM2
+2026-07-31,hy_oas,US High Yield OAS,신용가격,2.85,%p,BAMLH0A0HYM2
+2026-08-01,bank_loan_growth,은행 Loans & Leases 증가율,신용량,8.8,% annualized,H8B1020NCBCMG
+2026-08-03,hy_oas,US High Yield OAS,신용가격,2.78,%p,BAMLH0A0HYM2
+2026-08-04,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2026-08-05,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-08-06,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-08-07,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-08-10,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-08-11,hy_oas,US High Yield OAS,신용가격,2.72,%p,BAMLH0A0HYM2
+2026-08-12,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-08-13,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-08-14,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2026-08-17,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-08-18,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-08-19,hy_oas,US High Yield OAS,신용가격,2.73,%p,BAMLH0A0HYM2
+2026-08-20,hy_oas,US High Yield OAS,신용가격,2.75,%p,BAMLH0A0HYM2
+2026-08-21,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-08-24,hy_oas,US High Yield OAS,신용가격,2.69,%p,BAMLH0A0HYM2
+2026-08-25,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-08-26,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2026-08-27,hy_oas,US High Yield OAS,신용가격,2.63,%p,BAMLH0A0HYM2
+2026-08-28,hy_oas,US High Yield OAS,신용가격,2.6,%p,BAMLH0A0HYM2
+2026-08-31,hy_oas,US High Yield OAS,신용가격,2.63,%p,BAMLH0A0HYM2
+2026-09-01,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2026-09-02,hy_oas,US High Yield OAS,신용가격,2.66,%p,BAMLH0A0HYM2
+2026-09-03,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2026-09-04,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2026-09-07,hy_oas,US High Yield OAS,신용가격,2.68,%p,BAMLH0A0HYM2
+2026-09-08,hy_oas,US High Yield OAS,신용가격,2.67,%p,BAMLH0A0HYM2
+2026-09-09,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-09-10,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-09-11,hy_oas,US High Yield OAS,신용가격,2.65,%p,BAMLH0A0HYM2
+2026-09-14,hy_oas,US High Yield OAS,신용가격,2.71,%p,BAMLH0A0HYM2
+2026-09-15,hy_oas,US High Yield OAS,신용가격,2.76,%p,BAMLH0A0HYM2
+2026-09-16,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
+2026-09-17,hy_oas,US High Yield OAS,신용가격,2.7,%p,BAMLH0A0HYM2
