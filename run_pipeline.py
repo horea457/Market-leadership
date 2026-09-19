@@ -21,6 +21,7 @@ OPTIONAL_RESEARCH = [
 
 OPTIONAL_MACRO = [
     ROOT / "scripts" / "fetch_macro_cycle.py",
+    ROOT / "scripts" / "fetch_credit_cycle.py",
 ]
 
 TAIL_REQUIRED = [
