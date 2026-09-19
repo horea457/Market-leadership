@@ -121,8 +121,10 @@ def percentile_recent(df, years=5):
 def sloos_state(v, d):
     if not np.isfinite(v):
         return "데이터 없음"
-    if v <= 0:
-        return "대출기준 완화"
+    if v < 0:
+        return "대출기준 순완화"
+    if abs(v) < 1e-9:
+        return "순긴축 해소" if np.isfinite(d) and d < 0 else "대출기준 중립"
     if np.isfinite(d) and d <= -5:
         return "긴축 완화중"
     if np.isfinite(d) and d >= 5:
