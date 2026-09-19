@@ -204,12 +204,18 @@ def _parse_pmi_table() -> pd.DataFrame:
     tables = pd.read_html(StringIO(html))
     for t in tables:
         cols = {str(c).strip().lower(): c for c in t.columns}
-        if {"country", "last", "previous", "reference"}.issubset(cols):
+        def pick(prefix):
+            return next((orig for low, orig in cols.items() if low.startswith(prefix)), None)
+        country_c = pick("country")
+        last_c = pick("last")
+        previous_c = pick("previous")
+        reference_c = pick("reference")
+        if all(v is not None for v in [country_c, last_c, previous_c, reference_c]):
             out = t.rename(columns={
-                cols["country"]: "country",
-                cols["last"]: "pmi",
-                cols["previous"]: "pmi_previous",
-                cols["reference"]: "reference",
+                country_c: "country",
+                last_c: "pmi",
+                previous_c: "pmi_previous",
+                reference_c: "reference",
             }).copy()
             out["country"] = out["country"].astype(str).str.strip()
             out["pmi"] = pd.to_numeric(out["pmi"], errors="coerce")
@@ -365,7 +371,7 @@ def build_history(cli: pd.DataFrame, curve: pd.DataFrame, pmi: pd.DataFrame, us_
         u = us_daily.copy()
         u["month"] = u["date"].dt.to_period("M").dt.to_timestamp()
         u = u.sort_values("date").groupby("month", as_index=False).tail(1)
-        u = u.rename(columns={"month": "date", "us_10y2y": "curve_spread"})[["date", "curve_spread"]]
+        u = u[["month", "us_10y2y"]].rename(columns={"month": "date", "us_10y2y": "curve_spread"})
         u["area_code"] = "USA"
         for c in ["long_rate", "short_rate"]:
             u[c] = np.nan
