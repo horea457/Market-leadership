@@ -8,6 +8,7 @@ import warnings
 import numpy as np
 import pandas as pd
 import requests
+from lxml import html as lxml_html
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
@@ -200,12 +201,20 @@ def fetch_us_daily_curve() -> pd.DataFrame:
 
 
 def _parse_pmi_table() -> pd.DataFrame:
-    html = _http_text(PMI_TABLE_URL, accept="text/html,application/xhtml+xml")
-    tables = pd.read_html(StringIO(html))
+    html_text = _http_text(PMI_TABLE_URL, accept="text/html,application/xhtml+xml")
+
+    # First try normal HTML tables.
+    try:
+        tables = pd.read_html(StringIO(html_text))
+    except Exception:
+        tables = []
+
     for t in tables:
         cols = {str(c).strip().lower(): c for c in t.columns}
+
         def pick(prefix):
             return next((orig for low, orig in cols.items() if low.startswith(prefix)), None)
+
         country_c = pick("country")
         last_c = pick("last")
         previous_c = pick("previous")
@@ -221,9 +230,45 @@ def _parse_pmi_table() -> pd.DataFrame:
             out["pmi"] = pd.to_numeric(out["pmi"], errors="coerce")
             out["pmi_previous"] = pd.to_numeric(out["pmi_previous"], errors="coerce")
             out["reference"] = out["reference"].astype(str).str.strip()
-            return out.dropna(subset=["pmi"])
-    raise ValueError("Manufacturing PMI table not found")
+            out = out.dropna(subset=["pmi"])
+            if len(out):
+                return out
 
+    # Trading Economics occasionally serves markup that pandas.read_html cannot
+    # identify as a formal table. Fall back to raw <tr>/<td> extraction.
+    try:
+        root = lxml_html.fromstring(html_text)
+        rows = []
+        for tr in root.xpath("//tr"):
+            cells = [" ".join(td.itertext()).strip() for td in tr.xpath("./th|./td")]
+            cells = [re.sub(r"\\s+", " ", x).strip() for x in cells]
+            if len(cells) < 4:
+                continue
+
+            country = cells[0]
+            # Ignore header and non-country rows.
+            if not country or country.casefold() == "country":
+                continue
+
+            last = pd.to_numeric(pd.Series([cells[1]]), errors="coerce").iloc[0]
+            previous = pd.to_numeric(pd.Series([cells[2]]), errors="coerce").iloc[0]
+            reference = cells[3]
+            if pd.isna(last):
+                continue
+            rows.append({
+                "country": country,
+                "pmi": last,
+                "pmi_previous": previous,
+                "reference": reference,
+            })
+
+        out = pd.DataFrame(rows)
+        if len(out):
+            return out
+    except Exception:
+        pass
+
+    raise ValueError("Manufacturing PMI table not found")
 
 def _parse_reference_period(ref: str) -> pd.Timestamp:
     m = re.search(r"([A-Za-z]{3})\s*/\s*(\d{2,4})", str(ref))
@@ -435,6 +480,8 @@ def build_latest(hist: pd.DataFrame, pmi_raw: pd.DataFrame) -> pd.DataFrame:
             continue
 
         def latest_and_delta(col, periods=1):
+            if col not in z.columns:
+                return np.nan, np.nan, pd.NaT
             q = z[["date", col]].dropna()
             if q.empty:
                 return np.nan, np.nan, pd.NaT
@@ -508,12 +555,31 @@ def main():
 
     hist = build_history(cli, curve, pmi, us_daily)
 
+    # Public endpoints can fail independently. Keep a stable schema so one
+    # missing source never breaks the full weekly dashboard refresh.
+    for col in [
+        "pmi", "pmi_source", "cli", "long_rate", "short_rate", "curve_spread",
+        "area", "area_code", "date",
+    ]:
+        if col not in hist.columns:
+            hist[col] = np.nan
+
     if hist.empty:
-        # Do not destroy a previously valid dashboard just because a public endpoint had a bad day.
+        # Do not destroy the rest of the dashboard because a public endpoint had a bad day.
         if HISTORY_PATH.exists() and LATEST_PATH.exists():
             print("Macro endpoints unavailable; keeping prior processed files.", flush=True)
             return
-        raise RuntimeError("No macro-cycle data could be retrieved and no prior cache exists.")
+        pd.DataFrame(columns=[
+            "date", "area_code", "area", "pmi", "pmi_source", "cli",
+            "long_rate", "short_rate", "curve_spread"
+        ]).to_csv(HISTORY_PATH, index=False)
+        pd.DataFrame(columns=[
+            "area_code", "area", "pmi", "pmi_1m_change", "pmi_state",
+            "cli", "cli_1m_change", "cli_state", "curve_spread",
+            "curve_1m_change", "curve_state"
+        ]).to_csv(LATEST_PATH, index=False)
+        print("Macro endpoints unavailable; wrote empty schema without blocking core dashboard.", flush=True)
+        return
 
     latest = build_latest(hist, pmi)
 
