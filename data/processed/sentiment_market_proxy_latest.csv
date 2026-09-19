@@ -1,2 +1,2 @@
 as_of,proxy_score,proxy_stage,vix_warmth,hy_oas_warmth,spy_trend_warmth,spy_momentum_warmth,manual_overlay_available,warning
-2026-09-18,60.633190206335115,OPTIMISM,73.6024844720497,88.69123252858958,45.41832669322709,34.820717131474105,False,Market-implied proxy only; do not treat as Ken Fisher's exact sentiment-stage model.
+2026-09-18,61.230799768088104,OPTIMISM,73.6024844720497,88.69123252858958,47.330677290836654,35.298804780876495,False,Market-implied proxy only; do not treat as Ken Fisher's exact sentiment-stage model.
