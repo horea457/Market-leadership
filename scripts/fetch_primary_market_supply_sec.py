@@ -74,7 +74,8 @@ def sec_get(url, *, json_mode=False, attempts=4):
                     f"WARN SEC {r.status_code}: {url} "
                     f"(attempt {attempt + 1}/{attempts}, wait {wait}s)"
                 )
-                time.sleep(wait)
+                if attempt < attempts - 1:
+                    time.sleep(wait)
                 continue
 
             r.raise_for_status()
@@ -167,13 +168,20 @@ def load_history(years=5):
                 f"{y}/QTR{q}/master.idx"
             )
             try:
-                txt = sec_get(url)
+                # Full-index 403s from GitHub-hosted runners usually persist for the run.
+                # One attempt is enough; repeated exponential retries across 20+ quarters
+                # only burn minutes without improving data quality.
+                txt = sec_get(url, attempts=1)
                 part = parse_master(txt)
                 if len(part):
                     pieces.append(part)
                 successful_fetches += 1
             except Exception as exc:
                 print(f"WARN index {y} Q{q}: {exc}")
+                if not pieces and successful_fetches == 0 and "403" in str(exc):
+                    raise RuntimeError(
+                        "SEC full-index is blocking this runner (403); aborting primary-supply refresh early."
+                    ) from exc
 
     if not pieces:
         raise RuntimeError(
@@ -327,8 +335,32 @@ def write_unavailable_status(reason):
     print("Wrote transparent unavailable-status row instead of failing workflow.")
 
 
+def recent_unavailable_cooldown(days=3):
+    """Avoid hammering SEC on every code push after a known runner-level 403."""
+    if not LATEST_FILE.exists():
+        return False
+    try:
+        x = pd.read_csv(LATEST_FILE)
+        if x.empty:
+            return False
+        r = x.iloc[-1]
+        ready = str(r.get("ready", "")).strip().lower() in {"true", "1", "yes"}
+        state = str(r.get("supply_state", ""))
+        as_of = pd.to_datetime(r.get("as_of"), errors="coerce")
+        if ready or state != "collection_unavailable" or pd.isna(as_of):
+            return False
+        age = (pd.Timestamp.today().normalize() - as_of.normalize()).days
+        return age < days
+    except Exception:
+        return False
+
+
 def main():
     print("SEC User-Agent:", SEC_UA)
+
+    if recent_unavailable_cooldown(3):
+        print("SEC primary-supply module is in a recent 403 cooldown; keeping prior unavailable status.")
+        return
 
     try:
         filings = load_history(5)
