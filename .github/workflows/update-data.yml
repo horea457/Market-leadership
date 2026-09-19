@@ -41,6 +41,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Validate Python syntax
+        run: |
+          python -m py_compile app.py run_pipeline.py scripts/fetch_macro_cycle.py
+
       - name: Run market leadership pipeline
         run: |
           python run_pipeline.py
