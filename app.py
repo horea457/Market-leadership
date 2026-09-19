@@ -4072,6 +4072,224 @@ def render_sector_engine(us_engine, global_engine, backtest_df=None, ff49_df=Non
             st.caption("첫 research backtest 실행 후 ff49_research_validation.csv가 생성됩니다.")
 
 
+
+# ---------- Macro Cycle: PMI / OECD CLI / Yield Curve ----------
+def _macro_float(x):
+    try:
+        v = float(x)
+        return v if np.isfinite(v) else None
+    except Exception:
+        return None
+
+
+def _macro_delta_text(x, suffix=""):
+    v = _macro_float(x)
+    if v is None:
+        return "—"
+    sign = "+" if v > 0 else ""
+    return f"{sign}{v:.2f}{suffix}"
+
+
+def _macro_cycle_phase(row):
+    pmi = _macro_float(row.get("pmi"))
+    pmi_d = _macro_float(row.get("pmi_1m_change"))
+    cli = _macro_float(row.get("cli"))
+    cli_d = _macro_float(row.get("cli_1m_change"))
+    curve_d = _macro_float(row.get("curve_1m_change"))
+
+    cli_up = cli_d is not None and cli_d > 0
+    cli_down = cli_d is not None and cli_d < 0
+    pmi_up = pmi_d is not None and pmi_d > 0
+    pmi_down = pmi_d is not None and pmi_d < 0
+    curve_up = curve_d is not None and curve_d > 0
+
+    if pmi is not None and pmi < 50 and pmi_up and cli_up:
+        return "초기 턴어라운드" + (" · 커브 확인" if curve_up else "")
+    if pmi is not None and pmi >= 50 and pmi_up and cli_up:
+        return "확장 가속 확인"
+    if pmi is not None and pmi >= 50 and pmi_down and cli_down:
+        return "확장 둔화"
+    if pmi is not None and pmi < 50 and pmi_down and cli_down:
+        return "수축 심화"
+    if cli is not None and cli < 100 and cli_up:
+        return "선행지표 바닥 탐색"
+    if cli is not None and cli >= 100 and cli_up:
+        return "선행 모멘텀 강화"
+    return "혼합 / 추가 확인"
+
+
+def _macro_line_chart(df, column, title, pivot=None, y_title=""):
+    fig = go.Figure()
+    x = df[["date", column]].dropna().copy()
+    if len(x):
+        fig.add_trace(go.Scatter(
+            x=x["date"], y=x[column], mode="lines+markers", name=title,
+            hovertemplate="%{x|%Y-%m}<br>%{y:.2f}<extra></extra>",
+        ))
+    if pivot is not None:
+        fig.add_hline(y=pivot, line_dash="dash", opacity=0.45)
+    fig.update_layout(
+        title=title,
+        height=320,
+        margin=dict(l=10, r=10, t=45, b=10),
+        showlegend=False,
+        xaxis_title="",
+        yaxis_title=y_title,
+    )
+    return fig
+
+
+def render_macro_cycle(latest_df, hist_df):
+    st.subheader("2. 글로벌 · 로컬 경기 사이클")
+    st.markdown(
+        '<div class="section-note">'
+        '글로벌 금융·경기 방향과 국가별 상대 턴어라운드를 분리해서 봅니다. '
+        'PMI는 현재 기업활동, OECD CLI는 LEI에 해당하는 선행 전환 신호, 일드커브는 그보다 앞단의 금융조건을 봅니다.'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    if not has_rows(latest_df):
+        st.info("매크로 사이클 데이터가 아직 없습니다. 다음 GitHub Actions 실행 후 PMI · OECD CLI · 일드커브가 표시됩니다.")
+        return
+
+    x = latest_df.copy()
+    for col in [
+        "pmi", "pmi_1m_change", "pmi_breadth_above_50",
+        "cli", "cli_1m_change", "curve_spread", "curve_1m_change",
+        "long_rate", "short_rate",
+    ]:
+        if col in x.columns:
+            x[col] = pd.to_numeric(x[col], errors="coerce")
+
+    g = x[x["area_code"].eq("GLOBAL")]
+    g = g.iloc[-1] if len(g) else pd.Series(dtype=object)
+
+    c1, c2, c3, c4 = st.columns(4, gap="small")
+    with c1:
+        p = _macro_float(g.get("pmi"))
+        compact_card(
+            "주요국 제조업 PMI 중앙값",
+            [f"{p:.1f}" if p is not None else "—"],
+            ("50 이상 확장 · " + str(g.get("pmi_state", ""))) if p is not None else "공개 주요국 headline의 중앙값",
+        )
+    with c2:
+        b = _macro_float(g.get("pmi_breadth_above_50"))
+        compact_card(
+            "PMI 확장 참여 폭",
+            [f"{b*100:.0f}%" if b is not None else "—"],
+            "표시 국가 중 PMI 50 이상 비중",
+        )
+    with c3:
+        v = _macro_float(g.get("cli"))
+        compact_card(
+            "OECD G20 CLI",
+            [f"{v:.2f}" if v is not None else "—"],
+            f"100=장기추세 · 1M {_macro_delta_text(g.get('cli_1m_change'))}",
+        )
+    with c4:
+        s = _macro_float(g.get("curve_spread"))
+        compact_card(
+            "글로벌 커브 중앙값",
+            [f"{s:.2f}%p" if s is not None else "—"],
+            f"주요국 장기-단기 · 1M {_macro_delta_text(g.get('curve_1m_change'), '%p')}",
+        )
+
+    local = x[~x["area_code"].eq("GLOBAL")].copy()
+    if len(local):
+        local["국면"] = local.apply(_macro_cycle_phase, axis=1)
+        table = local[[
+            "area", "pmi", "pmi_1m_change", "pmi_state",
+            "cli", "cli_1m_change", "cli_state",
+            "curve_spread", "curve_1m_change", "curve_state", "국면"
+        ]].rename(columns={
+            "area": "지역",
+            "pmi": "PMI",
+            "pmi_1m_change": "PMI 1M",
+            "pmi_state": "PMI 상태",
+            "cli": "OECD CLI",
+            "cli_1m_change": "CLI 1M",
+            "cli_state": "CLI 상태",
+            "curve_spread": "커브(%p)",
+            "curve_1m_change": "커브 1M",
+            "curve_state": "커브 상태",
+        })
+        st.markdown("#### 국가별 조건표")
+        st.dataframe(
+            table,
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "지역": st.column_config.TextColumn(width="small"),
+                "PMI": st.column_config.NumberColumn(format="%.1f"),
+                "PMI 1M": st.column_config.NumberColumn(format="%+.1f"),
+                "OECD CLI": st.column_config.NumberColumn(format="%.2f"),
+                "CLI 1M": st.column_config.NumberColumn(format="%+.2f"),
+                "커브(%p)": st.column_config.NumberColumn(format="%.2f"),
+                "커브 1M": st.column_config.NumberColumn(format="%+.2f"),
+                "국면": st.column_config.TextColumn(width="medium"),
+            },
+        )
+
+    if has_rows(hist_df):
+        h = hist_df.copy()
+        h["date"] = pd.to_datetime(h["date"], errors="coerce")
+        for col in ["pmi", "cli", "curve_spread"]:
+            if col in h.columns:
+                h[col] = pd.to_numeric(h[col], errors="coerce")
+
+        options = [
+            code for code in ["GLOBAL", "USA", "EUR", "GBR", "JPN", "KOR", "CHN", "BRA"]
+            if code in h["area_code"].dropna().astype(str).unique().tolist()
+        ]
+        labels = {str(r.get("area_code")): str(r.get("area")) for _, r in x.iterrows()}
+        if options:
+            choice = st.selectbox(
+                "시계열 상세 지역",
+                options,
+                index=options.index("USA") if "USA" in options else 0,
+                format_func=lambda z: labels.get(z, z),
+                key="macro_cycle_area",
+            )
+            z = h[h["area_code"].astype(str).eq(choice)].sort_values("date")
+            tab_pmi, tab_cli, tab_curve = st.tabs(["PMI", "OECD CLI (LEI)", "일드커브"])
+            with tab_pmi:
+                st.plotly_chart(
+                    _macro_line_chart(z, "pmi", f"{labels.get(choice, choice)} 제조업 PMI", 50, "PMI"),
+                    use_container_width=True,
+                    config={"displayModeBar": False},
+                )
+                st.caption("50 위는 전월 대비 확장, 50 아래는 수축입니다. 수준보다 방향과 글로벌 대비 변화 속도를 함께 봅니다.")
+            with tab_cli:
+                st.plotly_chart(
+                    _macro_line_chart(z, "cli", f"{labels.get(choice, choice)} OECD CLI", 100, "Index"),
+                    use_container_width=True,
+                    config={"displayModeBar": False},
+                )
+                st.caption("OECD CLI는 Conference Board LEI와 목적이 유사한 선행종합지표입니다. 100은 장기추세이며 절대수준보다 상승/하락 방향을 중시합니다.")
+            with tab_curve:
+                st.plotly_chart(
+                    _macro_line_chart(z, "curve_spread", f"{labels.get(choice, choice)} 장기-단기 금리차", 0, "%p"),
+                    use_container_width=True,
+                    config={"displayModeBar": False},
+                )
+                st.caption("미국은 FRED 10Y-2Y를 우선 사용하고, 그 외 지역은 OECD 장기금리-단기금리를 사용합니다. 스티프닝 원인이 단기금리 하락인지 장기금리 상승인지 별도 확인이 필요합니다.")
+
+    st.markdown(
+        '<div class="explain-box">'
+        '<b>읽는 순서:</b> 글로벌 커브 → 글로벌 CLI → 글로벌 PMI를 먼저 보고, '
+        '그 다음 로컬 CLI·PMI가 글로벌보다 더 빠르게 개선되는 국가를 찾습니다. '
+        '한국은 주가지수의 반도체 민감도가 매우 높으므로 이 표를 단독 신호로 쓰지 말고 '
+        '위의 지역/섹터 리더십 및 반도체 사이클과 함께 확인하는 것이 적절합니다.'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    st.caption(
+        "데이터: OECD Composite Leading Indicator 및 Financial Market, FRED T10Y2Y, "
+        "Trading Economics 공개 Manufacturing PMI headline table. "
+        "글로벌 PMI 값은 독점적인 S&P/J.P.Morgan Global PMI가 아니라 공개 주요국 PMI의 중앙값/확산도입니다."
+    )
+
 # ---------- Load ----------
 style = read_csv("style_leadership_latest.csv")
 style_hist = read_csv("style_leadership_history.csv")
@@ -4099,6 +4317,8 @@ ff49_validation = read_csv("ff49_research_validation.csv")
 # Optional future inputs. If files do not exist, the classifier simply marks them unconnected.
 expectations_gap = read_csv("expectations_gap_latest.csv")
 primary_market_supply = read_csv("primary_market_supply_latest.csv")
+macro_cycle = read_csv("macro_cycle_latest.csv")
+macro_cycle_hist = read_csv("macro_cycle_history.csv")
 
 fisher = read_csv("fisher_public_view.csv", REFERENCE)
 author_view = read_csv("kasugano_current_view.csv", REFERENCE)
@@ -4355,8 +4575,13 @@ render_sector_engine(us_sector_engine, global_sector_engine, sector_rule_backtes
 
 st.divider()
 
+# ---------- Macro Cycle ----------
+render_macro_cycle(macro_cycle, macro_cycle_hist)
+
+st.divider()
+
 # ---------- Global ----------
-st.subheader("2. 글로벌 리더십")
+st.subheader("3. 글로벌 리더십")
 st.markdown('<div class="section-note">최근 변화는 126→63→21일로, 구조 확인은 252→126→63일로 분리합니다. 12-1·12-7은 confirmation layer로 사용합니다.</div>', unsafe_allow_html=True)
 
 st.markdown("#### 지역 비교")
@@ -4442,7 +4667,7 @@ if has_rows(global_sector):
 st.divider()
 
 # ---------- US sectors ----------
-st.subheader("3. 미국 섹터")
+st.subheader("4. 미국 섹터")
 st.markdown('<div class="section-note">각 섹터가 미국 시장 전체(SPY)보다 강했는지, 그리고 어느 쪽이 부상/약화되는지 봅니다.</div>', unsafe_allow_html=True)
 if has_rows(sector):
     us_table = prep_table(sector, US_SECTOR, "SPY 대비")
@@ -4486,7 +4711,7 @@ if has_rows(sector):
 st.divider()
 
 # ---------- Breadth & Sentiment ----------
-st.subheader("4. 시장 참여 폭")
+st.subheader("5. 시장 참여 폭")
 st.caption("S&P 500 구성종목 중 같은 기간 SPY를 이긴 비율")
 if has_rows(breadth):
     b = breadth.copy()
@@ -4519,7 +4744,7 @@ if has_rows(breadth):
             if gpt_breadth_error:
                 st.caption(f"GPT API 미연결: {gpt_breadth_error}")
 
-st.subheader("5. 심리 지표")
+st.subheader("6. 심리 지표")
 if has_rows(sentiment):
     s = sentiment.iloc[-1]
     score = s.get("proxy_score", None)
@@ -4547,7 +4772,7 @@ if has_rows(sentiment):
 st.divider()
 
 # ---------- Stock supply ----------
-st.subheader("6. 미국 · 글로벌 주식 공급")
+st.subheader("7. 미국 · 글로벌 주식 공급")
 st.markdown(
     '<div class="section-note">기존 상장기업의 발행주식수가 어느 섹터에서 늘고 줄어드는지 봅니다. 주식분할은 조정하고, 미국은 IVV·글로벌은 ACWI 구성종목 표본을 사용합니다.</div>',
     unsafe_allow_html=True,
@@ -4608,7 +4833,7 @@ else:
 st.divider()
 
 if has_rows(bounce):
-    with st.expander("7. 반등 효과 점검"):
+    with st.expander("8. 반등 효과 점검"):
         cols = [c for c in ["ticker", "group", "subgroup", "max_drawdown_252", "max_drawdown_126", "rebound_from_126d_low", "current_drawdown_from_126d_high"] if c in bounce.columns]
         show = bounce[cols].copy()
         for c in ["max_drawdown_252", "max_drawdown_126", "rebound_from_126d_low", "current_drawdown_from_126d_high"]:
