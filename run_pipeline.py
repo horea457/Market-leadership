@@ -19,6 +19,7 @@ OPTIONAL_RESEARCH = [
 ]
 
 TAIL_REQUIRED = [
+    ROOT / "scripts" / "fetch_macro_cycle.py",
     ROOT / "scripts" / "fetch_fred.py",
     ROOT / "scripts" / "calc_sentiment.py",
 ]
