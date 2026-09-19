@@ -2,6 +2,13 @@ name: Update market leadership data
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "app.py"
+      - "run_pipeline.py"
+      - "scripts/**"
+      - "requirements.txt"
+      - ".github/workflows/update-data.yml"
   schedule:
     # 매주 금요일 22:30 UTC = 토요일 07:30 KST
     - cron: "30 22 * * 5"
