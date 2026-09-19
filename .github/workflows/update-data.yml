@@ -47,7 +47,7 @@ jobs:
 
       - name: Validate Python syntax
         run: |
-          python -m py_compile app.py run_pipeline.py scripts/fetch_macro_cycle.py
+          python -m py_compile app.py run_pipeline.py scripts/fetch_macro_cycle.py scripts/fetch_credit_cycle.py
 
       - name: Run market leadership pipeline
         run: |
