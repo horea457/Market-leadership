@@ -1141,6 +1141,9 @@ def render_main_sections(sections, caption=None):
     macro_items = sections.get("매크로", [])
     if macro_items:
         st.markdown(_main_section_html("매크로·경기 확인", macro_items, "trend"), unsafe_allow_html=True)
+    credit_items = sections.get("신용", [])
+    if credit_items:
+        st.markdown(_main_section_html("신용 전달·스트레스 확인", credit_items, "trend"), unsafe_allow_html=True)
     st.markdown(_main_section_html("리더십 구조 해석", sections.get("인사이트", []), "insight"), unsafe_allow_html=True)
 
     action = str(sections.get("현재 대응", "") or "").strip()
@@ -1175,13 +1178,13 @@ def parse_main_sections(text):
     if not isinstance(obj, dict):
         return None
     out = {}
-    for key in ["동향", "매크로", "인사이트"]:
+    for key in ["동향", "매크로", "신용", "인사이트"]:
         val = obj.get(key, [])
         if isinstance(val, str):
             val = [val]
         if not isinstance(val, list):
             val = []
-        limit = 4 if key == "매크로" else 6
+        limit = 4 if key in ["매크로", "신용"] else 6
         out[key] = [str(x).strip() for x in val if str(x).strip()][:limit]
 
     action = obj.get("현재 대응", "")
@@ -1867,6 +1870,7 @@ MAIN_PROMPT = """
 {
   "동향": ["문장", "문장"],
   "매크로": ["문장", "문장", "문장"],
+  "신용": ["문장", "문장", "문장"],
   "인사이트": ["문장", "문장", "문장", "문장", "문장"],
   "현재 대응": "한 문장"
 }
@@ -1893,6 +1897,12 @@ MAIN_PROMPT = """
 - PMI는 50의 절대수준과 1개월 방향을 함께 본다. 50 아래에서 상승은 수축 완화, 50 위에서 하락은 확장 둔화다.
 - CLI는 100 자체보다 1개월 방향과 바닥/고점 전환을 중시한다.
 - 일드커브는 스티프닝 자체를 무조건 긍정적으로 해석하지 말고, 현재 가격 리더십·CLI·PMI와 같이 확인한다.
+- "신용_사이클"은 일드커브와 실물경기 사이의 transmission confirmation layer다.
+- 신용은 SLOOS(은행의 공급의지) → 은행대출·비금융기업 부채(양) → HY OAS(가격) → charge-off/delinquency(실제 부실) 순으로 읽는다.
+- SLOOS의 양수는 순긴축, 음수는 순완화를 의미한다. 수준과 전분기 변화 방향을 모두 본다.
+- 커브가 스티프닝해도 SLOOS 긴축 강화·HY 확대·부실 상승이 동반되면 신용전달이 확인되지 않은 것으로 본다.
+- 커브와 SLOOS 완화·신용량 증가·HY 안정이 같은 방향이면 금융조건 개선의 확인도가 높아진다.
+- charge-off와 delinquency는 후행성이 있으므로 단독 선행 매매신호로 쓰지 않는다.
 - 한국처럼 주가지수가 특정 글로벌 산업에 집중된 국가는 로컬 CLI/PMI를 주가지수의 단독 신호로 사용하지 않는다.
 
 작성 규칙:
@@ -1903,7 +1913,10 @@ MAIN_PROMPT = """
 5. 매크로 첫 문장은 "글로벌 경기:"로 시작해 글로벌 PMI 중앙값·확장국가비중·G20 CLI 방향을 요약한다.
 6. 매크로 두 번째 문장은 "금융조건:"으로 시작해 글로벌 일드커브 수준과 최근 스티프닝/플래트닝을 설명한다.
 7. 필요하면 세 번째 문장은 "지역 괴리:"로 시작해 글로벌보다 CLI/PMI가 빠르게 개선 또는 악화되는 지역을 적고, 가격 리더십과 같은 방향인지 다른 방향인지 말한다.
-8. "인사이트"는 5~6개 문장.
+8. "신용"은 2~3개 문장이다. 첫 문장은 "신용 공급:"으로 시작해 SLOOS의 수준·방향을 설명한다.
+9. 두 번째 문장은 "신용 전달:"로 시작해 은행대출·비금융기업 부채와 HY OAS가 커브 신호를 확인하는지 말한다.
+10. 필요하면 세 번째 문장은 "신용 손실:"로 시작해 charge-off/delinquency가 상승·안정·개선 중인지 적되 후행지표임을 반영한다.
+11. "인사이트"는 5~6개 문장.
 9. 첫 문장은 반드시 "현재 리더:"로 시작하고 63일 기준 지역·글로벌 섹터·미국 섹터 3개를 모두 명시한다.
 6. 두 번째 문장은 "단기 변화:"로 시작하고 21일 리더가 63일 리더와 다른 축을 구체적으로 쓴다.
 7. 세 번째 문장은 "구조 변화:"로 시작하고 신규 리더 후보와 지속 리더를 구분한다.
@@ -1925,7 +1938,8 @@ MAIN_PROMPT = """
     (a) 지금 새로 리서치를 시작/확대할 섹터,
     (b) 기회비용 때문에 재점검할 기존 리더,
     (c) 실제 편입 또는 비중 확대 전에 필요한 확인조건,
-    (d) 매크로_사이클이 현재 리더십을 확인하는지, 아직 확인하지 못하는지, 또는 반대 방향인지.
+    (d) 매크로_사이클이 현재 리더십을 확인하는지, 아직 확인하지 못하는지, 또는 반대 방향인지,
+    (e) 신용_사이클이 일드커브·매크로 신호를 확인하는지 또는 transmission이 막혀 있는지.
 20. 매수/매도 신호처럼 쓰지 않는다. EMERGING/ROTATING은 '리서치 자원 이동' 신호다.
 21. 시간제약 레버리지가 있다는 경우에만 점진 축소를 조건부로 언급한다.
 22. 특정 ETF 직접 매수/매도 명령은 하지 않는다.
@@ -4089,6 +4103,198 @@ def render_sector_engine(us_engine, global_engine, backtest_df=None, ff49_df=Non
 
 
 
+# ---------- Credit Cycle: supply / quantity / price / losses ----------
+def build_credit_cycle_snapshot(latest_df):
+    if not has_rows(latest_df):
+        return {"연결상태": "미연결"}
+    r = latest_df.iloc[-1]
+    fields = [
+        "sloos_tightening", "sloos_qoq_change",
+        "bank_loan_growth", "bank_loan_growth_mom",
+        "corp_debt_yoy", "hy_oas", "hy_oas_1m_change",
+        "hy_oas_5y_percentile", "chargeoff_rate",
+        "chargeoff_yoy_change", "delinquency_rate",
+        "delinquency_yoy_change",
+    ]
+    vals = {}
+    for col in fields:
+        vals[col] = _macro_float(r.get(col))
+    return {
+        "연결상태": "연결",
+        "기준일": r.get("as_of"),
+        "종합상태": r.get("credit_state"),
+        "신용공급의지": {
+            "SLOOS_대출기준강화비율": vals["sloos_tightening"],
+            "전분기변화": vals["sloos_qoq_change"],
+            "판정": r.get("sloos_state"),
+            "기간": r.get("sloos_period"),
+        },
+        "신용량": {
+            "은행대출증가율_연율": vals["bank_loan_growth"],
+            "전월변화": vals["bank_loan_growth_mom"],
+            "은행대출판정": r.get("bank_loan_state"),
+            "비금융기업_부채_YoY": vals["corp_debt_yoy"],
+            "BroadCredit판정": r.get("corp_debt_state"),
+        },
+        "신용가격": {
+            "HY_OAS": vals["hy_oas"],
+            "1개월변화": vals["hy_oas_1m_change"],
+            "5년백분위": vals["hy_oas_5y_percentile"],
+            "판정": r.get("hy_oas_state"),
+        },
+        "실제부실": {
+            "BusinessLoan_ChargeOff": vals["chargeoff_rate"],
+            "ChargeOff_YoY변화": vals["chargeoff_yoy_change"],
+            "ChargeOff판정": r.get("chargeoff_state"),
+            "BusinessLoan_Delinquency": vals["delinquency_rate"],
+            "Delinquency_YoY변화": vals["delinquency_yoy_change"],
+            "Delinquency판정": r.get("delinquency_state"),
+        },
+        "해석원칙": (
+            "일드커브 뒤에서 실제 신용전달이 작동하는지 확인한다. "
+            "SLOOS는 공급의지, 은행대출·기업부채는 양, HY OAS는 가격, "
+            "charge-off·delinquency는 이미 발생한 손실을 나타낸다."
+        ),
+    }
+
+
+def credit_cycle_headline(latest_df):
+    snap = build_credit_cycle_snapshot(latest_df)
+    if snap.get("연결상태") != "연결":
+        return "—", "SLOOS · 신용량 · HY · 부실 데이터 대기"
+    supply = snap.get("신용공급의지", {})
+    price = snap.get("신용가격", {})
+    parts = []
+    if supply.get("판정"):
+        parts.append(str(supply.get("판정")))
+    hy = price.get("HY_OAS")
+    if hy is not None:
+        parts.append(f"HY {hy:.2f}%p")
+    return str(snap.get("종합상태") or "신용 확인"), " · ".join(parts)
+
+
+def fallback_credit_sections(latest_df):
+    snap = build_credit_cycle_snapshot(latest_df)
+    if snap.get("연결상태") != "연결":
+        return ["신용 사이클 데이터가 아직 연결되지 않았습니다."]
+    s = snap["신용공급의지"]
+    q = snap["신용량"]
+    p = snap["신용가격"]
+    l = snap["실제부실"]
+    lines = [
+        f"신용 공급: SLOOS는 {s.get('SLOOS_대출기준강화비율')}%이며 {s.get('판정')} 상태입니다.",
+        f"신용량·가격: 은행대출 증가율 {q.get('은행대출증가율_연율')}%, 비금융기업 부채 YoY {q.get('비금융기업_부채_YoY')}%, HY OAS {p.get('HY_OAS')}%p입니다.",
+        f"부실 확인: Business loan charge-off {l.get('BusinessLoan_ChargeOff')}%, delinquency {l.get('BusinessLoan_Delinquency')}%로 {snap.get('종합상태')}로 판정합니다.",
+    ]
+    return lines
+
+
+def render_credit_cycle(latest_df, hist_df):
+    st.subheader("2-1. 신용 사이클 · 미국")
+    st.markdown(
+        '<div class="section-note">'
+        '일드커브가 실제 경제로 전달되는지를 확인합니다. '
+        '신용 공급의지(SLOOS) → 신용량 → 신용가격(HY OAS) → 실제 부실 순서로 봅니다.'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    if not has_rows(latest_df):
+        st.info("신용 사이클 데이터가 아직 없습니다. 다음 GitHub Actions 실행 후 표시됩니다.")
+        return
+
+    r = latest_df.iloc[-1]
+    c1, c2, c3, c4 = st.columns(4, gap="small")
+    with c1:
+        v = _macro_float(r.get("sloos_tightening"))
+        compact_card(
+            "신용 공급의지 · SLOOS",
+            [f"{v:.1f}%" if v is not None else "—"],
+            f"{r.get('sloos_state', '')} · QoQ {_macro_delta_text(r.get('sloos_qoq_change'), '%p')}",
+        )
+    with c2:
+        loan = _macro_float(r.get("bank_loan_growth"))
+        broad = _macro_float(r.get("corp_debt_yoy"))
+        vals = []
+        if loan is not None:
+            vals.append(f"은행 {loan:.1f}%")
+        if broad is not None:
+            vals.append(f"Broad {broad:.1f}% YoY")
+        compact_card(
+            "신용량",
+            vals or ["—"],
+            f"{r.get('bank_loan_state', '')} · {r.get('corp_debt_state', '')}",
+        )
+    with c3:
+        hy = _macro_float(r.get("hy_oas"))
+        hp = _macro_float(r.get("hy_oas_5y_percentile"))
+        compact_card(
+            "신용가격 · HY OAS",
+            [f"{hy:.2f}%p" if hy is not None else "—"],
+            f"{r.get('hy_oas_state', '')} · 5Y 백분위 {hp*100:.0f}%" if hp is not None else str(r.get("hy_oas_state", "")),
+        )
+    with c4:
+        co = _macro_float(r.get("chargeoff_rate"))
+        dl = _macro_float(r.get("delinquency_rate"))
+        vals = []
+        if co is not None:
+            vals.append(f"Charge-off {co:.2f}%")
+        if dl is not None:
+            vals.append(f"연체 {dl:.2f}%")
+        compact_card(
+            "실제 부실",
+            vals or ["—"],
+            f"{r.get('chargeoff_state', '')} · {r.get('delinquency_state', '')}",
+        )
+
+    st.markdown(
+        f'<div class="explain-box"><b>종합 신용 판정:</b> {html.escape(str(r.get("credit_state", "—")))}<br>'
+        '커브 스티프닝만으로 경기 개선을 승인하지 않고, 은행의 대출기준·실제 신용량·스프레드·부실이 같은 방향인지 확인합니다.</div>',
+        unsafe_allow_html=True,
+    )
+
+    if has_rows(hist_df):
+        h = hist_df.copy()
+        h["date"] = pd.to_datetime(h["date"], errors="coerce")
+        h["value"] = pd.to_numeric(h["value"], errors="coerce")
+        labels = {
+            "sloos_tightening": "SLOOS 대출기준 강화 비율",
+            "bank_loan_growth": "은행 Loans & Leases 증가율",
+            "corp_debt_level": "비금융기업 Debt Securities + Loans",
+            "hy_oas": "US High Yield OAS",
+            "chargeoff": "Business Loan Charge-off",
+            "delinquency": "Business Loan Delinquency",
+        }
+        codes = [x for x in labels if x in h["metric_code"].astype(str).unique().tolist()]
+        if codes:
+            choice = st.selectbox(
+                "신용지표 시계열",
+                codes,
+                format_func=lambda z: labels.get(z, z),
+                key="credit_cycle_metric",
+            )
+            z = h[h["metric_code"].astype(str).eq(choice)].sort_values("date").tail(240)
+            pivot = 0 if choice in ["sloos_tightening", "bank_loan_growth"] else None
+            fig = _macro_line_chart(
+                z.rename(columns={"value": "credit_value"}),
+                "credit_value",
+                labels.get(choice, choice),
+                pivot,
+                str(z["unit"].dropna().iloc[-1]) if len(z["unit"].dropna()) else "",
+            )
+            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+
+    st.markdown(
+        '<div class="explain-box"><b>읽는 순서:</b> Yield Curve → SLOOS → Credit Quantity → HY OAS → Charge-off/Delinquency → CLI → PMI. '
+        'SLOOS가 양수면 순긴축 은행이 더 많다는 뜻이며, 절대수준뿐 아니라 전분기 대비 완화/강화 방향을 함께 봅니다.</div>',
+        unsafe_allow_html=True,
+    )
+    st.caption(
+        "데이터: Federal Reserve/FRED. DRTSCILM(SLOOS), H8B1020NCBCMG(H.8 은행대출 증가율), "
+        "BCNSDODNS(Z.1 비금융기업 debt securities+loans), BAMLH0A0HYM2(HY OAS), "
+        "CORBLACBS/DRBLACBS(Business loan charge-off/delinquency)."
+    )
+
+
 # ---------- Macro Cycle: PMI / OECD CLI / Yield Curve ----------
 def _macro_float(x):
     try:
@@ -4458,6 +4664,8 @@ expectations_gap = read_csv("expectations_gap_latest.csv")
 primary_market_supply = read_csv("primary_market_supply_latest.csv")
 macro_cycle = read_csv("macro_cycle_latest.csv")
 macro_cycle_hist = read_csv("macro_cycle_history.csv")
+credit_cycle = read_csv("credit_cycle_latest.csv")
+credit_cycle_hist = read_csv("credit_cycle_history.csv")
 
 fisher = read_csv("fisher_public_view.csv", REFERENCE)
 author_view = read_csv("kasugano_current_view.csv", REFERENCE)
@@ -4509,12 +4717,12 @@ except Exception:
 
 # ---------- Header ----------
 st.markdown('<div class="dashboard-title">시장 리더십 대시보드</div>', unsafe_allow_html=True)
-st.markdown('<div class="dashboard-subtitle">매크로 사이클 · 리더십 persistence · 12-1/12-7 · Bounce · 실적 · 자본사이클 · 공급</div>', unsafe_allow_html=True)
+st.markdown('<div class="dashboard-subtitle">매크로 · 신용 사이클 · 리더십 persistence · 12-1/12-7 · Bounce · 실적 · 자본사이클 · 공급</div>', unsafe_allow_html=True)
 
 if not (has_rows(style) and has_rows(sector)):
     st.warning("아직 데이터가 충분히 생성되지 않았습니다. GitHub Actions 실행 여부를 먼저 확인해 주세요.")
 
-c1, c2, c3, c4, c5 = st.columns([0.90, 1.18, 1.65, 1.00, 1.18], gap="small")
+c1, c2, c3, c4, c5, c6 = st.columns([0.86, 1.08, 1.48, 0.94, 1.08, 1.08], gap="small")
 
 with c1:
     if has_rows(regime):
@@ -4551,6 +4759,10 @@ with c5:
     macro_headline, macro_sub = macro_cycle_headline(macro_cycle)
     card("매크로 사이클", macro_headline, macro_sub)
 
+with c6:
+    credit_headline, credit_sub = credit_cycle_headline(credit_cycle)
+    card("신용 사이클", credit_headline, credit_sub)
+
 st.caption(
     "스타일 변화는 시장 전체 방향이 아니라 성장/가치·대형/소형·시총/동일가중 등 "
     "비교축 중 현재 변화 강도가 가장 큰 한 축을 보여줍니다."
@@ -4584,6 +4796,7 @@ snapshot["현재리더보드"] = leader_board_snapshot(region, global_sector, se
 snapshot["섹터리더십엔진"] = sector_engine_state
 snapshot["기회비용_리더십교체"] = opportunity_cost_state
 snapshot["매크로_사이클"] = build_macro_cycle_snapshot(macro_cycle)
+snapshot["신용_사이클"] = build_credit_cycle_snapshot(credit_cycle)
 snapshot["섹터연구데이터_연결상태"] = {
     "price_12_1_12_7": has_rows(sector_research),
     "internal_breadth": has_rows(sector_internal_breadth),
@@ -4595,8 +4808,8 @@ snapshot["섹터연구데이터_연결상태"] = {
     "FF49_validation": has_rows(ff49_validation),
 }
 snapshot_json = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, default=str)
-with st.spinner("시장 레짐·매크로·지역·섹터·공급을 종합하는 중..."):
-    gpt_main, gpt_main_error = generate_gpt_text("main-v6.28-macro-cycle-integrated:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
+with st.spinner("시장 레짐·매크로·신용·지역·섹터·공급을 종합하는 중..."):
+    gpt_main, gpt_main_error = generate_gpt_text("main-v6.29-credit-cycle-integrated:" + snapshot_json, model_name, MAIN_PROMPT, snapshot_json)
 sections = parse_main_sections(gpt_main) if gpt_main else None
 if not sections:
     sections = fallback_main_sections(
@@ -4604,9 +4817,12 @@ if not sections:
         regime=regime, style_hist=style_hist
     )
     sections["매크로"] = fallback_macro_sections(macro_cycle)
+    sections["신용"] = fallback_credit_sections(credit_cycle)
 
 if not sections.get("매크로"):
     sections["매크로"] = fallback_macro_sections(macro_cycle)
+if not sections.get("신용"):
+    sections["신용"] = fallback_credit_sections(credit_cycle)
 
 if not sections.get("현재 대응"):
     sections["현재 대응"] = build_current_action(
@@ -4725,6 +4941,11 @@ st.divider()
 
 # ---------- Macro Cycle ----------
 render_macro_cycle(macro_cycle, macro_cycle_hist)
+
+st.divider()
+
+# ---------- Credit Cycle ----------
+render_credit_cycle(credit_cycle, credit_cycle_hist)
 
 st.divider()
 
