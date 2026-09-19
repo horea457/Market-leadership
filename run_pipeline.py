@@ -15,6 +15,7 @@ REQUIRED = [
 OPTIONAL_RESEARCH = [
     ROOT / "scripts" / "fetch_sector_fundamentals_sec.py",
     ROOT / "scripts" / "fetch_earnings_confirmation.py",
+    ROOT / "scripts" / "fetch_expectations_gap_factset.py",
     ROOT / "scripts" / "fetch_primary_market_supply_sec.py",
 ]
 
