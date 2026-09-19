@@ -13,6 +13,10 @@ on:
     # 매주 금요일 22:30 UTC = 토요일 07:30 KST
     - cron: "30 22 * * 5"
 
+concurrency:
+  group: market-leadership-data-update
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -76,4 +80,9 @@ jobs:
           fi
 
           git commit -m "Update market leadership data"
-          git push
+
+          # A code push can land while a long data refresh is running.
+          # Rebase the generated-data commit on the newest main before pushing.
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
