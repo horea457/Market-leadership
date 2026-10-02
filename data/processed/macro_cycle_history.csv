@@ -103,6 +103,7 @@ date,area_code,cli,long_rate,short_rate,curve_spread,pmi,pmi_source,area
 2026-06-01,BRA,103.2271,9.13,14.39,-5.26,,,브라질
 2026-07-01,BRA,102.942,9.14,14.25,-5.109999999999999,47.5,Trading Economics public headline table; underlying survey provider varies,브라질
 2026-08-01,BRA,102.6276,9.14,14.06,-4.92,46.3,Trading Economics public headline table; underlying survey provider varies,브라질
+2026-09-01,BRA,,,,,44.8,Trading Economics public headline table; underlying survey provider varies,브라질
 2018-01-01,CHN,100.2759,3.91,4.85,-0.9399999999999995,,,중국
 2018-02-01,CHN,100.1353,3.82,4.49,-0.6700000000000004,,,중국
 2018-03-01,CHN,99.99881,3.74,4.8,-1.0599999999999996,,,중국
@@ -207,6 +208,7 @@ date,area_code,cli,long_rate,short_rate,curve_spread,pmi,pmi_source,area
 2026-06-01,CHN,98.40793,1.73,1.51,0.21999999999999997,,,중국
 2026-07-01,CHN,98.24941,1.71,1.54,0.16999999999999993,50.9,Trading Economics public headline table; underlying survey provider varies,중국
 2026-08-01,CHN,98.10458,,,,51.5,Trading Economics public headline table; underlying survey provider varies,중국
+2026-09-01,CHN,,,,,52.1,Trading Economics public headline table; underlying survey provider varies,중국
 2018-01-01,EUR,101.2868,0.4745454,-0.3284545,0.8029999,,,유럽
 2018-02-01,EUR,101.1937,0.659,-0.3285,0.9875,,,유럽
 2018-03-01,EUR,101.0825,0.5295238,-0.3279048,0.8574286,,,유럽
@@ -731,6 +733,7 @@ date,area_code,cli,long_rate,short_rate,curve_spread,pmi,pmi_source,area
 2026-06-01,KOR,102.6566,4.181,2.91,1.271,,,한국
 2026-07-01,KOR,102.8088,4.286,2.91,1.3759999999999994,53.1,Trading Economics public headline table; underlying survey provider varies,한국
 2026-08-01,KOR,102.8694,4.286,2.97,1.3159999999999994,52.3,Trading Economics public headline table; underlying survey provider varies,한국
+2026-09-01,KOR,,,,,53.9,Trading Economics public headline table; underlying survey provider varies,한국
 1976-06-01,USA,,,,0.84,,,미국
 1976-07-01,USA,,,,1.12,,,미국
 1976-08-01,USA,,,,1.16,,,미국
@@ -1334,4 +1337,5 @@ date,area_code,cli,long_rate,short_rate,curve_spread,pmi,pmi_source,area
 2026-06-01,USA,,,,0.3,,,미국
 2026-07-01,USA,,,,0.47,53.9,Trading Economics public headline table; underlying survey provider varies,미국
 2026-08-01,USA,,,,0.41,53.9,Trading Economics public headline table; underlying survey provider varies,미국
-2026-09-01,USA,,,,0.36,57.0,Trading Economics public headline table; underlying survey provider varies,미국
+2026-09-01,USA,,,,0.41,57.0,Trading Economics public headline table; underlying survey provider varies,미국
+2026-10-01,USA,,,,0.45,,,미국
