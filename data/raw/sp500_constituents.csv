@@ -127,7 +127,6 @@ COO,Cooper Companies (The),Health Care,Health Care Supplies,COO
 CPRT,Copart,Industrials,Diversified Support Services,CPRT
 GLW,Corning Inc.,Information Technology,Electronic Components,GLW
 CPAY,Corpay,Financials,Transaction & Payment Processing Services,CPAY
-CTVA,Corteva,Materials,Fertilizers & Agricultural Chemicals,CTVA
 CSGP,CoStar Group,Real Estate,Real Estate Services,CSGP
 COST,Costco,Consumer Staples,Consumer Staples Merchandise Retail,COST
 CRH,CRH plc,Materials,Construction Materials,CRH
@@ -357,7 +356,6 @@ PCAR,Paccar,Industrials,Construction Machinery & Heavy Transportation Equipment,
 PKG,Packaging Corporation of America,Materials,Paper & Plastic Packaging Products & Materials,PKG
 PLTR,Palantir Technologies,Information Technology,Application Software,PLTR
 PANW,Palo Alto Networks,Information Technology,Systems Software,PANW
-PSKY,Paramount Skydance Corporation,Communication Services,Movies & Entertainment,PSKY
 PH,Parker Hannifin,Industrials,Industrial Machinery & Supplies & Components,PH
 PAYX,Paychex,Industrials,Human Resource & Employment Services,PAYX
 PYPL,PayPal,Financials,Transaction & Payment Processing Services,PYPL
@@ -411,6 +409,7 @@ SRE,Sempra,Utilities,Multi-Utilities,SRE
 NOW,ServiceNow,Information Technology,Systems Software,NOW
 SHW,Sherwin-Williams,Materials,Specialty Chemicals,SHW
 SPG,Simon Property Group,Real Estate,Retail REITs,SPG
+SKYD,Skydance Corporation,Communication Services,Movies & Entertainment,SKYD
 SWKS,Skyworks Solutions,Information Technology,Semiconductors,SWKS
 SJM,J.M. Smucker Company (The),Consumer Staples,Packaged Foods & Meats,SJM
 SW,Smurfit Westrock,Materials,Paper & Plastic Packaging Products & Materials,SW
@@ -450,6 +449,7 @@ TDG,TransDigm Group,Industrials,Aerospace & Defense,TDG
 TRV,Travelers Companies (The),Financials,Property & Casualty Insurance,TRV
 TRMB,Trimble Inc.,Information Technology,Application Software,TRMB
 TFC,Truist Financial,Financials,Diversified Banks,TFC
+TWLO,Twilio,Information Technology,Systems Software,TWLO
 TYL,Tyler Technologies,Information Technology,Application Software,TYL
 TSN,Tyson Foods,Consumer Staples,Packaged Foods & Meats,TSN
 USB,U.S. Bancorp,Financials,Diversified Banks,USB
@@ -477,12 +477,12 @@ V,Visa Inc.,Financials,Transaction & Payment Processing Services,V
 VST,Vistra Corp.,Utilities,Electric Utilities,VST
 VMRK,Vivmark Residential,Real Estate,Multi-Family Residential REITs,VMRK
 VMC,Vulcan Materials Company,Materials,Construction Materials,VMC
+VYLR,Vylor,Consumer Staples,Agricultural Products & Services,VYLR
 WRB,W. R. Berkley Corporation,Financials,Property & Casualty Insurance,WRB
 GWW,W. W. Grainger,Industrials,Industrial Machinery & Supplies & Components,GWW
 WAB,Wabtec,Industrials,Construction Machinery & Heavy Transportation Equipment,WAB
 WMT,Walmart,Consumer Staples,Consumer Staples Merchandise Retail,WMT
 DIS,Walt Disney Company (The),Communication Services,Movies & Entertainment,DIS
-WBD,Warner Bros. Discovery,Communication Services,Broadcasting,WBD
 WM,Waste Management,Industrials,Environmental & Facilities Services,WM
 WAT,Waters Corporation,Health Care,Life Sciences Tools & Services,WAT
 WEC,WEC Energy Group,Utilities,Electric Utilities,WEC
