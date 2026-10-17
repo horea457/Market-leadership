@@ -1,6 +1,6 @@
 area_code,area,pmi,pmi_1m_change,pmi_state,pmi_period,pmi_source,cli,cli_1m_change,cli_state,cli_period,curve_spread,curve_1m_change,curve_state,curve_period,long_rate,short_rate,pmi_breadth_above_50
 GLOBAL,글로벌,51.5,-0.10000000000000142,확장 둔화,2026-09,Major-economy manufacturing PMI median (not proprietary Global PMI),100.1431,-0.017799999999994043,상단·둔화,2026-09,1.167,0.30700000000000016,정상·스티프닝,2026-09,4.7219999999999995,3.45025,0.8571428571428571
-USA,미국,57.0,3.1000000000000014,확장 가속,2026-09,Trading Economics public headline table; underlying survey provider varies,,,데이터 없음,,0.44,0.030000000000000027,정상·스티프닝,2026-10,,,
+USA,미국,57.0,3.1000000000000014,확장 가속,2026-09,Trading Economics public headline table; underlying survey provider varies,,,데이터 없음,,0.35,-0.06,정상·플래트닝,2026-10,,,
 EUR,유럽,52.7,0.0,확장,2026-09,Trading Economics public headline table; underlying survey provider varies,100.9228,0.12659999999999627,상단·상승,2026-09,0.8344779999999998,0.1619069999999998,정상·스티프닝,2026-09,3.469524,2.635046,
 GBR,영국,52.0,0.29999999999999716,확장 가속,2026-09,Trading Economics public headline table; underlying survey provider varies,101.3762,0.23980000000000246,상단·상승,2026-09,1.5115999999999996,0.25429999999999975,정상·스티프닝,2026-09,5.2421,3.7305,
 JPN,일본,54.1,-0.7999999999999972,확장 둔화,2026-09,Trading Economics public headline table; underlying survey provider varies,100.3472,0.024900000000002365,상단·상승,2026-09,2.0069999999999997,0.6269099999999996,정상·스티프닝,2026-09,3.05,1.043,
