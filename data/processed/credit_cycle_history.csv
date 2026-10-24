@@ -1654,11 +1654,6 @@ date,metric_code,metric,group,value,unit,source_series
 2023-10-01,corp_debt_level,비금융기업 Debt Securities + Loans,Broad credit,14076821.0,$mn SAAR,BCNSDODNS
 2023-10-01,delinquency,Business Loan Delinquency Rate,신용손실,1.02,%,DRBLACBS
 2023-10-01,sloos_tightening,SLOOS C&I 대출기준 강화 비율,신용 공급의지,33.9,%,DRTSCILM
-2023-10-17,hy_oas,US High Yield OAS,신용가격,4.25,%p,BAMLH0A0HYM2
-2023-10-18,hy_oas,US High Yield OAS,신용가격,4.32,%p,BAMLH0A0HYM2
-2023-10-19,hy_oas,US High Yield OAS,신용가격,4.37,%p,BAMLH0A0HYM2
-2023-10-20,hy_oas,US High Yield OAS,신용가격,4.52,%p,BAMLH0A0HYM2
-2023-10-23,hy_oas,US High Yield OAS,신용가격,4.51,%p,BAMLH0A0HYM2
 2023-10-24,hy_oas,US High Yield OAS,신용가격,4.41,%p,BAMLH0A0HYM2
 2023-10-25,hy_oas,US High Yield OAS,신용가격,4.37,%p,BAMLH0A0HYM2
 2023-10-26,hy_oas,US High Yield OAS,신용가격,4.5,%p,BAMLH0A0HYM2
@@ -2516,3 +2511,8 @@ date,metric_code,metric,group,value,unit,source_series
 2026-10-13,hy_oas,US High Yield OAS,신용가격,3.16,%p,BAMLH0A0HYM2
 2026-10-14,hy_oas,US High Yield OAS,신용가격,3.25,%p,BAMLH0A0HYM2
 2026-10-15,hy_oas,US High Yield OAS,신용가격,3.23,%p,BAMLH0A0HYM2
+2026-10-16,hy_oas,US High Yield OAS,신용가격,3.31,%p,BAMLH0A0HYM2
+2026-10-19,hy_oas,US High Yield OAS,신용가격,3.29,%p,BAMLH0A0HYM2
+2026-10-20,hy_oas,US High Yield OAS,신용가격,3.33,%p,BAMLH0A0HYM2
+2026-10-21,hy_oas,US High Yield OAS,신용가격,3.27,%p,BAMLH0A0HYM2
+2026-10-22,hy_oas,US High Yield OAS,신용가격,3.4,%p,BAMLH0A0HYM2
