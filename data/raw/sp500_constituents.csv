@@ -374,18 +374,17 @@ PG,Procter & Gamble,Consumer Staples,Personal Care Products,PG
 PGR,Progressive Corporation,Financials,Property & Casualty Insurance,PGR
 PLD,Prologis,Real Estate,Industrial REITs,PLD
 PRU,Prudential Financial,Financials,Life & Health Insurance,PRU
-PEG,Public Service Enterprise Group,Utilities,Electric Utilities,PEG
 PTC,PTC Inc.,Information Technology,Application Software,PTC
+PEG,Public Service Enterprise Group,Utilities,Electric Utilities,PEG
 PSA,Public Storage,Real Estate,Self-Storage REITs,PSA
 PHM,PulteGroup,Consumer Discretionary,Homebuilding,PHM
-PWR,Quanta Services,Industrials,Construction & Engineering,PWR
-QCOM,Qualcomm,Information Technology,Semiconductors,QCOM
-DGX,Quest Diagnostics,Health Care,Health Care Services,DGX
 Q,Qnity Electronics,Information Technology,Semiconductor Materials & Equipment,Q
+QCOM,Qualcomm,Information Technology,Semiconductors,QCOM
+PWR,Quanta Services,Industrials,Construction & Engineering,PWR
+DGX,Quest Diagnostics,Health Care,Health Care Services,DGX
 RL,Ralph Lauren Corporation,Consumer Discretionary,"Apparel, Accessories & Luxury Goods",RL
 RJF,Raymond James Financial,Financials,Investment Banking & Brokerage,RJF
 RDDT,Reddit,Communication Services,Interactive Media & Services,RDDT
-RTX,RTX Corporation,Industrials,Aerospace & Defense,RTX
 O,Realty Income,Real Estate,Retail REITs,O
 REG,Regency Centers,Real Estate,Retail REITs,REG
 REGN,Regeneron Pharmaceuticals,Health Care,Biotechnology,REGN
@@ -399,6 +398,7 @@ ROL,"Rollins, Inc.",Industrials,Environmental & Facilities Services,ROL
 ROP,Roper Technologies,Information Technology,Electronic Equipment & Instruments,ROP
 ROST,Ross Stores,Consumer Discretionary,Apparel Retail,ROST
 RCL,Royal Caribbean Group,Consumer Discretionary,"Hotels, Resorts & Cruise Lines",RCL
+RTX,RTX Corporation,Industrials,Aerospace & Defense,RTX
 SPGI,S&P Global,Financials,Financial Exchanges & Data,SPGI
 CRM,Salesforce,Information Technology,Application Software,CRM
 SNDK,Sandisk,Information Technology,"Technology Hardware, Storage & Peripherals",SNDK
@@ -409,7 +409,7 @@ SRE,Sempra,Utilities,Multi-Utilities,SRE
 NOW,ServiceNow,Information Technology,Systems Software,NOW
 SHW,Sherwin-Williams,Materials,Specialty Chemicals,SHW
 SPG,Simon Property Group,Real Estate,Retail REITs,SPG
-SKYD,Skydance Corporation,Communication Services,Movies & Entertainment,SKYD
+SKYD,Skydance,Communication Services,Movies & Entertainment,SKYD
 SWKS,Skyworks Solutions,Information Technology,Semiconductors,SWKS
 SJM,J.M. Smucker Company (The),Consumer Staples,Packaged Foods & Meats,SJM
 SW,Smurfit Westrock,Materials,Paper & Plastic Packaging Products & Materials,SW
