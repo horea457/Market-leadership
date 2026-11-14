@@ -1,5 +1,5 @@
 as_of,window,breadth_pct,n_valid,definition
-2026-11-06,126,0.625866050808314,433,Percent of current S&P 500 constituents outperforming SPY
-2026-11-06,21,0.8013856812933026,433,Percent of current S&P 500 constituents outperforming SPY
-2026-11-06,63,0.6166281755196305,433,Percent of current S&P 500 constituents outperforming SPY
-2026-11-06,252,0.5773672055427251,433,Percent of current S&P 500 constituents outperforming SPY
+2026-11-13,126,0.664,500,Percent of current S&P 500 constituents outperforming SPY
+2026-11-13,21,0.7654075546719682,503,Percent of current S&P 500 constituents outperforming SPY
+2026-11-13,63,0.6095617529880478,502,Percent of current S&P 500 constituents outperforming SPY
+2026-11-13,252,0.542,500,Percent of current S&P 500 constituents outperforming SPY
