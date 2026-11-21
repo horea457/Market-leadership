@@ -1,2 +1,2 @@
 as_of,proxy_score,proxy_stage,vix_warmth,hy_oas_warmth,spy_trend_warmth,spy_momentum_warmth,manual_overlay_available,warning
-2026-11-13,31.03761281179826,SKEPTICISM,41.92546583850931,27.643312101910837,32.03187250996016,22.54980079681275,False,Market-implied proxy only; do not treat as Ken Fisher's exact sentiment-stage model.
+2026-11-20,7.2955071752249445,PESSIMISM,7.142857142857139,8.015267175572518,9.9601593625498,4.063745019920319,False,Market-implied proxy only; do not treat as Ken Fisher's exact sentiment-stage model.
